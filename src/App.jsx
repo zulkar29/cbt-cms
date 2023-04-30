@@ -1,10 +1,8 @@
-import PageRoutes from "./pages";
-
+import BaseTemplate from "./base-template";
 function App() {
   return (
     <>
-
-    <PageRoutes />
+    <BaseTemplate />
     </>
   )
 }
