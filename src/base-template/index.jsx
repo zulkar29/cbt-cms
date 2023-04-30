@@ -10,11 +10,11 @@ function BaseTemplate() {
       <div className="container">
         <div className="row">
          
-          <div className="col-md-3">
+          <div className="col-md-2">
             <SideBar />
           </div>
          
-          <div className="col-md-9">
+          <div className="col-md-10">
 
             <PageRoutes />
           </div>
