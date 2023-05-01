@@ -1,4 +1,4 @@
-function Search()
+function TextInput()
 {
     return (
         <div className="search">
