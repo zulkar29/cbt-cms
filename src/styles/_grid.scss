@@ -9,6 +9,11 @@ $grid-breakpoints: (
 $grid-gutter-width: 16px;
 $grid-columns: 12;
 
+.container-fluid{
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
 
 .container {
   width: 100%;
@@ -35,7 +40,6 @@ $grid-columns: 12;
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -15px;
 }
 
 
