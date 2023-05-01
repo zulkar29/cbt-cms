@@ -1,0 +1,11 @@
+@use '../../styles/index.scss' as *;
+
+.sidebar {
+    padding: 10px;
+}
+
+.sidebar__logo {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}

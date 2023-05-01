@@ -5,24 +5,19 @@ import PageRoutes from "../pages";
 import SideBar from "../components/sidebar";
 function BaseTemplate() {
   return (
-    <div>
-      <Header />
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
-         
           <div className="col-md-2">
             <SideBar />
           </div>
-         
+
           <div className="col-md-10">
-
+            <Header />
             <PageRoutes />
+            <Footer />
           </div>
-
         </div>
       </div>
-      <Footer />
-    </div>
   );
 }
 export default BaseTemplate;
