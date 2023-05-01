@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Accordion  from './index';
+import { Button } from './Button';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta = {
-  title: 'Component/Accordion',
-  component: Accordion,
+  title: 'Example/Button',
+  component: Button,
   tags: ['autodocs'],
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} satisfies Meta<typeof Accordion>;
+} satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -18,7 +18,8 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Primary: Story = {
   args: {
-
+    primary: true,
+    label: 'Button',
   },
 };
 

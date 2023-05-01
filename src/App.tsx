@@ -1,10 +1,12 @@
 import BaseTemplate from "./base-template";
+
 function App() {
+
   return (
     <>
-    <BaseTemplate />
+<BaseTemplate/>
     </>
   )
 }
 
-export default App;
+export default App
