@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "title": "Dashboard",
+    "icon": "AiFillHome",
+    "slug": "/"
+  },
+  {
+    "id": 2,
+    "title": "Manage Categories",
+    "icon": "AiFillHome",
+    "subLinks": [
+      {
+        "subtitle": "Categories",
+        "slug": "/category"
+      },
+      {
+        "subtitle": "Sub Categories",
+        "slug": "/subcategory"
+      },
+      {
+        "subtitle": "Child Categories",
+        "slug": "/childcategory"
+      }
+    ]
+  }
+]

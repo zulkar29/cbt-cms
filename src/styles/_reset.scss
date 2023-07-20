@@ -1,29 +1,29 @@
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
-body{
-    background-color: #f8f8fb;
+body {
+  background-color: #f8f8fb;
+  scroll-behavior: smooth;
 }
-a{
-    text-decoration: none;
-    color: inherit;
-}
-
-ul{
-    list-style: none;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-
-button{
-    border: none;
-    background-color: transparent;
-    outline: none;
+ul {
+  list-style: none;
 }
 
-button:not(:disabled), 
-[type=button]:not(:disabled),
-[type=reset]:not(:disabled), 
-[type=submit]:not(:disabled) {
-    cursor: pointer;
+button {
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+button:not(:disabled),
+[type='button']:not(:disabled),
+[type='reset']:not(:disabled),
+[type='submit']:not(:disabled) {
+  cursor: pointer;
 }

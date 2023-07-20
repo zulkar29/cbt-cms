@@ -1,4 +1,4 @@
-import BaseTemplate from "./base-template";
+import BaseTemplate from './base-template';
 
 function App() {
   return (
