@@ -1,3 +1,27 @@
-.open {
-  transition: all linear 0.3s;
+@use '../../styles/index.scss';
+
+.dropdown-item {
+  margin-top: 10px;
+  background: $primary-color;
+  .main-wrapper {
+    // padding: 5px 0;
+  }
+  .cursor {
+    cursor: pointer;
+  }
+  .dropdown {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 0.3s, height 3s;
+
+    .sublinks {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .open {
+    opacity: 1;
+    height: auto;
+  }
 }

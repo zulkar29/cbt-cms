@@ -25,7 +25,9 @@ function SideBar() {
         </button>
       </div>
       {sideLinks.length
-        ? sideLinks.map((linkItem) => <Dropdown linkItem={linkItem} />)
+        ? sideLinks.map((linkItem, index) => (
+            <Dropdown key={index} linkItem={linkItem} />
+          ))
         : null}
     </div>
   );

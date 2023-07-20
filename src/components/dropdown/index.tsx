@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { ISideLink } from './interface';
+import { GoDotFill } from 'react-icons/go';
 import CustomLink from '../Link';
+import './index.scss';
 
 function Dropdown(props: { linkItem: ISideLink }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,14 +11,17 @@ function Dropdown(props: { linkItem: ISideLink }) {
     setIsOpen((prevIsOpen) => !prevIsOpen);
   };
   return (
-    <div>
-      <ul>
-        <li onClick={toggleOpen}>{props.linkItem.title}</li>
-        {isOpen ? (
-          <ul className={isOpen ? 'open' : 'close'}>
+    <div className="dropdown-item">
+      <ul className="main-wrapper">
+        <li className="cursor" onClick={toggleOpen}>
+          {props.linkItem.title}
+        </li>
+        {props.linkItem.subLinks ? (
+          <ul className={`dropdown ${isOpen && 'open'}`}>
             {props.linkItem.subLinks?.map(
               (link: { subtitle: string; slug: string }) => (
-                <li key={link.subtitle}>
+                <li className="sublinks" key={link.subtitle}>
+                  <GoDotFill />
                   <CustomLink className="link" to={`${link.slug}`}>
                     {link.subtitle}
                   </CustomLink>
