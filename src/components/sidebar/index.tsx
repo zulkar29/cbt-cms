@@ -1,17 +1,18 @@
 import './index.scss';
-import Icon from "../icon";
+import Icon from '../icon';
+import Logo from '../logo';
 
 function SideBar(params) {
-    return (
-        <div className="sidebar">
-            <div className="sidebar__logo">
-            <h2>Zulkar</h2>
-            <button>
-                <Icon iconName="left-double-arrow" />
-            </button>
-            </div>
-        </div>
-    )
+  return (
+    <div className="sidebar">
+      <div className="sidebar__logo">
+        <Logo file="logo" />
+        <button>
+          <Icon iconName="left-double-arrow" />
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default SideBar;
