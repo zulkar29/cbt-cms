@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { ISideLink } from './interface';
+import CustomLink from '../Link';
 
 function Dropdown(props: { linkItem: ISideLink }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,9 +17,9 @@ function Dropdown(props: { linkItem: ISideLink }) {
             {props.linkItem.subLinks?.map(
               (link: { subtitle: string; slug: string }) => (
                 <li key={link.subtitle}>
-                  <Link className="link" to={`${link.slug}`}>
+                  <CustomLink className="link" to={`${link.slug}`}>
                     {link.subtitle}
-                  </Link>
+                  </CustomLink>
                 </li>
               )
             )}

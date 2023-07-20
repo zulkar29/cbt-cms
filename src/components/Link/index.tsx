@@ -1,10 +1,17 @@
+import { Link } from 'react-router-dom';
+
 type LinkProps = {
   to: string;
+  className?: string;
   children: React.ReactNode;
 };
 
-const Link: React.FC<LinkProps> = ({ to, children }) => {
-  return <Link to={to}>{children}</Link>;
+const CustomLink: React.FC<LinkProps> = ({ to, className, children }) => {
+  return (
+    <Link className={className} to={to}>
+      {children}
+    </Link>
+  );
 };
 
-export default Link;
+export default CustomLink;
