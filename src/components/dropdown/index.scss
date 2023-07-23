@@ -1,8 +1,8 @@
-@use '../../styles/index.scss';
+@import './../../styles/colors';
 
 .dropdown-item {
   margin-top: 10px;
-  background: $primary-color;
+
   .main-wrapper {
     // padding: 5px 0;
   }
@@ -13,7 +13,7 @@
     opacity: 0;
     height: 0;
     overflow: hidden;
-    transition: opacity 0.3s, height 3s;
+    transition: all linear 0.3s;
 
     .sublinks {
       display: flex;
@@ -22,6 +22,17 @@
   }
   .open {
     opacity: 1;
-    height: auto;
+    height: 100%;
   }
+  .dot-icon {
+    color: $secondary-color;
+    margin-right: 5px;
+  }
+}
+
+.collapse {
+  background: rgba(0, 0, 0, 0.03);
+  padding-left: 10px;
+  margin-left: -10px;
+  padding: 10px;
 }

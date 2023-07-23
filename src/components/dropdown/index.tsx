@@ -11,7 +11,7 @@ function Dropdown(props: { linkItem: ISideLink }) {
     setIsOpen((prevIsOpen) => !prevIsOpen);
   };
   return (
-    <div className="dropdown-item">
+    <div className={`dropdown-item ${isOpen && 'collapse'}`}>
       <ul className="main-wrapper">
         <li className="cursor" onClick={toggleOpen}>
           {props.linkItem.title}
@@ -21,7 +21,7 @@ function Dropdown(props: { linkItem: ISideLink }) {
             {props.linkItem.subLinks?.map(
               (link: { subtitle: string; slug: string }) => (
                 <li className="sublinks" key={link.subtitle}>
-                  <GoDotFill />
+                  <GoDotFill className="dot-icon" />
                   <CustomLink className="link" to={`${link.slug}`}>
                     {link.subtitle}
                   </CustomLink>

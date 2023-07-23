@@ -1,9 +1,7 @@
-@forward './_colors';
-@forward './_fonts';
-@forward '_grid';
-@forward './_reset';
-@forward './_responsive';
-@forward './_variables';
-@forward './_zindex.scss';
-
-
+@import './_colors';
+@import './_fonts';
+@import '_grid';
+@import './_reset';
+@import './_responsive';
+@import './_variables';
+@import './_zindex.scss';
