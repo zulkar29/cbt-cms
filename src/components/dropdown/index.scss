@@ -17,6 +17,16 @@
         margin-right: 25px;
         font-size: 18px;
       }
+      .main {
+        display: flex;
+        align-items: center;
+
+        img {
+          width: 20px;
+          height: 20px;
+          margin-right: 10px;
+        }
+      }
     }
   }
 

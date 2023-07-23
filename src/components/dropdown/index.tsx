@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ISideLink } from './interface';
 import { GoDotFill } from 'react-icons/go';
+import Icon from '../icon';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import CustomLink from '../Link';
 import './index.scss';
@@ -16,7 +17,11 @@ function Dropdown(props: { linkItem: ISideLink }) {
       <ul className="main-wrapper">
         <li className="cursor" onClick={toggleOpen}>
           <div className="title">
-            {props.linkItem.title}
+            <div className="main">
+              <Icon iconName={props.linkItem.icon} />
+              {props.linkItem.title}
+            </div>
+
             <span>
               <MdOutlineKeyboardArrowDown className="arrow-icon " />
             </span>

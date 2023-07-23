@@ -2,13 +2,13 @@
   {
     "id": 1,
     "title": "Dashboard",
-    "icon": "AiFillHome",
+    "icon": "home.svg",
     "slug": "/"
   },
   {
     "id": 2,
     "title": "Manage Categories",
-    "icon": "AiFillHome",
+    "icon": "list.svg",
     "subLinks": [
       {
         "subtitle": "Categories",
@@ -165,7 +165,7 @@
   {
     "id": 3,
     "title": "Manage Orders ",
-    "icon": "AiFillHome",
+    "icon": "",
     "subLinks": [
       {
         "subtitle": "All Orders",
