@@ -5,6 +5,7 @@ import Icon from '../icon';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import CustomLink from '../Link';
 import './index.scss';
+import { Link } from 'react-router-dom';
 
 function Dropdown(props: { linkItem: ISideLink }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,13 +19,23 @@ function Dropdown(props: { linkItem: ISideLink }) {
         <li className="cursor" onClick={toggleOpen}>
           <div className="title">
             <div className="main">
-              <Icon iconName={props.linkItem.icon} />
-              {props.linkItem.title}
+              {props.linkItem.slug ? (
+                <Link to={'/'}>
+                  <Icon iconName={props.linkItem.icon} />
+                  {props.linkItem.title}
+                </Link>
+              ) : (
+                <>
+                  <Icon iconName={props.linkItem.icon} />
+                  {props.linkItem.title}
+                </>
+              )}
             </div>
-
-            <span>
-              <MdOutlineKeyboardArrowDown className="arrow-icon " />
-            </span>
+            {props.linkItem.subLinks && (
+              <span>
+                <MdOutlineKeyboardArrowDown className="arrow-icon " />
+              </span>
+            )}
           </div>
         </li>
         {props.linkItem.subLinks ? (

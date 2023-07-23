@@ -9,6 +9,7 @@
     "id": 2,
     "title": "Manage Categories",
     "icon": "list.svg",
+    "slug": "/categories",
     "subLinks": [
       {
         "subtitle": "Categories",
