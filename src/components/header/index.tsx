@@ -6,7 +6,7 @@ function Header() {
     <header className="header">
       <div className=" header-main">
         <div className="notification">
-          <BsBell className=" text-2xl" />
+          <BsBell className="notification-icon" />
           <div className="items">1</div>
         </div>
         <img
