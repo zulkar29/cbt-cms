@@ -1,0 +1,10 @@
+@import '../../styles/index.scss';
+
+.column {
+  border-right: 1px solid $secondary-color;
+  padding: 12px;
+
+  &:last-child {
+    border-right: none;
+  }
+}

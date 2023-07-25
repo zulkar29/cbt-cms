@@ -1,0 +1,30 @@
+@import '../../styles/index.scss';
+
+.display-area {
+  background: $tertiary-color;
+  padding: 20px;
+  box-shadow: $secondary-background;
+}
+
+.rect-icon {
+  display: flex;
+  .icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    padding: 5px;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 5px;
+
+    &:first-child {
+      background: $primary-color;
+    }
+    &:last-child {
+      background: $quaternary-color;
+    }
+  }
+}

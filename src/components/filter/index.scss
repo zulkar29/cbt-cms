@@ -1,0 +1,32 @@
+@import './../../styles/index.scss';
+
+.filter-item {
+  color: $secondary-color;
+  font-size: 14px;
+  select {
+    width: 60px;
+    padding: 2px 4px;
+    margin: 0 5px;
+    border: 1px solid $secondary-color;
+  }
+}
+
+.filter-search {
+  text-align: right;
+  color: $secondary-color;
+  font-size: 14px;
+
+  input {
+    padding: 2px;
+    border: 1px solid $secondary-color;
+    margin-left: 5px;
+
+    &:focus {
+      border: 1px solid $secondary-color;
+    }
+    &:focus-visible {
+      border: 1px solid $secondary-color;
+      outline: none;
+    }
+  }
+}

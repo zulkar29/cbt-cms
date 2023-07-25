@@ -1,0 +1,14 @@
+@import '../../styles/index.scss';
+
+.table {
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  max-width: none;
+  border-collapse: separate;
+  border: 1px solid $secondary-color;
+
+  th {
+    padding: 12px;
+  }
+}

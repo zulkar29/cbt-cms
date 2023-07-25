@@ -1,0 +1,14 @@
+@import './../../styles/index.scss';
+
+.notification-items {
+  position: absolute;
+  bottom: -100px;
+  right: 77px;
+  padding: 7px 15px;
+  background: $tertiary-color;
+  box-shadow: 0 1px 11px rgba(0, 0, 0, 0.15);
+
+  .notification-item {
+    padding: 5px 0;
+  }
+}

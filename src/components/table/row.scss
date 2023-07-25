@@ -1,0 +1,9 @@
+@import '../../styles/index.scss';
+
+.table-row {
+  text-align: left;
+  font-size: 14px;
+  &:nth-child(even) {
+    background: $secondary-background;
+  }
+}

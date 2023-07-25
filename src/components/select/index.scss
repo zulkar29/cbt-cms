@@ -1,0 +1,20 @@
+@import '../../styles/index.scss';
+
+.select {
+  background: $septenary-color;
+  padding: 5px 7px;
+  border: none;
+  color: $tertiary-color;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  option {
+    background-color: $tertiary-color;
+    color: $secondary-color;
+    &:hover {
+      background-color: $secondary-background;
+    }
+  }
+}
