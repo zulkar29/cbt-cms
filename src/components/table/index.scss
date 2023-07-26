@@ -10,5 +10,10 @@
 
   th {
     padding: 12px;
+    border-right: 1px solid $secondary-color;
+    border-bottom: 1px dashed $secondary-color;
+    &:last-child {
+      border-right: none;
+    }
   }
 }

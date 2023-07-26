@@ -27,24 +27,24 @@
   },
   {
     "id": 3,
-    "title": "Manage Orders ",
-    "icon": "AiFillHome",
+    "title": "Manage Products ",
+    "icon": "product.png",
     "subLinks": [
       {
-        "subtitle": "All Orders",
-        "slug": "/category"
+        "subtitle": "All Products",
+        "slug": "/products"
       },
       {
-        "subtitle": "Pending Orders",
-        "slug": "/subcategory"
+        "subtitle": "Stock Out Products",
+        "slug": "/products/stoctout"
       },
       {
-        "subtitle": "Delivered Orders",
-        "slug": "/childcategory"
+        "subtitle": "CSV Import & Export",
+        "slug": "/csv"
       },
       {
-        "subtitle": "Canceled Orders",
-        "slug": "/childcategory"
+        "subtitle": "Product Reviews",
+        "slug": "/reviews"
       }
     ]
   },
