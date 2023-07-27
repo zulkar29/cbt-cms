@@ -36,7 +36,7 @@
       },
       {
         "subtitle": "Stock Out Products",
-        "slug": "/products/stoctout"
+        "slug": "/products/stockout"
       },
       {
         "subtitle": "CSV Import & Export",
@@ -44,22 +44,22 @@
       },
       {
         "subtitle": "Product Reviews",
-        "slug": "/reviews"
+        "slug": "/products/reviews"
       }
     ]
   },
   {
     "id": 3,
     "title": "Manage Orders ",
-    "icon": "AiFillHome",
+    "icon": "order.png",
     "subLinks": [
       {
         "subtitle": "All Orders",
-        "slug": "/category"
+        "slug": "/orders"
       },
       {
         "subtitle": "Pending Orders",
-        "slug": "/subcategory"
+        "slug": "/orders/pending"
       },
       {
         "subtitle": "Delivered Orders",

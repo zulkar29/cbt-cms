@@ -4,6 +4,10 @@ import Categories from './category';
 import SubCategory from './subcategory';
 import ChildCategory from './child-category';
 import AllProducts from './product';
+import StockOutProducts from './stockout-product';
+import Reviews from './reviews';
+import AllOrders from './orders';
+import PendingOrders from './orders/pending';
 
 function PageRoutes() {
   return (
@@ -13,6 +17,10 @@ function PageRoutes() {
       <Route path="/subcategory" element={<SubCategory />} />
       <Route path="/childcategory" element={<ChildCategory />} />
       <Route path="/products" element={<AllProducts />} />
+      <Route path="/products/stockout" element={<StockOutProducts />} />
+      <Route path="/products/reviews" element={<Reviews />} />
+      <Route path="/orders" element={<AllOrders />} />
+      <Route path="/orders/pending" element={<PendingOrders />} />
     </Routes>
   );
 }

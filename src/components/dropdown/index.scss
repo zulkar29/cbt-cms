@@ -20,6 +20,11 @@
       .main {
         display: flex;
         align-items: center;
+        margin-right: 7px;
+
+        a {
+          display: inherit;
+        }
 
         img {
           width: 20px;

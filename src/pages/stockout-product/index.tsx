@@ -5,13 +5,12 @@ import Column from '../../components/table/column';
 import Select from '../../components/select';
 import Actions from '../../components/actions';
 import Pagination from '../../components/pagination';
-import Filter from '../../components/filter';
 import CardBody from '../../components/card-body';
 
-const AllProducts = () => {
+const StockOutProducts = () => {
   return (
     <div>
-      <CardBody header="Product" to="/categories/create" />
+      <CardBody header="Stock Out Products" to="/categories/create" />
       <Display>
         <Table>
           <thead>
@@ -209,4 +208,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default StockOutProducts;

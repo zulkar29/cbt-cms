@@ -6,6 +6,7 @@ import Column from '../../components/table/column';
 import Select from '../../components/select';
 import { FaRegEdit } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import Pagination from '../../components/pagination';
 
 const SubCategory = () => {
   return (
@@ -194,6 +195,7 @@ const SubCategory = () => {
             </Row>
           </tbody>
         </Table>
+        <Pagination />
       </Display>
     </div>
   );

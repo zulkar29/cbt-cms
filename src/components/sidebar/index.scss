@@ -3,6 +3,31 @@
 .sidebar {
   padding: 10px;
   font-family: $primary-font;
+  background-color: $tertiary-color;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  min-height: 100vh;
+  overflow-y: scroll;
+
+  /* Custom scrollbar styles */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $tertiary-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $secondary-color;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $secondary-color;
+  }
 }
 
 .sidebar__logo {
