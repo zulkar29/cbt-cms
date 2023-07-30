@@ -1,8 +1,8 @@
+import Display from '../../components/display';
 import Pagination from '../../components/pagination';
 import OrderTable from '../../components/order-table';
-import Display from '../../components/display';
 
-const AllOrders = () => {
+const PendingOrders = () => {
   return (
     <div>
       <Display>
@@ -13,4 +13,4 @@ const AllOrders = () => {
   );
 };
 
-export default AllOrders;
+export default PendingOrders;

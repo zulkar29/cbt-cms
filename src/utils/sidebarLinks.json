@@ -63,11 +63,11 @@
       },
       {
         "subtitle": "Delivered Orders",
-        "slug": "/childcategory"
+        "slug": "/orders/delivered"
       },
       {
         "subtitle": "Canceled Orders",
-        "slug": "/childcategory"
+        "slug": "/orders/canceled"
       }
     ]
   },

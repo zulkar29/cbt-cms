@@ -8,6 +8,8 @@ import StockOutProducts from './stockout-product';
 import Reviews from './reviews';
 import AllOrders from './orders';
 import PendingOrders from './orders/pending';
+import Delivered from './orders/delivered';
+import Canceled from './orders/canceled';
 
 function PageRoutes() {
   return (
@@ -21,6 +23,8 @@ function PageRoutes() {
       <Route path="/products/reviews" element={<Reviews />} />
       <Route path="/orders" element={<AllOrders />} />
       <Route path="/orders/pending" element={<PendingOrders />} />
+      <Route path="/orders/delivered" element={<Delivered />} />
+      <Route path="/orders/canceled" element={<Canceled />} />
     </Routes>
   );
 }
