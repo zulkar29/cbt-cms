@@ -7,7 +7,6 @@ const Pagination = () => {
   const handlePageClick = (count: { selected: number }) => {
     setPage(count.selected);
   };
-  console.log(page);
 
   return (
     <div className="page-container">

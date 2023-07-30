@@ -72,50 +72,25 @@
     ]
   },
   {
-    "id": 3,
-    "title": "Manage Orders ",
-    "icon": "AiFillHome",
+    "id": 4,
+    "title": "Manage Blogs",
+    "icon": "blog.png",
     "subLinks": [
       {
-        "subtitle": "All Orders",
-        "slug": "/category"
+        "subtitle": "Blogs",
+        "slug": "/blogs"
       },
       {
-        "subtitle": "Pending Orders",
-        "slug": "/subcategory"
-      },
-      {
-        "subtitle": "Delivered Orders",
-        "slug": "/childcategory"
-      },
-      {
-        "subtitle": "Canceled Orders",
-        "slug": "/childcategory"
+        "subtitle": "Categories",
+        "slug": "/blogs/category"
       }
     ]
   },
   {
-    "id": 3,
-    "title": "Manage Orders ",
-    "icon": "AiFillHome",
-    "subLinks": [
-      {
-        "subtitle": "All Orders",
-        "slug": "/category"
-      },
-      {
-        "subtitle": "Pending Orders",
-        "slug": "/subcategory"
-      },
-      {
-        "subtitle": "Delivered Orders",
-        "slug": "/childcategory"
-      },
-      {
-        "subtitle": "Canceled Orders",
-        "slug": "/childcategory"
-      }
-    ]
+    "id": 5,
+    "title": "Customers ",
+    "icon": "group.png",
+    "slug": "/customers"
   },
   {
     "id": 3,

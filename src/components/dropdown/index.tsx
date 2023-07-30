@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { ISideLink } from './interface';
 import { GoDotFill } from 'react-icons/go';
 import Icon from '../icon';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
@@ -7,20 +5,31 @@ import CustomLink from '../Link';
 import './index.scss';
 import { Link } from 'react-router-dom';
 
-function Dropdown(props: { linkItem: ISideLink }) {
-  const [isOpen, setIsOpen] = useState(false);
+export interface ISideLink {
+  id: number;
+  title: string;
+  icon: string;
+  slug?: string;
+  subLinks?: {
+    subtitle: string;
+    slug: string;
+  }[];
+  isOpen?: boolean;
+}
 
-  const toggleOpen = () => {
-    setIsOpen((prevIsOpen) => !prevIsOpen);
-  };
+function Dropdown(props: {
+  linkItem: ISideLink;
+  isOpen?: boolean;
+  onToggle: () => void;
+}) {
   return (
-    <div className={`dropdown-item ${isOpen && 'collapse'}`}>
+    <div className={`dropdown-item ${props.isOpen ? 'collapse' : ''}`}>
       <ul className="main-wrapper">
-        <li className="cursor" onClick={toggleOpen}>
+        <li className="cursor" onClick={props.onToggle}>
           <div className="title">
             <div className="main">
               {props.linkItem.slug ? (
-                <Link to={'/'}>
+                <Link to={props.linkItem.slug}>
                   <Icon iconName={props.linkItem.icon} />
                   {props.linkItem.title}
                 </Link>
@@ -39,7 +48,7 @@ function Dropdown(props: { linkItem: ISideLink }) {
           </div>
         </li>
         {props.linkItem.subLinks ? (
-          <ul className={`dropdown ${isOpen && 'open'}`}>
+          <ul className={`dropdown ${props.isOpen ? 'open' : ''}`}>
             {props.linkItem.subLinks?.map(
               (link: { subtitle: string; slug: string }) => (
                 <li className="sublinks" key={link.subtitle}>

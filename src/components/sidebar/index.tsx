@@ -3,18 +3,27 @@ import './index.scss';
 import Icon from '../icon';
 import Logo from '../logo';
 import axios from 'axios';
-import Dropdown from '../dropdown';
+import Dropdown, { ISideLink } from '../dropdown';
 
 function SideBar() {
-  const [sideLinks, setSideLinks] = useState([]);
+  const [sideLinks, setSideLinks] = useState<ISideLink[]>([]);
 
   useEffect(() => {
     async function subData() {
-      const res = await axios.get('/src/utils/sidebarLinks.json');
+      const res = await axios.get<ISideLink[]>('/src/utils/sidebarLinks.json');
       setSideLinks(res.data);
     }
     subData();
   }, []);
+
+  const handleDropdownToggle = (clickedIndex: number) => {
+    const updatedSideLinks = sideLinks.map((linkItem, index) => ({
+      ...linkItem,
+      isOpen: index === clickedIndex ? !linkItem.isOpen : false,
+    }));
+
+    setSideLinks(updatedSideLinks);
+  };
 
   return (
     <div className="sidebar">
@@ -26,7 +35,12 @@ function SideBar() {
       </div>
       {sideLinks.length
         ? sideLinks.map((linkItem, index) => (
-            <Dropdown key={index} linkItem={linkItem} />
+            <Dropdown
+              key={index}
+              linkItem={linkItem}
+              isOpen={linkItem.isOpen}
+              onToggle={() => handleDropdownToggle(index)}
+            />
           ))
         : null}
     </div>

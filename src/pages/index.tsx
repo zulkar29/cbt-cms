@@ -10,6 +10,8 @@ import AllOrders from './orders';
 import PendingOrders from './orders/pending';
 import Delivered from './orders/delivered';
 import Canceled from './orders/canceled';
+import Blogs from './blogs';
+import BlogCategories from './blogs/category';
 
 function PageRoutes() {
   return (
@@ -25,6 +27,8 @@ function PageRoutes() {
       <Route path="/orders/pending" element={<PendingOrders />} />
       <Route path="/orders/delivered" element={<Delivered />} />
       <Route path="/orders/canceled" element={<Canceled />} />
+      <Route path="/blogs" element={<Blogs />} />
+      <Route path="/blogs/category" element={<BlogCategories />} />
     </Routes>
   );
 }

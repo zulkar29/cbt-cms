@@ -1,4 +1,3 @@
-import React from 'react';
 import Table from '../table';
 import Row from '../table/row';
 import Column from '../table/column';

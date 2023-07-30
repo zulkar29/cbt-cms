@@ -4,10 +4,10 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 const Actions = () => {
   return (
     <div className="rect-icon">
-      <div className="icon">
+      <div title="Edit" className="icon">
         <FaRegEdit className="i" />
       </div>
-      <div className="icon">
+      <div title="Delete" className="icon">
         <RiDeleteBin6Line />
       </div>
     </div>

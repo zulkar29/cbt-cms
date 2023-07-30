@@ -39,7 +39,6 @@
     opacity: 0;
     height: 0;
     overflow: hidden;
-    transition: all linear 0.3s;
 
     .sublinks {
       display: flex;
@@ -49,6 +48,7 @@
     }
   }
   .open {
+    transition: all linear 0.3s;
     opacity: 1;
     height: 100%;
   }

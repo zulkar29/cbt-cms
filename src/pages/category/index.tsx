@@ -12,8 +12,6 @@ import Pagination from '../../components/pagination';
 function Categories() {
   const [search, setSearch] = useState(10);
 
-  console.log(search);
-
   const handleSearch = (e: ChangeEvent<HTMLSelectElement>) => {
     setSearch(Number(e.target.value));
   };

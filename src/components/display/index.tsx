@@ -4,7 +4,7 @@ import { ChangeEvent } from 'react';
 import './index.scss';
 
 interface propsType {
-  handleSearch: (e: ChangeEvent<HTMLSelectElement>) => void;
+  handleSearch?: (e: ChangeEvent<HTMLSelectElement>) => void;
   children: ReactNode;
 }
 
