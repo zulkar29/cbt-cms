@@ -14,6 +14,7 @@ import Blogs from './blogs';
 import BlogCategories from './blogs/category';
 import Customers from './customers';
 import VideosPage from './videos';
+import FaqPage from './faqs';
 
 function PageRoutes() {
   return (
@@ -33,6 +34,7 @@ function PageRoutes() {
       <Route path="/blogs/category" element={<BlogCategories />} />
       <Route path="/customers" element={<Customers />} />
       <Route path="/videos" element={<VideosPage />} />
+      <Route path="/faqs" element={<FaqPage />} />
     </Routes>
   );
 }

@@ -107,25 +107,17 @@
     ]
   },
   {
-    "id": 3,
-    "title": "Manage Orders ",
-    "icon": "AiFillHome",
+    "id": 7,
+    "title": "Manage Faqs",
+    "icon": "faq.png",
     "subLinks": [
       {
-        "subtitle": "All Orders",
-        "slug": "/category"
+        "subtitle": "Faqs",
+        "slug": "/faqs"
       },
       {
-        "subtitle": "Pending Orders",
-        "slug": "/subcategory"
-      },
-      {
-        "subtitle": "Delivered Orders",
-        "slug": "/childcategory"
-      },
-      {
-        "subtitle": "Canceled Orders",
-        "slug": "/childcategory"
+        "subtitle": "Add New Video",
+        "slug": "/faqs/create"
       }
     ]
   },
