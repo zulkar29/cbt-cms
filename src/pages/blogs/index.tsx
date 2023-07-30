@@ -13,14 +13,16 @@ const Blogs = () => {
       <CardBody header="All Blogs" to="/blogs/create" />
       <Display>
         <Table>
-          <tbody>
-            <th>SI No.</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Sort Description</th>
-            <th>Status</th>
-            <th>Options</th>
-          </tbody>
+          <thead>
+            <Row>
+              <th>SI No.</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Sort Description</th>
+              <th>Status</th>
+              <th>Options</th>
+            </Row>
+          </thead>
           <tbody>
             <Row>
               <Column>01</Column>

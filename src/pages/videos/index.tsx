@@ -1,22 +1,23 @@
-import Actions from '../../components/actions';
-import CardBody from '../../components/card-body';
 import Display from '../../components/display';
-import Pagination from '../../components/pagination';
-import Select from '../../components/select';
 import Table from '../../components/table';
-import Column from '../../components/table/column';
 import Row from '../../components/table/row';
+import Column from '../../components/table/column';
+import Select from '../../components/select';
+import Actions from '../../components/actions';
+import Pagination from '../../components/pagination';
+import CardBody from '../../components/card-body';
 
-const BlogCategories = () => {
+const VideosPage = () => {
   return (
     <div>
-      <CardBody header="All Blogs Categories" to="/blogs/categories/create" />
+      <CardBody header="Videos" to="/videos/create" />
       <Display>
         <Table>
           <tbody>
             <Row>
               <th>SI No.</th>
               <th>Title</th>
+              <th>Link</th>
               <th>Status</th>
               <th>Options</th>
             </Row>
@@ -24,7 +25,10 @@ const BlogCategories = () => {
           <tbody>
             <Row>
               <Column>01</Column>
-              <Column>Cookware</Column>
+              <Column>
+                Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance
+              </Column>
+              <Column> https://youtube.com/embed/6FxZnI01JCs</Column>
               <Column>
                 <Select />
               </Column>
@@ -34,7 +38,10 @@ const BlogCategories = () => {
             </Row>
             <Row>
               <Column>01</Column>
-              <Column>Cookware</Column>
+              <Column>
+                Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance
+              </Column>
+              <Column> https://youtube.com/embed/6FxZnI01JCs</Column>
               <Column>
                 <Select />
               </Column>
@@ -44,7 +51,10 @@ const BlogCategories = () => {
             </Row>
             <Row>
               <Column>01</Column>
-              <Column>Cookware</Column>
+              <Column>
+                Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance
+              </Column>
+              <Column> https://youtube.com/embed/6FxZnI01JCs</Column>
               <Column>
                 <Select />
               </Column>
@@ -54,7 +64,10 @@ const BlogCategories = () => {
             </Row>
             <Row>
               <Column>01</Column>
-              <Column>Cookware</Column>
+              <Column>
+                Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance
+              </Column>
+              <Column> https://youtube.com/embed/6FxZnI01JCs</Column>
               <Column>
                 <Select />
               </Column>
@@ -64,7 +77,10 @@ const BlogCategories = () => {
             </Row>
             <Row>
               <Column>01</Column>
-              <Column>Cookware</Column>
+              <Column>
+                Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance
+              </Column>
+              <Column> https://youtube.com/embed/6FxZnI01JCs</Column>
               <Column>
                 <Select />
               </Column>
@@ -74,7 +90,10 @@ const BlogCategories = () => {
             </Row>
             <Row>
               <Column>01</Column>
-              <Column>Cookware</Column>
+              <Column>
+                Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance
+              </Column>
+              <Column> https://youtube.com/embed/6FxZnI01JCs</Column>
               <Column>
                 <Select />
               </Column>
@@ -90,4 +109,4 @@ const BlogCategories = () => {
   );
 };
 
-export default BlogCategories;
+export default VideosPage;

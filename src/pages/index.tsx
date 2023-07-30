@@ -12,6 +12,8 @@ import Delivered from './orders/delivered';
 import Canceled from './orders/canceled';
 import Blogs from './blogs';
 import BlogCategories from './blogs/category';
+import Customers from './customers';
+import VideosPage from './videos';
 
 function PageRoutes() {
   return (
@@ -29,6 +31,8 @@ function PageRoutes() {
       <Route path="/orders/canceled" element={<Canceled />} />
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/blogs/category" element={<BlogCategories />} />
+      <Route path="/customers" element={<Customers />} />
+      <Route path="/videos" element={<VideosPage />} />
     </Routes>
   );
 }

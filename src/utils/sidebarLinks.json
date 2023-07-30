@@ -9,7 +9,6 @@
     "id": 2,
     "title": "Manage Categories",
     "icon": "list.svg",
-    "slug": "/categories",
     "subLinks": [
       {
         "subtitle": "Categories",
@@ -93,25 +92,17 @@
     "slug": "/customers"
   },
   {
-    "id": 3,
-    "title": "Manage Orders ",
-    "icon": "AiFillHome",
+    "id": 6,
+    "title": "Videos",
+    "icon": "video.png",
     "subLinks": [
       {
-        "subtitle": "All Orders",
-        "slug": "/category"
+        "subtitle": "All Videos",
+        "slug": "/videos"
       },
       {
-        "subtitle": "Pending Orders",
-        "slug": "/subcategory"
-      },
-      {
-        "subtitle": "Delivered Orders",
-        "slug": "/childcategory"
-      },
-      {
-        "subtitle": "Canceled Orders",
-        "slug": "/childcategory"
+        "subtitle": "Add New Video",
+        "slug": "/videos/create"
       }
     ]
   },
