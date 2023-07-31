@@ -116,18 +116,18 @@
         "slug": "/faqs"
       },
       {
-        "subtitle": "Add New Video",
-        "slug": "/faqs/create"
+        "subtitle": "Categories",
+        "slug": "/faqs/categories"
       }
     ]
   },
   {
-    "id": 3,
-    "title": "Manage Orders ",
-    "icon": "",
+    "id": 8,
+    "title": "Site Settings",
+    "icon": "setting.png",
     "subLinks": [
       {
-        "subtitle": "All Orders",
+        "subtitle": "Home Page",
         "slug": "/category"
       },
       {

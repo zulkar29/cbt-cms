@@ -1,20 +1,21 @@
-import { Route, Routes } from 'react-router-dom';
-import Home from './home';
-import Categories from './category';
-import SubCategory from './subcategory';
-import ChildCategory from './child-category';
-import AllProducts from './product';
-import StockOutProducts from './stockout-product';
-import Reviews from './reviews';
-import AllOrders from './orders';
-import PendingOrders from './orders/pending';
-import Delivered from './orders/delivered';
-import Canceled from './orders/canceled';
-import Blogs from './blogs';
-import BlogCategories from './blogs/category';
-import Customers from './customers';
-import VideosPage from './videos';
-import FaqPage from './faqs';
+import { Route, Routes } from "react-router-dom";
+import Blogs from "./blogs";
+import BlogCategories from "./blogs/category";
+import Categories from "./category";
+import ChildCategory from "./child-category";
+import Customers from "./customers";
+import FaqPage from "./faqs";
+import FaqCategories from "./faqs/categories";
+import Home from "./home";
+import AllOrders from "./orders";
+import Canceled from "./orders/canceled";
+import Delivered from "./orders/delivered";
+import PendingOrders from "./orders/pending";
+import AllProducts from "./product";
+import Reviews from "./reviews";
+import StockOutProducts from "./stockout-product";
+import SubCategory from "./subcategory";
+import VideosPage from "./videos";
 
 function PageRoutes() {
   return (
@@ -35,6 +36,7 @@ function PageRoutes() {
       <Route path="/customers" element={<Customers />} />
       <Route path="/videos" element={<VideosPage />} />
       <Route path="/faqs" element={<FaqPage />} />
+      <Route path="/faqs/categories" element={<FaqCategories />} />
     </Routes>
   );
 }
