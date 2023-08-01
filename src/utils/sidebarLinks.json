@@ -129,6 +129,10 @@
       {
         "subtitle": "Set Coupons",
         "slug": "/coupons"
+      },
+      {
+        "subtitle": "Shipping",
+        "slug": "/shipping"
       }
     ]
   },
@@ -139,19 +143,23 @@
     "subLinks": [
       {
         "subtitle": "Home Page",
-        "slug": "/category"
+        "slug": "/setup/home-page"
       },
       {
-        "subtitle": "Pending Orders",
-        "slug": "/subcategory"
+        "subtitle": "Header",
+        "slug": "/setup/header"
       },
       {
-        "subtitle": "Delivered Orders",
-        "slug": "/childcategory"
+        "subtitle": "Footer",
+        "slug": "/setup/footer"
       },
       {
-        "subtitle": "Canceled Orders",
-        "slug": "/childcategory"
+        "subtitle": "Sliders",
+        "slug": "/setup/sliders"
+      },
+      {
+        "subtitle": "Pages",
+        "slug": "/setup/pages"
       }
     ]
   }

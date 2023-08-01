@@ -17,6 +17,11 @@ import StockOutProducts from './stockout-product';
 import SubCategory from './subcategory';
 import VideosPage from './videos';
 import CouponPage from './marketing/coupon';
+import SetupPage from './setup';
+import Header from './setup/header';
+import Footer from './setup/footer';
+import CommonPages from './setup/pages';
+import Sliders from './setup/sliders';
 
 function PageRoutes() {
   return (
@@ -40,6 +45,13 @@ function PageRoutes() {
       <Route path="/faqs/categories" element={<FaqCategories />} />
       {/* Marketing */}
       <Route path="/coupons" element={<CouponPage />} />
+
+      {/* Settings */}
+      <Route path="/setup/home-page" element={<SetupPage />} />
+      <Route path="/setup/header" element={<Header />} />
+      <Route path="/setup/footer" element={<Footer />} />
+      <Route path="/setup/sliders" element={<Sliders />} />
+      <Route path="/setup/pages" element={<CommonPages />} />
     </Routes>
   );
 }

@@ -4,6 +4,7 @@ import Icon from '../icon';
 import Logo from '../logo';
 import axios from 'axios';
 import Dropdown, { ISideLink } from '../dropdown';
+import { Link } from 'react-router-dom';
 
 function SideBar() {
   const [sideLinks, setSideLinks] = useState<ISideLink[]>([]);
@@ -28,7 +29,9 @@ function SideBar() {
   return (
     <div className="sidebar">
       <div className="sidebar__logo">
-        <Logo file="logo.png" />
+        <Link to="/">
+          <Logo file="logo.png" />
+        </Link>
         <button>
           <Icon iconName="left-double-arrow.svg" />
         </button>

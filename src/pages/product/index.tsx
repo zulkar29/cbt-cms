@@ -10,7 +10,7 @@ import CardBody from '../../components/card-body';
 const AllProducts: React.FC = () => {
   return (
     <div>
-      <CardBody header="Product" to="/categories/create" />
+      <CardBody header="Product" to="/product/create" />
       <Display>
         <Table>
           <thead>
