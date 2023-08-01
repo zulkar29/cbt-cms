@@ -123,6 +123,17 @@
   },
   {
     "id": 8,
+    "title": "Marketing",
+    "icon": "promotion.png",
+    "subLinks": [
+      {
+        "subtitle": "Set Coupons",
+        "slug": "/coupons"
+      }
+    ]
+  },
+  {
+    "id": 9,
     "title": "Site Settings",
     "icon": "setting.png",
     "subLinks": [
