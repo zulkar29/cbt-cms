@@ -1,7 +1,6 @@
 import Actions from '../../components/actions';
 import Display from '../../components/display';
 import Pagination from '../../components/pagination';
-import Select from '../../components/select';
 import Table from '../../components/table';
 import Column from '../../components/table/column';
 import Row from '../../components/table/row';

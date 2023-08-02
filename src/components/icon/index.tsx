@@ -1,13 +1,17 @@
 import './index.scss';
-function Icon(props) {
+
+interface IProps {
+  iconName: string;
+}
+const Icon = (props: IProps) => {
   return (
     <img
       className="icon"
-      size="small"
+      sizes="small"
       color="black"
       src={`/assets/icons/${props.iconName}`}
     />
   );
-}
+};
 
 export default Icon;
