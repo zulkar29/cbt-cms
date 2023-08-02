@@ -1,21 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './index.scss';
 import Icon from '../icon';
 import Logo from '../logo';
-import axios from 'axios';
 import Dropdown, { ISideLink } from '../dropdown';
 import { Link } from 'react-router-dom';
+import { sidebarLinks } from '../static/sidebarLinks';
 
 function SideBar() {
-  const [sideLinks, setSideLinks] = useState<ISideLink[]>([]);
-
-  useEffect(() => {
-    async function subData() {
-      const res = await axios.get<ISideLink[]>('/src/utils/sidebarLinks.json');
-      setSideLinks(res.data);
-    }
-    subData();
-  }, []);
+  const [sideLinks, setSideLinks] = useState<ISideLink[]>(sidebarLinks);
 
   const handleDropdownToggle = (clickedIndex: number) => {
     const updatedSideLinks = sideLinks.map((linkItem, index) => ({
