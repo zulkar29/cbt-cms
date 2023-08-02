@@ -1,0 +1,11 @@
+@import './../../styles/index.scss';
+.chart-card {
+  background: $tertiary-color;
+  padding: 10px;
+  box-shadow: $shadow-sm;
+  box-sizing: border-box;
+}
+.chart-item {
+  padding: 5px;
+  box-sizing: border-box;
+}
