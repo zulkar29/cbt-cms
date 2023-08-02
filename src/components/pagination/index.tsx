@@ -4,6 +4,7 @@ import './index.scss';
 
 const Pagination = () => {
   const [page, setPage] = useState<number>(0);
+  console.log(page);
   const handlePageClick = (count: { selected: number }) => {
     setPage(count.selected);
   };
