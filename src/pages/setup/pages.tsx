@@ -4,12 +4,23 @@ import Table from '../../components/table';
 import Row from '../../components/table/row';
 import Column from '../../components/table/column';
 import Actions from '../../components/actions';
+import Filter from '../../components/filter';
+import { ChangeEvent, useState } from 'react';
 
 const CommonPages = () => {
+  const [displayItem, setDisplayItem] = useState(10);
+
+  console.log(displayItem);
+
+  const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
+    setDisplayItem(Number(e.target.value));
+  };
+
   return (
     <div>
       <CardBody header="Add More Pages" to="/coupon/create" />
       <Display>
+        <Filter handleDisplayItem={handleDisplayItem} />
         <Table>
           <thead>
             <Row>

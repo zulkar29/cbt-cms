@@ -6,12 +6,23 @@ import Select from '../../components/select';
 import Actions from '../../components/actions';
 import Pagination from '../../components/pagination';
 import CardBody from '../../components/card-body';
+import { ChangeEvent, useState } from 'react';
+import Filter from '../../components/filter';
 
 const FaqPage = () => {
+  const [displayItem, setDisplayItem] = useState(10);
+
+  console.log(displayItem);
+
+  const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
+    setDisplayItem(Number(e.target.value));
+  };
+
   return (
     <div>
       <CardBody header="FAQ" to="/faqs/create" />
       <Display>
+        <Filter handleDisplayItem={handleDisplayItem} />
         <Table>
           <tbody>
             <Row>

@@ -6,12 +6,23 @@ import Select from '../../components/select';
 import Actions from '../../components/actions';
 import Pagination from '../../components/pagination';
 import CardBody from '../../components/card-body';
+import Filter from '../../components/filter';
+import { ChangeEvent, useState } from 'react';
 
 const AllProducts: React.FC = () => {
+  const [displayItem, setDisplayItem] = useState(10);
+
+  console.log(displayItem);
+
+  const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
+    setDisplayItem(Number(e.target.value));
+  };
+
   return (
     <div>
       <CardBody header="Product" to="/product/create" />
       <Display>
+        <Filter handleDisplayItem={handleDisplayItem} />
         <Table>
           <thead>
             <Row>

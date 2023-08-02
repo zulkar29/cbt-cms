@@ -2,9 +2,9 @@ import { ChangeEvent } from 'react';
 import './index.scss';
 
 interface propsType {
-  handleSearch: (e: ChangeEvent<HTMLSelectElement>) => void;
+  handleDisplayItem: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
-const Filter: React.FC<propsType> = () => {
+const Filter: React.FC<propsType> = ({ handleDisplayItem }) => {
   return (
     <div className="row">
       <div className="col-md-6">
@@ -12,7 +12,7 @@ const Filter: React.FC<propsType> = () => {
           <label className="filter-item">
             Show{' '}
             <select
-              // onChange={(e) => handleSearch(e)}
+              onChange={(e) => handleDisplayItem(e)}
               name="admin-table_length"
               aria-controls="admin-table"
               className="custom-select custom-select-sm form-control form-control-sm"

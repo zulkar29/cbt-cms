@@ -8,8 +8,6 @@ const Pagination = () => {
     setPage(count.selected);
   };
 
-  console.log(page);
-
   return (
     <div className="page-container">
       <ReactPaginate

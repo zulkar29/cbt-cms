@@ -7,12 +7,23 @@ import Select from '../../components/select';
 import { FaRegEdit } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import Pagination from '../../components/pagination';
+import Filter from '../../components/filter';
+import { ChangeEvent, useState } from 'react';
 
 const SubCategory = () => {
+  const [displayItem, setDisplayItem] = useState(10);
+
+  console.log(displayItem);
+
+  const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
+    setDisplayItem(Number(e.target.value));
+  };
+
   return (
     <div>
       <CardBody header="Sub Categories" to="/categories/create" />
       <Display>
+        <Filter handleDisplayItem={handleDisplayItem} />
         <Table>
           <thead>
             <Row>

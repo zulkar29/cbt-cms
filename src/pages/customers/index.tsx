@@ -1,14 +1,25 @@
+import { ChangeEvent, useState } from 'react';
 import Actions from '../../components/actions';
 import Display from '../../components/display';
 import Pagination from '../../components/pagination';
 import Table from '../../components/table';
 import Column from '../../components/table/column';
 import Row from '../../components/table/row';
+import Filter from '../../components/filter';
 
 const Customers = () => {
+  const [displayItem, setDisplayItem] = useState(10);
+
+  console.log(displayItem);
+
+  const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
+    setDisplayItem(Number(e.target.value));
+  };
+
   return (
     <div>
       <Display>
+        <Filter handleDisplayItem={handleDisplayItem} />
         <Table>
           <thead>
             <th>Name</th>

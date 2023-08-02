@@ -1,4 +1,4 @@
-// import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
 import { FaRegEdit } from 'react-icons/fa';
@@ -8,18 +8,22 @@ import Row from '../../components/table/row';
 import Column from '../../components/table/column';
 import Select from '../../components/select';
 import Pagination from '../../components/pagination';
+import Filter from '../../components/filter';
 
 function Categories() {
-  // const [search, setSearch] = useState(10);
+  const [displayItem, setDisplayItem] = useState(10);
 
-  /*  const handleSearch = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSearch(Number(e.target.value));
-  }; */
+  console.log(displayItem);
+
+  const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
+    setDisplayItem(Number(e.target.value));
+  };
 
   return (
     <div>
       <CardBody header="Categories" to="/categories/create" />
       <Display>
+        <Filter handleDisplayItem={handleDisplayItem} />
         <Table>
           <thead>
             <Row>

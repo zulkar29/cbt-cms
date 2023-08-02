@@ -6,12 +6,23 @@ import Column from '../../components/table/column';
 import Select from '../../components/select';
 import Pagination from '../../components/pagination';
 import Actions from '../../components/actions';
+import { ChangeEvent, useState } from 'react';
+import Filter from '../../components/filter';
 
 const CouponPage = () => {
+  const [displayItem, setDisplayItem] = useState(10);
+
+  console.log(displayItem);
+
+  const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
+    setDisplayItem(Number(e.target.value));
+  };
+
   return (
     <div>
       <CardBody header="Coupon" to="/coupon/create" />
       <Display>
+        <Filter handleDisplayItem={handleDisplayItem} />
         <Table>
           <thead>
             <Row>
