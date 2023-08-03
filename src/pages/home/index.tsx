@@ -59,7 +59,7 @@ const HomePage = () => {
   const activeItem = data[activeIndex];
 
   const handleClick = useCallback(
-    (_entry: IData, index: number) => {
+    (_: IData, index: number) => {
       setActiveIndex(index);
     },
     [setActiveIndex]
