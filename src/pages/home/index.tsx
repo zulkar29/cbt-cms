@@ -1,8 +1,15 @@
 import { useState, useCallback } from 'react';
-
 import './index.scss';
 import Chart from '../../components/chart';
-const data = [
+
+interface IData {
+  name: string;
+  uv: number;
+  pv: number;
+  amt: number;
+}
+
+const data: IData[] = [
   {
     name: 'Page A',
     uv: 4000,
@@ -52,7 +59,7 @@ const HomePage = () => {
   const activeItem = data[activeIndex];
 
   const handleClick = useCallback(
-    (_entry: any, index: number) => {
+    (_entry: IData, index: number) => {
       setActiveIndex(index);
     },
     [setActiveIndex]

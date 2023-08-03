@@ -34,7 +34,7 @@ const CommonPages = () => {
             <Row>
               <Column>1</Column>
               <Column>About Page</Column>
-              <Column>/categories</Column>
+              <Column>/about</Column>
               <Column>
                 <Actions />
               </Column>

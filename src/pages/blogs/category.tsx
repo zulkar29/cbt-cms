@@ -33,66 +33,18 @@ const BlogCategories = () => {
             </Row>
           </tbody>
           <tbody>
-            <Row>
-              <Column>01</Column>
-              <Column>Cookware</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>01</Column>
-              <Column>Cookware</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>01</Column>
-              <Column>Cookware</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>01</Column>
-              <Column>Cookware</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>01</Column>
-              <Column>Cookware</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>01</Column>
-              <Column>Cookware</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
+            {[...Array(5).keys()].map((_category, index) => (
+              <Row key={index}>
+                <Column>{index + 1}</Column>
+                <Column>Cookware</Column>
+                <Column>
+                  <Select />
+                </Column>
+                <Column>
+                  <Actions />
+                </Column>
+              </Row>
+            ))}
           </tbody>
         </Table>
         <Pagination />

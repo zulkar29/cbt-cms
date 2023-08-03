@@ -10,6 +10,7 @@ const Icon = (props: IProps) => {
       sizes="small"
       color="black"
       src={`/assets/icons/${props.iconName}`}
+      alt="icon"
     />
   );
 };
