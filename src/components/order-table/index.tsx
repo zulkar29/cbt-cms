@@ -19,7 +19,7 @@ const OrderTable = () => {
         </Row>
       </thead>
       <tbody>
-        {[...Array(10).keys()].map((item, index) => (
+        {[...Array(10).keys()].map((_item, index) => (
           <Row key={index}>
             <Column> bmHWqM9CA7</Column>
             <Column>202,696.96 TK</Column>

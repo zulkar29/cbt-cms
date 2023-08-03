@@ -34,176 +34,25 @@ const SubCategory = () => {
             </Row>
           </thead>
           <tbody>
-            <Row>
-              <Column>Web Themes & Templates</Column>
-              <Column>HTML Templates</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <div className="rect-icon">
-                  <div className="icon">
-                    <FaRegEdit className="i" />
+            {[...Array(5).keys()].map((_category, index) => (
+              <Row key={index}>
+                <Column>Web Themes & Templates</Column>
+                <Column>HTML Templates</Column>
+                <Column>
+                  <Select />
+                </Column>
+                <Column>
+                  <div className="rect-icon">
+                    <div className="icon">
+                      <FaRegEdit className="i" />
+                    </div>
+                    <div className="icon">
+                      <RiDeleteBin6Line />
+                    </div>
                   </div>
-                  <div className="icon">
-                    <RiDeleteBin6Line />
-                  </div>
-                </div>
-              </Column>
-            </Row>
-            <Row>
-              <Column>Web Themes & Templates</Column>
-              <Column>HTML Templates</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <div className="rect-icon">
-                  <div className="icon">
-                    <FaRegEdit className="i" />
-                  </div>
-                  <div className="icon">
-                    <RiDeleteBin6Line />
-                  </div>
-                </div>
-              </Column>
-            </Row>
-            <Row>
-              <Column>Web Themes & Templates</Column>
-              <Column>HTML Templates</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <div className="rect-icon">
-                  <div className="icon">
-                    <FaRegEdit className="i" />
-                  </div>
-                  <div className="icon">
-                    <RiDeleteBin6Line />
-                  </div>
-                </div>
-              </Column>
-            </Row>
-            <Row>
-              <Column>Web Themes & Templates</Column>
-              <Column>HTML Templates</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <div className="rect-icon">
-                  <div className="icon">
-                    <FaRegEdit className="i" />
-                  </div>
-                  <div className="icon">
-                    <RiDeleteBin6Line />
-                  </div>
-                </div>
-              </Column>
-            </Row>
-            <Row>
-              <Column>Web Themes & Templates</Column>
-              <Column>HTML Templates</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <div className="rect-icon">
-                  <div className="icon">
-                    <FaRegEdit className="i" />
-                  </div>
-                  <div className="icon">
-                    <RiDeleteBin6Line />
-                  </div>
-                </div>
-              </Column>
-            </Row>
-            <Row>
-              <Column>Web Themes & Templates</Column>
-              <Column>HTML Templates</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <div className="rect-icon">
-                  <div className="icon">
-                    <FaRegEdit className="i" />
-                  </div>
-                  <div className="icon">
-                    <RiDeleteBin6Line />
-                  </div>
-                </div>
-              </Column>
-            </Row>
-            <Row>
-              <Column>Web Themes & Templates</Column>
-              <Column>HTML Templates</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <div className="rect-icon">
-                  <div className="icon">
-                    <FaRegEdit className="i" />
-                  </div>
-                  <div className="icon">
-                    <RiDeleteBin6Line />
-                  </div>
-                </div>
-              </Column>
-            </Row>
-            <Row>
-              <Column>Web Themes & Templates</Column>
-              <Column>HTML Templates</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <div className="rect-icon">
-                  <div className="icon">
-                    <FaRegEdit className="i" />
-                  </div>
-                  <div className="icon">
-                    <RiDeleteBin6Line />
-                  </div>
-                </div>
-              </Column>
-            </Row>
-            <Row>
-              <Column>Web Themes & Templates</Column>
-              <Column>HTML Templates</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <div className="rect-icon">
-                  <div className="icon">
-                    <FaRegEdit className="i" />
-                  </div>
-                  <div className="icon">
-                    <RiDeleteBin6Line />
-                  </div>
-                </div>
-              </Column>
-            </Row>
-            <Row>
-              <Column>Web Themes & Templates</Column>
-              <Column>HTML Templates</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <div className="rect-icon">
-                  <div className="icon">
-                    <FaRegEdit className="i" />
-                  </div>
-                  <div className="icon">
-                    <RiDeleteBin6Line />
-                  </div>
-                </div>
-              </Column>
-            </Row>
+                </Column>
+              </Row>
+            ))}
           </tbody>
         </Table>
         <Pagination />

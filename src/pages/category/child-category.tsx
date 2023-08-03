@@ -34,94 +34,19 @@ const ChildCategory = () => {
             </Row>
           </thead>
           <tbody>
-            <Row>
-              <Column>Men Clothing</Column>
-              <Column>Outerwear & Jackets</Column>
-              <Column>Shirt</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Men Clothing</Column>
-              <Column>Outerwear & Jackets</Column>
-              <Column>Shirt</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Men Clothing</Column>
-              <Column>Outerwear & Jackets</Column>
-              <Column>Shirt</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Men Clothing</Column>
-              <Column>Outerwear & Jackets</Column>
-              <Column>Shirt</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Men Clothing</Column>
-              <Column>Outerwear & Jackets</Column>
-              <Column>Shirt</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Men Clothing</Column>
-              <Column>Outerwear & Jackets</Column>
-              <Column>Shirt</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Men Clothing</Column>
-              <Column>Outerwear & Jackets</Column>
-              <Column>Shirt</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Men Clothing</Column>
-              <Column>Outerwear & Jackets</Column>
-              <Column>Shirt</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
+            {[...Array(8).keys()].map((_category, index) => (
+              <Row key={index}>
+                <Column>Men Clothing</Column>
+                <Column>Outerwear & Jackets</Column>
+                <Column>Shirt</Column>
+                <Column>
+                  <Select />
+                </Column>
+                <Column>
+                  <Actions />
+                </Column>
+              </Row>
+            ))}
           </tbody>
         </Table>
         <Pagination />
