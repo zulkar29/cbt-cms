@@ -21,7 +21,7 @@ const SubCategory = () => {
 
   return (
     <div>
-      <CardBody header="Sub Categories" to="/categories/create" />
+      <CardBody header="Sub Categories" to="/subcategory/create" />
       <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
         <Table>
