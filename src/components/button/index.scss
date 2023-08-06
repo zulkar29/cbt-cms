@@ -1,0 +1,16 @@
+@import '../../styles/index.scss';
+
+.btn {
+  background: $primary-color;
+  padding: 10px 16px;
+  border: 1px solid $primary-color;
+  font-family: $primary-font;
+  font-size: 13px;
+  color: $tertiary-color;
+  transition: all linear 0.3s;
+
+  &:hover {
+    background: $nonary-color;
+    border-color: $nonary-color;
+  }
+}

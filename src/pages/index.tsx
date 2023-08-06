@@ -22,12 +22,15 @@ import Header from './setup/header';
 import Footer from './setup/footer';
 import CommonPages from './setup/pages';
 import Sliders from './setup/sliders';
+import CreateCategory from './category/create-category';
 
 function PageRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      {/* categories */}
       <Route path="/category" element={<Categories />} />
+      <Route path="/categories/create" element={<CreateCategory />} />
       <Route path="/subcategory" element={<SubCategory />} />
       <Route path="/childcategory" element={<ChildCategory />} />
       <Route path="/products" element={<AllProducts />} />

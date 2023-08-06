@@ -1,14 +1,14 @@
-import "./index.scss";
+import './index.scss';
 
-import { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+import { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react';
 
 type InheritedProps = Pick<
   AnchorHTMLAttributes<HTMLAnchorElement>,
-  "href" | "target" | "onClick"
+  'href' | 'target' | 'onClick'
 > &
   Pick<
     ButtonHTMLAttributes<HTMLButtonElement>,
-    "type" | "onClick" | "disabled"
+    'type' | 'onClick' | 'disabled'
   >;
 
 export type ButtonProps = InheritedProps & {
@@ -18,7 +18,7 @@ export type ButtonProps = InheritedProps & {
 export const Button: React.FC<ButtonProps> = ({ children, type, onClick }) => {
   return (
     <>
-      <button type={type} onClick={onClick}>
+      <button className="btn" type={type} onClick={onClick}>
         {children}
       </button>
     </>
