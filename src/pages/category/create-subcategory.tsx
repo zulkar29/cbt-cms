@@ -30,8 +30,8 @@ const CreateSubcategory = () => {
             options={options}
             required
           />
-          <TextInput label="Title *" placeholder="Enter Name" required />
-          <TextInput label="Slug *" placeholder="Enter Slug" required />
+          <TextInput label="Title *" placeholder="Enter Title" htmlFor='title' required />
+          <TextInput label="Slug *" placeholder="Enter Slug" htmlFor='slug' required />
           <Button>Submit</Button>
         </form>
       </Display>

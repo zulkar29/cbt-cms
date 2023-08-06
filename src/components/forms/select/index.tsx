@@ -20,7 +20,13 @@ const Select: React.FC<IProps> = ({
   return (
     <div className="select-text">
       <label htmlFor="select">{label}</label>
-      <select name={name} value={value} onChange={onChange} required={required}>
+      <select
+        id="select"
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+      >
         <option value="">Select an option</option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>

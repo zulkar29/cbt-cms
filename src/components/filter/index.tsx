@@ -15,7 +15,6 @@ const Filter: React.FC<propsType> = ({ handleDisplayItem }) => {
               onChange={(e) => handleDisplayItem(e)}
               name="admin-table_length"
               aria-controls="admin-table"
-              className="custom-select custom-select-sm form-control form-control-sm"
             >
               <option value="10">10</option>
               <option value="25">25</option>
@@ -29,12 +28,7 @@ const Filter: React.FC<propsType> = ({ handleDisplayItem }) => {
       <div className="col-md-6">
         <div id="admin-table_filter" className="filter-search">
           <label>Search </label>
-          <input
-            type="search"
-            className="form-control form-control-sm"
-            placeholder=""
-            aria-controls="admin-table"
-          />
+          <input type="search" placeholder="" aria-controls="admin-table" />
         </div>
       </div>
     </div>

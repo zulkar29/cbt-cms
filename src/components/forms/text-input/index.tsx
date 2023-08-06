@@ -6,6 +6,7 @@ interface IProps {
   defaultValue?: string;
   value?: string;
   required?: boolean;
+  htmlFor: string;
 }
 
 const TextInput = ({
@@ -14,13 +15,14 @@ const TextInput = ({
   defaultValue,
   value,
   required,
+  htmlFor,
 }: IProps) => {
   return (
     <div className="text">
-      <label htmlFor="text">{label}</label>
+      <label htmlFor={htmlFor}>{label}</label>
       <input
         type="text"
-        id="text"
+        id={htmlFor}
         placeholder={placeholder}
         defaultValue={defaultValue}
         value={value}

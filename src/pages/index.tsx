@@ -24,6 +24,7 @@ import CommonPages from './setup/pages';
 import Sliders from './setup/sliders';
 import CreateCategory from './category/create-category';
 import CreateSubcategory from './category/create-subcategory';
+import CreateChildCategory from './category/create-childcategory';
 
 function PageRoutes() {
   return (
@@ -35,6 +36,7 @@ function PageRoutes() {
       <Route path="/subcategory" element={<SubCategory />} />
       <Route path="/subcategory/create" element={<CreateSubcategory />} />
       <Route path="/childcategory" element={<ChildCategory />} />
+      <Route path="/childcategory/create" element={<CreateChildCategory />} />
       <Route path="/products" element={<AllProducts />} />
       <Route path="/products/stockout" element={<StockOutProducts />} />
       <Route path="/products/reviews" element={<Reviews />} />
