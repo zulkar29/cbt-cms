@@ -7,10 +7,13 @@ import TextInput from '../../components/forms/text-input';
 import TextArea from '../../components/forms/textarea';
 import Select from '../../components/forms/select';
 import DescriptionInput from '../../components/description';
+import './index.scss';
 
 const CreateBlog = () => {
   const [file, setFile] = useState<File | null>(null);
+  const [description, setDescription] = useState<string>('');
   const [selectedOption, setSelectedOption] = useState<string>('');
+
   const options = [
     { value: 'option1', label: 'Option 1' },
     { value: 'option2', label: 'Option 2' },
@@ -43,6 +46,7 @@ const CreateBlog = () => {
             htmlFor="title"
             label="Title *"
             placeholder="Enter Title"
+            required
           />
           <Select
             label="Select Category *"
@@ -52,9 +56,18 @@ const CreateBlog = () => {
             options={options}
             required
           />
-          <DescriptionInput />
+          <textarea
+            className="des-none"
+            name="desc"
+            id="desc"
+            required
+            value={description}
+            readOnly
+          ></textarea>
+          <DescriptionInput value={description} setValue={setDescription} />
           <br />
           <br />
+
           <TextInput
             htmlFor="Meta-Title"
             label="Meta title *"

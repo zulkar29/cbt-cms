@@ -1,9 +1,12 @@
-import { useState } from 'react';
 import ReactQuill from 'react-quill';
+import './index.scss';
 
-const DescriptionInput = () => {
-  const [value, setValue] = useState('');
+interface IProps {
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+}
 
+const DescriptionInput: React.FC<IProps> = ({ value, setValue }) => {
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
