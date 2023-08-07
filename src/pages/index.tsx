@@ -25,6 +25,11 @@ import Sliders from './setup/sliders';
 import CreateCategory from './category/create-category';
 import CreateSubcategory from './category/create-subcategory';
 import CreateChildCategory from './category/create-childcategory';
+import UpdateCategory from './category/update-category';
+import UpdateSubcategory from './category/update-subcategory';
+import UpdateChildCategory from './category/update-chidcategory';
+import CreateVideo from './videos/create-video';
+import UpdateVideo from './videos/update-video';
 
 function PageRoutes() {
   return (
@@ -33,10 +38,16 @@ function PageRoutes() {
       {/* categories */}
       <Route path="/category" element={<Categories />} />
       <Route path="/categories/create" element={<CreateCategory />} />
+      <Route path="/categories/edit/:slug" element={<UpdateCategory />} />
       <Route path="/subcategory" element={<SubCategory />} />
       <Route path="/subcategory/create" element={<CreateSubcategory />} />
+      <Route path="/subcategory/edit/:slug" element={<UpdateSubcategory />} />
       <Route path="/childcategory" element={<ChildCategory />} />
       <Route path="/childcategory/create" element={<CreateChildCategory />} />
+      <Route
+        path="/childcategory/edit/:slug"
+        element={<UpdateChildCategory />}
+      />
       <Route path="/products" element={<AllProducts />} />
       <Route path="/products/stockout" element={<StockOutProducts />} />
       <Route path="/products/reviews" element={<Reviews />} />
@@ -47,7 +58,10 @@ function PageRoutes() {
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/blogs/category" element={<BlogCategories />} />
       <Route path="/customers" element={<Customers />} />
+      {/* Videos */}
       <Route path="/videos" element={<VideosPage />} />
+      <Route path="/videos/create" element={<CreateVideo />} />
+      <Route path="/videos/edit/:id" element={<UpdateVideo />} />
       <Route path="/faqs" element={<FaqPage />} />
       <Route path="/faqs/categories" element={<FaqCategories />} />
       {/* Marketing */}

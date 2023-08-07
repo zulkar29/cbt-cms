@@ -43,7 +43,7 @@ const ChildCategory = () => {
                   <Select />
                 </Column>
                 <Column>
-                  <Actions />
+                  <Actions editUrl={`/childcategory/edit/${index}`} />
                 </Column>
               </Row>
             ))}

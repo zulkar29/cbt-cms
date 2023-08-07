@@ -4,11 +4,10 @@ import Table from '../../components/table';
 import Row from '../../components/table/row';
 import Column from '../../components/table/column';
 import Select from '../../components/select';
-import { FaRegEdit } from 'react-icons/fa';
-import { RiDeleteBin6Line } from 'react-icons/ri';
 import Pagination from '../../components/pagination';
 import Filter from '../../components/filter';
 import { ChangeEvent, useState } from 'react';
+import Actions from '../../components/actions';
 
 const SubCategory = () => {
   const [displayItem, setDisplayItem] = useState(10);
@@ -42,14 +41,7 @@ const SubCategory = () => {
                   <Select />
                 </Column>
                 <Column>
-                  <div className="rect-icon">
-                    <div className="icon">
-                      <FaRegEdit className="i" />
-                    </div>
-                    <div className="icon">
-                      <RiDeleteBin6Line />
-                    </div>
-                  </div>
+                  <Actions editUrl={`/subcategory/edit/${index}`} />
                 </Column>
               </Row>
             ))}

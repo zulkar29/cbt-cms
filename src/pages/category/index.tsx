@@ -46,7 +46,7 @@ function Categories() {
                   <Select />
                 </Column>
                 <Column>
-                  <Actions />
+                  <Actions editUrl={`/categories/edit/${index}`} />
                 </Column>
               </Row>
             ))}

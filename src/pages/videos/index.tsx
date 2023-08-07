@@ -23,19 +23,22 @@ const VideosPage = () => {
             </Row>
           </tbody>
           <tbody>
-            <Row>
-              <Column>01</Column>
-              <Column>
-                Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance
-              </Column>
-              <Column> https://youtube.com/embed/6FxZnI01JCs</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
+            {[...Array(5).keys()].map((item, index) => (
+              <Row>
+                <Column>01</Column>
+                <Column>
+                  Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance
+                </Column>
+                <Column> https://youtube.com/embed/6FxZnI01JCs</Column>
+                <Column>
+                  <Select />
+                </Column>
+                <Column>
+                  <Actions editUrl={`/videos/edit/${index}`} />
+                </Column>
+              </Row>
+            ))}
+
             <Row>
               <Column>01</Column>
               <Column>
