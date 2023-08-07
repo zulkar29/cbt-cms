@@ -23,7 +23,7 @@ const VideosPage = () => {
             </Row>
           </tbody>
           <tbody>
-            {[...Array(5).keys()].map((item, index) => (
+            {[...Array(5).keys()].map((_video, index) => (
               <Row>
                 <Column>01</Column>
                 <Column>
@@ -38,72 +38,6 @@ const VideosPage = () => {
                 </Column>
               </Row>
             ))}
-
-            <Row>
-              <Column>01</Column>
-              <Column>
-                Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance
-              </Column>
-              <Column> https://youtube.com/embed/6FxZnI01JCs</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>01</Column>
-              <Column>
-                Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance
-              </Column>
-              <Column> https://youtube.com/embed/6FxZnI01JCs</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>01</Column>
-              <Column>
-                Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance
-              </Column>
-              <Column> https://youtube.com/embed/6FxZnI01JCs</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>01</Column>
-              <Column>
-                Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance
-              </Column>
-              <Column> https://youtube.com/embed/6FxZnI01JCs</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>01</Column>
-              <Column>
-                Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance
-              </Column>
-              <Column> https://youtube.com/embed/6FxZnI01JCs</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
           </tbody>
         </Table>
         <Pagination />

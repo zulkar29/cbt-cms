@@ -41,7 +41,7 @@ const BlogCategories = () => {
                   <Select />
                 </Column>
                 <Column>
-                  <Actions />
+                  <Actions editUrl="" />
                 </Column>
               </Row>
             ))}

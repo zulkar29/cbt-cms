@@ -30,6 +30,7 @@ import UpdateSubcategory from './category/update-subcategory';
 import UpdateChildCategory from './category/update-chidcategory';
 import CreateVideo from './videos/create-video';
 import UpdateVideo from './videos/update-video';
+import CreateBlog from './blogs/create';
 
 function PageRoutes() {
   return (
@@ -48,6 +49,7 @@ function PageRoutes() {
         path="/childcategory/edit/:slug"
         element={<UpdateChildCategory />}
       />
+
       <Route path="/products" element={<AllProducts />} />
       <Route path="/products/stockout" element={<StockOutProducts />} />
       <Route path="/products/reviews" element={<Reviews />} />
@@ -55,7 +57,9 @@ function PageRoutes() {
       <Route path="/orders/pending" element={<PendingOrders />} />
       <Route path="/orders/delivered" element={<Delivered />} />
       <Route path="/orders/canceled" element={<Canceled />} />
+      {/* Blog */}
       <Route path="/blogs" element={<Blogs />} />
+      <Route path="/blogs/create" element={<CreateBlog />} />
       <Route path="/blogs/category" element={<BlogCategories />} />
       <Route path="/customers" element={<Customers />} />
       {/* Videos */}
