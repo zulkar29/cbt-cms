@@ -1,6 +1,6 @@
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
-import TextInput from '../../components/forms/text-input';
+import Input from '../../components/forms/text-input';
 import { Button } from '../../components/button';
 
 const UpdateVideo: React.FC = () => {
@@ -10,19 +10,14 @@ const UpdateVideo: React.FC = () => {
 
       <Display>
         <form>
-          <TextInput
+          <Input
             label="Video Title *"
             placeholder="video title"
             htmlFor="video"
             required
           />
-          <TextInput
-            label="Slug *"
-            placeholder="Slug"
-            htmlFor="slug"
-            required
-          />
-          <TextInput
+          <Input label="Slug *" placeholder="Slug" htmlFor="slug" required />
+          <Input
             label="Video Link *"
             placeholder="Enter video embed code"
             htmlFor="link"

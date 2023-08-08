@@ -13,12 +13,18 @@ type InheritedProps = Pick<
 
 export type ButtonProps = InheritedProps & {
   children?: React.ReactNode;
+  className?: string;
 };
 
-export const Button: React.FC<ButtonProps> = ({ children, type, onClick }) => {
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  type,
+  onClick,
+  className,
+}) => {
   return (
     <>
-      <button className="btn" type={type} onClick={onClick}>
+      <button className={`btn ${className}`} type={type} onClick={onClick}>
         {children}
       </button>
     </>

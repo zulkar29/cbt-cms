@@ -3,7 +3,7 @@ import { Button } from '../../components/button';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
 import FileInput from '../../components/forms/file-input';
-import TextInput from '../../components/forms/text-input';
+import Input from '../../components/forms/text-input';
 import TextArea from '../../components/forms/textarea';
 import Select from '../../components/forms/select';
 import DescriptionInput from '../../components/description';
@@ -34,7 +34,7 @@ const CreateBlog = () => {
       <Display>
         <form>
           <FileInput
-            label="Set Image"
+            label="Set Image *"
             onChange={handleChangeFile}
             placeholder="Choose an Image"
             required
@@ -42,7 +42,7 @@ const CreateBlog = () => {
           <div>
             {file && <img src={URL.createObjectURL(file)} alt="category" />}
           </div>
-          <TextInput
+          <Input
             htmlFor="title"
             label="Title *"
             placeholder="Enter Title"
@@ -68,12 +68,12 @@ const CreateBlog = () => {
           <br />
           <br />
 
-          <TextInput
+          <Input
             htmlFor="Meta-Title"
             label="Meta title *"
             placeholder="Meta Title"
           />
-          <TextInput
+          <Input
             htmlFor="Meta-Keywords"
             label="Meta Keywords *"
             placeholder="Meta Keywords"

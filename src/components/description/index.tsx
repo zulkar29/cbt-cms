@@ -12,6 +12,12 @@ const DescriptionInput: React.FC<IProps> = ({ value, setValue }) => {
       [{ header: [1, 2, false] }],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
       [
+        { align: '' },
+        { align: 'center' },
+        { align: 'right' },
+        { align: 'justify' },
+      ],
+      [
         { list: 'ordered' },
         { list: 'bullet' },
         { indent: '-1' },
@@ -27,6 +33,7 @@ const DescriptionInput: React.FC<IProps> = ({ value, setValue }) => {
     'bold',
     'italic',
     'underline',
+    'align',
     'strike',
     'blockquote',
     'list',

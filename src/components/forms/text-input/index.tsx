@@ -1,35 +1,40 @@
 import './index.scss';
 
 interface IProps {
-  placeholder: string;
-  label: string;
+  type?: string;
+  placeholder?: string;
+  label?: string;
   defaultValue?: string;
   value?: string;
   required?: boolean;
+  readOnly?: boolean;
   htmlFor: string;
 }
 
-const TextInput = ({
+const Input: React.FC<IProps> = ({
   placeholder,
   label,
+  type,
   defaultValue,
   value,
   required,
+  readOnly,
   htmlFor,
-}: IProps) => {
+}) => {
   return (
     <div className="text">
       <label htmlFor={htmlFor}>{label}</label>
       <input
-        type="text"
+        type={type ? type : 'text'}
         id={htmlFor}
         placeholder={placeholder}
         defaultValue={defaultValue}
         value={value}
         required={required}
+        readOnly={readOnly}
       />
     </div>
   );
 };
 
-export default TextInput;
+export default Input;

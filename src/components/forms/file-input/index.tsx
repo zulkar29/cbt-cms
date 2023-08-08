@@ -1,7 +1,7 @@
 import './index.scss';
 
 interface IProps {
-  placeholder: string;
+  placeholder?: string;
   label: string;
   defaultValue?: string;
   value?: string;
@@ -23,19 +23,21 @@ const FileInput: React.FC<IProps> = ({
   };
 
   return (
-    <div className="file">
-      <label htmlFor="file">{label}</label>
-      <input
-        type="file"
-        id="file"
-        accept=".png, .jpg, .jpeg, .webp"
-        onChange={handleChange}
-        placeholder={placeholder}
-        defaultValue={defaultValue}
-        value={value}
-        required={required}
-      />
-    </div>
+    <>
+      <div className="file">
+        <label htmlFor="file">{label}</label>
+        <input
+          type="file"
+          id="file"
+          accept=".png, .jpg, .jpeg, .webp"
+          onChange={handleChange}
+          placeholder={placeholder}
+          defaultValue={defaultValue}
+          value={value}
+          required={required}
+        />
+      </div>
+    </>
   );
 };
 

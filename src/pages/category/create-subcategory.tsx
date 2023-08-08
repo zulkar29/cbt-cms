@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '../../components/button';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
-import TextInput from '../../components/forms/text-input';
+import Input from '../../components/forms/text-input';
 import Select from '../../components/forms/select';
 
 const CreateSubcategory = () => {
@@ -30,8 +30,18 @@ const CreateSubcategory = () => {
             options={options}
             required
           />
-          <TextInput label="Title *" placeholder="Enter Title" htmlFor='title' required />
-          <TextInput label="Slug *" placeholder="Enter Slug" htmlFor='slug' required />
+          <Input
+            label="Title *"
+            placeholder="Enter Title"
+            htmlFor="title"
+            required
+          />
+          <Input
+            label="Slug *"
+            placeholder="Enter Slug"
+            htmlFor="slug"
+            required
+          />
           <Button>Submit</Button>
         </form>
       </Display>

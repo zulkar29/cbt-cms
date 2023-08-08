@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '../../components/button';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
-import TextInput from '../../components/forms/text-input';
+import Input from '../../components/forms/text-input';
 import Select from '../../components/forms/select';
 
 const CreateChildCategory = () => {
@@ -47,13 +47,13 @@ const CreateChildCategory = () => {
             options={options2}
             required
           />
-          <TextInput
+          <Input
             label="Title *"
             placeholder="Enter Title"
             htmlFor="title"
             required
           />
-          <TextInput
+          <Input
             label="Slug *"
             placeholder="Enter Slug"
             htmlFor="slug"

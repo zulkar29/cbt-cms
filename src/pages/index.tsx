@@ -13,7 +13,7 @@ import Delivered from './orders/delivered';
 import PendingOrders from './orders/pending';
 import AllProducts from './product';
 import Reviews from './reviews';
-import StockOutProducts from './stockout-product';
+import StockOutProducts from './product/stockout';
 import SubCategory from './category/subcategory';
 import VideosPage from './videos';
 import CouponPage from './marketing/coupon';
@@ -31,6 +31,8 @@ import UpdateChildCategory from './category/update-chidcategory';
 import CreateVideo from './videos/create-video';
 import UpdateVideo from './videos/update-video';
 import CreateBlog from './blogs/create';
+import UpdateProduct from './product/update-product';
+import CreateProduct from './product/create-product';
 
 function PageRoutes() {
   return (
@@ -50,9 +52,14 @@ function PageRoutes() {
         element={<UpdateChildCategory />}
       />
 
+      {/* Products */}
       <Route path="/products" element={<AllProducts />} />
+      <Route path="/products/edit/:id" element={<UpdateProduct />} />
+      <Route path="/products/create" element={<CreateProduct />} />
       <Route path="/products/stockout" element={<StockOutProducts />} />
       <Route path="/products/reviews" element={<Reviews />} />
+
+      {/* Orders */}
       <Route path="/orders" element={<AllOrders />} />
       <Route path="/orders/pending" element={<PendingOrders />} />
       <Route path="/orders/delivered" element={<Delivered />} />
