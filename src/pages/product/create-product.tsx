@@ -100,15 +100,6 @@ const CreateProduct: React.FC = () => {
                   setValue={setDescription}
                 />
               </Display>
-
-              <Display>
-                <Input
-                  placeholder="Meta Title"
-                  label="Meta Title"
-                  htmlFor="meta-title"
-                />
-                <TextArea label="Description" placeholder="Meta Description" />
-              </Display>
             </div>
           </div>
           <div className="col-md-4">
@@ -150,6 +141,14 @@ const CreateProduct: React.FC = () => {
                   options={options2}
                   required
                 />
+              </Display>
+              <Display>
+                <Input
+                  placeholder="Meta Title"
+                  label="Meta Title"
+                  htmlFor="meta-title"
+                />
+                <TextArea label="Description" placeholder="Meta Description" />
               </Display>
             </div>
           </div>
