@@ -34,6 +34,8 @@ import CreateBlog from './blogs/create';
 import UpdateProduct from './product/update-product';
 import CreateProduct from './product/create-product';
 import OrderView from './orders/view';
+import CreateFaq from './faqs/create-faq';
+import UpdateFaq from './faqs/update-faq';
 
 function PageRoutes() {
   return (
@@ -74,8 +76,11 @@ function PageRoutes() {
       {/* Videos */}
       <Route path="/videos" element={<VideosPage />} />
       <Route path="/videos/create" element={<CreateVideo />} />
-      <Route path="/videos/edit/:id" element={<UpdateVideo />} />
+      <Route path="/videos/edit/:slug" element={<UpdateVideo />} />
+      {/* Faq */}
       <Route path="/faqs" element={<FaqPage />} />
+      <Route path="/faqs/create" element={<CreateFaq />} />
+      <Route path="/faqs/edit/:slug" element={<UpdateFaq />} />
       <Route path="/faqs/categories" element={<FaqCategories />} />
       {/* Marketing */}
       <Route path="/coupons" element={<CouponPage />} />

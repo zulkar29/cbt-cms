@@ -59,7 +59,7 @@ const FaqPage = () => {
                   <Select />
                 </Column>
                 <Column>
-                  <Actions editUrl="/categories/edit" />
+                  <Actions editUrl="/faqs/edit/1" />
                 </Column>
               </Row>
             ))}
