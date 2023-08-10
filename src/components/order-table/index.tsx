@@ -19,7 +19,7 @@ const OrderTable = () => {
         </Row>
       </thead>
       <tbody>
-        {[...Array(10).keys()].map((_item, index) => (
+        {[...Array(10).keys()].map((_order, index) => (
           <Row key={index}>
             <Column> bmHWqM9CA7</Column>
             <Column>202,696.96 TK</Column>
@@ -34,7 +34,7 @@ const OrderTable = () => {
               <Select />
             </Column>
             <Column>
-              <Actions editUrl="/orders/1" />
+              <Actions viewLink="/orders/views/1" />
             </Column>
           </Row>
         ))}
