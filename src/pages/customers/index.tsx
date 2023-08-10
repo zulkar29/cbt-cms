@@ -28,46 +28,16 @@ const Customers = () => {
             <th>Actions</th>
           </thead>
           <tbody>
-            <Row>
-              <Column>Md Sheikh Talha</Column>
-              <Column>talha.halcyon@gmail.com</Column>
-              <Column>+8801724721383</Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Md Sheikh Talha</Column>
-              <Column>talha.halcyon@gmail.com</Column>
-              <Column>+8801724721383</Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Md Sheikh Talha</Column>
-              <Column>talha.halcyon@gmail.com</Column>
-              <Column>+8801724721383</Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Md Sheikh Talha</Column>
-              <Column>talha.halcyon@gmail.com</Column>
-              <Column>+8801724721383</Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Md Sheikh Talha</Column>
-              <Column>talha.halcyon@gmail.com</Column>
-              <Column>+8801724721383</Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
+            {[...Array(3).keys()].map((_customer, index) => (
+              <Row key={index}>
+                <Column>Md Sheikh Talha</Column>
+                <Column>talha.halcyon@gmail.com</Column>
+                <Column>+8801724721383</Column>
+                <Column>
+                  <Actions editUrl="/orders/edit" />
+                </Column>
+              </Row>
+            ))}
           </tbody>
         </Table>
         <Pagination />

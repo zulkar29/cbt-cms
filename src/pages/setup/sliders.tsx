@@ -44,7 +44,7 @@ const Sliders = () => {
                 <Select />
               </Column>
               <Column>
-                <Actions />
+                <Actions editUrl="/setup/sliders/edit" />
               </Column>
             </Row>
             <Row>
@@ -59,7 +59,7 @@ const Sliders = () => {
                 <Select />
               </Column>
               <Column>
-                <Actions />
+                <Actions editUrl="/setup/sliders/edit" />
               </Column>
             </Row>
           </tbody>

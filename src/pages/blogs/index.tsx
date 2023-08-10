@@ -50,7 +50,7 @@ const Blogs = () => {
                   <Select />
                 </Column>
                 <Column>
-                  <Actions />
+                  <Actions editUrl={`/blog/edit/1`} />
                 </Column>
               </Row>
             ))}

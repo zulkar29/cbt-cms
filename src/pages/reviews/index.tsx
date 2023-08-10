@@ -34,132 +34,22 @@ const Reviews = () => {
             </Row>
           </thead>
           <tbody>
-            <Row>
-              <Column>Alex Smith</Column>
-              <Column>
-                New French Elegant White Bubble Sleeve Party Dress Casual A-Line
-                Dresses, Long Sleeve Dresses
-              </Column>
-              <Column>3.5</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Alex Smith</Column>
-              <Column>
-                New French Elegant White Bubble Sleeve Party Dress Casual A-Line
-                Dresses, Long Sleeve Dresses
-              </Column>
-              <Column>3.5</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Alex Smith</Column>
-              <Column>
-                New French Elegant White Bubble Sleeve Party Dress Casual A-Line
-                Dresses, Long Sleeve Dresses
-              </Column>
-              <Column>3.5</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Alex Smith</Column>
-              <Column>
-                New French Elegant White Bubble Sleeve Party Dress Casual A-Line
-                Dresses, Long Sleeve Dresses
-              </Column>
-              <Column>3.5</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Alex Smith</Column>
-              <Column>
-                New French Elegant White Bubble Sleeve Party Dress Casual A-Line
-                Dresses, Long Sleeve Dresses
-              </Column>
-              <Column>3.5</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Alex Smith</Column>
-              <Column>
-                New French Elegant White Bubble Sleeve Party Dress Casual A-Line
-                Dresses, Long Sleeve Dresses
-              </Column>
-              <Column>3.5</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Alex Smith</Column>
-              <Column>
-                New French Elegant White Bubble Sleeve Party Dress Casual A-Line
-                Dresses, Long Sleeve Dresses
-              </Column>
-              <Column>3.5</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Alex Smith</Column>
-              <Column>
-                New French Elegant White Bubble Sleeve Party Dress Casual A-Line
-                Dresses, Long Sleeve Dresses
-              </Column>
-              <Column>3.5</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>Alex Smith</Column>
-              <Column>
-                New French Elegant White Bubble Sleeve Party Dress Casual A-Line
-                Dresses, Long Sleeve Dresses
-              </Column>
-              <Column>3.5</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
+            {[...Array(6).keys()].map((_review, index) => (
+              <Row key={index}>
+                <Column>Alex Smith</Column>
+                <Column>
+                  New French Elegant White Bubble Sleeve Party Dress Casual
+                  A-Line Dresses, Long Sleeve Dresses
+                </Column>
+                <Column>3.5</Column>
+                <Column>
+                  <Select />
+                </Column>
+                <Column>
+                  <Actions editUrl="/review/details" />
+                </Column>
+              </Row>
+            ))}
           </tbody>
         </Table>
         <Pagination />

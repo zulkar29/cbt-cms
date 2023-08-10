@@ -35,94 +35,30 @@ const StockOutProducts = () => {
             </Row>
           </thead>
           <tbody>
-            <Row>
-              <Column>
-                <img
-                  src="https://geniusdevs.com/codecanyon/omnimart40/assets/images/1634135320H408d7d7e37b4437297de600584c1af1fL.jpg"
-                  alt="product"
-                />
-              </Column>
-              <Column>
-                Men Shirt Custom Shirts Hot Sale Men Women Polyester Cotton Long
-                Sleeve Casual pro
-              </Column>
-              <Column>$1,352.81</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>
-                <img
-                  src="https://geniusdevs.com/codecanyon/omnimart40/assets/images/1634135320H408d7d7e37b4437297de600584c1af1fL.jpg"
-                  alt="product"
-                />
-              </Column>
-              <Column>
-                Men Shirt Custom Shirts Hot Sale Men Women Polyester Cotton Long
-                Sleeve Casual pro
-              </Column>
-              <Column>$1,352.81</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>
-                <img
-                  src="https://geniusdevs.com/codecanyon/omnimart40/assets/images/1634135320H408d7d7e37b4437297de600584c1af1fL.jpg"
-                  alt="product"
-                />
-              </Column>
-              <Column>
-                Men Shirt Custom Shirts Hot Sale Men Women Polyester Cotton Long
-                Sleeve Casual pro
-              </Column>
-              <Column>$1,352.81</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>
-                <img
-                  src="https://geniusdevs.com/codecanyon/omnimart40/assets/images/1634135320H408d7d7e37b4437297de600584c1af1fL.jpg"
-                  alt="product"
-                />
-              </Column>
-              <Column>
-                Men Shirt Custom Shirts Hot Sale Men Women Polyester Cotton Long
-                Sleeve Casual pro
-              </Column>
-              <Column>$1,352.81</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
+            {[...Array(3).keys()].map((_category, index) => (
+              <Row key={index}>
+                <Column>
+                  <img
+                    src="https://geniusdevs.com/codecanyon/omnimart40/assets/images/1634135320H408d7d7e37b4437297de600584c1af1fL.jpg"
+                    alt="product"
+                  />
+                </Column>
+                <Column>
+                  Men Shirt Custom Shirts Hot Sale Men Women Polyester Cotton
+                  Long Sleeve Casual pro
+                </Column>
+                <Column>$1,352.81</Column>
+                <Column>
+                  <Select />
+                </Column>
+                <Column>
+                  <Select />
+                </Column>
+                <Column>
+                  <Actions editUrl="/products/edit" />
+                </Column>
+              </Row>
+            ))}
           </tbody>
         </Table>
         <Pagination />

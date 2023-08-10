@@ -36,7 +36,7 @@ const CommonPages = () => {
               <Column>About Page</Column>
               <Column>/about</Column>
               <Column>
-                <Actions />
+                <Actions editUrl="/setup/pages/edit" />
               </Column>
             </Row>
           </tbody>

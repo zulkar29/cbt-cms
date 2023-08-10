@@ -34,7 +34,7 @@ const OrderTable = () => {
               <Select />
             </Column>
             <Column>
-              <Actions />
+              <Actions editUrl="/orders/1" />
             </Column>
           </Row>
         ))}

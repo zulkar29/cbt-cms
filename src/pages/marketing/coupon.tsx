@@ -35,54 +35,20 @@ const CouponPage = () => {
             </Row>
           </thead>
           <tbody>
-            <Row>
-              <Column>01</Column>
-              <Column>OFFER50</Column>
-              <Column>10-01-2023</Column>
-              <Column>28-02-2023</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>01</Column>
-              <Column>OFFER50</Column>
-              <Column>10-01-2023</Column>
-              <Column>28-02-2023</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>01</Column>
-              <Column>OFFER50</Column>
-              <Column>10-01-2023</Column>
-              <Column>28-02-2023</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
-            <Row>
-              <Column>01</Column>
-              <Column>OFFER50</Column>
-              <Column>10-01-2023</Column>
-              <Column>28-02-2023</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
+            {[...Array(3).keys()].map((_coupon, index) => (
+              <Row key={index}>
+                <Column>01</Column>
+                <Column>OFFER50</Column>
+                <Column>10-01-2023</Column>
+                <Column>28-02-2023</Column>
+                <Column>
+                  <Select />
+                </Column>
+                <Column>
+                  <Actions editUrl="/coupon/edit" />
+                </Column>
+              </Row>
+            ))}
           </tbody>
         </Table>
         <Pagination />

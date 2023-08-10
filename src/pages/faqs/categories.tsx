@@ -33,19 +33,21 @@ const FaqCategories = () => {
             </Row>
           </tbody>
           <tbody>
-            <Row>
-              <Column>Offer Information !</Column>
-              <Column>
-                But I must explain to you how all this mistaken idea of
-                denouncing pleasure and praising pain was born
-              </Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions />
-              </Column>
-            </Row>
+            {[...Array(3).keys()].map((_category, index) => (
+              <Row key={index}>
+                <Column>Offer Information !</Column>
+                <Column>
+                  But I must explain to you how all this mistaken idea of
+                  denouncing pleasure and praising pain was born
+                </Column>
+                <Column>
+                  <Select />
+                </Column>
+                <Column>
+                  <Actions editUrl="/faqs/edit" />
+                </Column>
+              </Row>
+            ))}
           </tbody>
         </Table>
         <Pagination />
