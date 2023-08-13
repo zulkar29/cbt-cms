@@ -12,7 +12,7 @@ const OrderView: React.FC = () => {
       <ReactToPrint
         trigger={() => (
           <div className="print-control">
-            <button>
+            <button title="Print">
               <AiOutlinePrinter />
             </button>
           </div>
