@@ -1,0 +1,16 @@
+.csv-icon {
+  padding: 5px;
+  width: 20px;
+  margin-left: auto;
+  cursor: pointer;
+}
+.date-area {
+  width: 80%;
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-between;
+
+  .text {
+    width: 49%;
+  }
+}

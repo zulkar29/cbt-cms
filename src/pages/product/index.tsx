@@ -51,6 +51,7 @@ const AllProducts: React.FC = () => {
         <Table>
           <thead>
             <Row>
+              <th>SI No</th>
               <th>Images</th>
               <th>Name</th>
               <th>Price</th>
@@ -65,6 +66,7 @@ const AllProducts: React.FC = () => {
             ) : (
               products.map((product, index) => (
                 <Row key={index}>
+                  <Column>{index + 1}</Column>
                   <Column>
                     <img
                       src="https://geniusdevs.com/codecanyon/omnimart40/assets/images/1634135320H408d7d7e37b4437297de600584c1af1fL.jpg"

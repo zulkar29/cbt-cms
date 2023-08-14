@@ -9,6 +9,8 @@ interface IProps {
   required?: boolean;
   readOnly?: boolean;
   htmlFor: string;
+  onChange?: () => void;
+  name?: string;
 }
 
 const Input: React.FC<IProps> = ({
@@ -20,11 +22,13 @@ const Input: React.FC<IProps> = ({
   required,
   readOnly,
   htmlFor,
+  name,
 }) => {
   return (
     <div className="text">
       <label htmlFor={htmlFor}>{label}</label>
       <input
+        name={name}
         type={type ? type : 'text'}
         id={htmlFor}
         placeholder={placeholder}
