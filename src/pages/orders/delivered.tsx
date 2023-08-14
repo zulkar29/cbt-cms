@@ -4,7 +4,7 @@ import OrderTable from '../../components/order-table';
 import Pagination from '../../components/pagination';
 import Filter from '../../components/filter';
 
-const Delivered = () => {
+const Delivered: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
 
   console.log(displayItem);

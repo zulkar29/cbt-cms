@@ -9,7 +9,7 @@ import Pagination from '../../components/pagination';
 import Filter from '../../components/filter';
 import Actions from '../../components/actions';
 
-function Categories() {
+const Categories: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
 
   console.log(displayItem);
@@ -56,6 +56,6 @@ function Categories() {
       </Display>
     </div>
   );
-}
+};
 
 export default Categories;

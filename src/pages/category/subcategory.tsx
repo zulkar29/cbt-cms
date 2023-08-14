@@ -9,7 +9,7 @@ import Filter from '../../components/filter';
 import { ChangeEvent, useState } from 'react';
 import Actions from '../../components/actions';
 
-const SubCategory = () => {
+const SubCategory: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
 
   console.log(displayItem);

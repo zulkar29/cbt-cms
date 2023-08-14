@@ -9,7 +9,7 @@ import CardBody from '../../components/card-body';
 import { ChangeEvent, useState } from 'react';
 import Filter from '../../components/filter';
 
-const FaqPage = () => {
+const FaqPage: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
 
   console.log(displayItem);

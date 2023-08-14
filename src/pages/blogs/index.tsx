@@ -9,7 +9,7 @@ import Table from '../../components/table';
 import Column from '../../components/table/column';
 import Row from '../../components/table/row';
 
-const Blogs = () => {
+const Blogs: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
 
   console.log(displayItem);

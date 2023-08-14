@@ -6,7 +6,7 @@ import Input from '../../components/forms/text-input';
 import TextArea from '../../components/forms/textarea';
 import Select from '../../components/forms/select';
 
-const UpdateFaq = () => {
+const UpdateFaq: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('');
 
   const options = [

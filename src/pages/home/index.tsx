@@ -54,7 +54,7 @@ const data: IData[] = [
   },
 ];
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeItem = data[activeIndex];
 

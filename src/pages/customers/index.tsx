@@ -7,7 +7,7 @@ import Column from '../../components/table/column';
 import Row from '../../components/table/row';
 import Filter from '../../components/filter';
 
-const Customers = () => {
+const Customers: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
 
   console.log(displayItem);

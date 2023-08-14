@@ -1,4 +1,4 @@
-const SetupPage = () => {
+const SetupPage: React.FC = () => {
   return <div>SetupPage</div>;
 };
 

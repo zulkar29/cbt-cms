@@ -9,7 +9,7 @@ import Actions from '../../components/actions';
 import { ChangeEvent, useState } from 'react';
 import Filter from '../../components/filter';
 
-const CouponPage = () => {
+const CouponPage: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
 
   console.log(displayItem);

@@ -4,7 +4,7 @@ import OrderTable from '../../components/order-table';
 import { ChangeEvent, useState } from 'react';
 import Filter from '../../components/filter';
 
-const PendingOrders = () => {
+const PendingOrders: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
 
   console.log(displayItem);

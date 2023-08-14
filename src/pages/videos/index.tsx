@@ -7,7 +7,7 @@ import Actions from '../../components/actions';
 import Pagination from '../../components/pagination';
 import CardBody from '../../components/card-body';
 
-const VideosPage = () => {
+const VideosPage: React.FC = () => {
   return (
     <div>
       <CardBody header="Videos" to="/videos/create" />

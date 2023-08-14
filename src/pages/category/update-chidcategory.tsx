@@ -5,7 +5,7 @@ import Display from '../../components/display';
 import Input from '../../components/forms/text-input';
 import Select from '../../components/forms/select';
 
-const UpdateChildCategory = () => {
+const UpdateChildCategory: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [selectedOption2, setSelectedOption2] = useState('');
   const options = [

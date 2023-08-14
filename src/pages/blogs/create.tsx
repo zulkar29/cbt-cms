@@ -9,7 +9,7 @@ import Select from '../../components/forms/select';
 import DescriptionInput from '../../components/description';
 import './index.scss';
 
-const CreateBlog = () => {
+const CreateBlog: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [description, setDescription] = useState<string>('');
   const [selectedOption, setSelectedOption] = useState<string>('');

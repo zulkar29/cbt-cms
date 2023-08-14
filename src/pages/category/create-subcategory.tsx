@@ -5,7 +5,7 @@ import Display from '../../components/display';
 import Input from '../../components/forms/text-input';
 import Select from '../../components/forms/select';
 
-const CreateSubcategory = () => {
+const CreateSubcategory: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const options = [
     { value: 'option1', label: 'Option 1' },

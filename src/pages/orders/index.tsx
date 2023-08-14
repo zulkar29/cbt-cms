@@ -4,7 +4,7 @@ import Display from '../../components/display';
 import Filter from '../../components/filter';
 import { ChangeEvent, useState } from 'react';
 
-const AllOrders = () => {
+const AllOrders: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
 
   console.log(displayItem);

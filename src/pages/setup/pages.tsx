@@ -7,7 +7,7 @@ import Actions from '../../components/actions';
 import Filter from '../../components/filter';
 import { ChangeEvent, useState } from 'react';
 
-const CommonPages = () => {
+const CommonPages: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
 
   console.log(displayItem);

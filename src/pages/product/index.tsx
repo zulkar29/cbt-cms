@@ -61,7 +61,7 @@ const AllProducts: React.FC = () => {
           </thead>
           <tbody>
             {isLoading ? (
-              <div>Loading...</div>
+              <div>Loading ...</div>
             ) : (
               products.map((product, index) => (
                 <Row key={index}>

@@ -6,7 +6,7 @@ import FileInput from '../../components/forms/file-input';
 import Input from '../../components/forms/text-input';
 import TextArea from '../../components/forms/textarea';
 
-const CreateCategory = () => {
+const CreateCategory: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const handleChangeFile = (selectedFile: File | null) => {
     setFile(selectedFile);
