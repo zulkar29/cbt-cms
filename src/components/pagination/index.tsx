@@ -1,14 +1,11 @@
-import { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import './index.scss';
 
-const Pagination = () => {
-  const [page, setPage] = useState<number>(0);
-  console.log(page);
-  const handlePageClick = (count: { selected: number }) => {
-    setPage(count.selected);
-  };
+interface IProps {
+  handlePageClick?: (count: { selected: number }) => void;
+}
 
+const Pagination: React.FC<IProps> = ({ handlePageClick }) => {
   return (
     <div className="page-container">
       <ReactPaginate

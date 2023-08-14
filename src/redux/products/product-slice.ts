@@ -1,73 +1,68 @@
-import { PRODUCTS_URL } from '../constants';
-import { apiSlice } from './apiSlice';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { getAllProducts } from './product-service';
 
-export const productsApiSlice = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
-    getProducts: builder.query({
-      query: ({ keyword, pageNumber }) => ({
-        url: PRODUCTS_URL,
-        params: { keyword, pageNumber },
-      }),
-      keepUnusedDataFor: 5,
-      providesTags: ['Products'],
-    }),
-    getProductDetails: builder.query({
-      query: (productId) => ({
-        url: `${PRODUCTS_URL}/${productId}`,
-      }),
-      keepUnusedDataFor: 5,
-    }),
-    createProduct: builder.mutation({
-      query: () => ({
-        url: `${PRODUCTS_URL}`,
-        method: 'POST',
-      }),
-      invalidatesTags: ['Product'],
-    }),
-    updateProduct: builder.mutation({
-      query: (data) => ({
-        url: `${PRODUCTS_URL}/${data.productId}`,
-        method: 'PUT',
-        body: data,
-      }),
-      invalidatesTags: ['Products'],
-    }),
-    uploadProductImage: builder.mutation({
-      query: (data) => ({
-        url: `/api/upload`,
-        method: 'POST',
-        body: data,
-      }),
-    }),
-    deleteProduct: builder.mutation({
-      query: (productId) => ({
-        url: `${PRODUCTS_URL}/${productId}`,
-        method: 'DELETE',
-      }),
-      providesTags: ['Product'],
-    }),
-    createReview: builder.mutation({
-      query: (data) => ({
-        url: `${PRODUCTS_URL}/${data.productId}/reviews`,
-        method: 'POST',
-        body: data,
-      }),
-      invalidatesTags: ['Product'],
-    }),
-    getTopProducts: builder.query({
-      query: () => `${PRODUCTS_URL}/top`,
-      keepUnusedDataFor: 5,
-    }),
-  }),
+interface IProduct {
+  name: string;
+}
+
+interface IState {
+  products: IProduct[];
+  isError: boolean;
+  isSuccess: boolean;
+  isLoading: boolean;
+  message: string;
+}
+const initialState: IState = {
+  products: [],
+  isError: false,
+  isSuccess: false,
+  isLoading: false,
+  message: '',
+};
+
+// Get user products
+export const getProducts = createAsyncThunk(
+  'product/getAllProducts',
+  async ({ page, limit }: { [key: string]: number }, thunkAPI) => {
+    try {
+      return await getAllProducts(page, limit);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'An error occurred';
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const productSlice = createSlice({
+  name: 'product',
+  initialState,
+  reducers: {
+    reset: (state) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = false;
+      state.message = '';
+    },
+  },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(getProducts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getProducts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.products = action.payload;
+      })
+      .addCase(getProducts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload as string;
+      });
+  },
 });
 
-export const {
-  useGetProductsQuery,
-  useGetProductDetailsQuery,
-  useCreateProductMutation,
-  useUpdateProductMutation,
-  useUploadProductImageMutation,
-  useDeleteProductMutation,
-  useCreateReviewMutation,
-  useGetTopProductsQuery,
-} = productsApiSlice;
+export const { reset } = productSlice.actions;
+export default productSlice.reducer;
