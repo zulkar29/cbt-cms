@@ -8,6 +8,7 @@ import TextArea from '../../components/forms/textarea';
 import Select from '../../components/forms/select';
 import DescriptionInput from '../../components/description';
 import './index.scss';
+import ToggleButton from '../../components/forms/checkbox';
 
 const CreateBlog: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -82,6 +83,7 @@ const CreateBlog: React.FC = () => {
             label="Meta Description"
             placeholder="Enter Meta Description"
           />
+          <ToggleButton />
           <Button>Create</Button>
         </form>
       </Display>

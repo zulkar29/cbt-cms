@@ -1,0 +1,33 @@
+/* Add this CSS to your stylesheet */
+
+.toggle-button {
+  width: 60px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 15px;
+  cursor: pointer;
+  position: relative;
+}
+
+.slider {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  transition: 0.2s;
+  top: 0;
+  left: 0;
+}
+
+.toggle-button.checked .slider {
+  transform: translateX(30px);
+}
+
+.toggle-button.active {
+  background-color: #4caf50;
+}
+
+.toggle-button.active .slider {
+  background-color: #ffffff;
+}
