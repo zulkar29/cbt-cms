@@ -1,12 +1,14 @@
+import { ChangeEvent } from 'react';
 import './index.scss';
 
 interface IProps {
   placeholder?: string;
   label: string;
   defaultValue?: string;
+  name?: string;
   value?: string;
   required?: boolean;
-  onChange: (file: File | null) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FileInput: React.FC<IProps> = ({
@@ -15,13 +17,9 @@ const FileInput: React.FC<IProps> = ({
   defaultValue,
   value,
   required,
+  name,
   onChange,
 }) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files && e.target.files[0];
-    onChange(selectedFile);
-  };
-
   return (
     <>
       <div className="file">
@@ -29,8 +27,9 @@ const FileInput: React.FC<IProps> = ({
         <input
           type="file"
           id="file"
+          name={name}
           accept=".png, .jpg, .jpeg, .webp"
-          onChange={handleChange}
+          onChange={onChange}
           placeholder={placeholder}
           defaultValue={defaultValue}
           value={value}

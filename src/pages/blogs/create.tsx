@@ -1,33 +1,59 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Button } from '../../components/button';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
 import FileInput from '../../components/forms/file-input';
 import Input from '../../components/forms/text-input';
 import TextArea from '../../components/forms/textarea';
-import Select from '../../components/forms/select';
 import DescriptionInput from '../../components/description';
 import './index.scss';
 import ToggleButton from '../../components/forms/checkbox';
 
+interface BlogData {
+  title: string;
+  description: string;
+  image: File | null;
+  is_visible: string;
+  meta_title: string;
+  meta_description: string;
+  slug: string;
+}
+
 const CreateBlog: React.FC = () => {
-  const [file, setFile] = useState<File | null>(null);
   const [description, setDescription] = useState<string>('');
-  const [selectedOption, setSelectedOption] = useState<string>('');
+  const [blogData, setBlogData] = useState<BlogData>({
+    title: '',
+    description: description,
+    image: null,
+    is_visible: '',
+    meta_title: '',
+    meta_description: '',
+    slug: '',
+  });
 
-  const options = [
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3' },
-  ];
+  const handleBlogData = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(event.target.value);
+    setBlogData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const handleChangeFile = (selectedFile: File | null) => {
-    setFile(selectedFile);
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0]; // Get the first selected file
+
+      setBlogData((prevState) => ({
+        ...prevState,
+        image: file,
+      }));
+    }
   };
+
+  console.log(blogData);
 
   return (
     <div>
@@ -36,30 +62,28 @@ const CreateBlog: React.FC = () => {
         <form>
           <FileInput
             label="Set Image *"
-            onChange={handleChangeFile}
+            name="image"
+            onChange={handleImageChange}
             placeholder="Choose an Image"
             required
           />
           <div>
-            {file && <img src={URL.createObjectURL(file)} alt="category" />}
+            {blogData.image && (
+              <img src={URL.createObjectURL(blogData.image)} alt="category" />
+            )}
           </div>
           <Input
             htmlFor="title"
             label="Title *"
+            name="title"
+            onChange={handleBlogData}
             placeholder="Enter Title"
             required
           />
-          <Select
-            label="Select Category *"
-            name="mySelect"
-            value={selectedOption}
-            onChange={handleSelectChange}
-            options={options}
-            required
-          />
+
           <textarea
             className="des-none"
-            name="desc"
+            name="description"
             id="desc"
             required
             value={description}

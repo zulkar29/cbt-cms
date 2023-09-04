@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import './index.scss';
 
 interface IProps {
@@ -9,7 +10,7 @@ interface IProps {
   required?: boolean;
   readOnly?: boolean;
   htmlFor: string;
-  onChange?: () => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   name?: string;
 }
 

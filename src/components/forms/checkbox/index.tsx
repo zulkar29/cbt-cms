@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import { FC } from 'react';
 import './index.scss';
 
-const ToggleButton = () => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+interface IProps {
+  onClick?: () => void;
+  isChecked?: boolean;
+}
 
-  const toggleButton = () => {
-    setIsChecked(!isChecked);
-  };
-
+const ToggleButton: FC<IProps> = ({ isChecked, onClick }) => {
   return (
     <div
       className={`toggle-button ${isChecked ? 'checked' : ''}`}
-      onClick={toggleButton}
+      onClick={onClick}
     >
       <div className={`slider ${isChecked ? 'active' : ''}`}></div>
     </div>
