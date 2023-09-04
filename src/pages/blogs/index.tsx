@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 import Actions from '../../components/actions';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
@@ -8,11 +8,24 @@ import Select from '../../components/select';
 import Table from '../../components/table';
 import Column from '../../components/table/column';
 import Row from '../../components/table/row';
+import axios from 'axios';
 
 const Blogs: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
+  const [blogs, setBlogs] = useState([]);
 
-  console.log(displayItem);
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get(`${import.meta.env.VITE_API_URL}/api/blogs`)
+        .then((res) => {
+          console.log(res);
+          setBlogs(res.data);
+        });
+    };
+    fetchData();
+  }, []);
+  console.log(blogs);
 
   const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
     setDisplayItem(Number(e.target.value));

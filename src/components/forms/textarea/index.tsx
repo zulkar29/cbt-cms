@@ -1,4 +1,5 @@
 import './index.scss';
+import { ChangeEvent } from 'react';
 
 interface IProps {
   placeholder?: string;
@@ -7,6 +8,8 @@ interface IProps {
   required?: boolean;
   className?: string;
   value?: string | number;
+  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  name?: string;
 }
 
 const TextArea = ({
@@ -16,6 +19,8 @@ const TextArea = ({
   className,
   value,
   required,
+  onChange,
+  name,
 }: IProps) => {
   return (
     <div className="textarea">
@@ -23,10 +28,12 @@ const TextArea = ({
       <textarea
         id="textarea"
         value={value}
+        name={name}
         className={className}
         placeholder={placeholder}
         readOnly={readonly}
         required={required}
+        onChange={onChange}
       />
     </div>
   );
