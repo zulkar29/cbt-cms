@@ -23,7 +23,6 @@ const Input: React.FC<IProps> = ({
   required,
   readOnly,
   htmlFor,
-  onChange,
   name,
 }) => {
   return (
@@ -33,7 +32,6 @@ const Input: React.FC<IProps> = ({
         name={name}
         type={type ? type : 'text'}
         id={htmlFor}
-        onChange={onChange}
         placeholder={placeholder}
         defaultValue={defaultValue}
         value={value}

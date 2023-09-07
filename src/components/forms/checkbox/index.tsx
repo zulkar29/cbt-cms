@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { FC } from 'react';
 import './index.scss';
 
@@ -19,5 +18,3 @@ const ToggleButton: FC<IProps> = ({ isChecked, onClick }) => {
 };
 
 export default ToggleButton;
-=======
->>>>>>> parent of 0fcca6f (add toggle checkbox)
