@@ -7,33 +7,27 @@ import Input from '../../components/forms/text-input';
 import TextArea from '../../components/forms/textarea';
 import DescriptionInput from '../../components/description';
 import './index.scss';
-<<<<<<< HEAD
 import ToggleButton from '../../components/forms/checkbox';
-import axios from 'axios';
 import { toast } from 'react-toastify';
-
-interface BlogData {
-  title: string;
-  description: string;
-  image: File | null;
-  is_visible: boolean;
-  meta_title: string;
-  meta_description: string;
-  slug: string;
-}
-=======
->>>>>>> parent of 0fcca6f (add toggle checkbox)
+import { BlogData } from '../../interfaces/blog';
+import { createBlog } from '../../redux/blogs/blogSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+const initialBlogData = {
+  title: '',
+  description: '',
+  image: null,
+  is_visible: false,
+  meta_title: '',
+  meta_description: '',
+  slug: '',
+};
 
 const CreateBlog: React.FC = () => {
-  const initialBlogData = {
-    title: '',
-    description: '',
-    image: null,
-    is_visible: false,
-    meta_title: '',
-    meta_description: '',
-    slug: '',
-  };
+  const dispatch = useAppDispatch();
+  const { message, isError, isSuccess } = useAppSelector(
+    (state) => state.blogs
+  );
+
   const [blogData, setBlogData] = useState<BlogData>(initialBlogData);
   console.log(blogData);
 
@@ -74,19 +68,15 @@ const CreateBlog: React.FC = () => {
     e.preventDefault();
     const formData = new FormData();
 
-    Object.entries(blogData).map(([key, value]) => {
+    Object.entries(blogData).forEach(([key, value]) => {
       formData.append(key, value);
     });
-
-    try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/blogs`,
-        formData
-      );
-      toast.success(data.message);
+    dispatch(createBlog(formData));
+    if (isSuccess) {
       setBlogData(initialBlogData);
-    } catch (error) {
-      // toast.error(error.message)
+    }
+    if (isError) {
+      toast.error(`${message}`);
     }
   };
 
@@ -115,6 +105,7 @@ const CreateBlog: React.FC = () => {
             htmlFor="title"
             label="Title *"
             name="title"
+            value={blogData.title}
             onChange={handleBlogData}
             placeholder="Enter Title"
             required
