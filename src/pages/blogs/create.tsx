@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Button } from '../../components/button';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
@@ -8,6 +8,7 @@ import TextArea from '../../components/forms/textarea';
 import DescriptionInput from '../../components/description';
 import './index.scss';
 import ToggleButton from '../../components/forms/checkbox';
+<<<<<<< HEAD
 import { toast } from 'react-toastify';
 import { BlogData } from '../../interfaces/blog';
 import { createBlog } from '../../redux/blogs/blogSlice';
@@ -30,6 +31,30 @@ const CreateBlog: React.FC = () => {
 
   const [blogData, setBlogData] = useState<BlogData>(initialBlogData);
   console.log(blogData);
+=======
+
+interface BlogData {
+  title: string;
+  description: string;
+  image: File | null;
+  is_visible: string;
+  meta_title: string;
+  meta_description: string;
+  slug: string;
+}
+
+const CreateBlog: React.FC = () => {
+  const [description, setDescription] = useState<string>('');
+  const [blogData, setBlogData] = useState<BlogData>({
+    title: '',
+    description: description,
+    image: null,
+    is_visible: '',
+    meta_title: '',
+    meta_description: '',
+    slug: '',
+  });
+>>>>>>> bd2a4e0931cbcca92e5ea026553e1ae3b0ca07cd
 
   const handleBlogData = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -41,6 +66,7 @@ const CreateBlog: React.FC = () => {
       [name]: value,
     }));
   };
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0]; // Get the first selected file
@@ -51,6 +77,7 @@ const CreateBlog: React.FC = () => {
       }));
     }
   };
+<<<<<<< HEAD
   const handleDescriptionChange = (value: string) => {
     setBlogData((prevState) => ({
       ...prevState,
@@ -79,12 +106,16 @@ const CreateBlog: React.FC = () => {
       toast.error(`${message}`);
     }
   };
+=======
+
+  console.log(blogData);
+>>>>>>> bd2a4e0931cbcca92e5ea026553e1ae3b0ca07cd
 
   return (
     <div>
       <CardBody header="Create Blog" to="/blogs" text="back" />
       <Display>
-        <form onSubmit={handleSubmit}>
+        <form>
           <FileInput
             label="Set Image *"
             name="image"
@@ -94,11 +125,7 @@ const CreateBlog: React.FC = () => {
           />
           <div>
             {blogData.image && (
-              <img
-                style={{ width: '100%' }}
-                src={URL.createObjectURL(blogData.image)}
-                alt="category"
-              />
+              <img src={URL.createObjectURL(blogData.image)} alt="category" />
             )}
           </div>
           <Input
@@ -111,27 +138,15 @@ const CreateBlog: React.FC = () => {
             required
           />
 
-          <Input
-            htmlFor="Slug"
-            label="Slug *"
-            name="slug"
-            onChange={handleBlogData}
-            placeholder="Enter slug"
-            required
-          />
-
           <textarea
             className="des-none"
             name="description"
             id="desc"
             required
-            value={blogData.description}
+            value={description}
             readOnly
           ></textarea>
-          <DescriptionInput
-            value={blogData.description}
-            setValue={handleDescriptionChange}
-          />
+          <DescriptionInput value={description} setValue={setDescription} />
           <br />
           <br />
 
@@ -139,8 +154,6 @@ const CreateBlog: React.FC = () => {
             htmlFor="Meta-Title"
             label="Meta title *"
             placeholder="Meta Title"
-            onChange={handleBlogData}
-            name="meta_title"
           />
           <Input
             htmlFor="Meta-Keywords"
@@ -150,13 +163,8 @@ const CreateBlog: React.FC = () => {
           <TextArea
             label="Meta Description"
             placeholder="Enter Meta Description"
-            name="meta_description"
-            onChange={handleBlogData}
           />
-          <ToggleButton
-            isChecked={blogData.is_visible}
-            onClick={handleVisible}
-          />
+          <ToggleButton />
           <Button>Create</Button>
         </form>
       </Display>

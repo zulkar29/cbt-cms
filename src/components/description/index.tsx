@@ -3,7 +3,7 @@ import './index.scss';
 
 interface IProps {
   value: string;
-  setValue: (value: string) => void;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const DescriptionInput: React.FC<IProps> = ({ value, setValue }) => {
