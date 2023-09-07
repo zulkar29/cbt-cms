@@ -7,6 +7,7 @@ import Input from '../../components/forms/text-input';
 import TextArea from '../../components/forms/textarea';
 import DescriptionInput from '../../components/description';
 import './index.scss';
+<<<<<<< HEAD
 import ToggleButton from '../../components/forms/checkbox';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -20,6 +21,8 @@ interface BlogData {
   meta_description: string;
   slug: string;
 }
+=======
+>>>>>>> parent of 0fcca6f (add toggle checkbox)
 
 const CreateBlog: React.FC = () => {
   const initialBlogData = {

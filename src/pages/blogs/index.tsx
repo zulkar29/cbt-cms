@@ -13,6 +13,7 @@ import axios from 'axios';
 const Blogs: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
   const [blogs, setBlogs] = useState([]);
+  console.log(displayItem);
 
   useEffect(() => {
     const fetchData = async () => {
