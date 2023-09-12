@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { Button } from '../../components/button';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
@@ -8,14 +8,12 @@ import TextArea from '../../components/forms/textarea';
 import DescriptionInput from '../../components/description';
 import './index.scss';
 import ToggleButton from '../../components/forms/checkbox';
-<<<<<<< HEAD
 import { toast } from 'react-toastify';
 import { BlogData } from '../../interfaces/blog';
 import { createBlog } from '../../redux/blogs/blogSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 const initialBlogData = {
   title: '',
-  description: '',
   image: null,
   is_visible: false,
   meta_title: '',
@@ -24,37 +22,13 @@ const initialBlogData = {
 };
 
 const CreateBlog: React.FC = () => {
+  const [blogData, setBlogData] = useState<BlogData>(initialBlogData);
   const dispatch = useAppDispatch();
   const { message, isError, isSuccess } = useAppSelector(
     (state) => state.blogs
   );
 
-  const [blogData, setBlogData] = useState<BlogData>(initialBlogData);
-  console.log(blogData);
-=======
-
-interface BlogData {
-  title: string;
-  description: string;
-  image: File | null;
-  is_visible: string;
-  meta_title: string;
-  meta_description: string;
-  slug: string;
-}
-
-const CreateBlog: React.FC = () => {
-  const [description, setDescription] = useState<string>('');
-  const [blogData, setBlogData] = useState<BlogData>({
-    title: '',
-    description: description,
-    image: null,
-    is_visible: '',
-    meta_title: '',
-    meta_description: '',
-    slug: '',
-  });
->>>>>>> bd2a4e0931cbcca92e5ea026553e1ae3b0ca07cd
+  const [description, setDescription] = useState('');
 
   const handleBlogData = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -77,13 +51,12 @@ const CreateBlog: React.FC = () => {
       }));
     }
   };
-<<<<<<< HEAD
-  const handleDescriptionChange = (value: string) => {
+  /*   const handleDescriptionChange = (value: string) => {
     setBlogData((prevState) => ({
       ...prevState,
       description: value,
     }));
-  };
+  }; */
   const handleVisible = () => {
     setBlogData((prevState) => ({
       ...prevState,
@@ -106,10 +79,8 @@ const CreateBlog: React.FC = () => {
       toast.error(`${message}`);
     }
   };
-=======
 
   console.log(blogData);
->>>>>>> bd2a4e0931cbcca92e5ea026553e1ae3b0ca07cd
 
   return (
     <div>
@@ -164,7 +135,10 @@ const CreateBlog: React.FC = () => {
             label="Meta Description"
             placeholder="Enter Meta Description"
           />
-          <ToggleButton />
+          <ToggleButton
+            isChecked={blogData.is_visible}
+            onClick={handleVisible}
+          />
           <Button>Create</Button>
         </form>
       </Display>

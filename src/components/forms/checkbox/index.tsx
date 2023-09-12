@@ -9,6 +9,7 @@ interface IProps {
 const ToggleButton: FC<IProps> = ({ isChecked, onClick }) => {
   return (
     <div
+      title="Visible"
       className={`toggle-button ${isChecked ? 'checked' : ''}`}
       onClick={onClick}
     >
