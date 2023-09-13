@@ -15,6 +15,7 @@ const Blogs: React.FC = () => {
   // const [selectedBlog, setSelectedBlog] = useState<number[]>([]);
   const dispatch = useAppDispatch();
   const { blogs } = useAppSelector((state) => state.blogs);
+  console.log(displayItem);
 
   useEffect(() => {
     dispatch(getBlogs());

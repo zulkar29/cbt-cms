@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 const initialBlogData = {
   title: '',
   image: null,
+  description: '',
   is_visible: false,
   meta_title: '',
   meta_keyword: '',
@@ -64,10 +65,10 @@ const CreateBlog: React.FC = () => {
     e.preventDefault();
     const formData = new FormData();
 
-    formData.append('description', description);
     Object.entries(blogData).forEach(([key, value]) => {
       formData.append(key, value);
     });
+    formData.append('description', description);
     dispatch(createBlog(formData));
     if (isSuccess) {
       toast.success(`${message}`);
