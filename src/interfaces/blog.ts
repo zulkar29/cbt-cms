@@ -4,5 +4,6 @@ export interface BlogData {
   is_visible: boolean;
   meta_title: string;
   meta_description: string;
+  meta_keyword: string;
   slug: string;
 }

@@ -24,7 +24,7 @@ const VideosPage: React.FC = () => {
           </tbody>
           <tbody>
             {[...Array(5).keys()].map((_video, index) => (
-              <Row>
+              <Row key={1}>
                 <Column>01</Column>
                 <Column>
                   Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance

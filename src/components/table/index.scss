@@ -6,12 +6,12 @@
   margin-bottom: 15px;
   max-width: none;
   border-collapse: separate;
-  border: 1px solid $secondary-color;
+  // border: 1px solid $secondary-color;
 
-  th {
+  div {
     padding: 12px;
-    border-right: 1px solid $secondary-color;
-    border-bottom: 1px dashed $secondary-color;
+    // border-right: 1px solid $secondary-color;
+    // border-bottom: 1px dashed $secondary-color;
     &:last-child {
       border-right: none;
     }

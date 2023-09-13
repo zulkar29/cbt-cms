@@ -17,6 +17,7 @@ const initialBlogData = {
   image: null,
   is_visible: false,
   meta_title: '',
+  meta_keyword: '',
   meta_description: '',
   slug: '',
 };
@@ -68,6 +69,7 @@ const CreateBlog: React.FC = () => {
     e.preventDefault();
     const formData = new FormData();
 
+    formData.append('description', description);
     Object.entries(blogData).forEach(([key, value]) => {
       formData.append(key, value);
     });
@@ -86,7 +88,7 @@ const CreateBlog: React.FC = () => {
     <div>
       <CardBody header="Create Blog" to="/blogs" text="back" />
       <Display>
-        <form>
+        <form onSubmit={handleSubmit}>
           <FileInput
             label="Set Image *"
             name="image"
@@ -96,7 +98,11 @@ const CreateBlog: React.FC = () => {
           />
           <div>
             {blogData.image && (
-              <img src={URL.createObjectURL(blogData.image)} alt="category" />
+              <img
+                style={{ width: '100%' }}
+                src={URL.createObjectURL(blogData.image)}
+                alt="category"
+              />
             )}
           </div>
           <Input
@@ -124,15 +130,24 @@ const CreateBlog: React.FC = () => {
           <Input
             htmlFor="Meta-Title"
             label="Meta title *"
+            name="meta_title"
+            value={blogData.meta_title}
+            onChange={handleBlogData}
             placeholder="Meta Title"
           />
           <Input
             htmlFor="Meta-Keywords"
             label="Meta Keywords *"
+            name="meta_keyword"
+            onChange={handleBlogData}
+            value={blogData.meta_keyword}
             placeholder="Meta Keywords"
           />
           <TextArea
             label="Meta Description"
+            name="meta_description"
+            onChange={handleBlogData}
+            value={blogData.meta_description}
             placeholder="Enter Meta Description"
           />
           <ToggleButton
