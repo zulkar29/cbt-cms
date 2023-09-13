@@ -12,8 +12,7 @@ import { getBlogs } from '../../redux/blogs/blogSlice';
 
 const Blogs: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
-  const [selectedBlog, setSelectedBlog] = useState<number[]>([]);
-  console.log(selectedBlog);
+  // const [selectedBlog, setSelectedBlog] = useState<number[]>([]);
   const dispatch = useAppDispatch();
   const { blogs } = useAppSelector((state) => state.blogs);
 
@@ -21,7 +20,7 @@ const Blogs: React.FC = () => {
     dispatch(getBlogs());
   }, [dispatch]);
 
-  const handleSelectedBlog = (blogId: number) => {
+  /*   const handleSelectedBlog = (blogId: number) => {
     const selectedBlogSet = new Set(selectedBlog);
 
     if (selectedBlogSet.has(blogId)) {
@@ -32,7 +31,7 @@ const Blogs: React.FC = () => {
 
     setSelectedBlog(Array.from(selectedBlogSet));
   };
-
+ */
   const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
     setDisplayItem(Number(e.target.value));
   };
@@ -43,7 +42,6 @@ const Blogs: React.FC = () => {
       <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
         <Row className="row">
-          <Column className="col-md-1">Select</Column>
           <Column className="col-md-1">SI No.</Column>
           <Column className="col-md-2">Title</Column>
           <Column className="col-md-6">Sort Description</Column>
@@ -53,12 +51,12 @@ const Blogs: React.FC = () => {
         <>
           {blogs.map((blog, index) => (
             <Row className="row" key={index}>
-              <Column className="col-md-1">
+              {/*  <Column className="col-md-1">
                 <input
                   type="checkbox"
                   onClick={() => handleSelectedBlog(blog.id)}
                 />
-              </Column>
+              </Column> */}
               <Column className="col-md-1">{index + 1}</Column>
               <Column className="col-md-2">{blog.title}</Column>
               <Column className="col-md-6">

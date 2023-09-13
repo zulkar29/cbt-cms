@@ -8,3 +8,6 @@ export interface BlogData {
   meta_keyword: string;
   slug: string;
 }
+export interface ResponseBlogData extends BlogData {
+  id: number;
+}

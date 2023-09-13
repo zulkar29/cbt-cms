@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
-import { BlogData } from '../../interfaces/blog';
+import { ResponseBlogData } from '../../interfaces/blog';
 
 export interface ICreateResponse {
   message: string;
@@ -26,7 +26,7 @@ const createNewBlog = async (blogData: FormData): Promise<ICreateResponse> => {
   return data;
 };
 
-const getBlogs = async (): Promise<BlogData[]> => {
+const getBlogs = async (): Promise<ResponseBlogData[]> => {
   const { data } = await axios.get(`${API_URL}/blogs`);
   return data;
 };
