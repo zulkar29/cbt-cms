@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState, useRef } from 'react';
 import { Button } from '../../components/button';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
@@ -24,8 +24,9 @@ const initialBlogData = {
 
 const CreateBlog: React.FC = () => {
   const [blogData, setBlogData] = useState<BlogData>(initialBlogData);
+  const formRef = useRef<HTMLFormElement | null>(null);
   const dispatch = useAppDispatch();
-  const { message, isError, isSuccess } = useAppSelector(
+  const { message, isError, isLoading, isSuccess } = useAppSelector(
     (state) => state.blogs
   );
 
@@ -52,12 +53,6 @@ const CreateBlog: React.FC = () => {
       }));
     }
   };
-  /*   const handleDescriptionChange = (value: string) => {
-    setBlogData((prevState) => ({
-      ...prevState,
-      description: value,
-    }));
-  }; */
   const handleVisible = () => {
     setBlogData((prevState) => ({
       ...prevState,
@@ -75,20 +70,21 @@ const CreateBlog: React.FC = () => {
     });
     dispatch(createBlog(formData));
     if (isSuccess) {
+      toast.success(`${message}`);
       setBlogData(initialBlogData);
-    }
-    if (isError) {
+      setDescription('');
+      window.location.reload();
+    } else if (isError) {
       toast.error(`${message}`);
     }
   };
 
-  console.log(blogData);
-
   return (
     <div>
       <CardBody header="Create Blog" to="/blogs" text="back" />
+      {isLoading && <p>Please Wait.</p>}
       <Display>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} ref={formRef}>
           <FileInput
             label="Set Image *"
             name="image"
@@ -127,6 +123,14 @@ const CreateBlog: React.FC = () => {
           <br />
           <br />
 
+          <Input
+            htmlFor="Slug"
+            label="slug *"
+            name="slug"
+            value={blogData.slug}
+            onChange={handleBlogData}
+            placeholder="Slug"
+          />
           <Input
             htmlFor="Meta-Title"
             label="Meta title *"

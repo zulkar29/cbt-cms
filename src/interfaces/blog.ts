@@ -1,5 +1,6 @@
 export interface BlogData {
   title: string;
+  description: string;
   image: File | null;
   is_visible: boolean;
   meta_title: string;

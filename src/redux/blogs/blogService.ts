@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
+import { BlogData } from '../../interfaces/blog';
 
 export interface ICreateResponse {
   message: string;
@@ -18,12 +19,21 @@ export interface ICreateResponse {
 }
 
 const createNewBlog = async (blogData: FormData): Promise<ICreateResponse> => {
-  const { data } = await axios.post(`${API_URL}/blogs`, blogData);
+  const { data } = await axios.post(
+    `${API_URL}/blogs/?page=1&limit=15`,
+    blogData
+  );
+  return data;
+};
+
+const getBlogs = async (): Promise<BlogData[]> => {
+  const { data } = await axios.get(`${API_URL}/blogs`);
   return data;
 };
 
 const blogService = {
   createNewBlog,
+  getBlogs,
 };
 
 export default blogService;

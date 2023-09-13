@@ -5,6 +5,7 @@ import { RootState } from '../store';
 
 interface IBlogResponse {
   blogs: BlogData[];
+  totalCount: number;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
@@ -13,6 +14,7 @@ interface IBlogResponse {
 
 const initialState: IBlogResponse = {
   blogs: [],
+  totalCount: 0,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -33,6 +35,19 @@ export const createBlog = createAsyncThunk(
   }
 );
 
+export const getBlogs = createAsyncThunk(
+  'goals/getAll',
+  async (_, thunkAPI) => {
+    try {
+      return await blogService.getBlogs();
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'An error occurred';
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const blogSlice = createSlice({
   name: 'Blog',
   initialState,
@@ -44,14 +59,29 @@ export const blogSlice = createSlice({
       .addCase(createBlog.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createBlog.fulfilled, (state) => {
+      .addCase(createBlog.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.message = (action.payload as ICreateResponse).message;
       })
       .addCase(createBlog.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = (action.payload as ICreateResponse).message;
+        state.message = action.payload;
+      })
+      /* TODO: GET BLOG DATA SET */
+      .addCase(getBlogs.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getBlogs.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.blogs = action.payload.data.rows;
+      })
+      .addCase(getBlogs.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });
