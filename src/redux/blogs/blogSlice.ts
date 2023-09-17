@@ -37,9 +37,9 @@ export const createBlog = createAsyncThunk(
 
 export const getBlogs = createAsyncThunk(
   'goals/getAll',
-  async (_, thunkAPI) => {
+  async ({ page, limit }: { page: number; limit: number }, thunkAPI) => {
     try {
-      return await blogService.getBlogs();
+      return await blogService.getBlogs({ page, limit });
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -77,6 +77,7 @@ export const blogSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.blogs = action.payload.data.rows;
+        state.totalCount = action.payload.data.count;
       })
       .addCase(getBlogs.rejected, (state, action) => {
         state.isLoading = false;

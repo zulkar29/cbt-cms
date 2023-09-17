@@ -23,11 +23,19 @@ const createNewBlog = async (blogData: FormData): Promise<ICreateResponse> => {
     `${API_URL}/blogs/?page=1&limit=15`,
     blogData
   );
-  return data;
+  return data.data;
 };
 
-const getBlogs = async (): Promise<ResponseBlogData[]> => {
-  const { data } = await axios.get(`${API_URL}/blogs`);
+const getBlogs = async ({
+  page,
+  limit,
+}: {
+  page: number;
+  limit: number;
+}): Promise<ResponseBlogData> => {
+  const { data } = await axios.get(
+    `${API_URL}/blogs?page=${page}&limit=${limit}`
+  );
   return data;
 };
 

@@ -13,13 +13,19 @@ import { getBlogs } from '../../redux/blogs/blogSlice';
 const Blogs: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
   // const [selectedBlog, setSelectedBlog] = useState<number[]>([]);
+  const [pageNumber, setPageNumber] = useState<number>(1);
   const dispatch = useAppDispatch();
-  const { blogs } = useAppSelector((state) => state.blogs);
+  const { blogs, totalCount } = useAppSelector((state) => state.blogs);
+
+  const totalPage = Math.floor(totalCount / displayItem);
+
+  console.log(blogs);
   console.log(displayItem);
 
   useEffect(() => {
-    dispatch(getBlogs());
-  }, [dispatch]);
+    dispatch(getBlogs({ page: pageNumber, limit: displayItem }));
+    window.scrollTo(0, 0);
+  }, [dispatch, pageNumber, displayItem]);
 
   /*   const handleSelectedBlog = (blogId: number) => {
     const selectedBlogSet = new Set(selectedBlog);
@@ -33,6 +39,10 @@ const Blogs: React.FC = () => {
     setSelectedBlog(Array.from(selectedBlogSet));
   };
  */
+  const handlePageChange = (selectedItem: { selected: number }) => {
+    setPageNumber(selectedItem.selected + 1);
+  };
+
   const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
     setDisplayItem(Number(e.target.value));
   };
@@ -58,7 +68,7 @@ const Blogs: React.FC = () => {
                   onClick={() => handleSelectedBlog(blog.id)}
                 />
               </Column> */}
-              <Column className="col-md-1">{index + 1}</Column>
+              <Column className="col-md-1">{blog.id}</Column>
               <Column className="col-md-2">{blog.title}</Column>
               <Column className="col-md-6">
                 <div
@@ -74,7 +84,11 @@ const Blogs: React.FC = () => {
             </Row>
           ))}
         </>
-        <Pagination />
+        <Pagination
+          pageCount={pageNumber}
+          handlePageClick={handlePageChange}
+          totalPage={totalPage}
+        />
       </Display>
     </div>
   );

@@ -1,4 +1,5 @@
 export interface BlogData {
+  id: number | string;
   title: string;
   description: string;
   image: File | null;
@@ -8,6 +9,14 @@ export interface BlogData {
   meta_keyword: string;
   slug: string;
 }
-export interface ResponseBlogData extends BlogData {
-  id: number;
+export interface ResponseBlogData {
+  data: {
+    count: number;
+    rows: BlogData[];
+  };
+}
+
+export interface PaginationProps {
+  pageCount: number;
+  onPageChange: (selectedPage: number) => void; // Callback when a page is changed
 }
