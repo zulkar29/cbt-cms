@@ -37,6 +37,7 @@ import {
   OrderView,
   CreateFaq,
   UpdateFaq,
+  UpdateBlog,
 } from './pages';
 
 function PageRoutes() {
@@ -73,6 +74,7 @@ function PageRoutes() {
       {/* Blog */}
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/blogs/create" element={<CreateBlog />} />
+      <Route path="/blogs/edit/:id" element={<UpdateBlog />} />
       <Route path="/blogs/category" element={<BlogCategories />} />
       <Route path="/customers" element={<Customers />} />
       {/* Videos */}

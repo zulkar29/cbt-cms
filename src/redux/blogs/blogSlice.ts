@@ -10,6 +10,7 @@ interface IBlogResponse {
   isSuccess: boolean;
   isLoading: boolean;
   message: string | unknown;
+  errorMessage: string | unknown;
 }
 
 const initialState: IBlogResponse = {
@@ -19,6 +20,7 @@ const initialState: IBlogResponse = {
   isSuccess: false,
   isLoading: false,
   message: '',
+  errorMessage: '',
 };
 
 // Create new Blog
@@ -67,7 +69,7 @@ export const blogSlice = createSlice({
       .addCase(createBlog.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload;
+        state.errorMessage = (action.payload as ICreateResponse).message;
       })
       /* TODO: GET BLOG DATA SET */
       .addCase(getBlogs.pending, (state) => {

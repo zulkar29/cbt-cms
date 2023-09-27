@@ -2,7 +2,7 @@ import ReactPaginate from 'react-paginate';
 import './index.scss';
 
 interface IProps {
-  pageCount: number;
+  pageCount?: number;
   handlePageClick?: (count: { selected: number }) => void;
   totalPage?: number;
 }

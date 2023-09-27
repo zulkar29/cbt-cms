@@ -72,14 +72,14 @@ const Blogs: React.FC = () => {
               <Column className="col-md-2">{blog.title}</Column>
               <Column className="col-md-6">
                 <div
-                  dangerouslySetInnerHTML={{ __html: blog.description }}
+                  dangerouslySetInnerHTML={{ __html: blog.description ?? '' }}
                 ></div>
               </Column>
               <Column className="col-md-1">
                 <ToggleButton isChecked={blog.is_visible} />
               </Column>
               <Column className="col-md-1">
-                <Actions editUrl={`/blog/edit/1`} />
+                <Actions editUrl={`/blogs/edit/${blog.id}`} />
               </Column>
             </Row>
           ))}

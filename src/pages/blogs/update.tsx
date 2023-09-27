@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 const initialBlogData = {
   title: '',
   image: null,
+  description: '',
   is_visible: false,
   meta_title: '',
   meta_keyword: '',
@@ -22,7 +23,7 @@ const initialBlogData = {
   slug: '',
 };
 
-const CreateBlog: React.FC = () => {
+const UpdateBlog: React.FC = () => {
   const [blogData, setBlogData] = useState<BlogData>(initialBlogData);
   const formRef = useRef<HTMLFormElement | null>(null);
   const dispatch = useAppDispatch();
@@ -73,7 +74,7 @@ const CreateBlog: React.FC = () => {
       toast.success(`${message}`);
       setBlogData(initialBlogData);
       setDescription('');
-      // window.location.reload();
+      window.location.reload();
     } else if (isError) {
       toast.error(`${message}`);
     }
@@ -81,7 +82,7 @@ const CreateBlog: React.FC = () => {
 
   return (
     <div>
-      <CardBody header="Create Blog" to="/blogs" text="back" />
+      <CardBody header="Update Blog" to="/blogs" text="back" />
       {isLoading && <p>Please Wait.</p>}
       <Display>
         <form onSubmit={handleSubmit} ref={formRef}>
@@ -165,4 +166,4 @@ const CreateBlog: React.FC = () => {
   );
 };
 
-export default CreateBlog;
+export default UpdateBlog;

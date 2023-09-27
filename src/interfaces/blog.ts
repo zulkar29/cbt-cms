@@ -1,7 +1,7 @@
 export interface BlogData {
-  id: number | string;
+  id?: number | string;
   title: string;
-  description: string;
+  description?: string;
   image: File | null;
   is_visible: boolean;
   meta_title: string;

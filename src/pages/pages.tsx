@@ -30,6 +30,7 @@ import UpdateChildCategory from './category/update-chidcategory';
 import CreateVideo from './videos/create-video';
 import UpdateVideo from './videos/update-video';
 import CreateBlog from './blogs/create';
+import UpdateBlog from './blogs/update';
 import UpdateProduct from './product/update-product';
 import CreateProduct from './product/create-product';
 import OrderView from './orders/view';
@@ -69,6 +70,7 @@ export {
   CreateVideo,
   UpdateVideo,
   CreateBlog,
+  UpdateBlog,
   UpdateProduct,
   CreateProduct,
   OrderView,
