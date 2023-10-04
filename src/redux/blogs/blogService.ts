@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
-import { ResponseBlogData } from '../../interfaces/blog';
+import { BlogData, ResponseBlogData } from '../../interfaces/blog';
 
 export interface ICreateResponse {
   message: string;
@@ -36,9 +36,18 @@ const getBlogs = async ({
   return data;
 };
 
+const updateBlog = async (blogData: Partial<BlogData>) => {
+  const { data } = await axios.patch(
+    `${API_URL}/blogs/${blogData.id}`,
+    blogData
+  );
+  return data.data;
+};
+
 const blogService = {
   createNewBlog,
   getBlogs,
+  updateBlog,
 };
 
 export default blogService;

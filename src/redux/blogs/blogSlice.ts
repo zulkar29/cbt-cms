@@ -38,10 +38,23 @@ export const createBlog = createAsyncThunk(
 );
 
 export const getBlogs = createAsyncThunk(
-  'goals/getAll',
+  'blogs/getAll',
   async ({ page, limit }: { page: number; limit: number }, thunkAPI) => {
     try {
       return await blogService.getBlogs({ page, limit });
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'An error occurred';
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const updateBlog = createAsyncThunk(
+  'blogs/update',
+  async (blogData: Partial<BlogData>, thunkAPI) => {
+    try {
+      return await blogService.updateBlog(blogData);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -82,6 +95,19 @@ export const blogSlice = createSlice({
         state.totalCount = action.payload.data.count;
       })
       .addCase(getBlogs.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      /* TODO: UPDATE BLOG DATA SET */
+      .addCase(updateBlog.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateBlog.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(updateBlog.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

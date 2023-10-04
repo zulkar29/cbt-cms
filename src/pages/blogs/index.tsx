@@ -8,7 +8,8 @@ import Column from '../../components/table/column';
 import Row from '../../components/table/row';
 import ToggleButton from '../../components/forms/checkbox';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getBlogs } from '../../redux/blogs/blogSlice';
+import { getBlogs, updateBlog } from '../../redux/blogs/blogSlice';
+import { BlogData } from '../../interfaces/blog';
 
 const Blogs: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
@@ -19,8 +20,10 @@ const Blogs: React.FC = () => {
 
   const totalPage = Math.floor(totalCount / displayItem);
 
-  console.log(blogs);
-  console.log(displayItem);
+  const handleStatusChange = (blog: BlogData) => {
+    dispatch(updateBlog({ id: blog.id, is_visible: !blog.is_visible }));
+    dispatch(getBlogs({ page: pageNumber, limit: displayItem }));
+  };
 
   useEffect(() => {
     dispatch(getBlogs({ page: pageNumber, limit: displayItem }));
@@ -76,7 +79,10 @@ const Blogs: React.FC = () => {
                 ></div>
               </Column>
               <Column className="col-md-1">
-                <ToggleButton isChecked={blog.is_visible} />
+                <ToggleButton
+                  isChecked={blog.is_visible}
+                  onClick={() => handleStatusChange(blog)}
+                />
               </Column>
               <Column className="col-md-1">
                 <Actions editUrl={`/blogs/edit/${blog.id}`} />
