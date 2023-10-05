@@ -1,5 +1,4 @@
 import Blogs from './blogs';
-import BlogCategories from './blogs/category';
 import Categories from './category';
 import ChildCategory from './category/child-category';
 import Customers from './customers';
@@ -39,7 +38,6 @@ import UpdateFaq from './faqs/update-faq';
 
 export {
   Blogs,
-  BlogCategories,
   Categories,
   ChildCategory,
   Customers,

@@ -1,5 +1,5 @@
 import { ChangeEvent, useState, useEffect } from 'react';
-import Actions from '../../components/actions';
+// import Actions from '../../components/actions';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
 import Filter from '../../components/filter';
@@ -8,8 +8,13 @@ import Column from '../../components/table/column';
 import Row from '../../components/table/row';
 import ToggleButton from '../../components/forms/checkbox';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getBlogs, updateBlog } from '../../redux/blogs/blogSlice';
+import { deleteBlog, getBlogs, updateBlog } from '../../redux/blogs/blogSlice';
 import { BlogData } from '../../interfaces/blog';
+import EditButton from '../../components/button/edit';
+import CustomIconArea from '../../components/custom-icon-area';
+import DeleteButton from '../../components/button/delete';
+import ViewButton from '../../components/button/view';
+import { FRONT_URL } from '../../constants';
 
 const Blogs: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
@@ -22,7 +27,18 @@ const Blogs: React.FC = () => {
 
   const handleStatusChange = (blog: BlogData) => {
     dispatch(updateBlog({ id: blog.id, is_visible: !blog.is_visible }));
-    dispatch(getBlogs({ page: pageNumber, limit: displayItem }));
+    setTimeout(
+      () => dispatch(getBlogs({ page: pageNumber, limit: displayItem })),
+      500
+    );
+  };
+
+  const handleDeleteBlog = (blogId: number | string) => {
+    dispatch(deleteBlog(blogId));
+    setTimeout(
+      () => dispatch(getBlogs({ page: pageNumber, limit: displayItem })),
+      500
+    );
   };
 
   useEffect(() => {
@@ -73,7 +89,7 @@ const Blogs: React.FC = () => {
               </Column> */}
               <Column className="col-md-1">{blog.id}</Column>
               <Column className="col-md-2">{blog.title}</Column>
-              <Column className="col-md-6">
+              <Column className="col-md-7">
                 <div
                   dangerouslySetInnerHTML={{ __html: blog.description ?? '' }}
                 ></div>
@@ -85,7 +101,13 @@ const Blogs: React.FC = () => {
                 />
               </Column>
               <Column className="col-md-1">
-                <Actions editUrl={`/blogs/edit/${blog.id}`} />
+                <CustomIconArea>
+                  <EditButton editUrl={`/blogs/edit/${blog.id}`} />
+                  <ViewButton href={`${FRONT_URL}/blogs/${blog.id}`} />
+                  <DeleteButton
+                    onClick={() => handleDeleteBlog(blog.id as number)}
+                  />
+                </CustomIconArea>
               </Column>
             </Row>
           ))}

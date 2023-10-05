@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import {
   Blogs,
-  BlogCategories,
   Categories,
   ChildCategory,
   Customers,
@@ -75,7 +74,6 @@ function PageRoutes() {
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/blogs/create" element={<CreateBlog />} />
       <Route path="/blogs/edit/:id" element={<UpdateBlog />} />
-      <Route path="/blogs/category" element={<BlogCategories />} />
       <Route path="/customers" element={<Customers />} />
       {/* Videos */}
       <Route path="/videos" element={<VideosPage />} />

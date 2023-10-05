@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-const Modal = async () => {
+const Modal = async (onClick: () => void) => {
   return Swal.fire({
     title: 'Are you sure?',
     text: "You won't be able to revert this!",
@@ -12,6 +12,8 @@ const Modal = async () => {
     confirmButtonText: 'Yes, Delete it!',
   }).then((result) => {
     if (result.isConfirmed) {
+      onClick();
+
       Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
     }
   });

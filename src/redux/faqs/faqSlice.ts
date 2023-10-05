@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import blogService, { ICreateResponse } from './blogService';
+import faqService, { ICreateResponse } from './faqService';
 import { BlogData } from '../../interfaces/blog';
 import { RootState } from '../store';
 
 interface IBlogResponse {
-  blogs: BlogData[];
+  faqs: BlogData[];
   totalCount: number;
   isError: boolean;
   isSuccess: boolean;
@@ -14,7 +14,7 @@ interface IBlogResponse {
 }
 
 const initialState: IBlogResponse = {
-  blogs: [],
+  faqs: [],
   totalCount: 0,
   isError: false,
   isSuccess: false,
@@ -25,10 +25,10 @@ const initialState: IBlogResponse = {
 
 // Create new Blog
 export const createBlog = createAsyncThunk(
-  'blogs/create',
+  'faqs/create',
   async (blogData: FormData, thunkAPI) => {
     try {
-      return await blogService.createNewBlog(blogData);
+      return await faqService.createNewBlog(blogData);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -37,11 +37,11 @@ export const createBlog = createAsyncThunk(
   }
 );
 
-export const getBlogs = createAsyncThunk(
+export const getFaqs = createAsyncThunk(
   'blogs/getAll',
   async ({ page, limit }: { page: number; limit: number }, thunkAPI) => {
     try {
-      return await blogService.getBlogs({ page, limit });
+      return await faqService.getFaqs({ page, limit });
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -54,7 +54,7 @@ export const updateBlog = createAsyncThunk(
   'blogs/update',
   async (blogData: Partial<BlogData>, thunkAPI) => {
     try {
-      return await blogService.updateBlog(blogData);
+      return await faqService.updateBlog(blogData);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -66,7 +66,7 @@ export const deleteBlog = createAsyncThunk(
   'blogs/delete',
   async (blogId: number | string, thunkAPI) => {
     try {
-      return await blogService.deleteBlog(blogId);
+      return await faqService.deleteBlog(blogId);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -97,16 +97,16 @@ export const blogSlice = createSlice({
         state.errorMessage = (action.payload as ICreateResponse).message;
       })
       /* TODO: GET BLOG DATA SET */
-      .addCase(getBlogs.pending, (state) => {
+      .addCase(getFaqs.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getBlogs.fulfilled, (state, action) => {
+      .addCase(getFaqs.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.blogs = action.payload.data.rows;
         state.totalCount = action.payload.data.count;
       })
-      .addCase(getBlogs.rejected, (state, action) => {
+      .addCase(getFaqs.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

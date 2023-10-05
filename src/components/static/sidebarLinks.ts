@@ -79,10 +79,6 @@ export const sidebarLinks = [
         subtitle: 'Blogs',
         slug: '/blogs',
       },
-      {
-        subtitle: 'Categories',
-        slug: '/blogs/category',
-      },
     ],
   },
   {
