@@ -89,7 +89,7 @@ const Blogs: React.FC = () => {
               </Column> */}
               <Column className="col-md-1">{blog.id}</Column>
               <Column className="col-md-2">{blog.title}</Column>
-              <Column className="col-md-7">
+              <Column className="col-md-6">
                 <div
                   dangerouslySetInnerHTML={{ __html: blog.description ?? '' }}
                 ></div>
@@ -100,7 +100,7 @@ const Blogs: React.FC = () => {
                   onClick={() => handleStatusChange(blog)}
                 />
               </Column>
-              <Column className="col-md-1">
+              <Column className="col-md-2">
                 <CustomIconArea>
                   <EditButton editUrl={`/blogs/edit/${blog.id}`} />
                   <ViewButton href={`${FRONT_URL}/blogs/${blog.id}`} />
