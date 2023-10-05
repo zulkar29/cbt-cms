@@ -12,10 +12,18 @@ import Filter from '../../components/filter';
 
 const VideosPage: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
+  const [pageNumber, setPageNumber] = useState<number>(1);
 
   const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
     setDisplayItem(Number(e.target.value));
   };
+  const handlePageChange = (selectedItem: { selected: number }) => {
+    setPageNumber(selectedItem.selected + 1);
+  };
+  /*  useEffect(() => {
+    dispatch(getBlogs({ page: pageNumber, limit: displayItem }));
+    window.scrollTo(0, 0);
+  }, [dispatch, pageNumber, displayItem]); */
 
   return (
     <div>
@@ -52,7 +60,11 @@ const VideosPage: React.FC = () => {
             </CustomIconArea>
           </Column>
         </Row>
-        <Pagination />
+        <Pagination
+          pageCount={pageNumber}
+          handlePageClick={handlePageChange}
+          totalPage={totalPage}
+        />
       </Display>
     </div>
   );
