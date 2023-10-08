@@ -4,23 +4,14 @@ import { IVideo, IVideoResponse } from '../../interfaces/video';
 
 export interface ICreateResponse {
   message: string;
-  data: {
-    id: number;
-    title: string;
-    slug: string;
-    description: string;
-    is_visible: boolean;
-    meta_title: string;
-    meta_description: string;
-    image: string;
-    updated_at: string;
-    created_at: string;
-  };
+  data: IVideo[];
 }
 
-const createNewVideo = async (blogData: FormData): Promise<ICreateResponse> => {
-  const { data } = await axios.post(`${API_URL}/blogs`, blogData);
-  return data.data;
+const createNewVideo = async (
+  videoData: IVideo
+): Promise<Partial<ICreateResponse>> => {
+  const { data } = await axios.post(`${API_URL}/videos`, videoData);
+  return data;
 };
 
 const getVideos = async ({
@@ -31,21 +22,21 @@ const getVideos = async ({
   limit: number;
 }): Promise<IVideoResponse> => {
   const { data } = await axios.get(
-    `${API_URL}/blogs?page=${page}&limit=${limit}`
+    `${API_URL}/videos?page=${page}&limit=${limit}`
   );
   return data;
 };
 
-const updateVideo = async (blogData: Partial<IVideo>) => {
+const updateVideo = async (videoData: Partial<IVideo>) => {
   const { data } = await axios.patch(
-    `${API_URL}/blogs/${blogData.id}`,
-    blogData
+    `${API_URL}/videos/${videoData.id}`,
+    videoData
   );
   return data.data;
 };
 
-const deleteVideo = async (blogId: number | string) => {
-  const { data } = await axios.delete(`${API_URL}/blogs/?ids=[${blogId}]`);
+const deleteVideo = async (videoId: number | string) => {
+  const { data } = await axios.delete(`${API_URL}/videos/?ids=[${videoId}]`);
   return data.data;
 };
 
