@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
@@ -6,7 +6,7 @@ import Input from '../../components/forms/text-input';
 import { Button } from '../../components/button';
 import ToggleButton from '../../components/forms/checkbox';
 import { IVideo } from '../../interfaces/video';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { createVideo } from '../../redux/videos/videoSlice';
 
 const initialData = {
@@ -17,7 +17,18 @@ const initialData = {
 
 const CreateVideo: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { isError, isSuccess } = useAppSelector((state) => state.videos);
   const [videoData, setVideoData] = useState<IVideo>(initialData);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('Video created successfully');
+    }
+
+    if (isError) {
+      toast.error('Failed to create video');
+    }
+  }, [isSuccess, isError]);
 
   const handleVideoData = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -38,7 +49,6 @@ const CreateVideo: React.FC = () => {
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(createVideo(videoData));
-    toast.success('video created successfully');
     setVideoData(initialData);
   };
 

@@ -26,9 +26,8 @@ const CreateBlog: React.FC = () => {
   const [blogData, setBlogData] = useState<BlogData>(initialBlogData);
   const formRef = useRef<HTMLFormElement | null>(null);
   const dispatch = useAppDispatch();
-  const { message, isError, isLoading, isSuccess } = useAppSelector(
-    (state) => state.blogs
-  );
+  const { message, isError, isLoading, isSuccess, errorMessage } =
+    useAppSelector((state) => state.blogs);
 
   const [description, setDescription] = useState('');
 
@@ -70,12 +69,12 @@ const CreateBlog: React.FC = () => {
     formData.append('description', description);
     dispatch(createBlog(formData));
     if (isSuccess) {
-      toast.success(`${message}`);
       setBlogData(initialBlogData);
       setDescription('');
-      // window.location.reload();
-    } else if (isError) {
-      toast.error(`${message}`);
+      toast.success(`${message}`);
+    }
+    if (isError) {
+      toast.error(`${errorMessage}`);
     }
   };
 

@@ -20,7 +20,7 @@ export interface ICreateResponse {
 
 const createNewBlog = async (blogData: FormData): Promise<ICreateResponse> => {
   const { data } = await axios.post(`${API_URL}/blogs`, blogData);
-  return data.data;
+  return data;
 };
 
 const getBlogs = async ({

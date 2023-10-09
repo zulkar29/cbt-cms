@@ -85,6 +85,7 @@ export const videoSlice = createSlice({
     builder
       .addCase(createVideo.pending, (state) => {
         state.isLoading = true;
+        state.isSuccess = false;
       })
       .addCase(createVideo.fulfilled, (state, action) => {
         state.isLoading = false;

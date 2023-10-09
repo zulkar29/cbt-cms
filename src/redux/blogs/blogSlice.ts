@@ -84,6 +84,7 @@ export const blogSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createBlog.pending, (state) => {
+        state.isSuccess = false;
         state.isLoading = true;
       })
       .addCase(createBlog.fulfilled, (state, action) => {
@@ -92,6 +93,7 @@ export const blogSlice = createSlice({
         state.message = (action.payload as ICreateResponse).message;
       })
       .addCase(createBlog.rejected, (state, action) => {
+        state.isLoading = false;
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = (action.payload as ICreateResponse).message;
