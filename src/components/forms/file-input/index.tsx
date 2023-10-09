@@ -5,6 +5,7 @@ interface IProps {
   placeholder?: string;
   label: string;
   defaultValue?: string;
+  ref?: React.RefObject<HTMLInputElement>;
   name?: string;
   value?: string;
   required?: boolean;
@@ -19,6 +20,7 @@ const FileInput: React.FC<IProps> = ({
   required,
   name,
   onChange,
+  ref,
 }) => {
   return (
     <>
@@ -27,6 +29,7 @@ const FileInput: React.FC<IProps> = ({
         <input
           type="file"
           id="file"
+          ref={ref}
           name={name}
           accept=".png, .jpg, .jpeg, .webp"
           onChange={onChange}

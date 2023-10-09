@@ -23,6 +23,7 @@ const initialBlogData = {
 };
 
 const CreateBlog: React.FC = () => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [blogData, setBlogData] = useState<BlogData>(initialBlogData);
   const formRef = useRef<HTMLFormElement | null>(null);
   const dispatch = useAppDispatch();
@@ -30,6 +31,12 @@ const CreateBlog: React.FC = () => {
     useAppSelector((state) => state.blogs);
 
   const [description, setDescription] = useState('');
+
+  const resetFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
 
   const handleBlogData = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -70,6 +77,7 @@ const CreateBlog: React.FC = () => {
     dispatch(createBlog(formData));
     if (isSuccess) {
       setBlogData(initialBlogData);
+      resetFileInput();
       setDescription('');
       toast.success(`${message}`);
     }
@@ -87,6 +95,7 @@ const CreateBlog: React.FC = () => {
           <FileInput
             label="Set Image *"
             name="image"
+            ref={fileInputRef}
             onChange={handleImageChange}
             placeholder="Choose an Image"
             required

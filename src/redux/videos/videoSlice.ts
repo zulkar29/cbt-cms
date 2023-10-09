@@ -97,7 +97,7 @@ export const videoSlice = createSlice({
         state.isError = true;
         state.errorMessage = (action.payload as IVideoResponse).message;
       })
-      /* TODO: GET BLOG DATA SET */
+      /* TODO: GET FAQ DATA SET */
       .addCase(getVideos.pending, (state) => {
         state.isLoading = true;
       })
@@ -112,7 +112,7 @@ export const videoSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      /* TODO: UPDATE BLOG DATA SET */
+      /* TODO: UPDATE FAQ DATA SET */
       .addCase(updateVideo.pending, (state) => {
         state.isLoading = true;
       })
@@ -125,7 +125,7 @@ export const videoSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      /* TODO: DELETE BLOG DATA SET */
+      /* TODO: DELETE FAQ DATA SET */
       .addCase(deleteVideo.pending, (state) => {
         state.isLoading = true;
       })

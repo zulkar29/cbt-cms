@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { toast } from 'react-toastify';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
@@ -20,16 +20,6 @@ const CreateVideo: React.FC = () => {
   const { isError, isSuccess } = useAppSelector((state) => state.videos);
   const [videoData, setVideoData] = useState<IVideo>(initialData);
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success('Video created successfully');
-    }
-
-    if (isError) {
-      toast.error('Failed to create video');
-    }
-  }, [isSuccess, isError]);
-
   const handleVideoData = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -49,7 +39,14 @@ const CreateVideo: React.FC = () => {
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(createVideo(videoData));
-    setVideoData(initialData);
+    if (isSuccess) {
+      toast.success('Video created successfully');
+      setVideoData(initialData);
+    }
+
+    if (isError) {
+      toast.error('Failed to create video');
+    }
   };
 
   return (

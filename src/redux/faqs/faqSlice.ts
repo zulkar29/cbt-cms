@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import faqService, { ICreateResponse } from './faqService';
-import { BlogData } from '../../interfaces/blog';
+import { IFaq, IFaqResponse } from '../../interfaces/faq';
 import { RootState } from '../store';
+import faqService from './faqService';
 
 interface IBlogResponse {
-  faqs: BlogData[];
+  faqs: IFaq[];
   totalCount: number;
   isError: boolean;
   isSuccess: boolean;
@@ -24,11 +24,11 @@ const initialState: IBlogResponse = {
 };
 
 // Create new Blog
-export const createBlog = createAsyncThunk(
+export const createVideo = createAsyncThunk(
   'faqs/create',
-  async (blogData: FormData, thunkAPI) => {
+  async (faqData: IFaq, thunkAPI) => {
     try {
-      return await faqService.createNewBlog(blogData);
+      return await faqService.createFaq(faqData);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -38,7 +38,7 @@ export const createBlog = createAsyncThunk(
 );
 
 export const getFaqs = createAsyncThunk(
-  'blogs/getAll',
+  'faqs/getAll',
   async ({ page, limit }: { page: number; limit: number }, thunkAPI) => {
     try {
       return await faqService.getFaqs({ page, limit });
@@ -50,11 +50,11 @@ export const getFaqs = createAsyncThunk(
   }
 );
 
-export const updateBlog = createAsyncThunk(
-  'blogs/update',
-  async (blogData: Partial<BlogData>, thunkAPI) => {
+export const updateVideo = createAsyncThunk(
+  'faqs/update',
+  async (faqData: Partial<IFaq>, thunkAPI) => {
     try {
-      return await faqService.updateBlog(blogData);
+      return await faqService.updateFaq(faqData);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -62,11 +62,11 @@ export const updateBlog = createAsyncThunk(
     }
   }
 );
-export const deleteBlog = createAsyncThunk(
-  'blogs/delete',
-  async (blogId: number | string, thunkAPI) => {
+export const deleteVideo = createAsyncThunk(
+  'faqs/delete',
+  async (videoId: number | string, thunkAPI) => {
     try {
-      return await faqService.deleteBlog(blogId);
+      return await faqService.deleteFaq(videoId);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -75,7 +75,7 @@ export const deleteBlog = createAsyncThunk(
   }
 );
 
-export const blogSlice = createSlice({
+export const faqSlice = createSlice({
   name: 'Blog',
   initialState,
   reducers: {
@@ -83,27 +83,28 @@ export const blogSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createBlog.pending, (state) => {
+      .addCase(createVideo.pending, (state) => {
         state.isLoading = true;
+        state.isSuccess = false;
       })
-      .addCase(createBlog.fulfilled, (state, action) => {
+      .addCase(createVideo.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.message = (action.payload as ICreateResponse).message;
+        state.message = (action.payload as Partial<IFaqResponse>).message;
       })
-      .addCase(createBlog.rejected, (state, action) => {
+      .addCase(createVideo.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.errorMessage = (action.payload as ICreateResponse).message;
+        state.errorMessage = (action.payload as IFaqResponse).message;
       })
-      /* TODO: GET BLOG DATA SET */
+      /* TODO: GET FAQ DATA SET */
       .addCase(getFaqs.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(getFaqs.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.blogs = action.payload.data.rows;
+        state.faqs = action.payload.data.rows;
         state.totalCount = action.payload.data.count;
       })
       .addCase(getFaqs.rejected, (state, action) => {
@@ -111,28 +112,28 @@ export const blogSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      /* TODO: UPDATE BLOG DATA SET */
-      .addCase(updateBlog.pending, (state) => {
+      /* TODO: UPDATE FAQ DATA SET */
+      .addCase(updateVideo.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateBlog.fulfilled, (state) => {
+      .addCase(updateVideo.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })
-      .addCase(updateBlog.rejected, (state, action) => {
+      .addCase(updateVideo.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      /* TODO: DELETE BLOG DATA SET */
-      .addCase(deleteBlog.pending, (state) => {
+      /* TODO: DELETE FAQ DATA SET */
+      .addCase(deleteVideo.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteBlog.fulfilled, (state) => {
+      .addCase(deleteVideo.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })
-      .addCase(deleteBlog.rejected, (state, action) => {
+      .addCase(deleteVideo.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
@@ -140,6 +141,6 @@ export const blogSlice = createSlice({
   },
 });
 
-export const { reset } = blogSlice.actions;
-export const selectCount = (state: RootState) => state.blogs;
-export default blogSlice.reducer;
+export const { reset } = faqSlice.actions;
+export const selectCount = (state: RootState) => state.faqs;
+export default faqSlice.reducer;
