@@ -14,6 +14,7 @@ const CreateProduct: React.FC = () => {
   const [description, setDescription] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const [selectedOption2, setSelectedOption2] = useState('');
+  const [selectedOption3, setSelectedOption3] = useState('');
   const options = [
     { value: 'option1', label: 'Option 1' },
     { value: 'option2', label: 'Option 2' },
@@ -24,12 +25,20 @@ const CreateProduct: React.FC = () => {
     { value: 'option2', label: 'Option 2' },
     { value: 'option3', label: 'Option 3' },
   ];
+  const options3 = [
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
+  ];
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
   };
   const handleSelectChange2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption2(event.target.value);
+  };
+  const handleSelectChange3 = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedOption3(event.target.value);
   };
 
   console.log(file);
@@ -139,6 +148,14 @@ const CreateProduct: React.FC = () => {
                   value={selectedOption2}
                   onChange={handleSelectChange2}
                   options={options2}
+                  required
+                />
+                <Select
+                  label="Select subcategory *"
+                  name="mySelect"
+                  value={selectedOption3}
+                  onChange={handleSelectChange3}
+                  options={options3}
                   required
                 />
               </Display>

@@ -23,20 +23,14 @@ const initialBlogData = {
 };
 
 const CreateBlog: React.FC = () => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [blogData, setBlogData] = useState<BlogData>(initialBlogData);
   const formRef = useRef<HTMLFormElement | null>(null);
   const dispatch = useAppDispatch();
-  const { message, isError, isLoading, isSuccess, errorMessage } =
-    useAppSelector((state) => state.blogs);
+  const { isError, isLoading, isSuccess } = useAppSelector(
+    (state) => state.blogs
+  );
 
   const [description, setDescription] = useState('');
-
-  const resetFileInput = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
-  };
 
   const handleBlogData = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -75,15 +69,17 @@ const CreateBlog: React.FC = () => {
     });
     formData.append('description', description);
     dispatch(createBlog(formData));
-    if (isSuccess) {
-      setBlogData(initialBlogData);
-      resetFileInput();
-      setDescription('');
-      toast.success(`${message}`);
-    }
-    if (isError) {
-      toast.error(`${errorMessage}`);
-    }
+    setBlogData(initialBlogData);
+    setDescription('');
+
+    setTimeout(() => {
+      if (isSuccess) {
+        toast.success(`Blog created successfully`);
+      }
+      if (isError) {
+        toast.error(`Please Select Valid Data`);
+      }
+    }, 1000);
   };
 
   return (
@@ -95,7 +91,6 @@ const CreateBlog: React.FC = () => {
           <FileInput
             label="Set Image *"
             name="image"
-            ref={fileInputRef}
             onChange={handleImageChange}
             placeholder="Choose an Image"
             required

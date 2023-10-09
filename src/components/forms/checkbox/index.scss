@@ -1,6 +1,6 @@
 .toggle-button {
-  width: 50px;
-  height: 25px;
+  width: 35px;
+  height: 20px;
   margin-bottom: 15px;
   background-color: #ccc;
   border-radius: 15px;
@@ -9,8 +9,8 @@
 }
 
 .slider {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   background-color: white;
   border-radius: 50%;
   position: absolute;
@@ -20,7 +20,7 @@
 }
 
 .toggle-button.checked .slider {
-  transform: translateX(30px);
+  transform: translateX(20px);
 }
 
 .toggle-button .active {
