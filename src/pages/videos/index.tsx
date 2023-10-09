@@ -69,9 +69,7 @@ const VideosPage: React.FC = () => {
         {videos.map((video) => (
           <Row key={video.id} className="row">
             <Column className="col-md-1">{video.id}</Column>
-            <Column className="col-md-4">
-              Gazi Smiss Gas Stove | EG 750S | Gazi Home Appliance
-            </Column>
+            <Column className="col-md-4">{video.title}</Column>
             <Column className="col-md-4">{video.url}</Column>
             <Column className="col-md-1">
               <ToggleButton

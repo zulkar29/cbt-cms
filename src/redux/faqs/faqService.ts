@@ -8,33 +8,22 @@ export interface ICreateResponse {
 }
 
 const createFaq = async (faqData: IFaq): Promise<Partial<ICreateResponse>> => {
-  const { data } = await axios.post(`${API_URL}/videos`, faqData);
+  const { data } = await axios.post(`${API_URL}/faqs`, faqData);
   return data;
 };
 
-const getFaqs = async ({
-  page,
-  limit,
-}: {
-  page: number;
-  limit: number;
-}): Promise<IFaqResponse> => {
-  const { data } = await axios.get(
-    `${API_URL}/videos?page=${page}&limit=${limit}`
-  );
+const getFaqs = async (): Promise<IFaqResponse> => {
+  const { data } = await axios.get(`${API_URL}/faqs`);
   return data;
 };
 
 const updateFaq = async (faqData: Partial<IFaq>) => {
-  const { data } = await axios.patch(
-    `${API_URL}/videos/${faqData.id}`,
-    faqData
-  );
+  const { data } = await axios.patch(`${API_URL}/faqs/${faqData.id}`, faqData);
   return data.data;
 };
 
 const deleteFaq = async (faqId: number | string) => {
-  const { data } = await axios.delete(`${API_URL}/videos/?ids=[${faqId}]`);
+  const { data } = await axios.delete(`${API_URL}/faqs/?ids=[${faqId}]`);
   return data.data;
 };
 

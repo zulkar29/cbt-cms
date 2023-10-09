@@ -55,14 +55,14 @@ const CreateVideo: React.FC = () => {
 
       <Display>
         <form onSubmit={handleSubmit}>
-          {/* <Input
+          <Input
             label="Video Title *"
             placeholder="video title"
             name="title"
             htmlFor="video"
             onChange={handleVideoData}
             required
-          /> */}
+          />
           <Input
             label="Video Embed URL *"
             placeholder="Enter video embed code"
