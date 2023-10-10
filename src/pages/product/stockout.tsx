@@ -44,7 +44,7 @@ const StockOutProducts: React.FC = () => {
       <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
         <Row className="row">
-          <Column className="col-md-1"> </Column>
+          <Column className="col-md-1">#</Column>
           <Column className="col-md-1">Images</Column>
           <Column className="col-md-3">Name</Column>
           <Column className="col-md-1">Stock</Column>
