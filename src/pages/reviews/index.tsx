@@ -40,7 +40,7 @@ const Reviews: React.FC = () => {
             </Column>
             <Column className="col-md-1">3.5</Column>
             <Column className="col-md-1">
-              <ToggleButton />
+              <ToggleButton isChecked />
             </Column>
           </Row>
         ))}
