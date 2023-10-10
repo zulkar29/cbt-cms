@@ -1,10 +1,8 @@
-import { ChangeEvent, useState } from 'react';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
 import Pagination from '../../components/pagination';
 import Column from '../../components/table/column';
 import Row from '../../components/table/row';
-import Filter from '../../components/filter';
 import ToggleButton from '../../components/forms/checkbox';
 
 const Reviews: React.FC = () => {
