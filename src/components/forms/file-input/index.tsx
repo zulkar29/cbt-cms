@@ -9,6 +9,7 @@ interface IProps {
   name?: string;
   value?: string;
   required?: boolean;
+  multiple?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -21,6 +22,7 @@ const FileInput: React.FC<IProps> = ({
   name,
   onChange,
   ref,
+  multiple,
 }) => {
   return (
     <>
@@ -37,6 +39,7 @@ const FileInput: React.FC<IProps> = ({
           defaultValue={defaultValue}
           value={value}
           required={required}
+          multiple={multiple}
         />
       </div>
     </>

@@ -95,7 +95,12 @@ const CreateProduct: React.FC = () => {
               </Display>
 
               <Display>
-                <FileInput label="Gallery Images" onChange={handleChangeFile} />
+                <FileInput
+                  label="Gallery Images"
+                  multiple
+                  required
+                  onChange={handleChangeFile}
+                />
                 <p className="wearing">
                   Image Size Should Be 800 x 800. or square size
                 </p>
@@ -166,15 +171,15 @@ const CreateProduct: React.FC = () => {
               </Display>
 
               <Display>
-                <div className="flex">
+                <div className="sudo-item">
                   <span>Is New</span>
                   <ToggleButton isChecked />
                 </div>
-                <div className="flex">
+                <div className="sudo-item">
                   <span>Is Sale</span>
                   <ToggleButton isChecked />
                 </div>
-                <div className="flex">
+                <div className="sudo-item">
                   <span>Is Feature</span>
                   <ToggleButton isChecked />
                 </div>

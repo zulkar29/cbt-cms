@@ -43,13 +43,16 @@ const StockOutProducts: React.FC = () => {
       <CardBody header="Stock Out Products" to="/categories/create" />
       <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
-        <Row>
-          <th>Images</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Status</th>
-          <th>Show Home Page</th>
-          <th>Action</th>
+        <Row className="row">
+          <Column className="col-md-1"> </Column>
+          <Column className="col-md-1">Images</Column>
+          <Column className="col-md-3">Name</Column>
+          <Column className="col-md-1">Stock</Column>
+          <Column className="col-md-1">Regular Price</Column>
+          <Column className="col-md-1">Discount Price</Column>
+          <Column className="col-md-1">Status</Column>
+          <Column className="col-md-1">Show Home Page</Column>
+          <Column className="col-md-2">Action</Column>
         </Row>
         {isLoading ? (
           <div>Loading ...</div>
