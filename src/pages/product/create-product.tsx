@@ -8,6 +8,7 @@ import { Button } from '../../components/button';
 import TextArea from '../../components/forms/textarea';
 import './create-product.scss';
 import Select from '../../components/forms/select';
+import ToggleButton from '../../components/forms/checkbox';
 
 const CreateProduct: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -56,7 +57,7 @@ const CreateProduct: React.FC = () => {
             <div className="left-body">
               <Display>
                 <Input
-                  label="Name *"
+                  label="Product Title *"
                   placeholder="Enter Name"
                   htmlFor="name"
                   required
@@ -108,6 +109,10 @@ const CreateProduct: React.FC = () => {
                   value={description}
                   setValue={setDescription}
                 />
+                <TextArea
+                  label="Short Description"
+                  placeholder="Meta Description"
+                />
               </Display>
             </div>
           </div>
@@ -158,6 +163,21 @@ const CreateProduct: React.FC = () => {
                   options={options3}
                   required
                 />
+              </Display>
+
+              <Display>
+                <div className="flex">
+                  <span>Is New</span>
+                  <ToggleButton isChecked />
+                </div>
+                <div className="flex">
+                  <span>Is Sale</span>
+                  <ToggleButton isChecked />
+                </div>
+                <div className="flex">
+                  <span>Is Feature</span>
+                  <ToggleButton isChecked />
+                </div>
               </Display>
               <Display>
                 <Input

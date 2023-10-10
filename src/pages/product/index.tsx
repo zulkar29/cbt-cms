@@ -15,9 +15,12 @@ import DeleteButton from '../../components/button/delete';
 import ViewButton from '../../components/button/view';
 
 const AllProducts: React.FC = () => {
+  const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
   const dispatch: AppDispatch = useDispatch();
   const [displayItem, setDisplayItem] = useState<number>(10);
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
+
+  console.log(page);
 
   const { products, isLoading, isError, message } = useSelector(
     (state: RootState) => state.product
@@ -29,9 +32,26 @@ const AllProducts: React.FC = () => {
       dispatch(reset());
     };
   }, [dispatch, page, displayItem]);
-  console.log(products);
-  console.log(page);
-  console.log(displayItem);
+
+  const handleAllSelectedProducts = (e: ChangeEvent<HTMLInputElement>) => {
+    const productIds = products.map((product) => Number(product.id));
+    if (e.target.checked) {
+      setSelectedProducts(productIds);
+    } else {
+      setSelectedProducts([]);
+    }
+  };
+  const handleSelectedProducts = (productsId: number) => {
+    const selectedProductsSet = new Set(selectedProducts);
+
+    if (selectedProductsSet.has(productsId)) {
+      selectedProductsSet.delete(productsId);
+    } else {
+      selectedProductsSet.add(productsId);
+    }
+
+    setSelectedProducts(Array.from(selectedProductsSet));
+  };
 
   const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
     setDisplayItem(Number(e.target.value));
@@ -52,7 +72,13 @@ const AllProducts: React.FC = () => {
         <Filter handleDisplayItem={handleDisplayItem} />
         <Row className="row">
           <Column className="col-md-1">
-            <input type="checkbox" name="" id="" />
+            <input
+              id="select-all"
+              type="checkbox"
+              onChange={(e) => handleAllSelectedProducts(e)}
+              name=""
+            />
+            {/* <label htmlFor="select-all">Select</label> */}
           </Column>
           <Column className="col-md-1">Images</Column>
           <Column className="col-md-3">Name</Column>
@@ -70,7 +96,13 @@ const AllProducts: React.FC = () => {
           products.map((product, index) => (
             <Row key={index} className="row">
               <Column className="col-md-1">
-                <input type="checkbox" name="" id="" />
+                <input
+                  checked={selectedProducts.includes(product.id as number)}
+                  onClick={() => handleSelectedProducts(product.id as number)}
+                  type="checkbox"
+                  name=""
+                  id=""
+                />
               </Column>
               <Column className="col-md-1">
                 <img
