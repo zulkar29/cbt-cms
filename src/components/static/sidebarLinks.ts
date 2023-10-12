@@ -30,6 +30,10 @@ export const sidebarLinks = [
     icon: 'product.png',
     subLinks: [
       {
+        subtitle: 'Create Products',
+        slug: '/products/create',
+      },
+      {
         subtitle: 'All Products',
         slug: '/products',
       },
@@ -110,10 +114,6 @@ export const sidebarLinks = [
       {
         subtitle: 'Faqs',
         slug: '/faqs',
-      },
-      {
-        subtitle: 'Categories',
-        slug: '/faqs/categories',
       },
     ],
   },

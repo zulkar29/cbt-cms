@@ -38,7 +38,7 @@ const Categories: React.FC = () => {
             <Column className="col-md-3">{category.title}</Column>
             <Column className="col-md-2">{category.parent_category}</Column>
             <Column className="col-md-2">
-              <ToggleButton />
+              <ToggleButton isChecked={category.is_feature} />
             </Column>
             <Column className="col-md-1">
               <Actions editUrl={`/categories/edit/${index}`} />

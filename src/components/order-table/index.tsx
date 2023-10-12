@@ -1,45 +1,61 @@
-import Table from '../table';
 import Row from '../table/row';
 import Column from '../table/column';
 import Select from '../select';
-import Actions from '../actions';
+import CustomIconArea from '../custom-icon-area';
+import ViewButton from '../button/view';
+import DeleteButton from '../button/delete';
+import DownloadButton from '../button/download';
 
 const OrderTable = () => {
   return (
-    <Table>
-      <thead>
-        <Row>
-          <th>Order ID</th>
-          <th>Total Amount</th>
-          <th>Num. of Products</th>
-          <th>Payment Status</th>
-          <th>Delivery Status</th>
-          <th>Payment Status</th>
-          <th>Options</th>
+    <>
+      <>
+        <Row className="row">
+          <Column className="col-md-1">
+            <form>
+              <input type="checkbox" name="select-all" id="select-all" />
+            </form>
+          </Column>
+          <Column className="col-md-1">Order Num.</Column>
+          <Column className="col-md-1">Invoice NO</Column>
+          <Column className="col-md-1">Total Amount</Column>
+          <Column className="col-md-2">Customer</Column>
+          <Column className="col-md-1">Num. of Products</Column>
+          <Column className="col-md-1">Payment Status</Column>
+          <Column className="col-md-1">Delivery Status</Column>
+          <Column className="col-md-1">Order From</Column>
+          <Column className="col-md-1">Options</Column>
         </Row>
-      </thead>
-      <tbody>
+      </>
+      <>
         {[...Array(10).keys()].map((_order, index) => (
-          <Row key={index}>
-            <Column> bmHWqM9CA7</Column>
-            <Column>202,696.96 TK</Column>
-            <Column>4</Column>
-            <Column>
+          <Row className="row" key={index}>
+            <Column className="col-md-1">
+              <input type="checkbox" name="select" id="select" />
+            </Column>
+            <Column className="col-md-1">1762</Column>
+            <Column className="col-md-1"> GHA-1201</Column>
+            <Column className="col-md-1">৳3,240.00</Column>
+            <Column className="col-md-2">Mohammad bin Rashed</Column>
+            <Column className="col-md-1">4</Column>
+            <Column className="col-md-1">
               <button>Paid</button>
             </Column>
-            <Column>
+            <Column className="col-md-1">
               <Select />
             </Column>
-            <Column>
-              <Select />
-            </Column>
-            <Column>
-              <Actions viewLink="/orders/views/1" />
+            <Column className="col-md-1">web</Column>
+            <Column className="col-md-1">
+              <CustomIconArea>
+                <ViewButton href={'/orders/views/1'} />
+                <DownloadButton />
+                <DeleteButton onClick={() => {}} />
+              </CustomIconArea>
             </Column>
           </Row>
         ))}
-      </tbody>
-    </Table>
+      </>
+    </>
   );
 };
 

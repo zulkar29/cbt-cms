@@ -74,6 +74,7 @@ function PageRoutes() {
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/blogs/create" element={<CreateBlog />} />
       <Route path="/blogs/edit/:id" element={<UpdateBlog />} />
+      {/* Customers */}
       <Route path="/customers" element={<Customers />} />
       {/* Videos */}
       <Route path="/videos" element={<VideosPage />} />
