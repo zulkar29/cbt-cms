@@ -134,6 +134,21 @@ export const sidebarLinks = [
   },
   {
     id: 9,
+    title: 'Support',
+    icon: 'support-ticket.png',
+    subLinks: [
+      {
+        subtitle: 'Support',
+        slug: '/support',
+      },
+      {
+        subtitle: 'Queries',
+        slug: '/queries',
+      },
+    ],
+  },
+  {
+    id: 10,
     title: 'Site Settings',
     icon: 'setting.png',
     subLinks: [
