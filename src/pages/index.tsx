@@ -37,6 +37,9 @@ import {
   CreateFaq,
   UpdateFaq,
   UpdateBlog,
+  TicketPage,
+  Queries,
+  Subscriber,
 } from './pages';
 
 function PageRoutes() {
@@ -87,6 +90,11 @@ function PageRoutes() {
       <Route path="/faqs/categories" element={<FaqCategories />} />
       {/* Marketing */}
       <Route path="/coupons" element={<CouponPage />} />
+
+      {/* Support */}
+      <Route path="/support" element={<TicketPage />} />
+      <Route path="/queries" element={<Queries />} />
+      <Route path="/subscriber" element={<Subscriber />} />
 
       {/* Settings */}
       <Route path="/setup/home-page" element={<SetupPage />} />

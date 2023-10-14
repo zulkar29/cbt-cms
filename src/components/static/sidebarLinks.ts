@@ -145,6 +145,10 @@ export const sidebarLinks = [
         subtitle: 'Queries',
         slug: '/queries',
       },
+      {
+        subtitle: 'Subscriber',
+        slug: '/subscriber',
+      },
     ],
   },
   {

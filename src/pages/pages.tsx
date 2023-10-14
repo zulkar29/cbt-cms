@@ -35,6 +35,9 @@ import CreateProduct from './product/create-product';
 import OrderView from './orders/view';
 import CreateFaq from './faqs/create-faq';
 import UpdateFaq from './faqs/update-faq';
+import TicketPage from './support';
+import Queries from './support/queries';
+import Subscriber from './support/subscriber';
 
 export {
   Blogs,
@@ -74,4 +77,7 @@ export {
   OrderView,
   CreateFaq,
   UpdateFaq,
+  TicketPage,
+  Queries,
+  Subscriber,
 };
