@@ -1,6 +1,5 @@
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
-import Table from '../../components/table';
 import Row from '../../components/table/row';
 import Column from '../../components/table/column';
 import Actions from '../../components/actions';
@@ -18,29 +17,24 @@ const CommonPages: React.FC = () => {
 
   return (
     <div>
-      <CardBody header="Add More Pages" to="/coupon/create" />
+      <CardBody header="Add More Pages" to="/setup/pages/create" />
       <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
-        <Table>
-          <thead>
-            <Row>
-              <th>#</th>
-              <th>Page Name</th>
-              <th>Slug</th>
-              <th>Action</th>
-            </Row>
-          </thead>
-          <tbody>
-            <Row>
-              <Column>1</Column>
-              <Column>About Page</Column>
-              <Column>/about</Column>
-              <Column>
-                <Actions editUrl="/setup/pages/edit" />
-              </Column>
-            </Row>
-          </tbody>
-        </Table>
+
+        <Row className="row">
+          <Column className="col-md-3">#</Column>
+          <Column className="col-md-3">Page Name</Column>
+          <Column className="col-md-3">Slug</Column>
+          <Column className="col-md-3">Action</Column>
+        </Row>
+        <Row className="row">
+          <Column className="col-md-3">1</Column>
+          <Column className="col-md-3">About Page</Column>
+          <Column className="col-md-3">/about</Column>
+          <Column className="col-md-3">
+            <Actions editUrl="/setup/pages/edit" />
+          </Column>
+        </Row>
       </Display>
     </div>
   );

@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { createVideo } from '../../redux/videos/videoSlice';
 
 const initialData = {
-  // title: '',
+  title: '',
   url: '',
   is_visible: false,
 };
