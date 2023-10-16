@@ -40,6 +40,7 @@ import {
   TicketPage,
   Queries,
   Subscriber,
+  CreatePage,
 } from './pages';
 
 function PageRoutes() {
@@ -102,6 +103,7 @@ function PageRoutes() {
       <Route path="/setup/footer" element={<Footer />} />
       <Route path="/setup/sliders" element={<Sliders />} />
       <Route path="/setup/pages" element={<CommonPages />} />
+      <Route path="/setup/pages/create" element={<CreatePage />} />
     </Routes>
   );
 }

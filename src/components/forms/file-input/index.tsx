@@ -10,7 +10,7 @@ interface IProps {
   value?: string;
   required?: boolean;
   multiple?: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FileInput: React.FC<IProps> = ({
