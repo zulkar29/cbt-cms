@@ -32,7 +32,7 @@ const CommonPages: React.FC = () => {
           <Column className="col-md-3">About Page</Column>
           <Column className="col-md-3">/about</Column>
           <Column className="col-md-3">
-            <Actions editUrl="/setup/pages/edit" />
+            <Actions editUrl="/setup/pages/edit/1" />
           </Column>
         </Row>
       </Display>

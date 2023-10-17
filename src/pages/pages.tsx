@@ -39,6 +39,7 @@ import TicketPage from './support';
 import Queries from './support/queries';
 import Subscriber from './support/subscriber';
 import CreatePage from './setup/create-pages';
+import UpdatePage from './setup/update-pages';
 
 export {
   Blogs,
@@ -82,4 +83,5 @@ export {
   Queries,
   Subscriber,
   CreatePage,
+  UpdatePage,
 };

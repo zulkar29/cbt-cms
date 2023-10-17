@@ -5,10 +5,10 @@ const Invoice = () => {
   return (
     <div className="invoice">
       <div className="invoice-header">
-        <div className="title">
+        {/* <div className="title">
           <Logo file="invoiceLogo.png" />
           <h5>INVOICE</h5>
-        </div>
+        </div> */}
         <div className="details">
           <div>
             <p>Gazi Home Apppance</p>

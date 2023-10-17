@@ -1,6 +1,9 @@
 @import '../../styles/index.scss';
 
 .invoice {
+  background: url('/public/assets/background/Invoice-\(Gazi-Home-Appliance\)-Advance-Payment.png')
+    no-repeat center;
+  background-size: 100% 100%;
   padding: 40px;
   .invoice-header {
     padding: 10px 0;

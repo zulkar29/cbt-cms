@@ -41,6 +41,7 @@ import {
   Queries,
   Subscriber,
   CreatePage,
+  UpdatePage,
 } from './pages';
 
 function PageRoutes() {
@@ -104,6 +105,7 @@ function PageRoutes() {
       <Route path="/setup/sliders" element={<Sliders />} />
       <Route path="/setup/pages" element={<CommonPages />} />
       <Route path="/setup/pages/create" element={<CreatePage />} />
+      <Route path="/setup/pages/edit/:slug" element={<UpdatePage />} />
     </Routes>
   );
 }
