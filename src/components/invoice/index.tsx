@@ -9,14 +9,15 @@ const Invoice = () => {
           <Logo file="invoiceLogo.png" />
           <h5>INVOICE</h5>
         </div>
+        <h4 className="customer-details">Customer Details</h4>
         <div className="details">
-          <div>
+          <div className="left">
             <p>Name: Md Shekh Talha</p>
             <p>Email: info@gazihomeapppance.com</p>
             <p>Phone: +8801766688840 </p>
             <p>Address: 340, Avenue3, Road 5, Mirpur DOHS, Mirpur </p>
           </div>
-          <div className="order-details">
+          <div className="order-details right">
             <p>Order date: 10-08-2023</p>
             <p>Invoice No: GHA-261</p>
             <p>Order No: 20230810-11135133</p>

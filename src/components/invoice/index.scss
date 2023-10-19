@@ -11,18 +11,41 @@
       display: flex;
       justify-content: space-between;
     }
+    .customer-details {
+      margin-top: 30px;
+      display: inline-block;
+      padding: 10px 15px;
+      color: $primary-color;
+      background: $white-color;
+      transform: translateY(50%);
+    }
     .details {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px;
+      .left {
+        background: $decenary-color;
+        width: 75%;
+        padding: 10px 15px;
+        padding-top: 25px;
+        box-sizing: border-box;
+        p {
+          margin-bottom: 5px;
+        }
+      }
+      .right {
+        background: $decenary-color;
+        width: 23%;
+        padding: 10px 15px;
+        box-sizing: border-box;
+        p {
+          margin-bottom: 5px;
+        }
+      }
 
       p {
         font-family: $primary-font;
         font-size: 14px;
         font-weight: 400;
-      }
-      .order-details {
-        align-self: flex-end;
       }
     }
   }
