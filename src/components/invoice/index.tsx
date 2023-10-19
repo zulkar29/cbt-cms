@@ -1,4 +1,4 @@
-import Logo from '../logo';
+import Column from '../table/column';
 import './index.scss';
 
 const Invoice = () => {
@@ -6,8 +6,7 @@ const Invoice = () => {
     <div className="invoice">
       <div className="invoice-header">
         <div className="title">
-          <Logo file="invoiceLogo.png" />
-          <h5>INVOICE</h5>
+          <img src="/assets/images/invoice-header.png" alt="invoice" />
         </div>
         <h4 className="customer-details">Customer Details</h4>
         <div className="details">
@@ -33,51 +32,62 @@ const Invoice = () => {
         <p>Phone: 01976100280</p>
       </div> */}
 
-      <table className="invoice-table">
-        <thead>
-          <tr>
-            <th>SL. </th>
-            <th>Description</th>
-            <th>Model</th>
-            <th>Qty</th>
-            <th>Unit price (BDT)</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>GA-BGS-30 - Gazi Smiss Gas Stove (LPG)</td>
-            <td>Depvered</td>
-            <td>1</td>
-            <td>৳13,500.00</td>
-            <td>৳0.00</td>
-            <td>৳13,500.00</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div>
-        <div>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quis
-          molestias aut placeat repellat, labore deserunt ea rem officia omnis
-          animi, reiciendis eveniet atque laborum, cumque voluptas impedit
-          beatae ut vel necessitatibus quod expedita assumenda odit amet totam.
-          Saepe vitae commodi veritatis et atque cupiditate, libero, laboriosam
-          doloremque, quisquam enim earum?
+      <div className="invoice-table">
+        <div className="row ">
+          <Column className="col-md-2 heading">SL. </Column>
+          <Column className="col-md-3 heading">Description</Column>
+          <Column className="col-md-2 heading">Model</Column>
+          <Column className="col-md-1 heading">Qty</Column>
+          <Column className="col-md-2 heading">Unit price (BDT)</Column>
+          <Column className="col-md-2 heading">Total</Column>
         </div>
-        <div className="summery">
-          <div className="item">
-            <p>Sub Total</p>
-            <p>৳13,500.00</p>
-            <p>Shipping cost</p>
-            <p>৳00.00</p>
-            <p>Total Tax</p>
-            <p>৳00.00</p>
-            <p>Coupon Discount</p>
-            <p>৳00.00</p>
-            <p>Grand Total</p>
-            <p>৳13,500.00</p>
+        <>
+          <div className="row">
+            <Column className="col-md-2 heading">01</Column>
+            <Column className="col-md-3 heading">
+              GA-BGS-30 - Gazi Smiss Gas Stove (LPG)
+            </Column>
+            <Column className="col-md-2 heading">Depvered</Column>
+            <Column className="col-md-1 heading">1</Column>
+            <Column className="col-md-2 heading">৳13,500.00</Column>
+            <Column className="col-md-2 heading">৳13,500.00</Column>
           </div>
+          <div className="row">
+            <Column className="col-md-2 heading">01</Column>
+            <Column className="col-md-3 heading">
+              GA-BGS-30 - Gazi Smiss Gas Stove (LPG)
+            </Column>
+            <Column className="col-md-2 heading">Depvered</Column>
+            <Column className="col-md-1 heading">1</Column>
+            <Column className="col-md-2 heading">৳13,500.00</Column>
+            <Column className="col-md-2 heading">৳13,500.00</Column>
+          </div>
+        </>
+        <div className="row">
+          <Column className="col-md-8 ">
+            <h3>Notes:</h3>
+            <p>1.Please check the product carefully before payment.</p>
+            <p>
+              2.After payment there will be no option for refund & exchange.
+            </p>
+            <p>3.No claim will be accepted after receiving the product.</p>
+          </Column>
+          <Column className="col-md-4">
+            <div className="summery">
+              <div className="row">
+                <p className="heading sort-summery">Sub Total</p>
+                <p className="heading sort-summery">৳13,500.00</p>
+                <p className="heading sort-summery">Shipping cost</p>
+                <p className="heading sort-summery">৳00.00</p>
+                <p className="heading sort-summery">Total Tax</p>
+                <p className="heading sort-summery">৳00.00</p>
+                <p className="heading sort-summery">Coupon Discount</p>
+                <p className="heading sort-summery">৳00.00</p>
+                <p className="heading sort-summery">Grand Total</p>
+                <p className="heading sort-summery">৳13,500.00</p>
+              </div>
+            </div>
+          </Column>
         </div>
       </div>
     </div>

@@ -1,10 +1,12 @@
 @import '../../styles/index.scss';
 
 .invoice {
-  /*  background: url('/public/assets/background/Invoice-\(Gazi-Home-Appliance\)-Advance-Payment.png')
-    no-repeat center;
-  background-size: 100% 100%; */
+  background: url('/assets/logo/invoice-logo.png') no-repeat center 60%;
+  background-size: 80% 30%;
   padding: 40px;
+  img {
+    width: 100%;
+  }
   .invoice-header {
     padding: 10px 0;
     .title {
@@ -12,7 +14,6 @@
       justify-content: space-between;
     }
     .customer-details {
-      margin-top: 30px;
       display: inline-block;
       padding: 10px 15px;
       color: $primary-color;
@@ -34,7 +35,7 @@
       }
       .right {
         background: $decenary-color;
-        width: 23%;
+        width: 24%;
         padding: 10px 15px;
         box-sizing: border-box;
         p {
@@ -60,44 +61,32 @@
   .invoice-table {
     width: 100%;
     margin-top: 20px;
-    border-bottom: 1px solid $decenary-color;
 
-    thead {
-      background: $decenary-color;
-      th {
-        text-align: left !important;
-        padding: 10px;
-        font-size: 14px;
-        font-weight: 600;
-      }
+    .col-md-8 {
+      flex-basis: 65.32%;
     }
-    tbody {
-      tr {
-        td {
-          padding: 10px;
-          font-size: 14px;
-        }
-      }
+
+    .heading {
+      border: 1px solid $decenary-color;
     }
   }
-
+  .col-md-4 {
+    padding: 0;
+  }
   .summery {
-    width: 400px;
-    margin-left: auto;
-    margin-top: 20px;
-
+    margin-right: 8px;
     .item {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
     }
     p {
-      width: 50%;
+      width: 49.55%;
       font-size: 14px;
-
-      &:nth-child(even) {
-        text-align: right;
-      }
+    }
+    .sort-summery {
+      padding: 10px;
+      box-sizing: border-box;
     }
   }
 }
