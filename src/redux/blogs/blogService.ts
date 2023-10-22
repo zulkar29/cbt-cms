@@ -36,6 +36,11 @@ const getBlogs = async ({
   return data;
 };
 
+const singleBlog = async (blogId: number): Promise<BlogData> => {
+  const { data } = await axios.get(`${API_URL}/blogs/${blogId}`);
+  return data.data;
+};
+
 const updateBlog = async (blogData: Partial<BlogData>) => {
   const { data } = await axios.patch(
     `${API_URL}/blogs/${blogData.id}`,
@@ -54,6 +59,7 @@ const blogService = {
   getBlogs,
   updateBlog,
   deleteBlog,
+  singleBlog,
 };
 
 export default blogService;

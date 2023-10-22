@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState, useRef } from 'react';
+import { ChangeEvent, FormEvent, useState, useRef, useEffect } from 'react';
 import { Button } from '../../components/button';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
@@ -7,16 +7,16 @@ import Input from '../../components/forms/text-input';
 import TextArea from '../../components/forms/textarea';
 import DescriptionInput from '../../components/description';
 import './index.scss';
-import ToggleButton from '../../components/forms/checkbox';
 import { toast } from 'react-toastify';
 import { BlogData } from '../../interfaces/blog';
-import { createBlog } from '../../redux/blogs/blogSlice';
+import { createBlog, singleBlog as blog } from '../../redux/blogs/blogSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useParams } from 'react-router-dom';
 const initialBlogData = {
   title: '',
   image: null,
   description: '',
-  is_visible: false,
+  is_visible: true,
   meta_title: '',
   meta_keyword: '',
   meta_description: '',
@@ -24,14 +24,15 @@ const initialBlogData = {
 };
 
 const UpdateBlog: React.FC = () => {
-  const [blogData, setBlogData] = useState<BlogData>(initialBlogData);
-  const formRef = useRef<HTMLFormElement | null>(null);
-  const dispatch = useAppDispatch();
-  const { message, isError, isLoading, isSuccess } = useAppSelector(
+  const { id } = useParams();
+  const { message, isError, isLoading, isSuccess, singleBlog } = useAppSelector(
     (state) => state.blogs
   );
-
+  const [blogData, setBlogData] = useState<BlogData>(initialBlogData);
   const [description, setDescription] = useState('');
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const dispatch = useAppDispatch();
+  console.log(blogData);
 
   const handleBlogData = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -44,6 +45,19 @@ const UpdateBlog: React.FC = () => {
     }));
   };
 
+  useEffect(() => {
+    dispatch(blog(Number(id)));
+    Object.entries(singleBlog).forEach(([key, value]) => {
+      if (key === 'description') {
+        setDescription(value);
+      }
+      setBlogData((prev) => ({
+        ...prev,
+        [key]: value,
+      }));
+    });
+  }, [id, dispatch, isSuccess]);
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0]; // Get the first selected file
@@ -54,12 +68,12 @@ const UpdateBlog: React.FC = () => {
       }));
     }
   };
-  const handleVisible = () => {
+  /*   const handleVisible = () => {
     setBlogData((prevState) => ({
       ...prevState,
       is_visible: !prevState.is_visible,
     }));
-  };
+  }; */
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -70,14 +84,14 @@ const UpdateBlog: React.FC = () => {
     });
     formData.append('description', description);
     dispatch(createBlog(formData));
-    if (isSuccess) {
+    /*  if (isSuccess) {
       toast.success(`${message}`);
       setBlogData(initialBlogData);
       setDescription('');
       window.location.reload();
     } else if (isError) {
       toast.error(`${message}`);
-    }
+    } */
   };
 
   return (
@@ -94,13 +108,13 @@ const UpdateBlog: React.FC = () => {
             required
           />
           <div>
-            {blogData.image && (
+            {/*  {blogData.image && (
               <img
                 style={{ width: '100%' }}
                 src={URL.createObjectURL(blogData.image)}
                 alt="category"
               />
-            )}
+            )} */}
           </div>
           <Input
             htmlFor="title"
@@ -154,10 +168,6 @@ const UpdateBlog: React.FC = () => {
             onChange={handleBlogData}
             value={blogData.meta_description}
             placeholder="Enter Meta Description"
-          />
-          <ToggleButton
-            isChecked={blogData.is_visible}
-            onClick={handleVisible}
           />
           <Button>Create</Button>
         </form>

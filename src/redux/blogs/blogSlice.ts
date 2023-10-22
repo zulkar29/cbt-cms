@@ -5,6 +5,7 @@ import { RootState } from '../store';
 
 interface IBlogResponse {
   blogs: BlogData[];
+  singleBlog: BlogData;
   totalCount: number;
   isError: boolean;
   isSuccess: boolean;
@@ -18,6 +19,16 @@ interface IBlogResponse {
 
 const initialState: IBlogResponse = {
   blogs: [],
+  singleBlog: {
+    title: '',
+    image: null,
+    description: '',
+    is_visible: true,
+    meta_title: '',
+    meta_keyword: '',
+    meta_description: '',
+    slug: '',
+  },
   totalCount: 0,
   isError: false,
   isSuccess: false,
@@ -35,6 +46,18 @@ export const createBlog = createAsyncThunk(
   async (blogData: FormData, thunkAPI) => {
     try {
       return await blogService.createNewBlog(blogData);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'An error occurred';
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+export const singleBlog = createAsyncThunk(
+  'blogs/single',
+  async (blogId: number, thunkAPI) => {
+    try {
+      return await blogService.singleBlog(blogId);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -115,6 +138,20 @@ export const blogSlice = createSlice({
         state.totalCount = action.payload.data.count;
       })
       .addCase(getBlogs.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      /* TODO: SINGLE BLOG */
+      .addCase(singleBlog.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(singleBlog.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.singleBlog = action.payload;
+      })
+      .addCase(singleBlog.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
