@@ -8,6 +8,9 @@ interface IBlogResponse {
   totalCount: number;
   isError: boolean;
   isSuccess: boolean;
+  isCreate: boolean;
+  isUpdate: boolean;
+  isDelete: boolean;
   isLoading: boolean;
   message: string | unknown;
   errorMessage: string | unknown;
@@ -18,6 +21,9 @@ const initialState: IBlogResponse = {
   totalCount: 0,
   isError: false,
   isSuccess: false,
+  isCreate: false,
+  isUpdate: false,
+  isDelete: false,
   isLoading: false,
   message: '',
   errorMessage: '',
@@ -84,12 +90,12 @@ export const blogSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createBlog.pending, (state) => {
-        state.isSuccess = false;
+        state.isCreate = false;
         state.isLoading = true;
       })
       .addCase(createBlog.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
+        state.isCreate = true;
         state.message = (action.payload as ICreateResponse).message;
       })
       .addCase(createBlog.rejected, (state, action) => {
@@ -115,11 +121,11 @@ export const blogSlice = createSlice({
       })
       /* TODO: UPDATE BLOG DATA SET */
       .addCase(updateBlog.pending, (state) => {
-        state.isLoading = true;
+        state.isUpdate = false;
       })
       .addCase(updateBlog.fulfilled, (state) => {
         state.isLoading = false;
-        state.isSuccess = true;
+        state.isUpdate = true;
       })
       .addCase(updateBlog.rejected, (state, action) => {
         state.isLoading = false;
@@ -129,10 +135,11 @@ export const blogSlice = createSlice({
       /* TODO: DELETE BLOG DATA SET */
       .addCase(deleteBlog.pending, (state) => {
         state.isLoading = true;
+        state.isDelete = false;
       })
       .addCase(deleteBlog.fulfilled, (state) => {
         state.isLoading = false;
-        state.isSuccess = true;
+        state.isDelete = true;
       })
       .addCase(deleteBlog.rejected, (state, action) => {
         state.isLoading = false;
