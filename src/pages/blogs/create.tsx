@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState, useRef } from 'react';
+import { ChangeEvent, FormEvent, useState, useRef, useEffect } from 'react';
 import { Button } from '../../components/button';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
@@ -10,7 +10,7 @@ import './index.scss';
 import ToggleButton from '../../components/forms/checkbox';
 import { toast } from 'react-toastify';
 import { BlogData } from '../../interfaces/blog';
-import { createBlog } from '../../redux/blogs/blogSlice';
+import { createBlog, reset } from '../../redux/blogs/blogSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 const initialBlogData = {
   title: '',
@@ -26,9 +26,23 @@ const CreateBlog: React.FC = () => {
   const [blogData, setBlogData] = useState<BlogData>(initialBlogData);
   const formRef = useRef<HTMLFormElement | null>(null);
   const dispatch = useAppDispatch();
-  const { isError, isLoading, isSuccess } = useAppSelector(
+  const { isError, isLoading, isSuccess, message } = useAppSelector(
     (state) => state.blogs
   );
+  console.log(message);
+  console.log(isSuccess);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(`${message}`);
+    }
+    if (isError) {
+      toast.error('Blog create filed');
+    }
+    return () => {
+      dispatch(reset());
+    };
+  }, [isSuccess, message, dispatch, isError]);
 
   const [description, setDescription] = useState('');
 
@@ -69,17 +83,9 @@ const CreateBlog: React.FC = () => {
     });
     formData.append('description', description);
     dispatch(createBlog(formData));
+    //reset form
     setBlogData(initialBlogData);
     setDescription('');
-
-    setTimeout(() => {
-      if (isSuccess) {
-        toast.success(`Blog created successfully`);
-      }
-      if (isError) {
-        toast.error(`Please Select Valid Data`);
-      }
-    }, 1000);
   };
 
   return (

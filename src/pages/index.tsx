@@ -5,7 +5,6 @@ import {
   ChildCategory,
   Customers,
   FaqPage,
-  FaqCategories,
   Home,
   AllOrders,
   Canceled,
@@ -89,7 +88,6 @@ function PageRoutes() {
       <Route path="/faqs" element={<FaqPage />} />
       <Route path="/faqs/create" element={<CreateFaq />} />
       <Route path="/faqs/edit/:slug" element={<UpdateFaq />} />
-      <Route path="/faqs/categories" element={<FaqCategories />} />
       {/* Marketing */}
       <Route path="/coupons" element={<CouponPage />} />
 

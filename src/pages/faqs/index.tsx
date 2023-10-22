@@ -1,37 +1,37 @@
 import Display from '../../components/display';
 import Row from '../../components/table/row';
 import Column from '../../components/table/column';
-import Pagination from '../../components/pagination';
 import CardBody from '../../components/card-body';
-import { ChangeEvent, useState, useEffect } from 'react';
-import Filter from '../../components/filter';
+import { useEffect } from 'react';
 import CustomIconArea from '../../components/custom-icon-area';
 import DeleteButton from '../../components/button/delete';
 import ToggleButton from '../../components/forms/checkbox';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getFaqs } from '../../redux/faqs/faqSlice';
+import { deleteFaq, getFaqs, updateFaq } from '../../redux/faqs/faqSlice';
+import { IFaq } from '../../interfaces/faq';
 
 const FaqPage: React.FC = () => {
   const { faqs } = useAppSelector((state) => state.faqs);
-  const [displayItem, setDisplayItem] = useState(10);
-  const [pageNumber, setPageNumber] = useState<number>(1);
   const dispatch = useAppDispatch();
 
-  const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
-    setDisplayItem(Number(e.target.value));
+  useEffect(() => {
+    dispatch(getFaqs());
+    window.scrollTo(0, 0);
+  }, [dispatch]);
+
+  const handleStatusChange = (faq: IFaq) => {
+    dispatch(updateFaq({ id: faq.id, is_visible: !faq.is_visible }));
+    setTimeout(() => dispatch(getFaqs()), 500);
   };
 
-  useEffect(() => {
-    dispatch(getFaqs({ page: pageNumber, limit: displayItem }));
-    window.scrollTo(0, 0);
-  }, [dispatch, pageNumber, displayItem]);
+  const handleDeleteVideo = (id: number) => {
+    dispatch(deleteFaq(id));
+  };
 
   return (
     <div>
       <CardBody header="FAQ" to="/faqs/create" />
       <Display>
-        <Filter handleDisplayItem={handleDisplayItem} />
-
         <Row className="row">
           <Column className="col-md-1">SI No.</Column>
           <Column className="col-md-4">Questions</Column>
@@ -45,12 +45,15 @@ const FaqPage: React.FC = () => {
             <Column className="col-md-4">{faq.question}</Column>
             <Column className="col-md-5">{faq.answer}</Column>
             <Column className="col-md-1">
-              <ToggleButton isChecked />
+              <ToggleButton
+                isChecked={faq.is_visible}
+                onClick={() => handleStatusChange(faq)}
+              />
             </Column>
             <Column className="col-md-1">
               <CustomIconArea>
                 <DeleteButton
-                // onClick={() => handleDeleteVideo(video.id as number)}
+                  onClick={() => handleDeleteVideo(faq.id as number)}
                 />
               </CustomIconArea>
             </Column>

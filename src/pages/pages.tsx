@@ -3,7 +3,6 @@ import Categories from './category';
 import ChildCategory from './category/child-category';
 import Customers from './customers';
 import FaqPage from './faqs';
-import FaqCategories from './faqs/categories';
 import Home from './home';
 import AllOrders from './orders';
 import Canceled from './orders/canceled';
@@ -47,7 +46,6 @@ export {
   ChildCategory,
   Customers,
   FaqPage,
-  FaqCategories,
   Home,
   AllOrders,
   Canceled,

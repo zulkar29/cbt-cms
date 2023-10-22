@@ -47,7 +47,7 @@ export const getFaqs = createAsyncThunk('faqs/getAll', async (_, thunkAPI) => {
   }
 });
 
-export const updateVideo = createAsyncThunk(
+export const updateFaq = createAsyncThunk(
   'faqs/update',
   async (faqData: Partial<IFaq>, thunkAPI) => {
     try {
@@ -59,7 +59,7 @@ export const updateVideo = createAsyncThunk(
     }
   }
 );
-export const deleteVideo = createAsyncThunk(
+export const deleteFaq = createAsyncThunk(
   'faqs/delete',
   async (videoId: number | string, thunkAPI) => {
     try {
@@ -110,27 +110,27 @@ export const faqSlice = createSlice({
         state.message = action.payload;
       })
       /* TODO: UPDATE FAQ DATA SET */
-      .addCase(updateVideo.pending, (state) => {
+      .addCase(updateFaq.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateVideo.fulfilled, (state) => {
+      .addCase(updateFaq.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })
-      .addCase(updateVideo.rejected, (state, action) => {
+      .addCase(updateFaq.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
       /* TODO: DELETE FAQ DATA SET */
-      .addCase(deleteVideo.pending, (state) => {
+      .addCase(deleteFaq.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteVideo.fulfilled, (state) => {
+      .addCase(deleteFaq.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })
-      .addCase(deleteVideo.rejected, (state, action) => {
+      .addCase(deleteFaq.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
