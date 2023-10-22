@@ -2,6 +2,7 @@ import Display from '../../components/display';
 import Row from '../../components/table/row';
 import Column from '../../components/table/column';
 import CardBody from '../../components/card-body';
+import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import CustomIconArea from '../../components/custom-icon-area';
 import DeleteButton from '../../components/button/delete';
@@ -11,13 +12,22 @@ import { deleteFaq, getFaqs, updateFaq } from '../../redux/faqs/faqSlice';
 import { IFaq } from '../../interfaces/faq';
 
 const FaqPage: React.FC = () => {
-  const { faqs } = useAppSelector((state) => state.faqs);
+  const { faqs, isUpdate, isDelete } = useAppSelector((state) => state.faqs);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getFaqs());
     window.scrollTo(0, 0);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isUpdate) {
+      toast.success(`Faq status updated successfully`);
+    }
+    if (isDelete) {
+      toast.success('Faq delete successfully');
+    }
+  }, [isUpdate, isDelete]);
 
   const handleStatusChange = (faq: IFaq) => {
     dispatch(updateFaq({ id: faq.id, is_visible: !faq.is_visible }));
@@ -26,6 +36,7 @@ const FaqPage: React.FC = () => {
 
   const handleDeleteVideo = (id: number) => {
     dispatch(deleteFaq(id));
+    dispatch(getFaqs());
   };
 
   return (
