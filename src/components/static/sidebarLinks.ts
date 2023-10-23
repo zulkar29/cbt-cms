@@ -127,6 +127,10 @@ export const sidebarLinks = [
         slug: '/coupons',
       },
       {
+        subtitle: 'Add Banner',
+        slug: '/banner',
+      },
+      {
         subtitle: 'Shipping',
         slug: '/shipping',
       },

@@ -14,6 +14,8 @@ import StockOutProducts from './product/stockout';
 import SubCategory from './category/subcategory';
 import VideosPage from './videos';
 import CouponPage from './marketing/coupon';
+import BannerPage from './marketing/banner';
+import CreateBanner from './marketing/create-banner';
 import SetupPage from './setup';
 import Header from './setup/header';
 import Footer from './setup/footer';
@@ -57,6 +59,8 @@ export {
   SubCategory,
   VideosPage,
   CouponPage,
+  BannerPage,
+  CreateBanner,
   SetupPage,
   Header,
   Footer,

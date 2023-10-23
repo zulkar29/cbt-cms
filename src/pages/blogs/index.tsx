@@ -15,13 +15,16 @@ import CustomIconArea from '../../components/custom-icon-area';
 import DeleteButton from '../../components/button/delete';
 import ViewButton from '../../components/button/view';
 import { FRONT_URL } from '../../constants';
+import { toast } from 'react-toastify';
 
 const Blogs: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
   // const [selectedBlog, setSelectedBlog] = useState<number[]>([]);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const dispatch = useAppDispatch();
-  const { blogs, totalCount } = useAppSelector((state) => state.blogs);
+  const { blogs, totalCount, isUpdate } = useAppSelector(
+    (state) => state.blogs
+  );
 
   const totalPage = Math.floor(totalCount / displayItem);
 
@@ -40,6 +43,11 @@ const Blogs: React.FC = () => {
       500
     );
   };
+  useEffect(() => {
+    if (isUpdate) {
+      toast.success('Blog updated successfully');
+    }
+  }, [isUpdate]);
 
   useEffect(() => {
     dispatch(getBlogs({ page: pageNumber, limit: displayItem }));

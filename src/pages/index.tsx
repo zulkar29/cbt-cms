@@ -41,6 +41,8 @@ import {
   Subscriber,
   CreatePage,
   UpdatePage,
+  BannerPage,
+  CreateBanner,
 } from './pages';
 
 function PageRoutes() {
@@ -90,6 +92,8 @@ function PageRoutes() {
       <Route path="/faqs/edit/:slug" element={<UpdateFaq />} />
       {/* Marketing */}
       <Route path="/coupons" element={<CouponPage />} />
+      <Route path="/banner" element={<BannerPage />} />
+      <Route path="/banner/create" element={<CreateBanner />} />
 
       {/* Support */}
       <Route path="/support" element={<TicketPage />} />
