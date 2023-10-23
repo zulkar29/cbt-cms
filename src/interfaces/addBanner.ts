@@ -1,7 +1,7 @@
 export interface IAdBanner {
   id?: number;
   url: string;
-  group_by?: string;
+  group_by: string;
   image: File | null;
   is_visible: boolean;
 }

@@ -32,7 +32,7 @@ const initialState: IBlogResponse = {
 // Create new Blog
 export const createAddBanner = createAsyncThunk(
   'addBanner/create',
-  async (bannerData: IAdBanner, thunkAPI) => {
+  async (bannerData: FormData, thunkAPI) => {
     try {
       return await addBannerService.createAddBanner(bannerData);
     } catch (error) {
