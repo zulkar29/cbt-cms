@@ -23,7 +23,7 @@ const initialState = {
   url: '',
   group_by: '',
   image: null as File | null,
-  is_visible: false,
+  is_visible: true,
 };
 const CreateBanner = () => {
   const dispatch = useAppDispatch();
@@ -68,6 +68,7 @@ const CreateBanner = () => {
     if (isCreate) {
       toast.success(`${message}`);
       setBannerData(initialState);
+      window.location.reload();
     }
     if (isError) {
       toast.error('Blog create filed');
@@ -92,6 +93,7 @@ const CreateBanner = () => {
             htmlFor="url"
             label="URL"
             name="url"
+            placeholder="URL"
             value={bannerData.url}
             onChange={handleBannerData}
             required
