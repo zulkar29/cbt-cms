@@ -12,7 +12,6 @@ interface IProps {
 const Actions: React.FC<IProps> = ({ editUrl, viewLink }) => {
   const handleModel = async () => {
     const isTrue = await Modal();
-    console.log(isTrue);
   };
   return (
     <div className="rect-icon">
