@@ -66,7 +66,7 @@ const VideosPage: React.FC = () => {
           <Column className="col-md-1">Status</Column>
           <Column className="col-md-2">Options</Column>
         </Row>
-        {videos.map((video) => (
+        {videos.map((video: IVideo) => (
           <Row key={video.id} className="row">
             <Column className="col-md-1">{video.id}</Column>
             <Column className="col-md-4">{video.title}</Column>

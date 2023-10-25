@@ -1,10 +1,9 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
 import Input from '../../components/forms/text-input';
 import { Button } from '../../components/button';
-import ToggleButton from '../../components/forms/checkbox';
 import { IVideo } from '../../interfaces/video';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { createVideo } from '../../redux/videos/videoSlice';
@@ -12,12 +11,12 @@ import { createVideo } from '../../redux/videos/videoSlice';
 const initialData = {
   title: '',
   url: '',
-  is_visible: false,
+  is_visible: true,
 };
 
 const CreateVideo: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { isError, isSuccess } = useAppSelector((state) => state.videos);
+  const { isError, isCreate } = useAppSelector((state) => state.videos);
   const [videoData, setVideoData] = useState<IVideo>(initialData);
 
   const handleVideoData = (
@@ -29,17 +28,13 @@ const CreateVideo: React.FC = () => {
     }));
   };
 
-  const handleStatusChange = () => {
-    setVideoData((prev) => ({
-      ...prev,
-      is_visible: !prev.is_visible,
-    }));
-  };
-
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(createVideo(videoData));
-    if (isSuccess) {
+  };
+
+  useEffect(() => {
+    if (isCreate) {
       toast.success('Video created successfully');
       setVideoData(initialData);
     }
@@ -47,8 +42,7 @@ const CreateVideo: React.FC = () => {
     if (isError) {
       toast.error('Failed to create video');
     }
-  };
-
+  }, [dispatch, isCreate, isError]);
   return (
     <div>
       <CardBody to="/videos" text="back" header="Create Video" />
@@ -60,6 +54,7 @@ const CreateVideo: React.FC = () => {
             placeholder="video title"
             name="title"
             htmlFor="video"
+            value={videoData.title}
             onChange={handleVideoData}
             required
           />
@@ -71,10 +66,6 @@ const CreateVideo: React.FC = () => {
             onChange={handleVideoData}
             value={videoData.url}
             required
-          />
-          <ToggleButton
-            isChecked={videoData.is_visible}
-            onClick={handleStatusChange}
           />
           <Button type="submit">Save</Button>
         </form>
