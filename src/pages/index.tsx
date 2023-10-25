@@ -43,6 +43,7 @@ import {
   UpdatePage,
   BannerPage,
   CreateBanner,
+  CreateSlider,
 } from './pages';
 
 function PageRoutes() {
@@ -105,6 +106,7 @@ function PageRoutes() {
       <Route path="/setup/header" element={<Header />} />
       <Route path="/setup/footer" element={<Footer />} />
       <Route path="/setup/sliders" element={<Sliders />} />
+      <Route path="/setup/sliders/create" element={<CreateSlider />} />
       <Route path="/setup/pages" element={<CommonPages />} />
       <Route path="/setup/pages/create" element={<CreatePage />} />
       <Route path="/setup/pages/edit/:slug" element={<UpdatePage />} />

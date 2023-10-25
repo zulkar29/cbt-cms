@@ -1,69 +1,49 @@
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
-import Table from '../../components/table';
 import Row from '../../components/table/row';
 import Column from '../../components/table/column';
-import Select from '../../components/select';
-import Actions from '../../components/actions';
-import { ChangeEvent, useState } from 'react';
-import Filter from '../../components/filter';
+import ToggleButton from '../../components/forms/checkbox';
+import CustomIconArea from '../../components/custom-icon-area';
+import DeleteButton from '../../components/button/delete';
+import { useAppDispatch } from '../../redux/hooks';
 
 const Sliders: React.FC = () => {
-  const [displayItem, setDisplayItem] = useState(10);
+  const dispatch = useAppDispatch();
 
-  console.log(displayItem);
-
-  const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
-    setDisplayItem(Number(e.target.value));
+  const handleDelete = () => {
+    dispatch(() => console.log('first'));
   };
 
   return (
     <div>
-      <CardBody header="Home Sliders" to="/coupon/create" />
+      <CardBody header="Home Sliders" to="/setup/sliders/create" />
       <Display>
-        <Filter handleDisplayItem={handleDisplayItem} />
-        <Table>
-          <thead>
-            <Row>
-              <th>Image</th>
-              <th>Link</th>
-              <th>Visible Shop Button</th>
-              <th>Action</th>
-            </Row>
-          </thead>
-          <tbody>
-            <Row>
-              <Column>
-                <img
-                  src="https://geniusdevs.com/codecanyon/omnimart40/assets/images/1629616218pexels-karolina-grabowska-4386467.jpg"
-                  alt="brand"
-                />
-              </Column>
-              <Column>https://www.gazihomeappliance.com/categories</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions editUrl="/setup/sliders/edit" />
-              </Column>
-            </Row>
-            <Row>
-              <Column>
-                <img
-                  src="https://geniusdevs.com/codecanyon/omnimart40/assets/images/16343906281630493865s3.jpg"
-                  alt="brand"
-                />
-              </Column>
-              <Column>https://www.gazihomeappliance.com/categories</Column>
-              <Column>
-                <Select />
-              </Column>
-              <Column>
-                <Actions editUrl="/setup/sliders/edit" />
-              </Column>
-            </Row>
-          </tbody>
-        </Table>
+        <Row className="row">
+          <Column className="col-md-4">Image</Column>
+          <Column className="col-md-5">Link</Column>
+          <Column className="col-md-2">Visible</Column>
+          <Column className="col-md-1">Action</Column>
+        </Row>
+
+        <Row className="row">
+          <Column className="col-md-4">
+            <img
+              src="https://geniusdevs.com/codecanyon/omnimart40/assets/images/1629616218pexels-karolina-grabowska-4386467.jpg"
+              alt="brand"
+            />
+          </Column>
+          <Column className="col-md-5">
+            https://www.gazihomeappliance.com/categories
+          </Column>
+          <Column className="col-md-2">
+            <ToggleButton />
+          </Column>
+          <Column>
+            <CustomIconArea>
+              <DeleteButton onClick={handleDelete} />
+            </CustomIconArea>
+          </Column>
+        </Row>
       </Display>
     </div>
   );

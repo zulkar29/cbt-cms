@@ -21,6 +21,7 @@ import Header from './setup/header';
 import Footer from './setup/footer';
 import CommonPages from './setup/pages';
 import Sliders from './setup/sliders';
+import CreateSlider from './setup/create-slider';
 import CreateCategory from './category/create-category';
 import CreateSubcategory from './category/create-subcategory';
 import CreateChildCategory from './category/create-childcategory';
@@ -66,6 +67,7 @@ export {
   Footer,
   CommonPages,
   Sliders,
+  CreateSlider,
   CreateCategory,
   CreateSubcategory,
   CreateChildCategory,
