@@ -8,7 +8,7 @@ export interface ICreateResponse {
 }
 
 const createAddBanner = async (
-  bannerData: FormData
+  bannerData: IAdBanner
 ): Promise<Partial<ICreateResponse>> => {
   const { data } = await axios.post(`${API_URL}/banners`, bannerData);
   return data;

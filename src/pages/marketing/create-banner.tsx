@@ -1,4 +1,3 @@
-import { FormEvent, useEffect } from 'react';
 import { Button } from '../../components/button';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
@@ -102,7 +101,7 @@ const CreateBanner = () => {
             name="group_by"
             onChange={handleBannerData}
             label="Select Group"
-            value={bannerData.group_by}
+            value={bannerData.group_by as string}
             options={options}
             required
           />
