@@ -13,6 +13,7 @@ import ToggleButton from '../../components/forms/checkbox';
 const CreateProduct: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [description, setDescription] = useState('');
+  const [policy, setPolicy] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const options = [
     { value: 'option1', label: 'Option 1' },
@@ -98,12 +99,9 @@ const CreateProduct: React.FC = () => {
                 />
                 <h5 className="product-title">Product Policy</h5>
                 <div className="des-none">
-                  <TextArea label="Description" value={description} required />
+                  <TextArea label="policy" value={policy} required />
                 </div>
-                <DescriptionInput
-                  value={description}
-                  setValue={setDescription}
-                />
+                <DescriptionInput value={policy} setValue={setPolicy} />
               </Display>
             </div>
           </div>
