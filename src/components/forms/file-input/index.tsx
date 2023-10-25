@@ -3,7 +3,7 @@ import './index.scss';
 
 interface IProps {
   placeholder?: string;
-  label: string;
+  label?: string;
   defaultValue?: string;
   ref?: React.RefObject<HTMLInputElement>;
   name?: string;

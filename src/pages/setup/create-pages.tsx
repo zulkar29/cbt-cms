@@ -24,11 +24,8 @@ const CreatePage = () => {
         </Column>
         <Column className="col-md-4">
           <Display>
-            <Input
-              htmlFor="Metatitle"
-              label="Meta Title *"
-              placeholder="Enter Title"
-            />
+            <Input htmlFor="Metatitle" placeholder="Enter Title" />
+            <Input placeholder="Meta keyword" htmlFor="meta-keyword" />
             <FileInput label="Meta Image" />
             <TextArea label="Meta Description" placeholder="Meta description" />
             <Button>Save Page</Button>

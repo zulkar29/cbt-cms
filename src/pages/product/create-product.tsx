@@ -14,19 +14,7 @@ const CreateProduct: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [description, setDescription] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
-  const [selectedOption2, setSelectedOption2] = useState('');
-  const [selectedOption3, setSelectedOption3] = useState('');
   const options = [
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3' },
-  ];
-  const options2 = [
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3' },
-  ];
-  const options3 = [
     { value: 'option1', label: 'Option 1' },
     { value: 'option2', label: 'Option 2' },
     { value: 'option3', label: 'Option 3' },
@@ -34,12 +22,6 @@ const CreateProduct: React.FC = () => {
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
-  };
-  const handleSelectChange2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption2(event.target.value);
-  };
-  const handleSelectChange3 = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption3(event.target.value);
   };
 
   console.log(file);
@@ -114,9 +96,13 @@ const CreateProduct: React.FC = () => {
                   value={description}
                   setValue={setDescription}
                 />
-                <TextArea
-                  label="Short Description"
-                  placeholder="Meta Description"
+                <h5 className="product-title">Product Policy</h5>
+                <div className="des-none">
+                  <TextArea label="Description" value={description} required />
+                </div>
+                <DescriptionInput
+                  value={description}
+                  setValue={setDescription}
                 />
               </Display>
             </div>
@@ -152,21 +138,9 @@ const CreateProduct: React.FC = () => {
                   options={options}
                   required
                 />
-                <Select
-                  label="Select subcategory *"
-                  name="mySelect"
-                  value={selectedOption2}
-                  onChange={handleSelectChange2}
-                  options={options2}
-                  required
-                />
-                <Select
-                  label="Select subcategory *"
-                  name="mySelect"
-                  value={selectedOption3}
-                  onChange={handleSelectChange3}
-                  options={options3}
-                  required
+                <TextArea
+                  label="Product short description *"
+                  placeholder="Product short description"
                 />
               </Display>
 
@@ -185,12 +159,10 @@ const CreateProduct: React.FC = () => {
                 </div>
               </Display>
               <Display>
-                <Input
-                  placeholder="Meta Title"
-                  label="Meta Title"
-                  htmlFor="meta-title"
-                />
-                <TextArea label="Description" placeholder="Meta Description" />
+                <Input placeholder="Meta Title" htmlFor="meta-title" />
+                <Input placeholder="Meta keyword" htmlFor="meta-keyword" />
+                <FileInput />
+                <TextArea placeholder="Meta Description" />
               </Display>
             </div>
           </div>

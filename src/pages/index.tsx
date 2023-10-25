@@ -17,7 +17,6 @@ import {
   VideosPage,
   CouponPage,
   SetupPage,
-  Header,
   Footer,
   CommonPages,
   Sliders,
@@ -44,6 +43,8 @@ import {
   BannerPage,
   CreateBanner,
   CreateSlider,
+  Services,
+  CreateService,
 } from './pages';
 
 function PageRoutes() {
@@ -103,9 +104,10 @@ function PageRoutes() {
 
       {/* Settings */}
       <Route path="/setup/home-page" element={<SetupPage />} />
-      <Route path="/setup/header" element={<Header />} />
       <Route path="/setup/footer" element={<Footer />} />
       <Route path="/setup/sliders" element={<Sliders />} />
+      <Route path="/setup/services" element={<Services />} />
+      <Route path="/setup/services/create" element={<CreateService />} />
       <Route path="/setup/sliders/create" element={<CreateSlider />} />
       <Route path="/setup/pages" element={<CommonPages />} />
       <Route path="/setup/pages/create" element={<CreatePage />} />

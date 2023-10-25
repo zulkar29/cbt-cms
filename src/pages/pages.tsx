@@ -17,7 +17,8 @@ import CouponPage from './marketing/coupon';
 import BannerPage from './marketing/banner';
 import CreateBanner from './marketing/create-banner';
 import SetupPage from './setup';
-import Header from './setup/header';
+import Services from './setup/services';
+import CreateService from './setup/create-service';
 import Footer from './setup/footer';
 import CommonPages from './setup/pages';
 import Sliders from './setup/sliders';
@@ -63,7 +64,8 @@ export {
   BannerPage,
   CreateBanner,
   SetupPage,
-  Header,
+  CreateService,
+  Services,
   Footer,
   CommonPages,
   Sliders,

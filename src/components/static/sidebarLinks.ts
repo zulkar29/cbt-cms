@@ -165,8 +165,8 @@ export const sidebarLinks = [
         slug: '/setup/home-page',
       },
       {
-        subtitle: 'Header',
-        slug: '/setup/header',
+        subtitle: 'Services',
+        slug: '/setup/services',
       },
       {
         subtitle: 'Footer',
