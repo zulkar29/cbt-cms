@@ -12,10 +12,11 @@ import { toast } from 'react-toastify';
 import { BlogData } from '../../interfaces/blog';
 import { createBlog, reset } from '../../redux/blogs/blogSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import Column from '../../components/table/column';
 const initialBlogData = {
   title: '',
   image: null,
-  is_visible: false,
+  is_visible: true,
   meta_title: '',
   meta_keyword: '',
   meta_description: '',
@@ -65,12 +66,12 @@ const CreateBlog: React.FC = () => {
       }));
     }
   };
-  const handleVisible = () => {
+  /*   const handleVisible = () => {
     setBlogData((prevState) => ({
       ...prevState,
       is_visible: !prevState.is_visible,
     }));
-  };
+  }; */
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -92,79 +93,79 @@ const CreateBlog: React.FC = () => {
       {isLoading && <p>Please Wait.</p>}
       <Display>
         <form onSubmit={handleSubmit} ref={formRef}>
-          <FileInput
-            label="Set Image *"
-            name="image"
-            onChange={handleImageChange}
-            placeholder="Choose an Image"
-            required
-          />
+          <div className="row">
+            <Column className="col-md-8">
+              <Input
+                htmlFor="title"
+                label="Title *"
+                name="title"
+                value={blogData.title}
+                onChange={handleBlogData}
+                placeholder="Enter Title"
+                required
+              />
+              <Input
+                htmlFor="Slug"
+                label="slug *"
+                name="slug"
+                value={blogData.slug}
+                onChange={handleBlogData}
+                placeholder="Slug"
+              />
+              <FileInput
+                label="Set Image *"
+                name="image"
+                onChange={handleImageChange}
+                placeholder="Choose an Image"
+                required
+              />
+              <DescriptionInput value={description} setValue={setDescription} />
+            </Column>
+            <Column className="col-md-4">
+              <textarea
+                className="des-none"
+                name="description"
+                id="desc"
+                required
+                value={description}
+                readOnly
+              ></textarea>
+
+              <Input
+                htmlFor="Meta-Title"
+                label="Meta title *"
+                name="meta_title"
+                value={blogData.meta_title}
+                onChange={handleBlogData}
+                placeholder="Meta Title"
+              />
+              <Input
+                htmlFor="Meta-Keywords"
+                label="Meta Keywords *"
+                name="meta_keyword"
+                onChange={handleBlogData}
+                value={blogData.meta_keyword}
+                placeholder="Meta Keywords"
+              />
+              <TextArea
+                label="Meta Description"
+                name="meta_description"
+                onChange={handleBlogData}
+                value={blogData.meta_description}
+                placeholder="Enter Meta Description"
+              />
+            </Column>
+          </div>
           <div>
-            {blogData.image && (
+            {/* {blogData.image && (
               <img
                 style={{ width: '100%' }}
                 src={URL.createObjectURL(blogData.image)}
                 alt="category"
               />
-            )}
+            )} */}
           </div>
-          <Input
-            htmlFor="title"
-            label="Title *"
-            name="title"
-            value={blogData.title}
-            onChange={handleBlogData}
-            placeholder="Enter Title"
-            required
-          />
 
-          <textarea
-            className="des-none"
-            name="description"
-            id="desc"
-            required
-            value={description}
-            readOnly
-          ></textarea>
-          <DescriptionInput value={description} setValue={setDescription} />
-          <br />
-          <br />
-
-          <Input
-            htmlFor="Slug"
-            label="slug *"
-            name="slug"
-            value={blogData.slug}
-            onChange={handleBlogData}
-            placeholder="Slug"
-          />
-          <Input
-            htmlFor="Meta-Title"
-            label="Meta title *"
-            name="meta_title"
-            value={blogData.meta_title}
-            onChange={handleBlogData}
-            placeholder="Meta Title"
-          />
-          <Input
-            htmlFor="Meta-Keywords"
-            label="Meta Keywords *"
-            name="meta_keyword"
-            onChange={handleBlogData}
-            value={blogData.meta_keyword}
-            placeholder="Meta Keywords"
-          />
-          <TextArea
-            label="Meta Description"
-            name="meta_description"
-            onChange={handleBlogData}
-            value={blogData.meta_description}
-            placeholder="Enter Meta Description"
-          />
-          <ToggleButton
-            isChecked={blogData.is_visible}
-            onClick={handleVisible}
-          />
           <Button>Create</Button>
         </form>
       </Display>

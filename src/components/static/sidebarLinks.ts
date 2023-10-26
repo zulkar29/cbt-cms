@@ -173,7 +173,7 @@ export const sidebarLinks = [
         slug: '/setup/footer',
       },
       {
-        subtitle: 'Sliders',
+        subtitle: 'Homepage Sliders',
         slug: '/setup/sliders',
       },
       {
