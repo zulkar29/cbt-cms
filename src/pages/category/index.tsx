@@ -6,15 +6,25 @@ import Column from '../../components/table/column';
 import Actions from '../../components/actions';
 import ToggleButton from '../../components/forms/checkbox';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getCategories } from '../../redux/category/categorySlice';
+import {
+  getCategories,
+  updateCategory,
+} from '../../redux/category/categorySlice';
+import { ICategory } from '../../interfaces/category';
 
 const Categories: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { categories } = useAppSelector((state) => state.category);
+  const { categories, isUpdate } = useAppSelector((state) => state.category);
+
+  const handleVisibility = (category: ICategory) => {
+    dispatch(
+      updateCategory({ id: category.id, is_feature: !category.is_feature })
+    );
+  };
 
   useEffect(() => {
     dispatch(getCategories());
-  }, [dispatch]);
+  }, [dispatch, isUpdate]);
 
   return (
     <div>
@@ -38,7 +48,10 @@ const Categories: React.FC = () => {
             <Column className="col-md-3">{category.title}</Column>
             <Column className="col-md-2">{category.parent_category}</Column>
             <Column className="col-md-2">
-              <ToggleButton isChecked={category.is_feature} />
+              <ToggleButton
+                onClick={() => handleVisibility(category)}
+                isChecked={category.is_feature}
+              />
             </Column>
             <Column className="col-md-1">
               <Actions editUrl={`/categories/edit/${index}`} />

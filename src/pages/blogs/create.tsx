@@ -7,7 +7,6 @@ import Input from '../../components/forms/text-input';
 import TextArea from '../../components/forms/textarea';
 import DescriptionInput from '../../components/description';
 import './index.scss';
-import ToggleButton from '../../components/forms/checkbox';
 import { toast } from 'react-toastify';
 import { BlogData } from '../../interfaces/blog';
 import { createBlog, reset } from '../../redux/blogs/blogSlice';
@@ -63,6 +62,16 @@ const CreateBlog: React.FC = () => {
       setBlogData((prevState) => ({
         ...prevState,
         image: file,
+      }));
+    }
+  };
+  const handleMetaImage = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0]; // Get the first selected file
+
+      setBlogData((prevState) => ({
+        ...prevState,
+        meta_image: file,
       }));
     }
   };
@@ -147,6 +156,7 @@ const CreateBlog: React.FC = () => {
                 value={blogData.meta_keyword}
                 placeholder="Meta Keywords"
               />
+              <FileInput label="Meta Image" onChange={handleMetaImage} />
               <TextArea
                 label="Meta Description"
                 name="meta_description"

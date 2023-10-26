@@ -8,6 +8,9 @@ interface IBlogResponse {
   totalCount: number;
   isError: boolean;
   isSuccess: boolean;
+  isCreate: boolean;
+  isUpdate: boolean;
+  isDelete: boolean;
   isLoading: boolean;
   message: string | unknown;
   errorMessage: string | unknown;
@@ -18,6 +21,9 @@ const initialState: IBlogResponse = {
   totalCount: 0,
   isError: false,
   isSuccess: false,
+  isCreate: false,
+  isUpdate: false,
+  isDelete: false,
   isLoading: false,
   message: '',
   errorMessage: '',
@@ -50,7 +56,7 @@ export const getCategories = createAsyncThunk(
   }
 );
 
-export const updateVideo = createAsyncThunk(
+export const updateCategory = createAsyncThunk(
   'category/update',
   async (categoryData: Partial<ICategory>, thunkAPI) => {
     try {
@@ -85,11 +91,11 @@ export const categorySlice = createSlice({
     builder
       .addCase(createCategory.pending, (state) => {
         state.isLoading = true;
-        state.isSuccess = false;
+        state.isCreate = false;
       })
       .addCase(createCategory.fulfilled, (state) => {
         state.isLoading = false;
-        state.isSuccess = true;
+        state.isCreate = true;
       })
       .addCase(createCategory.rejected, (state) => {
         state.isLoading = false;
@@ -111,14 +117,15 @@ export const categorySlice = createSlice({
         state.message = action.payload;
       })
       /* TODO: UPDATE CATEGORY DATA SET */
-      .addCase(updateVideo.pending, (state) => {
+      .addCase(updateCategory.pending, (state) => {
         state.isLoading = true;
+        state.isUpdate = false;
       })
-      .addCase(updateVideo.fulfilled, (state) => {
+      .addCase(updateCategory.fulfilled, (state) => {
         state.isLoading = false;
-        state.isSuccess = true;
+        state.isUpdate = true;
       })
-      .addCase(updateVideo.rejected, (state, action) => {
+      .addCase(updateCategory.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
@@ -126,10 +133,11 @@ export const categorySlice = createSlice({
       /* TODO: DELETE CATEGORY DATA SET */
       .addCase(deleteVideo.pending, (state) => {
         state.isLoading = true;
+        state.isDelete = false;
       })
       .addCase(deleteVideo.fulfilled, (state) => {
         state.isLoading = false;
-        state.isSuccess = true;
+        state.isDelete = true;
       })
       .addCase(deleteVideo.rejected, (state, action) => {
         state.isLoading = false;

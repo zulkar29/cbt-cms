@@ -2,7 +2,6 @@ import { Route, Routes } from 'react-router-dom';
 import {
   Blogs,
   Categories,
-  ChildCategory,
   Customers,
   FaqPage,
   Home,
@@ -13,7 +12,6 @@ import {
   AllProducts,
   Reviews,
   StockOutProducts,
-  SubCategory,
   VideosPage,
   CouponPage,
   SetupPage,
@@ -21,11 +19,7 @@ import {
   CommonPages,
   Sliders,
   CreateCategory,
-  CreateSubcategory,
-  CreateChildCategory,
   UpdateCategory,
-  UpdateSubcategory,
-  UpdateChildCategory,
   CreateVideo,
   UpdateVideo,
   CreateBlog,
@@ -55,15 +49,6 @@ function PageRoutes() {
       <Route path="/category" element={<Categories />} />
       <Route path="/categories/create" element={<CreateCategory />} />
       <Route path="/categories/edit/:slug" element={<UpdateCategory />} />
-      <Route path="/subcategory" element={<SubCategory />} />
-      <Route path="/subcategory/create" element={<CreateSubcategory />} />
-      <Route path="/subcategory/edit/:slug" element={<UpdateSubcategory />} />
-      <Route path="/childcategory" element={<ChildCategory />} />
-      <Route path="/childcategory/create" element={<CreateChildCategory />} />
-      <Route
-        path="/childcategory/edit/:slug"
-        element={<UpdateChildCategory />}
-      />
 
       {/* Products */}
       <Route path="/products" element={<AllProducts />} />
@@ -104,7 +89,7 @@ function PageRoutes() {
 
       {/* Settings */}
       <Route path="/setup/home-page" element={<SetupPage />} />
-      <Route path="/setup/footer" element={<Footer />} />
+      <Route path="/setup/setting" element={<Footer />} />
       <Route path="/setup/sliders" element={<Sliders />} />
       <Route path="/setup/services" element={<Services />} />
       <Route path="/setup/services/create" element={<CreateService />} />

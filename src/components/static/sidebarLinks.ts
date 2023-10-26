@@ -15,12 +15,8 @@ export const sidebarLinks = [
         slug: '/category',
       },
       {
-        subtitle: 'Sub Categories',
-        slug: '/subcategory',
-      },
-      {
-        subtitle: 'Child Categories',
-        slug: '/childcategory',
+        subtitle: 'Add Category',
+        slug: 'categories/create',
       },
     ],
   },
@@ -169,8 +165,8 @@ export const sidebarLinks = [
         slug: '/setup/services',
       },
       {
-        subtitle: 'Footer',
-        slug: '/setup/footer',
+        subtitle: 'Setting',
+        slug: '/setup/setting',
       },
       {
         subtitle: 'Homepage Sliders',

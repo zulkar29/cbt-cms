@@ -5,6 +5,10 @@ export type ICategory = {
   slug: string;
   parent_category?: string;
   image?: string;
+  meta_title: string;
+  meta_description: string;
+  meta_keyword: string;
+  meta_image?: File | null;
   updated_at?: string;
   created_at?: string;
 };
