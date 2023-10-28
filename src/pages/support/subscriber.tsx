@@ -12,15 +12,17 @@ import DeleteButton from '../../components/button/delete';
 
 const Subscriber = () => {
   const dispatch = useAppDispatch();
-  const { subscribers } = useAppSelector((state) => state.subscribers);
+  const { subscribers, isDelete } = useAppSelector(
+    (state) => state.subscribers
+  );
 
   const handleSubscriber = (id: number) => {
-    dispatch(deleteSubscriber({ subsId: id }));
+    dispatch(deleteSubscriber(id));
   };
 
   useEffect(() => {
     dispatch(getSubscribers());
-  }, [dispatch]);
+  }, [dispatch, isDelete]);
 
   return (
     <div>
