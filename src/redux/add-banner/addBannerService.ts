@@ -27,7 +27,7 @@ const updateAddBanner = async (bannerData: Partial<IAdBanner>) => {
   return data.data;
 };
 
-const deleteFaq = async (faqId: number | string) => {
+const deleteBanner = async (faqId: number | string) => {
   const { data } = await axios.delete(`${API_URL}/banners/?ids=[${faqId}]`);
   return data.data;
 };
@@ -36,7 +36,7 @@ const addBannerService = {
   createAddBanner,
   getAddBanner,
   updateAddBanner,
-  deleteFaq,
+  deleteBanner,
 };
 
 export default addBannerService;

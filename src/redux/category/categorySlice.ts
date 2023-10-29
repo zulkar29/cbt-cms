@@ -32,7 +32,7 @@ const initialState: IBlogResponse = {
 // Create new Blog
 export const createCategory = createAsyncThunk(
   'category/create',
-  async (categoryData: ICategory, thunkAPI) => {
+  async (categoryData: FormData, thunkAPI) => {
     try {
       return await categoryService.createCategory(categoryData);
     } catch (error) {
@@ -45,9 +45,14 @@ export const createCategory = createAsyncThunk(
 
 export const getCategories = createAsyncThunk(
   'category/getAll',
-  async (_, thunkAPI) => {
+  async (
+    filter: {
+      [key: string]: string | number;
+    },
+    thunkAPI
+  ) => {
     try {
-      return await categoryService.getCategory();
+      return await categoryService.getCategory(filter);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -68,7 +73,7 @@ export const updateCategory = createAsyncThunk(
     }
   }
 );
-export const deleteVideo = createAsyncThunk(
+export const deleteCategory = createAsyncThunk(
   'category/delete',
   async (categoryId: number, thunkAPI) => {
     try {
@@ -131,15 +136,15 @@ export const categorySlice = createSlice({
         state.message = action.payload;
       })
       /* TODO: DELETE CATEGORY DATA SET */
-      .addCase(deleteVideo.pending, (state) => {
+      .addCase(deleteCategory.pending, (state) => {
         state.isLoading = true;
         state.isDelete = false;
       })
-      .addCase(deleteVideo.fulfilled, (state) => {
+      .addCase(deleteCategory.fulfilled, (state) => {
         state.isLoading = false;
         state.isDelete = true;
       })
-      .addCase(deleteVideo.rejected, (state, action) => {
+      .addCase(deleteCategory.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

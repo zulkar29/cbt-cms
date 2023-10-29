@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Button } from '../../components/button';
 import Display from '../../components/display';
 import FileInput from '../../components/forms/file-input';
@@ -5,8 +6,20 @@ import Input from '../../components/forms/text-input';
 import TextArea from '../../components/forms/textarea';
 import Column from '../../components/table/column';
 import './index.scss';
+import { IHomePage } from '../../interfaces/homePage';
+
+const initialState = {
+  meta_title: '',
+  meta_description: '',
+  mobile_number: '',
+  office_time: '',
+  special_product_link: '',
+  special_product_photo: null,
+};
 
 const SetupPage: React.FC = () => {
+  const [homeData, setHomeData] = useState<IHomePage>(initialState);
+
   return (
     <div>
       <form>
@@ -45,14 +58,7 @@ const SetupPage: React.FC = () => {
                 placeholder="Mobile Number"
                 required
               />
-              <Input
-                htmlFor="keyword"
-                label="Meta Keyword"
-                placeholder="Mobile Number"
-                required
-              />
               <TextArea label="Meta Description" />
-              <FileInput label="Meta Image" required />
             </Display>
           </Column>
         </div>

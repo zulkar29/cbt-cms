@@ -8,17 +8,32 @@ import './banner.scss';
 import CardBody from '../../components/card-body';
 import Row from '../../components/table/row';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getAddBanner } from '../../redux/add-banner/addBannerSlice';
+import {
+  deleteBanner,
+  getAddBanner,
+  updateAddBanner,
+} from '../../redux/add-banner/addBannerSlice';
 import { API_ROOT } from '../../constants';
+import { IAdBanner } from '../../interfaces/addBanner';
 
 const BannerPage = () => {
   const dispatch = useAppDispatch();
-  const { addBanner } = useAppSelector((state) => state.banner);
-  console.log(addBanner);
+  const { addBanner, isDelete } = useAppSelector((state) => state.banner);
+
+  const handleDelete = (id: number) => {
+    dispatch(deleteBanner(id));
+  };
+
+  const handleVisibility = (banner: IAdBanner) => {
+    dispatch(
+      updateAddBanner({ id: banner.id, is_visible: !banner.is_visible })
+    );
+    dispatch(getAddBanner());
+  };
 
   useEffect(() => {
     dispatch(getAddBanner());
-  }, [dispatch]);
+  }, [dispatch, isDelete]);
 
   return (
     <div>
@@ -40,11 +55,16 @@ const BannerPage = () => {
             </Column>
             <Column className="col-md-2">{banner.group_by}</Column>
             <Column className="col-md-1">
-              <ToggleButton isChecked={banner.is_visible} />
+              <ToggleButton
+                onClick={() => handleVisibility(banner)}
+                isChecked={banner.is_visible}
+              />
             </Column>
             <Column className="col-md-2">
               <CustomIconArea>
-                <DeleteButton />
+                <DeleteButton
+                  onClick={() => handleDelete(banner.id as number)}
+                />
               </CustomIconArea>
             </Column>
           </Row>

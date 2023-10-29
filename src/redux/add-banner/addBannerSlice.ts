@@ -68,11 +68,11 @@ export const updateAddBanner = createAsyncThunk(
     }
   }
 );
-export const deleteFaq = createAsyncThunk(
+export const deleteBanner = createAsyncThunk(
   'addBanner/delete',
-  async (videoId: number | string, thunkAPI) => {
+  async (BannerId: number | string, thunkAPI) => {
     try {
-      return await addBannerService.deleteFaq(videoId);
+      return await addBannerService.deleteBanner(BannerId);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -103,9 +103,10 @@ export const addBannerSlice = createSlice({
         state.isError = true;
         state.errorMessage = (action.payload as IAddBannerResponse).message;
       })
-      /* TODO: GET FAQ DATA SET */
+      /* TODO: GET Banner DATA SET */
       .addCase(getAddBanner.pending, (state) => {
         state.isLoading = true;
+        state.isSuccess = false;
       })
       .addCase(getAddBanner.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -118,7 +119,7 @@ export const addBannerSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      /* TODO: UPDATE FAQ DATA SET */
+      /* TODO: UPDATE Banner DATA SET */
       .addCase(updateAddBanner.pending, (state) => {
         state.isLoading = true;
         state.isUpdate = false;
@@ -132,15 +133,15 @@ export const addBannerSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      /* TODO: DELETE FAQ DATA SET */
-      .addCase(deleteFaq.pending, (state) => {
+      /* TODO: DELETE Banner DATA SET */
+      .addCase(deleteBanner.pending, (state) => {
         state.isDelete = false;
       })
-      .addCase(deleteFaq.fulfilled, (state) => {
+      .addCase(deleteBanner.fulfilled, (state) => {
         state.isLoading = false;
         state.isDelete = true;
       })
-      .addCase(deleteFaq.rejected, (state, action) => {
+      .addCase(deleteBanner.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

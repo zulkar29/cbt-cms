@@ -1,13 +1,12 @@
 export type ICategory = {
-  is_feature: boolean;
   id?: number;
   title: string;
   slug: string;
   parent_category?: string;
-  image?: string;
-  meta_title: string;
-  meta_description: string;
-  meta_keyword: string;
+  is_feature: boolean;
+  image?: File | null;
+  meta_title?: string;
+  meta_description?: string;
   meta_image?: File | null;
   updated_at?: string;
   created_at?: string;

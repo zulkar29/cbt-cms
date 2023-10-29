@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { Button } from '../../components/button';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
@@ -8,52 +8,111 @@ import TextArea from '../../components/forms/textarea';
 import Column from '../../components/table/column';
 import Select from '../../components/select';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getCategories } from '../../redux/category/categorySlice';
+import {
+  createCategory,
+  getCategories,
+  reset,
+} from '../../redux/category/categorySlice';
+import { ICategory } from '../../interfaces/category';
+import { toast } from 'react-toastify';
+
+const initialState = {
+  title: '',
+  slug: '',
+  parent_category: '',
+  image: null as File | null,
+  is_feature: false,
+};
 
 const CreateCategory: React.FC = () => {
-  const { categories } = useAppSelector((state) => state.category);
+  const { categories, isCreate } = useAppSelector((state) => state.category);
   const dispatch = useAppDispatch();
-  const [file, setFile] = useState<File | null>(null);
-  const handleChangeFile = (selectedFile: File) => {
-    setFile(selectedFile);
+  const [categoryData, setCategoryData] = useState<ICategory>(initialState);
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) =>
+    setCategoryData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      setCategoryData((prevState) => ({
+        ...prevState,
+        image: file,
+      }));
+    }
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    Object.entries(categoryData).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        if (value instanceof File) {
+          formData.append(key, value, value.name);
+        } else {
+          formData.append(key, String(value));
+        }
+      }
+    });
+    dispatch(createCategory(formData));
   };
 
   useEffect(() => {
-    dispatch(getCategories());
+    if (isCreate) {
+      toast.success('Category create successfully');
+    }
+
+    return () => {
+      dispatch(reset());
+    };
+  }, [isCreate, dispatch]);
+
+  useEffect(() => {
+    dispatch(getCategories({}));
   }, [dispatch]);
   return (
     <div>
       <CardBody header="Create Category" to="/category" text="back" />
       <Display>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="row">
             <Column className="col-md-8">
               <Input
                 htmlFor="title"
+                name="title"
                 label="Title *"
+                onChange={handleChange}
                 placeholder="Enter Title"
                 required
               />
               <Input
                 htmlFor="slug"
+                name="slug"
                 label="Slug *"
+                onChange={handleChange}
                 placeholder="Enter Slug"
                 required
               />
-              <Select htmlFor="Choose Parent category">
-                {categories.map((category) => (
-                  <option
-                    value={category.title.replace(' ', '_').toLowerCase()}
-                  >
+              <Select
+                htmlFor="Choose Parent category"
+                name="parent_category"
+                onChange={handleChange}
+              >
+                {categories.map((category, index) => (
+                  <option key={index} value={category.slug}>
                     {category.title}
                   </option>
                 ))}
               </Select>
               <FileInput
                 label="Set Image"
-                onChange={handleChangeFile}
                 placeholder="Choose an Image"
-                required
+                onChange={handleImageChange}
               />
             </Column>
             <Column className="col-md-4">
