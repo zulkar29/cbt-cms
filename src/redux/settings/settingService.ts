@@ -1,37 +1,22 @@
 import axios from 'axios';
 import { API_URL } from '../../constants';
-import { IPages, IPagesResponse } from '../../interfaces/pages';
+import { ISettings, ISettingsResponse } from '../../interfaces/settings';
 
-const createPages = async (
-  pageData: IPages
-): Promise<Partial<IPagesResponse>> => {
-  const { data } = await axios.post(`${API_URL}/pages`, pageData);
-  return data;
+const getSettings = async (): Promise<ISettings> => {
+  const { data } = await axios.get(`${API_URL}/settings`);
+  return data.setting;
 };
 
-const getPages = async (): Promise<IPagesResponse> => {
-  const { data } = await axios.get(`${API_URL}/pages`);
-  return data;
-};
-
-const updatePages = async (pageData: Partial<IPages>) => {
-  const { data } = await axios.patch(
-    `${API_URL}/pages/${pageData.id}`,
-    pageData
-  );
+const updateSettings = async (
+  settingData: FormData
+): Promise<ISettingsResponse> => {
+  const { data } = await axios.patch(`${API_URL}/settings`, settingData);
   return data.data;
 };
 
-const deletePages = async (pageId: number | string) => {
-  const { data } = await axios.delete(`${API_URL}/pages/?ids=[${pageId}]`);
-  return data.data;
+const settingService = {
+  getSettings,
+  updateSettings,
 };
 
-const faqService = {
-  createPages,
-  getPages,
-  updatePages,
-  deletePages,
-};
-
-export default faqService;
+export default settingService;

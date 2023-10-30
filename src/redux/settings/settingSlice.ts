@@ -1,53 +1,56 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { IPages } from '../../interfaces/pages';
 import { ISettings } from '../../interfaces/settings';
+import settingService from './settingService';
 
-interface IPagesResponse {
+interface IsettingResponse {
   setting: ISettings;
   totalCount: number;
   isError: boolean;
   isSuccess: boolean;
-  isCreate: boolean;
   isUpdate: boolean;
-  isDelete: boolean;
   isLoading: boolean;
   message: string | unknown;
   errorMessage: string | unknown;
 }
 
-const initialState: IPagesResponse = {
-  setting: {},
+const initialState: IsettingResponse = {
+  setting: {
+    id: 0,
+    logo: '',
+    favicon: '',
+    footer_info: '',
+    footer_copywrite: '',
+    contact_number: '',
+    contact_email: '',
+    address: '',
+    google_analytics: '',
+    facebook_pixel: '',
+    header_script: '',
+    footer_script: '',
+    facebook_url: '',
+    youtube_url: '',
+    twitter_url: '',
+    instgram_url: '',
+    cash_on_message: null,
+    online_payment_message: null,
+    created_at: '',
+    updated_at: '',
+  },
   totalCount: 0,
   isError: false,
   isSuccess: false,
-  isCreate: false,
   isUpdate: false,
-  isDelete: false,
   isLoading: false,
   message: '',
   errorMessage: '',
 };
 
-// Create new Blog
-export const createPages = createAsyncThunk(
-  'pages/create',
-  async (faqData: IPages, thunkAPI) => {
-    try {
-      return await pageService.createPages(faqData);
-    } catch (error) {
-      const message =
-        error instanceof Error ? error.message : 'An error occurred';
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-
-export const getPages = createAsyncThunk(
-  'pages/getAll',
+export const getSettings = createAsyncThunk(
+  'setting/getAll',
   async (_, thunkAPI) => {
     try {
-      return await pageService.getPages();
+      return await settingService.getSettings();
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -57,22 +60,10 @@ export const getPages = createAsyncThunk(
 );
 
 export const updateFaq = createAsyncThunk(
-  'pages/update',
-  async (faqData: Partial<IFaq>, thunkAPI) => {
+  'setting/update',
+  async (data: FormData, thunkAPI) => {
     try {
-      return await pageService.updatePages(faqData);
-    } catch (error) {
-      const message =
-        error instanceof Error ? error.message : 'An error occurred';
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-export const deleteFaq = createAsyncThunk(
-  'pages/delete',
-  async (videoId: number | string, thunkAPI) => {
-    try {
-      return await pageService.deletePages(videoId);
+      return await settingService.updateSettings(data);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -81,8 +72,8 @@ export const deleteFaq = createAsyncThunk(
   }
 );
 
-export const pageSlice = createSlice({
-  name: 'Blog',
+export const settingSlice = createSlice({
+  name: 'settings',
   initialState,
   reducers: {
     reset: () => initialState,
@@ -90,22 +81,21 @@ export const pageSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      /* TODO: GET FAQ DATA SET */
-      .addCase(getPages.pending, (state) => {
+      /* TODO: GET SETTINGS */
+      .addCase(getSettings.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getPages.fulfilled, (state, action) => {
+      .addCase(getSettings.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.pages = action.payload.data.rows;
-        state.totalCount = action.payload.data.count;
+        state.setting = action.payload;
       })
-      .addCase(getPages.rejected, (state, action) => {
+      .addCase(getSettings.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      /* TODO: UPDATE FAQ DATA SET */
+      /* TODO: UPDATE SETTINGS */
       .addCase(updateFaq.pending, (state) => {
         state.isLoading = true;
         state.isUpdate = false;
@@ -122,6 +112,6 @@ export const pageSlice = createSlice({
   },
 });
 
-export const { reset } = pageSlice.actions;
-export const selectCount = (state: RootState) => state.pages;
-export default pageSlice.reducer;
+export const { reset } = settingSlice.actions;
+export const selectCount = (state: RootState) => state.settings;
+export default settingSlice.reducer;

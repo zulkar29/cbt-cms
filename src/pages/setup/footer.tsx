@@ -1,12 +1,26 @@
+import { useEffect, useState } from 'react';
 import { Button } from '../../components/button';
 import Display from '../../components/display';
 import Input from '../../components/forms/text-input';
 import TextArea from '../../components/forms/textarea';
 import Column from '../../components/table/column';
 import Row from '../../components/table/row';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import './footer.scss';
+import { getSettings } from '../../redux/settings/settingSlice';
+import { ISettings } from '../../interfaces/settings';
 
 const Footer: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { setting, isSuccess } = useAppSelector((state) => state.settings);
+  const [settings, setSettings] = useState<ISettings>(setting);
+  console.log(settings);
+
+  useEffect(() => {
+    dispatch(getSettings());
+    setSettings(setting);
+  }, [dispatch, isSuccess]);
+
   return (
     <div className="footer">
       <form>
@@ -14,42 +28,104 @@ const Footer: React.FC = () => {
           <Column className="col-md-12 button">
             <Button type="submit">Update</Button>
           </Column>
+        </Row>
+        <Row className="row">
           <Column className="col-md-6">
             <Display>
-              <Input label="Footer info" htmlFor="info" required />
-              <Input label="Footer copy write" htmlFor="copywrite" required />
-              <Input label="Contact Number" htmlFor="mobile-No" required />
+              <Input
+                label="Footer info"
+                htmlFor="info"
+                value={settings.footer_info}
+                required
+              />
+              <Input
+                label="Footer copy write"
+                htmlFor="copywrite"
+                value={setting.footer_copywrite}
+                required
+              />
+              <Input
+                label="Contact Number"
+                htmlFor="mobile-No"
+                value={setting.contact_number}
+                required
+              />
               <Input
                 label="Contact Email"
                 type="email"
+                value={setting.contact_email}
                 htmlFor="email"
                 required
               />
-              <TextArea label="Address" required />
+              <TextArea label="Address" value={setting.address} required />
+            </Display>
+            <Display>
+              <Input
+                label="facebook url"
+                value={setting.facebook_url}
+                htmlFor="f-url"
+                required
+              />
+              <Input
+                label="youtube url"
+                value={setting.youtube_url}
+                htmlFor="y-url"
+                required
+              />
+              <Input
+                label="twitter url"
+                value={setting.twitter_url}
+                htmlFor="t-url"
+                required
+              />
+              <Input
+                label="instagram url"
+                value={setting.instgram_url}
+                htmlFor="t-url"
+                required
+              />
+            </Display>
+            <Display>
+              <TextArea
+                label="Cash on message"
+                value={setting.cash_on_message as string}
+                required
+              />
+              <TextArea
+                label="online payment message"
+                value={setting.online_payment_message as string}
+                required
+              />
             </Display>
           </Column>
           <Column className="col-md-6">
             <Display>
-              <Input htmlFor="Contact email" label="Play Store Link" />
-              <Input htmlFor="Contact email" label="App Store Link" />
-              <TextArea label="google analytics" required />
-              <TextArea label="Facebook pixel" required />
+              <Input htmlFor="play-store" label="Play Store Link" required />
+              <Input htmlFor="app-store" label="App Store Link" />
+              <TextArea
+                label="google analytics"
+                value={setting.google_analytics}
+                required
+              />
+              <TextArea
+                label="Facebook pixel"
+                value={setting.facebook_pixel}
+                required
+              />
             </Display>
-          </Column>
-          <Column className="col-md-6">
-            <Display>
-              <Input label="facebook url" htmlFor="f-url" required />
-              <Input label="youtube url" htmlFor="y-url" required />
-              <Input label="twitter url" htmlFor="t-url" required />
-              <Input label="instagram url" htmlFor="t-url" required />
-            </Display>
-          </Column>
-          <Column className="col-md-6">
             <Display>
               <Input type="file" label="Logo" htmlFor="logo" />
               <Input type="file" label="Favicon" htmlFor="favicon" />
-              <TextArea label="Footer script" required />
-              <TextArea label="Header Script" required />
+              <TextArea
+                label="Footer script"
+                value={setting.footer_script}
+                required
+              />
+              <TextArea
+                label="Header Script"
+                value={setting.header_script}
+                required
+              />
             </Display>
           </Column>
         </Row>

@@ -1,5 +1,5 @@
 export interface IPages {
-  id?: number | string;
+  id?: number;
   title: string;
   slug: string;
   content: string;

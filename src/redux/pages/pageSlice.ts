@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { IFaq, IFaqResponse } from '../../interfaces/faq';
 import { RootState } from '../store';
 import pageService from './pageService';
 import { IPages } from '../../interfaces/pages';
@@ -33,9 +32,9 @@ const initialState: IPagesResponse = {
 // Create new Blog
 export const createPages = createAsyncThunk(
   'pages/create',
-  async (faqData: IPages, thunkAPI) => {
+  async (pageData: IPages, thunkAPI) => {
     try {
-      return await pageService.createPages(faqData);
+      return await pageService.createPages(pageData);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -57,11 +56,11 @@ export const getPages = createAsyncThunk(
   }
 );
 
-export const updateFaq = createAsyncThunk(
+export const updatePages = createAsyncThunk(
   'pages/update',
-  async (faqData: Partial<IFaq>, thunkAPI) => {
+  async (pageData: Partial<IPagesResponse>, thunkAPI) => {
     try {
-      return await pageService.updatePages(faqData);
+      return await pageService.updatePages(pageData);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -69,11 +68,11 @@ export const updateFaq = createAsyncThunk(
     }
   }
 );
-export const deleteFaq = createAsyncThunk(
+export const deletePages = createAsyncThunk(
   'pages/delete',
-  async (videoId: number | string, thunkAPI) => {
+  async (pageId: number | string, thunkAPI) => {
     try {
-      return await pageService.deletePages(videoId);
+      return await pageService.deletePages(pageId);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -83,7 +82,7 @@ export const deleteFaq = createAsyncThunk(
 );
 
 export const pageSlice = createSlice({
-  name: 'Blog',
+  name: 'pages',
   initialState,
   reducers: {
     reset: () => initialState,
@@ -97,51 +96,51 @@ export const pageSlice = createSlice({
       .addCase(createPages.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isCreate = true;
-        state.message = (action.payload as Partial<IFaqResponse>).message;
+        state.message = (action.payload as Partial<IPagesResponse>).message;
       })
       .addCase(createPages.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.errorMessage = (action.payload as IFaqResponse).message;
+        state.errorMessage = (action.payload as IPagesResponse).message;
       })
-      /* TODO: GET FAQ DATA SET */
+      /* TODO: GET PAGE */
       .addCase(getPages.pending, (state) => {
         state.isLoading = true;
+        state.isSuccess = false;
       })
       .addCase(getPages.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.pages = action.payload.data.rows;
-        state.totalCount = action.payload.data.count;
       })
       .addCase(getPages.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      /* TODO: UPDATE FAQ DATA SET */
-      .addCase(updateFaq.pending, (state) => {
+      /* TODO: UPDATE PAGE */
+      .addCase(updatePages.pending, (state) => {
         state.isLoading = true;
         state.isUpdate = false;
       })
-      .addCase(updateFaq.fulfilled, (state) => {
+      .addCase(updatePages.fulfilled, (state) => {
         state.isLoading = false;
         state.isUpdate = true;
       })
-      .addCase(updateFaq.rejected, (state, action) => {
+      .addCase(updatePages.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      /* TODO: DELETE FAQ DATA SET */
-      .addCase(deleteFaq.pending, (state) => {
+      /* TODO: DELETE PAGE */
+      .addCase(deletePages.pending, (state) => {
         state.isDelete = false;
       })
-      .addCase(deleteFaq.fulfilled, (state) => {
+      .addCase(deletePages.fulfilled, (state) => {
         state.isLoading = false;
         state.isDelete = true;
       })
-      .addCase(deleteFaq.rejected, (state, action) => {
+      .addCase(deletePages.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

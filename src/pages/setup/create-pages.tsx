@@ -5,7 +5,11 @@ import TextArea from '../../components/forms/textarea';
 import DescriptionInput from '../../components/description';
 import Column from '../../components/table/column';
 import { Button } from '../../components/button';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { toast } from 'react-toastify';
+import { createPages, reset } from '../../redux/pages/pageSlice';
+import CardBody from '../../components/card-body';
+import { useNavigate } from 'react-router-dom';
 
 const initialState = {
   title: '',
@@ -14,9 +18,13 @@ const initialState = {
   meta_title: '',
   meta_description: '',
 };
+
 const CreatePage = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [pageData, setPageData] = useState(initialState);
   const [description, setDescription] = useState('');
+  const { isCreate } = useAppSelector((state) => state.pages);
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -28,22 +36,32 @@ const CreatePage = () => {
   };
 
   useEffect(() => {
+    if (isCreate) {
+      toast.success('Page create successfully');
+      setPageData(initialState);
+      setDescription('');
+      navigate('/setup/pages');
+    }
+    return () => {
+      dispatch(reset());
+    };
+  }, [isCreate, navigate, dispatch]);
+
+  useEffect(() => {
     setPageData((prev) => ({
       ...prev,
       content: description,
     }));
   }, [description]);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    /*  if (!description) {
-      return toast.error('Please fillup the description');
-    } */
-    setPageData(initialState);
-    setDescription('');
+    dispatch(createPages(pageData));
   };
 
   return (
     <div>
+      <CardBody header="Create a new Page" to="/setup/pages" />
       <form onSubmit={handleSubmit}>
         <div className="row">
           <Column className="col-md-8">

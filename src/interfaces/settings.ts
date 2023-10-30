@@ -20,3 +20,8 @@ export interface ISettings {
   created_at?: string;
   updated_at?: string;
 }
+
+export interface ISettingsResponse {
+  message: string;
+  data: ISettings;
+}
