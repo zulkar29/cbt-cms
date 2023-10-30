@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import './footer.scss';
 import { getSettings } from '../../redux/settings/settingSlice';
 import { ISettings } from '../../interfaces/settings';
+import { API_ROOT } from '../../constants';
 
 const Footer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -115,7 +116,15 @@ const Footer: React.FC = () => {
             </Display>
             <Display>
               <Input type="file" label="Logo" htmlFor="logo" />
+              <img
+                src={`${API_ROOT}/images/setting/${settings.logo}`}
+                alt="logo"
+              />
               <Input type="file" label="Favicon" htmlFor="favicon" />
+              <img
+                src={`${API_ROOT}/images/setting/${settings.favicon}`}
+                alt="logo"
+              />
               <TextArea
                 label="Footer script"
                 value={settings.footer_script}
