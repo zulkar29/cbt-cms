@@ -41,46 +41,46 @@ const Footer: React.FC = () => {
               <Input
                 label="Footer copy write"
                 htmlFor="copywrite"
-                value={setting.footer_copywrite}
+                value={settings.footer_copywrite}
                 required
               />
               <Input
                 label="Contact Number"
                 htmlFor="mobile-No"
-                value={setting.contact_number}
+                value={settings.contact_number}
                 required
               />
               <Input
                 label="Contact Email"
                 type="email"
-                value={setting.contact_email}
+                value={settings.contact_email}
                 htmlFor="email"
                 required
               />
-              <TextArea label="Address" value={setting.address} required />
+              <TextArea label="Address" value={settings.address} required />
             </Display>
             <Display>
               <Input
                 label="facebook url"
-                value={setting.facebook_url}
+                value={settings.facebook_url}
                 htmlFor="f-url"
                 required
               />
               <Input
                 label="youtube url"
-                value={setting.youtube_url}
+                value={settings.youtube_url}
                 htmlFor="y-url"
                 required
               />
               <Input
                 label="twitter url"
-                value={setting.twitter_url}
+                value={settings.twitter_url}
                 htmlFor="t-url"
                 required
               />
               <Input
                 label="instagram url"
-                value={setting.instgram_url}
+                value={settings.instgram_url}
                 htmlFor="t-url"
                 required
               />
@@ -88,12 +88,12 @@ const Footer: React.FC = () => {
             <Display>
               <TextArea
                 label="Cash on message"
-                value={setting.cash_on_message as string}
+                value={settings.cash_on_message as string}
                 required
               />
               <TextArea
                 label="online payment message"
-                value={setting.online_payment_message as string}
+                value={settings.online_payment_message as string}
                 required
               />
             </Display>
@@ -104,12 +104,12 @@ const Footer: React.FC = () => {
               <Input htmlFor="app-store" label="App Store Link" />
               <TextArea
                 label="google analytics"
-                value={setting.google_analytics}
+                value={settings.google_analytics}
                 required
               />
               <TextArea
                 label="Facebook pixel"
-                value={setting.facebook_pixel}
+                value={settings.facebook_pixel}
                 required
               />
             </Display>
@@ -118,12 +118,12 @@ const Footer: React.FC = () => {
               <Input type="file" label="Favicon" htmlFor="favicon" />
               <TextArea
                 label="Footer script"
-                value={setting.footer_script}
+                value={settings.footer_script}
                 required
               />
               <TextArea
                 label="Header Script"
-                value={setting.header_script}
+                value={settings.header_script}
                 required
               />
             </Display>
