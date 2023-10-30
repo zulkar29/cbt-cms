@@ -10,7 +10,7 @@ const getSettings = async (): Promise<ISettings> => {
 const updateSettings = async (
   settingData: FormData
 ): Promise<ISettingsResponse> => {
-  const { data } = await axios.patch(`${API_URL}/settings`, settingData);
+  const { data } = await axios.put(`${API_URL}/settings`, settingData);
   return data.data;
 };
 

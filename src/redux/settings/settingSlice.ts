@@ -3,7 +3,7 @@ import { RootState } from '../store';
 import { ISettings } from '../../interfaces/settings';
 import settingService from './settingService';
 
-interface IsettingResponse {
+interface ISettingResponse {
   setting: ISettings;
   totalCount: number;
   isError: boolean;
@@ -14,7 +14,7 @@ interface IsettingResponse {
   errorMessage: string | unknown;
 }
 
-const initialState: IsettingResponse = {
+const initialState: ISettingResponse = {
   setting: {
     id: 0,
     logo: '',
@@ -59,7 +59,7 @@ export const getSettings = createAsyncThunk(
   }
 );
 
-export const updateFaq = createAsyncThunk(
+export const updateSettings = createAsyncThunk(
   'setting/update',
   async (data: FormData, thunkAPI) => {
     try {
@@ -96,15 +96,15 @@ export const settingSlice = createSlice({
         state.message = action.payload;
       })
       /* TODO: UPDATE SETTINGS */
-      .addCase(updateFaq.pending, (state) => {
+      .addCase(updateSettings.pending, (state) => {
         state.isLoading = true;
         state.isUpdate = false;
       })
-      .addCase(updateFaq.fulfilled, (state) => {
+      .addCase(updateSettings.fulfilled, (state) => {
         state.isLoading = false;
         state.isUpdate = true;
       })
-      .addCase(updateFaq.rejected, (state, action) => {
+      .addCase(updateSettings.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

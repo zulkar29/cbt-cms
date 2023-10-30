@@ -36,6 +36,7 @@ const CreateCategory: React.FC = () => {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];

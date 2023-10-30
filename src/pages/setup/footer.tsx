@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import { Button } from '../../components/button';
 import Display from '../../components/display';
 import Input from '../../components/forms/text-input';
@@ -7,24 +7,83 @@ import Column from '../../components/table/column';
 import Row from '../../components/table/row';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import './footer.scss';
-import { getSettings } from '../../redux/settings/settingSlice';
+import {
+  getSettings,
+  reset,
+  updateSettings,
+} from '../../redux/settings/settingSlice';
 import { ISettings } from '../../interfaces/settings';
 import { API_ROOT } from '../../constants';
+import FileInput from '../../components/forms/file-input';
+import { toast } from 'react-toastify';
 
 const Footer: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { setting, isSuccess } = useAppSelector((state) => state.settings);
+  const { setting, isSuccess, isUpdate } = useAppSelector(
+    (state) => state.settings
+  );
   const [settings, setSettings] = useState<ISettings>(setting);
-  console.log(settings);
+  const [logo, setLogo] = useState<File | null>(null);
+  const [favicon, setFavicon] = useState<File | null>(null);
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) =>
+    setSettings((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+
+  const handleLogoChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      setLogo(file);
+    }
+  };
+  const handleFaviconChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      setFavicon(file);
+    }
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    Object.entries(settings).forEach(([key, value]) => {
+      if (value !== null && value !== undefined) {
+        if (key !== 'logo' && key !== 'favicon') {
+          formData.append(key, String(value));
+        }
+      }
+    });
+    if (logo) {
+      formData.append('logo', logo);
+    }
+    if (favicon) {
+      formData.append('favicon', favicon);
+    }
+    console.log(formData);
+    dispatch(updateSettings(formData));
+  };
+
+  useEffect(() => {
+    if (isUpdate) {
+      toast.success('Updated successfully');
+    }
+    return () => {
+      dispatch(reset());
+    };
+  }, [isUpdate, dispatch]);
 
   useEffect(() => {
     dispatch(getSettings());
     setSettings(setting);
-  }, [dispatch, isSuccess]);
+  }, [dispatch, isSuccess, isUpdate]);
 
   return (
     <div className="footer">
-      <form>
+      <form onSubmit={handleSubmit}>
         <Row className="row">
           <Column className="col-md-12 button">
             <Button type="submit">Update</Button>
@@ -34,6 +93,7 @@ const Footer: React.FC = () => {
           <Column className="col-md-6">
             <Display>
               <Input
+                onChange={handleChange}
                 label="Footer info"
                 htmlFor="info"
                 name="footer_info"
@@ -41,6 +101,7 @@ const Footer: React.FC = () => {
                 required
               />
               <Input
+                onChange={handleChange}
                 label="Footer copy write"
                 htmlFor="copywrite"
                 value={settings.footer_copywrite}
@@ -48,6 +109,7 @@ const Footer: React.FC = () => {
                 required
               />
               <Input
+                onChange={handleChange}
                 label="Contact Number"
                 htmlFor="mobile-No"
                 value={settings.contact_number}
@@ -55,6 +117,7 @@ const Footer: React.FC = () => {
                 required
               />
               <Input
+                onChange={handleChange}
                 label="Contact Email"
                 type="email"
                 value={settings.contact_email}
@@ -65,12 +128,14 @@ const Footer: React.FC = () => {
               <TextArea
                 label="Address"
                 value={settings.address}
+                onChange={handleChange}
                 name="address"
                 required
               />
             </Display>
             <Display>
               <Input
+                onChange={handleChange}
                 label="facebook url"
                 value={settings.facebook_url}
                 name="facebook_url"
@@ -78,6 +143,7 @@ const Footer: React.FC = () => {
                 required
               />
               <Input
+                onChange={handleChange}
                 label="youtube url"
                 value={settings.youtube_url}
                 name="youtube_url"
@@ -85,6 +151,7 @@ const Footer: React.FC = () => {
                 required
               />
               <Input
+                onChange={handleChange}
                 label="twitter url"
                 value={settings.twitter_url}
                 name="twitter_url"
@@ -92,6 +159,7 @@ const Footer: React.FC = () => {
                 required
               />
               <Input
+                onChange={handleChange}
                 label="instagram url"
                 value={settings.instgram_url}
                 name="instgram_url"
@@ -116,8 +184,18 @@ const Footer: React.FC = () => {
           </Column>
           <Column className="col-md-6">
             <Display>
-              <Input htmlFor="play-store" label="Play Store Link" required />
-              <Input htmlFor="app-store" label="App Store Link" />
+              <Input
+                name="play_store"
+                onChange={handleChange}
+                htmlFor="play-store"
+                label="Play Store Link"
+              />
+              <Input
+                name="app_store"
+                onChange={handleChange}
+                htmlFor="app-store"
+                label="App Store Link"
+              />
               <TextArea
                 label="google analytics"
                 value={settings.google_analytics}
@@ -132,19 +210,20 @@ const Footer: React.FC = () => {
               />
             </Display>
             <Display>
-              <Input type="file" label="Logo" name="logo" htmlFor="logo" />
+              <FileInput onChange={handleLogoChange} name="logo" label="Logo" />
+
               <img
-                src={`${API_ROOT}/images/setting/${settings.logo}`}
+                src={`${API_ROOT}/images/setting/${setting.logo}`}
                 alt="logo"
               />
-              <Input
-                type="file"
+              <FileInput
+                onChange={handleFaviconChange}
+                name="favicon"
                 label="Favicon"
-                name="logo"
-                htmlFor="favicon"
               />
+
               <img
-                src={`${API_ROOT}/images/setting/${settings.favicon}`}
+                src={`${API_ROOT}/images/setting/${setting.favicon}`}
                 alt="logo"
               />
               <TextArea
