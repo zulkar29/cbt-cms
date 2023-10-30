@@ -6,6 +6,7 @@ import faqsReducer from './faqs/faqSlice';
 import categoryReducer from './category/categorySlice';
 import addBannerReducer from './add-banner/addBannerSlice';
 import subscriberReducer from './subscribe/subscribeSlice';
+import pageReducer from './pages/pageSlice';
 // ...
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     category: categoryReducer,
     banner: addBannerReducer,
     subscribers: subscriberReducer,
+    pages: pageReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;
