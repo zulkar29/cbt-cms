@@ -36,6 +36,7 @@ const Footer: React.FC = () => {
               <Input
                 label="Footer info"
                 htmlFor="info"
+                name="footer_info"
                 value={settings.footer_info}
                 required
               />
@@ -43,45 +44,57 @@ const Footer: React.FC = () => {
                 label="Footer copy write"
                 htmlFor="copywrite"
                 value={settings.footer_copywrite}
+                name="footer_copywrite"
                 required
               />
               <Input
                 label="Contact Number"
                 htmlFor="mobile-No"
                 value={settings.contact_number}
+                name="contact_number"
                 required
               />
               <Input
                 label="Contact Email"
                 type="email"
                 value={settings.contact_email}
+                name="contact_email"
                 htmlFor="email"
                 required
               />
-              <TextArea label="Address" value={settings.address} required />
+              <TextArea
+                label="Address"
+                value={settings.address}
+                name="address"
+                required
+              />
             </Display>
             <Display>
               <Input
                 label="facebook url"
                 value={settings.facebook_url}
+                name="facebook_url"
                 htmlFor="f-url"
                 required
               />
               <Input
                 label="youtube url"
                 value={settings.youtube_url}
+                name="youtube_url"
                 htmlFor="y-url"
                 required
               />
               <Input
                 label="twitter url"
                 value={settings.twitter_url}
+                name="twitter_url"
                 htmlFor="t-url"
                 required
               />
               <Input
                 label="instagram url"
                 value={settings.instgram_url}
+                name="instgram_url"
                 htmlFor="t-url"
                 required
               />
@@ -90,11 +103,13 @@ const Footer: React.FC = () => {
               <TextArea
                 label="Cash on message"
                 value={settings.cash_on_message as string}
+                name="cash_on_message"
                 required
               />
               <TextArea
                 label="online payment message"
                 value={settings.online_payment_message as string}
+                name="online_payment_message"
                 required
               />
             </Display>
@@ -106,21 +121,28 @@ const Footer: React.FC = () => {
               <TextArea
                 label="google analytics"
                 value={settings.google_analytics}
+                name="google_analytics"
                 required
               />
               <TextArea
                 label="Facebook pixel"
                 value={settings.facebook_pixel}
+                name="facebook_pixel"
                 required
               />
             </Display>
             <Display>
-              <Input type="file" label="Logo" htmlFor="logo" />
+              <Input type="file" label="Logo" name="logo" htmlFor="logo" />
               <img
                 src={`${API_ROOT}/images/setting/${settings.logo}`}
                 alt="logo"
               />
-              <Input type="file" label="Favicon" htmlFor="favicon" />
+              <Input
+                type="file"
+                label="Favicon"
+                name="logo"
+                htmlFor="favicon"
+              />
               <img
                 src={`${API_ROOT}/images/setting/${settings.favicon}`}
                 alt="logo"
@@ -128,11 +150,13 @@ const Footer: React.FC = () => {
               <TextArea
                 label="Footer script"
                 value={settings.footer_script}
+                name="footer_script"
                 required
               />
               <TextArea
                 label="Header Script"
                 value={settings.header_script}
+                name="header_script"
                 required
               />
             </Display>
