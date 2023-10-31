@@ -7,6 +7,7 @@ import Input from '../../components/forms/text-input';
 import { BsDownload } from 'react-icons/bs';
 import { CSVLink } from 'react-csv';
 import './index.scss';
+import Overflow from '../../components/overflow';
 
 const AllOrders: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
@@ -30,10 +31,37 @@ const AllOrders: React.FC = () => {
             <BsDownload />
           </CSVLink>
         </div>
+        <div className="row filter-action">
+          <div className="title">
+            <h3>All Orders</h3>
+          </div>
+          <div className="action">
+            <Overflow title="Bulk Action">
+              <div>Delete Selection</div>
+            </Overflow>
+            <Overflow title="Filter by status">
+              <div>
+                <p>Pending</p>
+              </div>
+              <div>
+                <p>Confirmed</p>
+              </div>
+              <div>
+                <p>Pick Up</p>
+              </div>
+              <div>
+                <p>On The Way</p>
+              </div>
+            </Overflow>
+            <input className="search" type="text" placeholder="Search" />
+          </div>
+        </div>
         <div className="date-area">
           <Input type="date" htmlFor="start-date" label="Start Date" />
           <Input type="date" htmlFor="end-date" label="End Date" />
         </div>
+      </Display>
+      <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
         <OrderTable />
         <Pagination />

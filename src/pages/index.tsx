@@ -15,7 +15,7 @@ import {
   VideosPage,
   CouponPage,
   SetupPage,
-  Footer,
+  Settings,
   CommonPages,
   Sliders,
   CreateCategory,
@@ -39,6 +39,8 @@ import {
   CreateSlider,
   Services,
   CreateService,
+  Footer,
+  Header,
 } from './pages';
 import Csv from './orders/csv';
 
@@ -91,7 +93,9 @@ function PageRoutes() {
 
       {/* Settings */}
       <Route path="/setup/home-page" element={<SetupPage />} />
-      <Route path="/setup/setting" element={<Footer />} />
+      <Route path="/setup/setting" element={<Settings />} />
+      <Route path="/setup/footer" element={<Footer />} />
+      <Route path="/setup/header" element={<Header />} />
       <Route path="/setup/sliders" element={<Sliders />} />
       <Route path="/setup/services" element={<Services />} />
       <Route path="/setup/services/create" element={<CreateService />} />

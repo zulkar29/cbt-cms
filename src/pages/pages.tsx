@@ -17,7 +17,7 @@ import CreateBanner from './marketing/create-banner';
 import SetupPage from './setup';
 import Services from './setup/services';
 import CreateService from './setup/create-service';
-import Footer from './setup/footer';
+import Settings from './setup/settings';
 import CommonPages from './setup/pages';
 import Sliders from './setup/sliders';
 import CreateSlider from './setup/create-slider';
@@ -37,6 +37,8 @@ import Queries from './support/queries';
 import Subscriber from './support/subscriber';
 import CreatePage from './setup/create-pages';
 import UpdatePage from './setup/update-pages';
+import Footer from '../pages/setup/footer';
+import Header from './setup/header';
 
 export {
   Blogs,
@@ -58,7 +60,7 @@ export {
   SetupPage,
   CreateService,
   Services,
-  Footer,
+  Settings,
   CommonPages,
   Sliders,
   CreateSlider,
@@ -78,4 +80,6 @@ export {
   Subscriber,
   CreatePage,
   UpdatePage,
+  Footer,
+  Header,
 };
