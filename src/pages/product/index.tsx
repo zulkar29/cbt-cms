@@ -15,10 +15,11 @@ import DeleteButton from '../../components/button/delete';
 import ViewButton from '../../components/button/view';
 import Overflow from '../../components/overflow';
 import './index.scss';
+import { useAppDispatch } from '../../redux/hooks';
 
 const AllProducts: React.FC = () => {
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [displayItem, setDisplayItem] = useState<number>(10);
   const [page, setPage] = useState<number>(1);
 
@@ -27,6 +28,7 @@ const AllProducts: React.FC = () => {
   const { products, isLoading, isError, message } = useSelector(
     (state: RootState) => state.product
   );
+  console.log(products);
 
   useEffect(() => {
     dispatch(getProducts({ page: page, limit: displayItem }));
@@ -62,10 +64,6 @@ const AllProducts: React.FC = () => {
   const handlePageClick = (count: { selected: number }) => {
     setPage(count.selected);
   };
-
-  if (isError) {
-    return <div>Error: {message}</div>;
-  }
 
   return (
     <div>

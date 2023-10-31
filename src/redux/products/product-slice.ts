@@ -1,32 +1,51 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getAllProducts } from './product-service';
-
-interface IProduct {
-  id: string | number;
-  name: string;
-}
+import productService from './product-service';
+import { IProduct } from '../../interfaces/product';
 
 interface IState {
   products: IProduct[];
+  totalCount: number;
   isError: boolean;
   isSuccess: boolean;
+  isCreate: boolean;
+  isUpdate: boolean;
+  isDelete: boolean;
   isLoading: boolean;
-  message: string;
+  message: string | unknown;
+  errorMessage: string | unknown;
 }
 const initialState: IState = {
   products: [],
+  totalCount: 0,
   isError: false,
   isSuccess: false,
+  isCreate: false,
+  isUpdate: false,
+  isDelete: false,
   isLoading: false,
   message: '',
+  errorMessage: '',
 };
 
+// Get user products
+export const createProduct = createAsyncThunk(
+  'product/createProduct',
+  async (data: FormData, thunkAPI) => {
+    try {
+      return await productService.createCategory(data);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'An error occurred';
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 // Get user products
 export const getProducts = createAsyncThunk(
   'product/getAllProducts',
   async ({ page, limit }: { [key: string]: number }, thunkAPI) => {
     try {
-      return await getAllProducts(page, limit);
+      return await productService.getAllProducts(page, limit);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -49,13 +68,26 @@ export const productSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      .addCase(createProduct.pending, (state) => {
+        state.isLoading = true;
+        state.isCreate = false;
+      })
+      .addCase(createProduct.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isCreate = true;
+      })
+      .addCase(createProduct.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
       .addCase(getProducts.pending, (state) => {
         state.isLoading = true;
+        state.isSuccess = false;
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.products = action.payload;
+        state.products = action.payload.data.rows;
       })
       .addCase(getProducts.rejected, (state, action) => {
         state.isLoading = false;

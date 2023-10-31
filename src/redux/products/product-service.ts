@@ -1,10 +1,25 @@
 import axios from 'axios';
+import { API_URL } from '../../constants';
+import { IProductResponse } from '../../interfaces/product';
 
 // get all products
-export const getAllProducts = async (page: number, limit: number) => {
-  const { data } = await axios.get(
-    `${`https://jsonplaceholder.typicode.com`}/comments/?_page=${page}&_limit=${limit}`
-  );
+const getAllProducts = async (
+  page: number,
+  limit: number
+): Promise<IProductResponse> => {
+  const { data } = await axios.get(`${API_URL}/products`);
 
   return data;
 };
+
+const createCategory = async (productData: FormData) => {
+  const { data } = await axios.post(`${API_URL}/products`, productData);
+  return data;
+};
+
+const productService = {
+  getAllProducts,
+  createCategory,
+};
+
+export default productService;
