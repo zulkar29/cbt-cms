@@ -6,7 +6,7 @@ import TextArea from '../../components/forms/textarea';
 import Column from '../../components/table/column';
 import Row from '../../components/table/row';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import './footer.scss';
+import './settings.scss';
 import {
   getSettings,
   reset,

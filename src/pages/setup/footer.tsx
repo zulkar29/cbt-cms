@@ -1,47 +1,42 @@
-import React from 'react';
+import { FC } from 'react';
 import Display from '../../components/display';
 import Input from '../../components/forms/text-input';
-import Column from '../../components/table/column';
+import './footer.scss';
+import Menu from '../../components/menu';
+import { Button } from '../../components/button';
 
-const Footer = () => {
+const Footer: FC = () => {
   return (
     <div>
+      <Display>
+        <h3>Link Widget One</h3>
+        <br />
+        <Input htmlFor="f-w" label="Title" placeholder="title" />
+        <h6>Links</h6>
+        <Menu />
+        <Menu />
+        <Menu />
+        <Menu />
+        <Button>Add new</Button>
+        <br />
+        <div className="text-right">
+          <Button>Update</Button>
+        </div>
+      </Display>
       <Display>
         <h3>Link Widget Two</h3>
         <br />
         <Input htmlFor="f-w" label="Title" placeholder="title" />
         <h6>Links</h6>
-        <div className="row">
-          <Column className="col-md-4">
-            <Input htmlFor="f-w" placeholder="Name" />
-          </Column>
-          <Column className="col-md-8">
-            <Input htmlFor="f-w" placeholder="Url" />
-          </Column>
-        </div>
-        <div className="row">
-          <Column className="col-md-4">
-            <Input htmlFor="f-w" placeholder="Name" />
-          </Column>
-          <Column className="col-md-8">
-            <Input htmlFor="f-w" placeholder="Url" />
-          </Column>
-        </div>
-        <div className="row">
-          <Column className="col-md-4">
-            <Input htmlFor="f-w" placeholder="Name" />
-          </Column>
-          <Column className="col-md-8">
-            <Input htmlFor="f-w" placeholder="Url" />
-          </Column>
-        </div>
-        <div className="row">
-          <Column className="col-md-4">
-            <Input htmlFor="f-w" placeholder="Name" />
-          </Column>
-          <Column className="col-md-8">
-            <Input htmlFor="f-w" placeholder="Url" />
-          </Column>
+        <Menu />
+        <Menu />
+        <Menu />
+        <Menu />
+        <Menu />
+        <Button>Add new</Button>
+        <br />
+        <div className="text-right">
+          <Button>Update</Button>
         </div>
       </Display>
     </div>

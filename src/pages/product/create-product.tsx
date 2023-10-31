@@ -171,10 +171,6 @@ const CreateProduct: React.FC = () => {
                 <Input placeholder="Meta Title" htmlFor="meta-title" />
                 <TextArea placeholder="Meta Description" />
               </Display>
-              <Display>
-                <Input placeholder="Meta Title" htmlFor="meta-title" />
-                <TextArea placeholder="Meta Description" />
-              </Display>
             </div>
           </div>
         </div>
