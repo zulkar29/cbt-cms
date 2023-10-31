@@ -226,6 +226,18 @@ const Footer: React.FC = () => {
                 src={`${API_ROOT}/images/setting/${setting.favicon}`}
                 alt="logo"
               />
+              <FileInput
+                onChange={handleFaviconChange}
+                name="popup"
+                label="Popup"
+              />
+
+              <img
+                src={`${API_ROOT}/images/setting/${setting.favicon}`}
+                alt="logo"
+              />
+            </Display>
+            <Display>
               <TextArea
                 label="Footer script"
                 value={settings.footer_script}

@@ -13,6 +13,8 @@ import CustomIconArea from '../../components/custom-icon-area';
 import EditButton from '../../components/button/edit';
 import DeleteButton from '../../components/button/delete';
 import ViewButton from '../../components/button/view';
+import Overflow from '../../components/overflow';
+import './index.scss';
 
 const AllProducts: React.FC = () => {
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
@@ -69,6 +71,29 @@ const AllProducts: React.FC = () => {
     <div>
       <CardBody header="Product" to="/products/create" />
       <Display>
+        <div className="row filter-action">
+          <div className="title">
+            <h3>All Products</h3>
+          </div>
+          <div className="action">
+            <Overflow title="Bulk Action">
+              <div>Delete Selection</div>
+            </Overflow>
+            <Overflow title="Sort By">
+              <div>Price {'(high > low)'}</div>
+              <div>Price {'(low > high)'}</div>
+              <div>
+                <p>Latest</p>
+              </div>
+              <div>
+                <p>Oldest</p>
+              </div>
+            </Overflow>
+            <input className="search" type="text" placeholder="Search" />
+          </div>
+        </div>
+      </Display>
+      <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
         <Row className="row">
           <Column className="col-md-1">
@@ -124,9 +149,7 @@ const AllProducts: React.FC = () => {
                 <CustomIconArea>
                   <ViewButton href="/products" />
                   <EditButton editUrl={`/products/edit/1`} />
-                  <DeleteButton
-                  // onClick={() => handleDeleteVideo(video.id as number)}
-                  />
+                  <DeleteButton onClick={() => console.log('first')} />
                 </CustomIconArea>
               </Column>
             </Row>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
 import Input from '../../components/forms/text-input';
@@ -7,25 +7,21 @@ import DescriptionInput from '../../components/description';
 import { Button } from '../../components/button';
 import TextArea from '../../components/forms/textarea';
 import './create-product.scss';
-import Select from '../../components/forms/select';
+import Select from '../../components/select';
 import ToggleButton from '../../components/forms/checkbox';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { getCategories } from '../../redux/category/categorySlice';
 
 const CreateProduct: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { categories } = useAppSelector((state) => state.category);
   const [file, setFile] = useState<File | null>(null);
   const [description, setDescription] = useState('');
   const [policy, setPolicy] = useState('');
-  const [selectedOption, setSelectedOption] = useState('');
-  const options = [
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3' },
-  ];
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(event.target.value);
-  };
-
-  console.log(file);
+  useEffect(() => {
+    dispatch(getCategories({}));
+  }, [dispatch]);
 
   const handleChangeFile = (selectedFile: File | null) => {
     setFile(selectedFile);
@@ -119,26 +115,41 @@ const CreateProduct: React.FC = () => {
                   placeholder="Regular Price"
                   label="Regular Price"
                   htmlFor="regular-price"
+                  required
                 />
-                <Input
-                  placeholder="Discount Price"
-                  label="Discount Price"
-                  htmlFor="discount-price"
-                />
+                <div className="discount-area">
+                  <Input
+                    placeholder="Discount Price"
+                    label="Discount Price"
+                    htmlFor="discount-price"
+                    required
+                  />
+                  <div>
+                    <Select>
+                      <option selected>Flat</option>
+                      <option>Percent</option>
+                    </Select>
+                  </div>
+                </div>
               </Display>
 
               <Display>
-                <Select
-                  label="Select Category *"
-                  name="mySelect"
-                  value={selectedOption}
-                  onChange={handleSelectChange}
-                  options={options}
-                  required
-                />
+                <label className="label">Select Category*</label>
+                <Select required>
+                  {categories.map((category) => (
+                    <option value={category.slug}>{category.title}</option>
+                  ))}
+                </Select>
                 <TextArea
                   label="Product short description *"
                   placeholder="Product short description"
+                />
+                <Input
+                  placeholder="Quantity"
+                  label="Quantity"
+                  htmlFor="Quantity"
+                  defaultValue="0"
+                  required
                 />
               </Display>
 
@@ -158,8 +169,10 @@ const CreateProduct: React.FC = () => {
               </Display>
               <Display>
                 <Input placeholder="Meta Title" htmlFor="meta-title" />
-                <Input placeholder="Meta keyword" htmlFor="meta-keyword" />
-                <FileInput />
+                <TextArea placeholder="Meta Description" />
+              </Display>
+              <Display>
+                <Input placeholder="Meta Title" htmlFor="meta-title" />
                 <TextArea placeholder="Meta Description" />
               </Display>
             </div>

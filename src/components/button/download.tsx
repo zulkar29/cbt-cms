@@ -3,7 +3,7 @@ import './download.scss';
 import { GoDownload } from 'react-icons/go';
 
 interface IProps {
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const DownloadButton: React.FC<IProps> = () => {

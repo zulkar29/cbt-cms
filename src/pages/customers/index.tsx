@@ -5,6 +5,8 @@ import Pagination from '../../components/pagination';
 import Column from '../../components/table/column';
 import Row from '../../components/table/row';
 import Filter from '../../components/filter';
+import { CSVLink } from 'react-csv';
+import { BsDownload } from 'react-icons/bs';
 
 const Customers: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
@@ -15,9 +17,21 @@ const Customers: React.FC = () => {
     setDisplayItem(Number(e.target.value));
   };
 
+  const csvData = [
+    ['firstname', 'lastname', 'email'],
+    ['Ahmed', 'Tomi', 'ah@smthing.co.com'],
+    ['Raed', 'Labes', 'rl@smthing.co.com'],
+    ['Yezzi', 'Min l3b', 'ymin@cocococo.com'],
+  ];
+
   return (
     <div>
       <Display>
+        <div className="csv-icon" title="Download CSV">
+          <CSVLink data={csvData}>
+            <BsDownload />
+          </CSVLink>
+        </div>
         <Filter handleDisplayItem={handleDisplayItem} />
         <Row className="row">
           <Column className="col-md-3">Name</Column>

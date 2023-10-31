@@ -40,6 +40,7 @@ import {
   Services,
   CreateService,
 } from './pages';
+import Csv from './orders/csv';
 
 function PageRoutes() {
   return (
@@ -59,6 +60,7 @@ function PageRoutes() {
 
       {/* Orders */}
       <Route path="/orders" element={<AllOrders />} />
+      <Route path="/csv" element={<Csv />} />
       <Route path="/orders/pending" element={<PendingOrders />} />
       <Route path="/orders/delivered" element={<Delivered />} />
       <Route path="/orders/canceled" element={<Canceled />} />
