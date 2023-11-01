@@ -17,23 +17,43 @@ import 'rsuite/dist/rsuite.css';
 const CreateProduct: React.FC = () => {
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.category);
-  const [dateRange, setDateRange] = useState<[Date, Date] | null>(null);
+  const [campaignDate, setCampaignDate] = useState<[Date, Date] | null>(null);
   const [title, setTile] = useState<string>('');
   const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
+  const [galleryImage, setGalleryImage] = useState<File[] | null>(null);
   const [category, setCategory] = useState<string>('');
-  const [quantity, setQuantity] = useState('');
+  const [quantity, setQuantity] = useState(0);
+  const [regularPrice, setRegularPrice] = useState(0);
+  const [discountPrice, setDiscountPrice] = useState(0);
+  const [deliveryFee, setDeliveryFee] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+  const [videoUrl, setVideoUrl] = useState(true);
+  const [metaTitle, setMetaTitle] = useState('');
+  const [metaName, setMetaName] = useState('');
+  const [metaDescription, setMetaDescription] = useState('');
+  const [isSale, setIsSale] = useState(true);
+  const [isFeature, setIsFeature] = useState(true);
+  const [isNew, setIsNew] = useState(true);
+  const [sortDesc, setSortDesc] = useState(true);
   const [policy, setPolicy] = useState('');
+  const [availability, setAvailability] = useState(true);
 
   const handleDateRangeChange = (dateRange: [Date, Date]) => {
-    setDateRange(dateRange);
+    setCampaignDate(dateRange);
   };
 
-  const handleLogoChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
-      //  setLogo(file);
+      setImage(file);
+    }
+  };
+  const handleGalleryImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      setGalleryImage(files);
     }
   };
 
@@ -66,22 +86,31 @@ const CreateProduct: React.FC = () => {
               <Display>
                 <FileInput
                   label="Featured Image *"
-                  onChange={handleChangeFile}
+                  onChange={handleImageChange}
                   required
                 />
                 <p className="wearing">
                   Image Size Should Be 800 x 800.
                   <br /> or square size
                 </p>
-
-                <DateRangePicker
-                  className="date-area"
-                  value={dateRange}
-                  onChange={handleDateRangeChange}
-                />
+                {image && (
+                  <div className="product-image">
+                    <img
+                      src={URL.createObjectURL(image)}
+                      alt="gazi home appliance"
+                    />
+                  </div>
+                )}
+                <br />
               </Display>
 
               <Display>
+                <label htmlFor="">Campaign Date</label>
+                <DateRangePicker
+                  className="date-area"
+                  value={campaignDate}
+                  onChange={(dateRange) => setCampaignDate(dateRange)}
+                />
                 <Input
                   placeholder="Video Link"
                   label="Video Link"
@@ -96,10 +125,20 @@ const CreateProduct: React.FC = () => {
               <Display>
                 <FileInput
                   label="Gallery Images"
+                  onChange={handleGalleryImageChange}
                   multiple
                   required
-                  onChange={handleChangeFile}
                 />
+                {galleryImage &&
+                  galleryImage.length > 0 &&
+                  galleryImage.map((image, index) => (
+                    <div key={index} className="product-image">
+                      <img
+                        src={URL.createObjectURL(image)}
+                        alt="gazi home appliance"
+                      />
+                    </div>
+                  ))}
                 <p className="wearing">
                   Image Size Should Be 800 x 800. or square size
                 </p>
