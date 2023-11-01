@@ -23,6 +23,18 @@
   .label {
     color: #9a9a9a;
   }
+  .date-area {
+    width: 100%;
+    input {
+      &::placeholder {
+        color: black;
+      }
+    }
+  }
+}
+.rs-picker-has-value .rs-btn .rs-picker-toggle-value,
+.rs-picker-has-value .rs-picker-toggle .rs-picker-toggle-value {
+  color: #000 !important;
 }
 .left-body {
   margin-right: 10px;

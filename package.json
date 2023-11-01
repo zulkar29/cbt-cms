@@ -28,6 +28,7 @@
     "react-to-print": "^2.14.13",
     "react-toastify": "^9.1.3",
     "recharts": "^2.7.2",
+    "rsuite": "^5.42.0",
     "sweetalert2": "^11.7.20"
   },
   "devDependencies": {

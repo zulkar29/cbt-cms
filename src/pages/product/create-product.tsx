@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
 import Input from '../../components/forms/text-input';
@@ -11,21 +11,35 @@ import Select from '../../components/select';
 import ToggleButton from '../../components/forms/checkbox';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getCategories } from '../../redux/category/categorySlice';
+import { DateRangePicker } from 'rsuite';
+import 'rsuite/dist/rsuite.css';
 
 const CreateProduct: React.FC = () => {
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.category);
-  const [file, setFile] = useState<File | null>(null);
+  const [dateRange, setDateRange] = useState<[Date, Date] | null>(null);
+  const [title, setTile] = useState<string>('');
+  const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
+  const [image, setImage] = useState<File | null>(null);
+  const [category, setCategory] = useState<string>('');
+  const [quantity, setQuantity] = useState('');
   const [policy, setPolicy] = useState('');
+
+  const handleDateRangeChange = (dateRange: [Date, Date]) => {
+    setDateRange(dateRange);
+  };
+
+  const handleLogoChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      //  setLogo(file);
+    }
+  };
 
   useEffect(() => {
     dispatch(getCategories({}));
   }, [dispatch]);
-
-  const handleChangeFile = (selectedFile: File | null) => {
-    setFile(selectedFile);
-  };
 
   return (
     <div className="create-product">
@@ -59,6 +73,12 @@ const CreateProduct: React.FC = () => {
                   Image Size Should Be 800 x 800.
                   <br /> or square size
                 </p>
+
+                <DateRangePicker
+                  className="date-area"
+                  value={dateRange}
+                  onChange={handleDateRangeChange}
+                />
               </Display>
 
               <Display>
@@ -131,13 +151,16 @@ const CreateProduct: React.FC = () => {
                     </Select>
                   </div>
                 </div>
+                <Input htmlFor="data" label="Date" />
               </Display>
 
               <Display>
                 <label className="label">Select Category*</label>
                 <Select required>
                   {categories.map((category) => (
-                    <option value={category.slug}>{category.title}</option>
+                    <option key={category.id} value={category.slug}>
+                      {category.title}
+                    </option>
                   ))}
                 </Select>
                 <TextArea
@@ -169,6 +192,7 @@ const CreateProduct: React.FC = () => {
               </Display>
               <Display>
                 <Input placeholder="Meta Title" htmlFor="meta-title" />
+                <Input placeholder="Meta Name" htmlFor="meta-name" />
                 <TextArea placeholder="Meta Description" />
               </Display>
             </div>

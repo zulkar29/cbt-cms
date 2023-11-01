@@ -15,7 +15,7 @@ import DeleteButton from '../../components/button/delete';
 import ViewButton from '../../components/button/view';
 import Overflow from '../../components/overflow';
 import './index.scss';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 const AllProducts: React.FC = () => {
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
@@ -25,9 +25,7 @@ const AllProducts: React.FC = () => {
 
   console.log(page);
 
-  const { products, isLoading, isError, message } = useSelector(
-    (state: RootState) => state.product
-  );
+  const { products, isLoading } = useAppSelector((state) => state.product);
   console.log(products);
 
   useEffect(() => {
@@ -133,7 +131,7 @@ const AllProducts: React.FC = () => {
                   alt="product"
                 />
               </Column>
-              <Column className="col-md-3">{product.name}</Column>
+              <Column className="col-md-3">{product.title}</Column>
               <Column className="col-md-1">0</Column>
               <Column className="col-md-1">৳ 3000.00</Column>
               <Column className="col-md-1">৳ 2800.00</Column>
