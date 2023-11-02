@@ -22,8 +22,6 @@ const CreateProduct: React.FC = () => {
   const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
-  const [category, setCategory] = useState<string>('');
-  const [quantity, setQuantity] = useState('');
   const [galleryImage, setGalleryImage] = useState<File[] | null>(null);
   const [category, setCategory] = useState<string>('');
   const [quantity, setQuantity] = useState(0);
@@ -40,6 +38,10 @@ const CreateProduct: React.FC = () => {
   const [isNew, setIsNew] = useState(true);
   const [sortDesc, setSortDesc] = useState(true);
   const [policy, setPolicy] = useState('');
+
+  const handleDateRangeChange = (dateRange: [Date, Date]) => {
+    setCampaignDate(dateRange);
+  };
 
   const handleDateRangeChange = (dateRange: [Date, Date]) => {
     setCampaignDate(dateRange);
@@ -126,6 +128,16 @@ const CreateProduct: React.FC = () => {
                   required
                   onChange={handleChangeFile}
                 />
+                {galleryImage &&
+                  galleryImage.length > 0 &&
+                  galleryImage.map((image, index) => (
+                    <div key={index} className="product-image">
+                      <img
+                        src={URL.createObjectURL(image)}
+                        alt="gazi home appliance"
+                      />
+                    </div>
+                  ))}
                 <p className="wearing">
                   Image Size Should Be 800 x 800. or square size
                 </p>
@@ -215,6 +227,7 @@ const CreateProduct: React.FC = () => {
               </Display>
               <Display>
                 <Input placeholder="Meta Title" htmlFor="meta-title" />
+                <Input placeholder="Meta Name" htmlFor="meta-name" />
                 <TextArea placeholder="Meta Description" />
               </Display>
             </div>
