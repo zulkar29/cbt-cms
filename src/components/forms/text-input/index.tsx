@@ -11,6 +11,7 @@ interface IProps {
   readOnly?: boolean;
   htmlFor: string;
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onBlur?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   name?: string;
 }
 
@@ -25,6 +26,7 @@ const Input: React.FC<IProps> = ({
   htmlFor,
   name,
   onChange,
+  onBlur,
 }) => {
   return (
     <div className="text">
@@ -34,6 +36,7 @@ const Input: React.FC<IProps> = ({
         type={type ? type : 'text'}
         id={htmlFor}
         onChange={onChange}
+        onBlur={onBlur}
         placeholder={placeholder}
         defaultValue={defaultValue}
         value={value}

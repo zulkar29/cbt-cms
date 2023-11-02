@@ -18,16 +18,18 @@ import { RxCross2 } from 'react-icons/rx';
 const CreateProduct: React.FC = () => {
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.category);
-  const [dateRange, setDateRange] = useState<[Date, Date] | null>(null);
+  const [campaignDate, setCampaignDate] = useState<[Date, Date] | null>(null);
   const [title, setTile] = useState<string>('');
   const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
-  const [galleryImage, setGalleryImage] = useState<File[] | null>(null);
+  const [galleryImages, setGalleryImages] = useState<File[] | null>(null);
   const [category, setCategory] = useState<string>('');
   const [quantity, setQuantity] = useState(0);
   const [regularPrice, setRegularPrice] = useState(0);
   const [discountPrice, setDiscountPrice] = useState(0);
+  const [discountType, setDiscountType] = useState<'percent' | 'flat' | ''>('');
+  const [discount, setDiscount] = useState(0);
   const [deliveryFee, setDeliveryFee] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const [videoUrl, setVideoUrl] = useState('');
@@ -39,12 +41,9 @@ const CreateProduct: React.FC = () => {
   const [isNew, setIsNew] = useState(true);
   const [sortDesc, setSortDesc] = useState(true);
   const [policy, setPolicy] = useState('');
+  const [availability, setAvailability] = useState(true);
 
-  const handleDateRangeChange = (dateRange: [Date, Date]) => {
-    setDateRange(dateRange);
-  };
-
-  const handleLogoChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
       setImage(file);
@@ -53,9 +52,25 @@ const CreateProduct: React.FC = () => {
   const handleGalleryImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
-      setGalleryImage(files);
+      setGalleryImages(files);
     }
   };
+  const removeGalleryImage = (file: File) => {
+    if (galleryImages !== null) {
+      const filterImages = galleryImages.filter(
+        (singleFile) => singleFile.name != file.name
+      );
+      setGalleryImages(filterImages);
+    }
+  };
+
+  useEffect(() => {
+    if (discountType === 'flat') {
+      setDiscountPrice(regularPrice - discount);
+    } else {
+      setDiscountPrice(regularPrice - (regularPrice * discount) / 100);
+    }
+  }, [discountType, regularPrice, discount]);
 
   useEffect(() => {
     dispatch(getCategories({}));
@@ -88,22 +103,31 @@ const CreateProduct: React.FC = () => {
               <Display>
                 <FileInput
                   label="Featured Image *"
-                  onChange={handleChangeFile}
+                  onChange={handleImageChange}
                   required
                 />
                 <p className="wearing">
                   Image Size Should Be 800 x 800.
                   <br /> or square size
                 </p>
-
-                <DateRangePicker
-                  className="date-area"
-                  value={dateRange}
-                  onChange={handleDateRangeChange}
-                />
+                {image && (
+                  <div className="product-image">
+                    <img
+                      src={URL.createObjectURL(image)}
+                      alt="gazi home appliance"
+                    />
+                  </div>
+                )}
+                <br />
               </Display>
 
               <Display>
+                <label htmlFor="">Campaign Date</label>
+                <DateRangePicker
+                  className={`date-area`}
+                  value={campaignDate}
+                  onChange={(dateRange) => setCampaignDate(dateRange)}
+                />
                 <Input
                   placeholder="Video Link"
                   label="Video Link"
@@ -119,10 +143,9 @@ const CreateProduct: React.FC = () => {
               <Display>
                 <FileInput
                   label="Gallery Images"
+                  onChange={handleGalleryImageChange}
                   multiple
                   required
-                  onChange={handleChangeFile}
-                />
                 />
                 <div className="row">
                   {galleryImages &&
@@ -178,7 +201,7 @@ const CreateProduct: React.FC = () => {
                   placeholder="Regular Price"
                   label="Regular Price"
                   htmlFor="regular-price"
-                  onChange={(e) => setRegularPrice(e.target.value)}
+                  onChange={(e) => setRegularPrice(Number(e.target.value))}
                   required
                 />
                 <div className="discount-area">
@@ -186,16 +209,22 @@ const CreateProduct: React.FC = () => {
                     placeholder="Discount Price"
                     label="Discount Price"
                     htmlFor="discount-price"
+                    onChange={(e) => setDiscount(Number(e.target.value))}
                     required
                   />
                   <div>
-                    <Select>
-                      <option selected>Flat</option>
-                      <option>Percent</option>
+                    <Select
+                      onChange={(e) =>
+                        setDiscountType(e.target.value as 'flat' | 'percent')
+                      }
+                    >
+                      <option value="flat" selected>
+                        Flat
+                      </option>
+                      <option value="percent">Percent</option>
                     </Select>
                   </div>
                 </div>
-                <Input htmlFor="data" label="Date" />
               </Display>
 
               <Display>
