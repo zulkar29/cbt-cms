@@ -20,15 +20,22 @@
       width: 150px;
     }
   }
-<<<<<<< HEAD
-=======
-  .product-image {
+  <<<<<<< HEAD ======= .product-image {
     width: 150px;
     img {
       width: 100%;
     }
   }
->>>>>>> parent of 529f55e (create product)
+  .cross {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: #454545;
+    padding: 5px;
+    svg {
+      color: $white-color;
+    }
+  }
   .label {
     color: #9a9a9a;
   }
