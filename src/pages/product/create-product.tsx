@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
 import Input from '../../components/forms/text-input';
@@ -6,18 +6,22 @@ import FileInput from '../../components/forms/file-input';
 import DescriptionInput from '../../components/description';
 import { Button } from '../../components/button';
 import TextArea from '../../components/forms/textarea';
-import './create-product.scss';
 import Select from '../../components/select';
+import './create-product.scss';
 import ToggleButton from '../../components/forms/checkbox';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getCategories } from '../../redux/category/categorySlice';
 import { DateRangePicker } from 'rsuite';
+import { RxCross2 } from 'react-icons/rx';
+import { toast } from 'react-toastify';
 import 'rsuite/dist/rsuite.css';
+import { createProduct, reset } from '../../redux/products/product-slice';
 
 const CreateProduct: React.FC = () => {
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.category);
   const [campaignDate, setCampaignDate] = useState<[Date, Date] | null>(null);
+  const { isCreate } = useAppSelector((state) => state.product);
   const [title, setTile] = useState<string>('');
   const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
@@ -28,23 +32,45 @@ const CreateProduct: React.FC = () => {
   const [regularPrice, setRegularPrice] = useState(0);
   const [discountPrice, setDiscountPrice] = useState(0);
   const [discountType, setDiscountType] = useState<'percent' | 'flat' | ''>('');
+  const [status, setStatus] = useState(true);
   const [discount, setDiscount] = useState(0);
   const [deliveryFee, setDeliveryFee] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
-  const [videoUrl, setVideoUrl] = useState(true);
+  const [videoUrl, setVideoUrl] = useState('');
   const [metaTitle, setMetaTitle] = useState('');
   const [metaName, setMetaName] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
   const [isSale, setIsSale] = useState(true);
   const [isFeature, setIsFeature] = useState(true);
   const [isNew, setIsNew] = useState(true);
-  const [sortDesc, setSortDesc] = useState(true);
+  const [sortDesc, setSortDesc] = useState('');
   const [policy, setPolicy] = useState('');
   const [availability, setAvailability] = useState(true);
 
-  const handleDateRangeChange = (dateRange: [Date, Date]) => {
-    setCampaignDate(dateRange);
-  };
+  console.log({
+    campaignDate,
+    title,
+    slug,
+    description,
+    image,
+    galleryImages,
+    category,
+    quantity,
+    regularPrice,
+    discountPrice,
+    discountType,
+    discount,
+    deliveryFee,
+    videoUrl,
+    metaTitle,
+    metaName,
+    metaDescription,
+    isSale,
+    isFeature,
+    isNew,
+    sortDesc,
+    policy,
+    availability,
+  });
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -67,6 +93,36 @@ const CreateProduct: React.FC = () => {
     }
   };
 
+  const handleProductSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    formData.append('title', title);
+    formData.append('slug', slug);
+    formData.append('description', description);
+    if (image !== null) {
+      formData.append('image', image);
+    }
+    formData.append('category_slug', category);
+    formData.append('quantity', quantity.toString());
+    formData.append('regular_price', regularPrice.toString());
+    formData.append('discount_price', discountPrice.toString());
+    formData.append('delivery_fee', deliveryFee.toString());
+    formData.append('status', status.toString());
+    formData.append('video_url', videoUrl);
+    if (campaignDate !== null) {
+      formData.append('camping_start_date', campaignDate[0].toString());
+      formData.append('camping_end_date', campaignDate[1].toString());
+    }
+    formData.append('upload_by', 'admin');
+    formData.append('availability', availability.toString());
+    galleryImages?.forEach((g_image) => {
+      formData.append('gallery_image', g_image);
+    });
+
+    dispatch(createProduct(formData));
+  };
+
   useEffect(() => {
     if (discountType === 'flat') {
       setDiscountPrice(regularPrice - discount);
@@ -76,13 +132,22 @@ const CreateProduct: React.FC = () => {
   }, [discountType, regularPrice, discount]);
 
   useEffect(() => {
+    if (isCreate) {
+      toast.success('Product created successfully');
+    }
+    return () => {
+      dispatch(reset());
+    };
+  }, [dispatch, isCreate]);
+
+  useEffect(() => {
     dispatch(getCategories({}));
   }, [dispatch]);
 
   return (
     <div className="create-product">
       <CardBody header="Create Product" to="/products" text="back" />
-      <form>
+      <form onSubmit={handleProductSubmit}>
         <div className="row">
           <div className="col-md-8">
             <div className="left-body">
@@ -90,12 +155,14 @@ const CreateProduct: React.FC = () => {
                 <Input
                   label="Product Title *"
                   placeholder="Enter Name"
+                  onBlur={(e) => setTile(e.target.value)}
                   htmlFor="name"
                   required
                 />
                 <Input
                   label="Slug *"
                   placeholder="Enter Slug"
+                  onBlur={(e) => setSlug(e.target.value)}
                   htmlFor="slug"
                   required
                 />
@@ -117,6 +184,12 @@ const CreateProduct: React.FC = () => {
                       src={URL.createObjectURL(image)}
                       alt="gazi home appliance"
                     />
+                    <span
+                      className="cross"
+                      onClick={() => removeGalleryImage(image)}
+                    >
+                      <RxCross2 />
+                    </span>
                   </div>
                 )}
                 <br />
@@ -133,6 +206,7 @@ const CreateProduct: React.FC = () => {
                   placeholder="Video Link"
                   label="Video Link"
                   htmlFor="video"
+                  onBlur={(e) => setVideoUrl(e.target.value)}
                 />
                 <p className="wearing">
                   Use proper link without extra parameter.
@@ -147,16 +221,24 @@ const CreateProduct: React.FC = () => {
                   multiple
                   required
                 />
-                {galleryImages &&
-                  galleryImages.length > 0 &&
-                  galleryImages.map((image, index) => (
-                    <div key={index} className="product-image">
-                      <img
-                        src={URL.createObjectURL(image)}
-                        alt="gazi home appliance"
-                      />
-                    </div>
-                  ))}
+                <div className="row">
+                  {galleryImages &&
+                    galleryImages.length > 0 &&
+                    galleryImages.map((image, index) => (
+                      <div key={index} className="product-image">
+                        <img
+                          src={URL.createObjectURL(image)}
+                          alt="gazi home appliance"
+                        />
+                        <span
+                          className="cross"
+                          onClick={() => removeGalleryImage(image)}
+                        >
+                          <RxCross2 />
+                        </span>
+                      </div>
+                    ))}
+                </div>
                 <p className="wearing">
                   Image Size Should Be 800 x 800. or square size
                 </p>
@@ -209,9 +291,7 @@ const CreateProduct: React.FC = () => {
                         setDiscountType(e.target.value as 'flat' | 'percent')
                       }
                     >
-                      <option value="flat" selected>
-                        Flat
-                      </option>
+                      <option value="flat">Flat</option>
                       <option value="percent">Percent</option>
                     </Select>
                   </div>
@@ -220,7 +300,7 @@ const CreateProduct: React.FC = () => {
 
               <Display>
                 <label className="label">Select Category*</label>
-                <Select required>
+                <Select onChange={(e) => setCategory(e.target.value)} required>
                   {categories.map((category) => (
                     <option key={category.id} value={category.slug}>
                       {category.title}
@@ -230,11 +310,14 @@ const CreateProduct: React.FC = () => {
                 <TextArea
                   label="Product short description *"
                   placeholder="Product short description"
+                  onBlur={(e) => setSortDesc(e.target.value)}
                 />
                 <Input
+                  type="number"
                   placeholder="Quantity"
                   label="Quantity"
                   htmlFor="Quantity"
+                  onBlur={(e) => setQuantity(Number(e.target.value))}
                   defaultValue="0"
                   required
                 />
@@ -243,21 +326,41 @@ const CreateProduct: React.FC = () => {
               <Display>
                 <div className="sudo-item">
                   <span>Is New</span>
-                  <ToggleButton isChecked />
+                  <ToggleButton
+                    isChecked={isNew}
+                    onClick={() => setIsNew(!isNew)}
+                  />
                 </div>
                 <div className="sudo-item">
                   <span>Is Sale</span>
-                  <ToggleButton isChecked />
+                  <ToggleButton
+                    isChecked={isSale}
+                    onClick={() => setIsSale(!isSale)}
+                  />
                 </div>
                 <div className="sudo-item">
                   <span>Is Feature</span>
-                  <ToggleButton isChecked />
+                  <ToggleButton
+                    isChecked={isFeature}
+                    onClick={() => setIsFeature(!isFeature)}
+                  />
                 </div>
               </Display>
               <Display>
-                <Input placeholder="Meta Title" htmlFor="meta-title" />
-                <Input placeholder="Meta Name" htmlFor="meta-name" />
-                <TextArea placeholder="Meta Description" />
+                <Input
+                  placeholder="Meta Title"
+                  htmlFor="meta-title"
+                  onBlur={(e) => setMetaTitle(e.target.value)}
+                />
+                <Input
+                  placeholder="Meta Name"
+                  htmlFor="meta-name"
+                  onBlur={(e) => setMetaName(e.target.value)}
+                />
+                <TextArea
+                  placeholder="Meta Description"
+                  onBlur={(e) => setMetaDescription(e.target.value)}
+                />
               </Display>
             </div>
           </div>

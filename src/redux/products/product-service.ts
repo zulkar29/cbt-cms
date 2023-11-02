@@ -3,10 +3,7 @@ import { API_URL } from '../../constants';
 import { IProductResponse } from '../../interfaces/product';
 
 // get all products
-const getAllProducts = async (
-  page: number,
-  limit: number
-): Promise<IProductResponse> => {
+const getAllProducts = async (): Promise<IProductResponse> => {
   const { data } = await axios.get(`${API_URL}/products`);
 
   return data;
