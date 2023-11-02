@@ -20,15 +20,38 @@
       width: 150px;
     }
   }
-  <<<<<<< HEAD ======= .product-image {
+  .product-image {
     width: 150px;
+    position: relative;
     img {
       width: 100%;
+    }
+  }
+  .cross {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: #454545;
+    padding: 5px;
+    svg {
+      color: $white-color;
     }
   }
   .label {
     color: #9a9a9a;
   }
+  .date-area {
+    width: 100%;
+    input {
+      &::placeholder {
+        color: black;
+      }
+    }
+  }
+}
+.rs-picker-has-value .rs-btn .rs-picker-toggle-value,
+.rs-picker-has-value .rs-picker-toggle .rs-picker-toggle-value {
+  color: #000 !important;
 }
 .left-body {
   margin-right: 10px;
