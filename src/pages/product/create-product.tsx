@@ -13,7 +13,6 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getCategories } from '../../redux/category/categorySlice';
 import { DateRangePicker } from 'rsuite';
 import 'rsuite/dist/rsuite.css';
-import { RxCross2 } from 'react-icons/rx';
 
 const CreateProduct: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -23,14 +22,14 @@ const CreateProduct: React.FC = () => {
   const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
-  const [galleryImages, setGalleryImages] = useState<File[] | null>(null);
+  const [galleryImage, setGalleryImage] = useState<File[] | null>(null);
   const [category, setCategory] = useState<string>('');
   const [quantity, setQuantity] = useState(0);
   const [regularPrice, setRegularPrice] = useState(0);
   const [discountPrice, setDiscountPrice] = useState(0);
   const [deliveryFee, setDeliveryFee] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-  const [videoUrl, setVideoUrl] = useState('');
+  const [videoUrl, setVideoUrl] = useState(true);
   const [metaTitle, setMetaTitle] = useState('');
   const [metaName, setMetaName] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
@@ -41,6 +40,10 @@ const CreateProduct: React.FC = () => {
   const [policy, setPolicy] = useState('');
   const [availability, setAvailability] = useState(true);
 
+  const handleDateRangeChange = (dateRange: [Date, Date]) => {
+    setCampaignDate(dateRange);
+  };
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
@@ -50,15 +53,7 @@ const CreateProduct: React.FC = () => {
   const handleGalleryImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
-      setGalleryImages(files);
-    }
-  };
-  const removeGalleryImage = (file: File) => {
-    if (galleryImages !== null) {
-      const filterImages = galleryImages.filter(
-        (singleFile) => singleFile.name != file.name
-      );
-      setGalleryImages(filterImages);
+      setGalleryImage(files);
     }
   };
 
@@ -78,14 +73,12 @@ const CreateProduct: React.FC = () => {
                   label="Product Title *"
                   placeholder="Enter Name"
                   htmlFor="name"
-                  onBlur={(e) => setTile(e.target.value)}
                   required
                 />
                 <Input
                   label="Slug *"
                   placeholder="Enter Slug"
                   htmlFor="slug"
-                  onBlur={(e) => setSlug(e.target.value)}
                   required
                 />
               </Display>
@@ -122,7 +115,6 @@ const CreateProduct: React.FC = () => {
                   placeholder="Video Link"
                   label="Video Link"
                   htmlFor="video"
-                  onBlur={(e) => setVideoUrl(e.target.value)}
                 />
                 <p className="wearing">
                   Use proper link without extra parameter.
@@ -137,24 +129,16 @@ const CreateProduct: React.FC = () => {
                   multiple
                   required
                 />
-                <div className="row">
-                  {galleryImages &&
-                    galleryImages.length > 0 &&
-                    galleryImages.map((image, index) => (
-                      <div key={index} className="product-image">
-                        <img
-                          src={URL.createObjectURL(image)}
-                          alt="gazi home appliance"
-                        />
-                        <span
-                          className="cross"
-                          onClick={() => removeGalleryImage(image)}
-                        >
-                          <RxCross2 />
-                        </span>
-                      </div>
-                    ))}
-                </div>
+                {galleryImage &&
+                  galleryImage.length > 0 &&
+                  galleryImage.map((image, index) => (
+                    <div key={index} className="product-image">
+                      <img
+                        src={URL.createObjectURL(image)}
+                        alt="gazi home appliance"
+                      />
+                    </div>
+                  ))}
                 <p className="wearing">
                   Image Size Should Be 800 x 800. or square size
                 </p>
@@ -187,11 +171,9 @@ const CreateProduct: React.FC = () => {
 
               <Display>
                 <Input
-                  type="number"
                   placeholder="Regular Price"
                   label="Regular Price"
                   htmlFor="regular-price"
-                  onChange={(e) => setRegularPrice(e.target.value)}
                   required
                 />
                 <div className="discount-area">
@@ -236,41 +218,21 @@ const CreateProduct: React.FC = () => {
               <Display>
                 <div className="sudo-item">
                   <span>Is New</span>
-                  <ToggleButton
-                    isChecked={isNew}
-                    onClick={() => setIsNew(!isNew)}
-                  />
+                  <ToggleButton isChecked />
                 </div>
                 <div className="sudo-item">
                   <span>Is Sale</span>
-                  <ToggleButton
-                    isChecked={isSale}
-                    onClick={() => setIsSale(!isSale)}
-                  />
+                  <ToggleButton isChecked />
                 </div>
                 <div className="sudo-item">
                   <span>Is Feature</span>
-                  <ToggleButton
-                    isChecked={isFeature}
-                    onClick={() => setIsFeature(!isFeature)}
-                  />
+                  <ToggleButton isChecked />
                 </div>
               </Display>
               <Display>
-                <Input
-                  placeholder="Meta Title"
-                  htmlFor="meta-title"
-                  onBlur={(e) => setMetaTitle(e.target.value)}
-                />
-                <Input
-                  placeholder="Meta Name"
-                  htmlFor="meta-name"
-                  onBlur={(e) => setMetaName(e.target.value)}
-                />
-                <TextArea
-                  placeholder="Meta Description"
-                  onBlur={(e) => setMetaDescription(e.target.value)}
-                />
+                <Input placeholder="Meta Title" htmlFor="meta-title" />
+                <Input placeholder="Meta Name" htmlFor="meta-name" />
+                <TextArea placeholder="Meta Description" />
               </Display>
             </div>
           </div>
