@@ -22,7 +22,7 @@ const CreateProduct: React.FC = () => {
   const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
-  const [galleryImage, setGalleryImage] = useState<File[] | null>(null);
+  const [galleryImages, setGalleryImages] = useState<File[] | null>(null);
   const [category, setCategory] = useState<string>('');
   const [quantity, setQuantity] = useState(0);
   const [regularPrice, setRegularPrice] = useState(0);
@@ -147,9 +147,9 @@ const CreateProduct: React.FC = () => {
                   multiple
                   required
                 />
-                {galleryImage &&
-                  galleryImage.length > 0 &&
-                  galleryImage.map((image, index) => (
+                {galleryImages &&
+                  galleryImages.length > 0 &&
+                  galleryImages.map((image, index) => (
                     <div key={index} className="product-image">
                       <img
                         src={URL.createObjectURL(image)}
