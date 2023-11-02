@@ -15,7 +15,7 @@ import { getCategories } from '../../redux/category/categorySlice';
 const CreateProduct: React.FC = () => {
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.category);
-  const [campaignDate, setCampaignDate] = useState<[Date, Date] | null>(null);
+  const [dateRange, setDateRange] = useState<[Date, Date] | null>(null);
   const [title, setTile] = useState<string>('');
   const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
@@ -68,7 +68,7 @@ const CreateProduct: React.FC = () => {
               <Display>
                 <FileInput
                   label="Featured Image *"
-                  onChange={handleImageChange}
+                  onChange={handleChangeFile}
                   required
                 />
                 <p className="wearing">
@@ -98,20 +98,10 @@ const CreateProduct: React.FC = () => {
               <Display>
                 <FileInput
                   label="Gallery Images"
-                  onChange={handleGalleryImageChange}
                   multiple
                   required
+                  onChange={handleChangeFile}
                 />
-                {galleryImage &&
-                  galleryImage.length > 0 &&
-                  galleryImage.map((image, index) => (
-                    <div key={index} className="product-image">
-                      <img
-                        src={URL.createObjectURL(image)}
-                        alt="gazi home appliance"
-                      />
-                    </div>
-                  ))}
                 <p className="wearing">
                   Image Size Should Be 800 x 800. or square size
                 </p>
