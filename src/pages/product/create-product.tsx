@@ -18,12 +18,12 @@ import { RxCross2 } from 'react-icons/rx';
 const CreateProduct: React.FC = () => {
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.category);
-  const [campaignDate, setCampaignDate] = useState<[Date, Date] | null>(null);
+  const [dateRange, setDateRange] = useState<[Date, Date] | null>(null);
   const [title, setTile] = useState<string>('');
   const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
-  const [galleryImages, setGalleryImages] = useState<File[] | null>(null);
+  const [galleryImage, setGalleryImage] = useState<File[] | null>(null);
   const [category, setCategory] = useState<string>('');
   const [quantity, setQuantity] = useState(0);
   const [regularPrice, setRegularPrice] = useState(0);
@@ -39,9 +39,12 @@ const CreateProduct: React.FC = () => {
   const [isNew, setIsNew] = useState(true);
   const [sortDesc, setSortDesc] = useState(true);
   const [policy, setPolicy] = useState('');
-  const [availability, setAvailability] = useState(true);
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleDateRangeChange = (dateRange: [Date, Date]) => {
+    setDateRange(dateRange);
+  };
+
+  const handleLogoChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
       setImage(file);
@@ -50,15 +53,7 @@ const CreateProduct: React.FC = () => {
   const handleGalleryImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
-      setGalleryImages(files);
-    }
-  };
-  const removeGalleryImage = (file: File) => {
-    if (galleryImages !== null) {
-      const filterImages = galleryImages.filter(
-        (singleFile) => singleFile.name != file.name
-      );
-      setGalleryImages(filterImages);
+      setGalleryImage(files);
     }
   };
 
@@ -93,31 +88,22 @@ const CreateProduct: React.FC = () => {
               <Display>
                 <FileInput
                   label="Featured Image *"
-                  onChange={handleImageChange}
+                  onChange={handleChangeFile}
                   required
                 />
                 <p className="wearing">
                   Image Size Should Be 800 x 800.
                   <br /> or square size
                 </p>
-                {image && (
-                  <div className="product-image">
-                    <img
-                      src={URL.createObjectURL(image)}
-                      alt="gazi home appliance"
-                    />
-                  </div>
-                )}
-                <br />
+
+                <DateRangePicker
+                  className="date-area"
+                  value={dateRange}
+                  onChange={handleDateRangeChange}
+                />
               </Display>
 
               <Display>
-                <label htmlFor="">Campaign Date</label>
-                <DateRangePicker
-                  className="date-area"
-                  value={campaignDate}
-                  onChange={(dateRange) => setCampaignDate(dateRange)}
-                />
                 <Input
                   placeholder="Video Link"
                   label="Video Link"
@@ -133,9 +119,10 @@ const CreateProduct: React.FC = () => {
               <Display>
                 <FileInput
                   label="Gallery Images"
-                  onChange={handleGalleryImageChange}
                   multiple
                   required
+                  onChange={handleChangeFile}
+                />
                 />
                 <div className="row">
                   {galleryImages &&
