@@ -10,7 +10,6 @@ interface IProps {
   name?: string;
   value?: string | number;
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  onBlur?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
 const TextArea = ({
@@ -22,7 +21,6 @@ const TextArea = ({
   required,
   name,
   onChange,
-  onBlur,
 }: IProps) => {
   return (
     <div className="textarea">
@@ -32,7 +30,6 @@ const TextArea = ({
         name={name}
         value={value}
         onChange={onChange}
-        onBlur={onBlur}
         className={className}
         placeholder={placeholder}
         readOnly={readonly}
