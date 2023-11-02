@@ -47,6 +47,10 @@ const CreateProduct: React.FC = () => {
     setCampaignDate(dateRange);
   };
 
+  const handleDateRangeChange = (dateRange: [Date, Date]) => {
+    setCampaignDate(dateRange);
+  };
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
