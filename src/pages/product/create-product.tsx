@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect } from 'react';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
 import Input from '../../components/forms/text-input';
@@ -11,8 +11,6 @@ import Select from '../../components/select';
 import ToggleButton from '../../components/forms/checkbox';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getCategories } from '../../redux/category/categorySlice';
-import { DateRangePicker } from 'rsuite';
-import 'rsuite/dist/rsuite.css';
 
 const CreateProduct: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -22,44 +20,28 @@ const CreateProduct: React.FC = () => {
   const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
-  const [galleryImage, setGalleryImage] = useState<File[] | null>(null);
   const [category, setCategory] = useState<string>('');
-  const [quantity, setQuantity] = useState(0);
-  const [regularPrice, setRegularPrice] = useState(0);
-  const [discountPrice, setDiscountPrice] = useState(0);
-  const [deliveryFee, setDeliveryFee] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
-  const [videoUrl, setVideoUrl] = useState(true);
-  const [metaTitle, setMetaTitle] = useState('');
-  const [metaName, setMetaName] = useState('');
-  const [metaDescription, setMetaDescription] = useState('');
-  const [isSale, setIsSale] = useState(true);
-  const [isFeature, setIsFeature] = useState(true);
-  const [isNew, setIsNew] = useState(true);
-  const [sortDesc, setSortDesc] = useState(true);
+  const [quantity, setQuantity] = useState('');
   const [policy, setPolicy] = useState('');
-  const [availability, setAvailability] = useState(true);
 
   const handleDateRangeChange = (dateRange: [Date, Date]) => {
-    setCampaignDate(dateRange);
+    setDateRange(dateRange);
   };
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleLogoChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
-      setImage(file);
-    }
-  };
-  const handleGalleryImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const files = Array.from(e.target.files);
-      setGalleryImage(files);
+      //  setLogo(file);
     }
   };
 
   useEffect(() => {
     dispatch(getCategories({}));
   }, [dispatch]);
+
+  const handleChangeFile = (selectedFile: File | null) => {
+    setFile(selectedFile);
+  };
 
   return (
     <div className="create-product">
@@ -93,24 +75,15 @@ const CreateProduct: React.FC = () => {
                   Image Size Should Be 800 x 800.
                   <br /> or square size
                 </p>
-                {image && (
-                  <div className="product-image">
-                    <img
-                      src={URL.createObjectURL(image)}
-                      alt="gazi home appliance"
-                    />
-                  </div>
-                )}
-                <br />
+
+                <DateRangePicker
+                  className="date-area"
+                  value={dateRange}
+                  onChange={handleDateRangeChange}
+                />
               </Display>
 
               <Display>
-                <label htmlFor="">Campaign Date</label>
-                <DateRangePicker
-                  className="date-area"
-                  value={campaignDate}
-                  onChange={(dateRange) => setCampaignDate(dateRange)}
-                />
                 <Input
                   placeholder="Video Link"
                   label="Video Link"
@@ -190,16 +163,13 @@ const CreateProduct: React.FC = () => {
                     </Select>
                   </div>
                 </div>
-                <Input htmlFor="data" label="Date" />
               </Display>
 
               <Display>
                 <label className="label">Select Category*</label>
                 <Select required>
                   {categories.map((category) => (
-                    <option key={category.id} value={category.slug}>
-                      {category.title}
-                    </option>
+                    <option value={category.slug}>{category.title}</option>
                   ))}
                 </Select>
                 <TextArea
@@ -231,7 +201,6 @@ const CreateProduct: React.FC = () => {
               </Display>
               <Display>
                 <Input placeholder="Meta Title" htmlFor="meta-title" />
-                <Input placeholder="Meta Name" htmlFor="meta-name" />
                 <TextArea placeholder="Meta Description" />
               </Display>
             </div>

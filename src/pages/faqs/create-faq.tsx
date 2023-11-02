@@ -59,8 +59,8 @@ const CreateFaq: React.FC = () => {
             name="question"
             onChange={handleChange}
             htmlFor="title"
-            label="Question *"
-            placeholder="Question"
+            label="Title *"
+            placeholder="Enter Title"
             value={faqData.question}
             required
           />
@@ -69,8 +69,8 @@ const CreateFaq: React.FC = () => {
             name="answer"
             onChange={handleChange}
             value={faqData.answer}
-            label="Answer"
-            placeholder="answer"
+            label="Meta Description"
+            placeholder="Enter Meta Description"
             required
           />
           <Button>{isLoading ? 'Loading' : 'Create'}</Button>
