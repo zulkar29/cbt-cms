@@ -11,6 +11,8 @@ import Select from '../../components/select';
 import ToggleButton from '../../components/forms/checkbox';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getCategories } from '../../redux/category/categorySlice';
+import { DateRangePicker } from 'rsuite';
+import 'rsuite/dist/rsuite.css';
 
 const CreateProduct: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -22,16 +24,38 @@ const CreateProduct: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
   const [category, setCategory] = useState<string>('');
   const [quantity, setQuantity] = useState('');
+  const [galleryImage, setGalleryImage] = useState<File[] | null>(null);
+  const [category, setCategory] = useState<string>('');
+  const [quantity, setQuantity] = useState(0);
+  const [regularPrice, setRegularPrice] = useState(0);
+  const [discountPrice, setDiscountPrice] = useState(0);
+  const [deliveryFee, setDeliveryFee] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+  const [videoUrl, setVideoUrl] = useState(true);
+  const [metaTitle, setMetaTitle] = useState('');
+  const [metaName, setMetaName] = useState('');
+  const [metaDescription, setMetaDescription] = useState('');
+  const [isSale, setIsSale] = useState(true);
+  const [isFeature, setIsFeature] = useState(true);
+  const [isNew, setIsNew] = useState(true);
+  const [sortDesc, setSortDesc] = useState(true);
   const [policy, setPolicy] = useState('');
 
   const handleDateRangeChange = (dateRange: [Date, Date]) => {
-    setDateRange(dateRange);
+    setCampaignDate(dateRange);
+  };
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      setImage(file);
+    }
   };
 
   const handleLogoChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const file = e.target.files[0];
-      //  setLogo(file);
+      const files = Array.from(e.target.files);
+      setGalleryImage(files);
     }
   };
 
