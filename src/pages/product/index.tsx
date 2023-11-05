@@ -23,7 +23,6 @@ const AllProducts: React.FC = () => {
   const [page, setPage] = useState<number>(1);
 
   const { products, isLoading } = useAppSelector((state) => state.product);
-  console.log(products);
 
   useEffect(() => {
     dispatch(getProducts({ page: page, limit: displayItem }));

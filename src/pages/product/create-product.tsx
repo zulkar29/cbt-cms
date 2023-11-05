@@ -14,8 +14,8 @@ import { getCategories } from '../../redux/category/categorySlice';
 import { DateRangePicker } from 'rsuite';
 import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'react-toastify';
-import 'rsuite/dist/rsuite.css';
 import { createProduct, reset } from '../../redux/products/product-slice';
+import 'rsuite/dist/rsuite.css';
 
 const CreateProduct: React.FC = () => {
   const dispatch = useAppDispatch();
