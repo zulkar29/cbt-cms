@@ -148,7 +148,6 @@ const Settings: React.FC = () => {
                 value={settings.youtube_url}
                 name="youtube_url"
                 htmlFor="y-url"
-                required
               />
               <Input
                 onChange={handleChange}
@@ -156,15 +155,13 @@ const Settings: React.FC = () => {
                 value={settings.twitter_url}
                 name="twitter_url"
                 htmlFor="t-url"
-                required
               />
               <Input
                 onChange={handleChange}
                 label="instagram url"
-                value={settings.instgram_url}
-                name="instgram_url"
+                value={settings.instagram_url}
+                name="instagram_url"
                 htmlFor="t-url"
-                required
               />
             </Display>
             <Display>

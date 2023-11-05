@@ -23,14 +23,26 @@ const getAllProducts = async (filter: {
   return data;
 };
 
-const createCategory = async (productData: FormData) => {
+const createProduct = async (productData: FormData) => {
   const { data } = await axios.post(`${API_URL}/products`, productData);
   return data;
 };
 
+const updateProduct = async (id: number, categoryData: FormData) => {
+  const { data } = await axios.patch(`${API_URL}/products/${id}`, categoryData);
+  return data.data;
+};
+
+const deleteProduct = async (videoId: number) => {
+  const { data } = await axios.delete(`${API_URL}/products/?ids=[${videoId}]`);
+  return data.data;
+};
+
 const productService = {
   getAllProducts,
-  createCategory,
+  createProduct,
+  updateProduct,
+  deleteProduct,
 };
 
 export default productService;

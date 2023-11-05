@@ -32,7 +32,7 @@ export const createProduct = createAsyncThunk(
   'product/createProduct',
   async (data: FormData, thunkAPI) => {
     try {
-      return await productService.createCategory(data);
+      return await productService.createProduct(data);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -46,6 +46,33 @@ export const getProducts = createAsyncThunk(
   async ({ page, limit }: { [key: string]: number }, thunkAPI) => {
     try {
       return await productService.getAllProducts({ page, limit });
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'An error occurred';
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+export const updateProduct = createAsyncThunk(
+  'category/update',
+  async (
+    { id, productData }: { id: number; productData: FormData },
+    thunkAPI
+  ) => {
+    try {
+      return await productService.updateProduct(id, productData);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'An error occurred';
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+export const deleteProduct = createAsyncThunk(
+  'product/delete',
+  async (ProductId: number, thunkAPI) => {
+    try {
+      return await productService.deleteProduct(ProductId);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -93,6 +120,34 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload as string;
+      })
+      /* TODO: UPDATE PRODUCT DATA SET */
+      .addCase(updateProduct.pending, (state) => {
+        state.isLoading = true;
+        state.isUpdate = false;
+      })
+      .addCase(updateProduct.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isUpdate = true;
+      })
+      .addCase(updateProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      /* TODO: DELETE CATEGORY DATA SET */
+      .addCase(deleteProduct.pending, (state) => {
+        state.isLoading = true;
+        state.isDelete = false;
+      })
+      .addCase(deleteProduct.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isDelete = true;
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });
