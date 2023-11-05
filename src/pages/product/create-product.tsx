@@ -46,7 +46,7 @@ const CreateProduct: React.FC = () => {
   const [policy, setPolicy] = useState('');
   const [availability, setAvailability] = useState(true);
 
-  console.log({
+  /*   console.log({
     campaignDate,
     title,
     slug,
@@ -70,7 +70,7 @@ const CreateProduct: React.FC = () => {
     sortDesc,
     policy,
     availability,
-  });
+  }); */
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -116,9 +116,19 @@ const CreateProduct: React.FC = () => {
     }
     formData.append('upload_by', 'admin');
     formData.append('availability', availability.toString());
-    galleryImages?.forEach((g_image) => {
+    galleryImages?.forEach((g_image, index) => {
       formData.append('gallery_image', g_image);
+      formData.append('order_number', index.toString());
     });
+    formData.append('meta_title', metaTitle);
+    formData.append('meta_name', metaName);
+    formData.append('meta_description', metaDescription);
+    formData.append('sort_description', sortDesc);
+    formData.append('is_homepage', '1');
+
+    formData.append('is_sale', isSale.toString());
+    formData.append('is_feature', isFeature.toString());
+    formData.append('is_new', isNew.toString());
 
     dispatch(createProduct(formData));
   };
@@ -343,6 +353,13 @@ const CreateProduct: React.FC = () => {
                   <ToggleButton
                     isChecked={isFeature}
                     onClick={() => setIsFeature(!isFeature)}
+                  />
+                </div>
+                <div className="sudo-item">
+                  <span>Status</span>
+                  <ToggleButton
+                    isChecked={status}
+                    onClick={() => setStatus(!status)}
                   />
                 </div>
               </Display>

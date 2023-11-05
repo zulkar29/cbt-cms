@@ -16,6 +16,7 @@ import ViewButton from '../../components/button/view';
 import Overflow from '../../components/overflow';
 import './index.scss';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { API_ROOT } from '../../constants';
 
 const AllProducts: React.FC = () => {
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
@@ -125,8 +126,8 @@ const AllProducts: React.FC = () => {
               </Column>
               <Column className="col-md-1">
                 <img
-                  src="https://geniusdevs.com/codecanyon/omnimart40/assets/images/1634135320H408d7d7e37b4437297de600584c1af1fL.jpg"
-                  alt="product"
+                  src={`${API_ROOT}/product-image/${product.image}`}
+                  alt="brand"
                 />
               </Column>
               <Column className="col-md-3">{product.title}</Column>

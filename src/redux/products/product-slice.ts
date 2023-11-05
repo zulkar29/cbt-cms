@@ -45,7 +45,7 @@ export const getProducts = createAsyncThunk(
   'product/getAllProducts',
   async ({ page, limit }: { [key: string]: number }, thunkAPI) => {
     try {
-      return await productService.getAllProducts(page, limit);
+      return await productService.getAllProducts({ page, limit });
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
