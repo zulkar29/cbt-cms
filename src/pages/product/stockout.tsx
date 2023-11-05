@@ -15,9 +15,7 @@ import { getProducts, reset } from '../../redux/products/product-slice';
 
 const StockOutProducts: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { products, isLoading, isError, message } = useAppSelector(
-    (state) => state.product
-  );
+  const { products, isLoading } = useAppSelector((state) => state.product);
   const [displayItem, setDisplayItem] = useState(10);
   const [page, setPage] = useState<number>(1);
 
@@ -75,7 +73,7 @@ const StockOutProducts: React.FC = () => {
                   alt="product"
                 />
               </Column>
-              <Column className="col-md-3">{product.name}</Column>
+              <Column className="col-md-3">{product.title}</Column>
               <Column className="col-md-1">0</Column>
               <Column className="col-md-1">৳ 3000.00</Column>
               <Column className="col-md-1">৳ 2800.00</Column>
@@ -89,9 +87,7 @@ const StockOutProducts: React.FC = () => {
                 <CustomIconArea>
                   <ViewButton href="/products" />
                   <EditButton editUrl={`/products/edit/1`} />
-                  <DeleteButton
-                  // onClick={() => handleDeleteVideo(video.id as number)}
-                  />
+                  <DeleteButton onClick={() => console.log('first')} />
                 </CustomIconArea>
               </Column>
             </Row>

@@ -5,8 +5,6 @@ import Pagination from '../../components/pagination';
 import CardBody from '../../components/card-body';
 import Filter from '../../components/filter';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../redux/store';
 import { getProducts, reset } from '../../redux/products/product-slice';
 import ToggleButton from '../../components/forms/checkbox';
 import CustomIconArea from '../../components/custom-icon-area';
