@@ -20,6 +20,8 @@ import { useParams } from 'react-router-dom';
 
 const UpdateBlog = () => {
   const { singleBlog, isSuccess } = useAppSelector((state) => state.blogs);
+  const { id } = useParams();
+  console.log(id);
   const dispatch = useAppDispatch();
   const [title, setTitle] = useState('');
   const [image, setImage] = useState<File | string | null>(null);
@@ -45,8 +47,17 @@ const UpdateBlog = () => {
     formData.append('description', description);
     formData.append('meta_title', meta_title);
     formData.append('meta_description', meta_description);
-    dispatch(updateBlog({ id: singleBlog.id as number }));
+    dispatch(updateBlog({ id: singleBlog.id as number, blogData: formData }));
   };
+
+  useEffect(() => {
+    dispatch(blog(Number(id)));
+    setTitle(singleBlog.title);
+    setDescription(singleBlog.description as string);
+    setImage(singleBlog.image ?? null);
+    setMetaTitle(singleBlog.meta_title);
+    setSlug(singleBlog.slug);
+  }, [id, dispatch, singleBlog.title]);
 
   return (
     <div>
