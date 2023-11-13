@@ -152,6 +152,10 @@ const CreateProduct: React.FC = () => {
 
   useEffect(() => {
     dispatch(getCategories({}));
+
+    return () => {
+      dispatch(reset());
+    };
   }, [dispatch]);
 
   return (

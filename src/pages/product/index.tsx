@@ -123,7 +123,7 @@ const AllProducts: React.FC = () => {
               </Column>
               <Column className="col-md-1">
                 <img
-                  src={`${API_ROOT}/product-image/${product.image}`}
+                  src={`${API_ROOT}/images/product/${product.image}`}
                   alt="brand"
                 />
               </Column>

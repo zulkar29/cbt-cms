@@ -81,9 +81,9 @@ export const getBlogs = createAsyncThunk(
 
 export const updateBlog = createAsyncThunk(
   'blogs/update',
-  async (blogData: Partial<BlogData>, thunkAPI) => {
+  async ({ id, blogData }: { id: number; blogData: FormData }, thunkAPI) => {
     try {
-      return await blogService.updateBlog(blogData);
+      return await blogService.updateBlog(id, blogData);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
