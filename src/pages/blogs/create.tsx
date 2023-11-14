@@ -17,7 +17,6 @@ const initialBlogData = {
   image: null,
   is_visible: true,
   meta_title: '',
-  meta_keyword: '',
   meta_description: '',
   slug: '',
 };
@@ -43,6 +42,7 @@ const CreateBlog: React.FC = () => {
   }, [isCreate, message, dispatch, isError]);
 
   const [description, setDescription] = useState('');
+  console.log(blogData);
 
   const handleBlogData = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -65,16 +65,7 @@ const CreateBlog: React.FC = () => {
       }));
     }
   };
-  const handleMetaImage = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files[0]; // Get the first selected file
 
-      setBlogData((prevState) => ({
-        ...prevState,
-        meta_image: file,
-      }));
-    }
-  };
   /*   const handleVisible = () => {
     setBlogData((prevState) => ({
       ...prevState,
@@ -148,15 +139,6 @@ const CreateBlog: React.FC = () => {
                 onChange={handleBlogData}
                 placeholder="Meta Title"
               />
-              <Input
-                htmlFor="Meta-Keywords"
-                label="Meta Keywords *"
-                name="meta_keyword"
-                onChange={handleBlogData}
-                value={blogData.meta_keyword}
-                placeholder="Meta Keywords"
-              />
-              <FileInput label="Meta Image" onChange={handleMetaImage} />
               <TextArea
                 label="Meta Description"
                 name="meta_description"
