@@ -15,17 +15,19 @@ import {
 } from '../../redux/category/categorySlice';
 import { ICategory } from '../../interfaces/category';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const initialState = {
   title: '',
   slug: '',
   parent_category: '',
   image: null as File | null,
-  is_feature: false,
+  is_feature: true,
 };
 
 const CreateCategory: React.FC = () => {
   const { categories, isCreate } = useAppSelector((state) => state.category);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [categoryData, setCategoryData] = useState<ICategory>(initialState);
 
@@ -66,6 +68,7 @@ const CreateCategory: React.FC = () => {
   useEffect(() => {
     if (isCreate) {
       toast.success('Category create successfully');
+      navigate('/category');
     }
 
     return () => {
