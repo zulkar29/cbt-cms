@@ -1,4 +1,3 @@
-import React from 'react';
 import Display from '../../components/display';
 import FileInput from '../../components/forms/file-input';
 import Input from '../../components/forms/text-input';

@@ -30,7 +30,7 @@ const Queries = () => {
           <Column className="col-md-2">
             <CustomIconArea>
               <ViewButton href="/" />
-              <DeleteButton />
+              <DeleteButton onClick={() => console.log('first')} />
             </CustomIconArea>
           </Column>
         </Row>

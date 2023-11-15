@@ -15,7 +15,10 @@ import { DateRangePicker } from 'rsuite';
 import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'react-toastify';
 import { createProduct, reset } from '../../redux/products/product-slice';
+import ReactSelect from 'react-select';
+import makeAnimated from 'react-select/animated';
 import 'rsuite/dist/rsuite.css';
+const animatedComponents = makeAnimated();
 
 const CreateProduct: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -45,7 +48,12 @@ const CreateProduct: React.FC = () => {
   const [sortDesc, setSortDesc] = useState('');
   const [policy, setPolicy] = useState('');
   const [availability, setAvailability] = useState(true);
+  const [isVariant, setIsVariant] = useState(false);
 
+  const gasTypeOptions = [
+    { label: 'NG', value: 'ng' },
+    { label: 'LPG', value: 'lpg' },
+  ];
   /*   console.log({
     campaignDate,
     title,
@@ -256,6 +264,41 @@ const CreateProduct: React.FC = () => {
                 <p className="wearing">
                   Image Size Should Be 800 x 800. or square size
                 </p>
+              </Display>
+              <Display>
+                <div className="variant">
+                  <p>Product Variation</p>
+                  <ToggleButton
+                    onClick={() => setIsVariant(!isVariant)}
+                    isChecked={isVariant}
+                  />
+                </div>
+                {isVariant && (
+                  <>
+                    <div className="input-group">
+                      <p className="group-title">Gas Type:</p>
+                      <ReactSelect
+                        className="select-box"
+                        closeMenuOnSelect={false}
+                        components={animatedComponents}
+                        defaultValue={[gasTypeOptions[0]]}
+                        isMulti
+                        options={gasTypeOptions}
+                      />
+                    </div>
+                    <div className="input-group">
+                      <p className="group-title">Size:</p>
+                      <ReactSelect
+                        className="select-box"
+                        closeMenuOnSelect={false}
+                        components={animatedComponents}
+                        defaultValue={[gasTypeOptions[0]]}
+                        isMulti
+                        options={gasTypeOptions}
+                      />
+                    </div>
+                  </>
+                )}
               </Display>
               <Display>
                 <h5 className="product-title">Product Description</h5>

@@ -13,8 +13,8 @@ export interface ISettings {
   footer_script?: string;
   facebook_url?: string;
   youtube_url?: string;
+  instgram_url?: string;
   twitter_url?: string;
-  instagram_url?: string;
   cash_on_message: null | string;
   online_payment_message: null | string;
   created_at?: string;

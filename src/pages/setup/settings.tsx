@@ -159,7 +159,7 @@ const Settings: React.FC = () => {
               <Input
                 onChange={handleChange}
                 label="instagram url"
-                value={settings.instagram_url}
+                value={settings.instgram_url}
                 name="instagram_url"
                 htmlFor="t-url"
               />

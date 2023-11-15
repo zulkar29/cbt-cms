@@ -1,5 +1,4 @@
 import { ChangeEvent, useState, useEffect } from 'react';
-// import Actions from '../../components/actions';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
 import Filter from '../../components/filter';
@@ -29,14 +28,16 @@ const Blogs: React.FC = () => {
   const totalPage = Math.floor(totalCount / displayItem);
 
   const handleStatusChange = (blog: BlogData) => {
-    dispatch(updateBlog({ id: blog.id, is_visible: !blog.is_visible }));
+    dispatch(
+      updateBlog({ id: blog.id as number, is_visible: !blog.is_visible })
+    );
     setTimeout(
       () => dispatch(getBlogs({ page: pageNumber, limit: displayItem })),
       500
     );
   };
 
-  const handleDeleteBlog = (blogId: number | string) => {
+  const handleDeleteBlog = (blogId: number) => {
     dispatch(deleteBlog(blogId));
     setTimeout(
       () => dispatch(getBlogs({ page: pageNumber, limit: displayItem })),

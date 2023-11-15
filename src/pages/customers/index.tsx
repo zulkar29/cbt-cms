@@ -1,5 +1,4 @@
 import { ChangeEvent, useState } from 'react';
-import Actions from '../../components/actions';
 import Display from '../../components/display';
 import Pagination from '../../components/pagination';
 import Column from '../../components/table/column';
@@ -7,6 +6,8 @@ import Row from '../../components/table/row';
 import Filter from '../../components/filter';
 import { CSVLink } from 'react-csv';
 import { BsDownload } from 'react-icons/bs';
+import CustomIconArea from '../../components/custom-icon-area';
+import DeleteButton from '../../components/button/delete';
 
 const Customers: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
@@ -45,7 +46,9 @@ const Customers: React.FC = () => {
             <Column className="col-md-3">talha.halcyon@gmail.com</Column>
             <Column className="col-md-3">+8801724721383</Column>
             <Column className="col-md-3">
-              <Actions editUrl="/orders/edit" />
+              <CustomIconArea>
+                <DeleteButton onClick={() => console.log('first')} />
+              </CustomIconArea>
             </Column>
           </Row>
         ))}

@@ -5,9 +5,10 @@ import Row from '../../components/table/row';
 import Column from '../../components/table/column';
 import Select from '../../components/select';
 import Pagination from '../../components/pagination';
-import Actions from '../../components/actions';
 import { ChangeEvent, useState } from 'react';
 import Filter from '../../components/filter';
+import CustomIconArea from '../../components/custom-icon-area';
+import EditButton from '../../components/button/edit';
 
 const CouponPage: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
@@ -45,7 +46,9 @@ const CouponPage: React.FC = () => {
                   <Select />
                 </Column>
                 <Column>
-                  <Actions editUrl="/coupon/edit" />
+                  <CustomIconArea>
+                    <EditButton editUrl="/" />
+                  </CustomIconArea>
                 </Column>
               </Row>
             ))}

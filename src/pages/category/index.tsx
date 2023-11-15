@@ -88,7 +88,7 @@ const Categories: React.FC = () => {
             </Column>
             <Column className="col-md-1">
               <CustomIconArea>
-                <EditButton editUrl={`categories/edit/${category.id}`} />
+                <EditButton editUrl={`/categories/edit/${category.id}`} />
                 <DeleteButton
                   onClick={() => handleDeleteCategory(category.id as number)}
                 />

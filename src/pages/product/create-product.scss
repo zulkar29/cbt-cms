@@ -48,6 +48,22 @@
       }
     }
   }
+  .variant {
+    display: flex;
+    justify-content: space-between;
+  }
+  .input-group {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+
+    .group-title {
+      width: 20%;
+    }
+    .select-box {
+      width: 80%;
+    }
+  }
 }
 .rs-picker-has-value .rs-btn .rs-picker-toggle-value,
 .rs-picker-has-value .rs-picker-toggle .rs-picker-toggle-value {

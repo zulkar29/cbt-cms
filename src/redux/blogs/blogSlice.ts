@@ -25,7 +25,6 @@ const initialState: IBlogResponse = {
     description: '',
     is_visible: true,
     meta_title: '',
-    meta_keyword: '',
     meta_description: '',
     slug: '',
   },
