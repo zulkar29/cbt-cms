@@ -119,8 +119,6 @@ const CreateCategory: React.FC = () => {
             <Column className="col-md-4">
               <br />
               <Input placeholder="Meta Title" htmlFor="meta-title" />
-              <Input placeholder="Meta keyword" htmlFor="meta-keyword" />
-              <FileInput />
               <TextArea placeholder="Meta Description" />
             </Column>
           </div>
