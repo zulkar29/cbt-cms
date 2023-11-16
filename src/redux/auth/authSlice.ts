@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import authService from './authService';
 import { IToken, IUser } from '../../interfaces/user';
+import axios from 'axios';
 
 // Get user from localStorage
 const userString = localStorage.getItem('user');
@@ -29,18 +30,21 @@ export const login = createAsyncThunk(
     try {
       return await authService.login(user);
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : 'An error occurred';
-      return thunkAPI.rejectWithValue(message);
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message || 'An error occurred';
+        return thunkAPI.rejectWithValue(message);
+      } else {
+        return thunkAPI.rejectWithValue('An error occurred');
+      }
     }
   }
 );
 
 export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    const token = thunkAPI.getState().authService.user.refreshToken;
+    /* const token = thunkAPI.getState().authService.user.refreshToken;
     console.log('token');
-    return await authService.logout(token);
+    return await authService.logout(token); */
   } catch (error) {
     const message =
       error instanceof Error ? error.message : 'An error occurred';
@@ -74,6 +78,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.user = null;
+        state.message = action.payload as string;
       })
       .addCase(logout.pending, (state) => {
         state.isLoading = true;
@@ -83,10 +88,10 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.user = null;
       })
-      .addCase(logout.rejected, (state, action) => {
+      .addCase(logout.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
-        // state.user = null;
+        state.user = null;
       });
   },
 });

@@ -36,6 +36,7 @@ export const createAddBanner = createAsyncThunk(
     try {
       return await addBannerService.createAddBanner(bannerData);
     } catch (error) {
+      console.log(error);
       const message =
         error instanceof Error ? error.message : 'An error occurred';
       return thunkAPI.rejectWithValue(message);
