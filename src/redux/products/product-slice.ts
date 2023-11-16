@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import productService from './product-service';
 import { IProduct } from '../../interfaces/product';
+import axios from 'axios';
 
 interface IState {
   products: IProduct[];
@@ -10,7 +11,9 @@ interface IState {
   isCreate: boolean;
   isUpdate: boolean;
   isDelete: boolean;
+  isCsvUpload: boolean;
   isLoading: boolean;
+  csvFile: string;
   message: string | unknown;
   errorMessage: string | unknown;
 }
@@ -21,8 +24,10 @@ const initialState: IState = {
   isSuccess: false,
   isCreate: false,
   isUpdate: false,
+  isCsvUpload: false,
   isDelete: false,
   isLoading: false,
+  csvFile: '',
   message: '',
   errorMessage: '',
 };
@@ -34,9 +39,12 @@ export const createProduct = createAsyncThunk(
     try {
       return await productService.createProduct(data);
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : 'An error occurred';
-      return thunkAPI.rejectWithValue(message);
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message || 'An error occurred';
+        return thunkAPI.rejectWithValue(message);
+      } else {
+        return thunkAPI.rejectWithValue('An error occurred');
+      }
     }
   }
 );
@@ -47,12 +55,16 @@ export const getProducts = createAsyncThunk(
     try {
       return await productService.getAllProducts({ page, limit });
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : 'An error occurred';
-      return thunkAPI.rejectWithValue(message);
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message || 'An error occurred';
+        return thunkAPI.rejectWithValue(message);
+      } else {
+        return thunkAPI.rejectWithValue('An error occurred');
+      }
     }
   }
 );
+
 export const updateProduct = createAsyncThunk(
   'category/update',
   async (
@@ -62,21 +74,61 @@ export const updateProduct = createAsyncThunk(
     try {
       return await productService.updateProduct(id, productData);
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : 'An error occurred';
-      return thunkAPI.rejectWithValue(message);
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message || 'An error occurred';
+        return thunkAPI.rejectWithValue(message);
+      } else {
+        return thunkAPI.rejectWithValue('An error occurred');
+      }
     }
   }
 );
+
 export const deleteProduct = createAsyncThunk(
   'product/delete',
   async (ProductId: number, thunkAPI) => {
     try {
       return await productService.deleteProduct(ProductId);
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : 'An error occurred';
-      return thunkAPI.rejectWithValue(message);
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message || 'An error occurred';
+        return thunkAPI.rejectWithValue(message);
+      } else {
+        return thunkAPI.rejectWithValue('An error occurred');
+      }
+    }
+  }
+);
+// Download csv
+export const csvProduct = createAsyncThunk(
+  'product/csv_download',
+  async (_, thunkAPI) => {
+    try {
+      return await productService.csvProduct();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message || 'An error occurred';
+        return thunkAPI.rejectWithValue(message);
+      } else {
+        return thunkAPI.rejectWithValue('An error occurred');
+      }
+    }
+  }
+);
+
+// Upload csv
+export const uploadCsvProduct = createAsyncThunk(
+  'product/csv_upload',
+  async (csvData: FormData, thunkAPI) => {
+    try {
+      return await productService.uploadCsvProduct(csvData);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message || 'An error occurred';
+        return thunkAPI.rejectWithValue(message);
+      } else {
+        return thunkAPI.rejectWithValue('An error occurred');
+      }
     }
   }
 );
@@ -90,6 +142,7 @@ export const productSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = false;
       state.isError = false;
+      state.isCsvUpload = false;
       state.message = '';
     },
   },
@@ -149,6 +202,34 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+      })
+      /* TODO: CSV DOWNLOAD */
+      .addCase(csvProduct.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(csvProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.csvFile = action.payload;
+      })
+      .addCase(csvProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      /* TODO: CSV UPLOAD */
+      .addCase(uploadCsvProduct.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(uploadCsvProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isCsvUpload = true;
+        state.csvFile = action.payload;
+      })
+      .addCase(uploadCsvProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isCsvUpload = false;
+        state.errorMessage = action.payload;
       });
   },
 });

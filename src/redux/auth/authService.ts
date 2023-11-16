@@ -14,16 +14,8 @@ const login = async (userData: IUser): Promise<IToken> => {
 };
 
 // Logout user
-const logout = async (token: string) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  const response = await axios.post(API_URL + '/auths/logout', config);
-  if (response.data) {
-    localStorage.removeItem('user');
-  }
+const logout = () => {
+  localStorage.removeItem('user');
 };
 
 const authService = {

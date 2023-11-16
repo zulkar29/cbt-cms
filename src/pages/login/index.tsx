@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { login, reset } from '../../redux/auth/authSlice';
 import './index.scss';
+import { Button } from '../../components/button';
+import Input from '../../components/forms/text-input';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -53,38 +55,35 @@ function Login() {
   return (
     <div className="login-page">
       <section className="heading">
-        <h1>Login</h1>
+        <img src="/assets/logo/logo.png" alt="logo" />
+        {/* <h1>Login</h1> */}
       </section>
 
       <section className="form">
         <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              name="email"
-              value={email}
-              placeholder="Enter your email"
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              name="password"
-              value={password}
-              placeholder="Enter password"
-              onChange={onChange}
-            />
-          </div>
+          <Input
+            label="Email"
+            htmlFor="email"
+            type="email"
+            name="email"
+            value={email}
+            placeholder="Enter your email"
+            onChange={onChange}
+          />
+          <Input
+            label="Password"
+            htmlFor="password"
+            type="password"
+            name="password"
+            value={password}
+            placeholder="Enter password"
+            onChange={onChange}
+          />
 
           <div className="form-group">
-            <button type="submit" className="btn btn-block">
+            <Button className="submit-btn" type="submit">
               {isLoading ? 'Loading' : 'Submit'}
-            </button>
+            </Button>
           </div>
         </form>
       </section>

@@ -38,11 +38,23 @@ const deleteProduct = async (videoId: number) => {
   return data.data;
 };
 
+const csvProduct = async () => {
+  const { data } = await axios.get(`${API_URL}/products/csv`);
+  return data;
+};
+
+const uploadCsvProduct = async (csvData: FormData) => {
+  const { data } = await axios.post(`${API_URL}/products/csv`, csvData);
+  return data;
+};
+
 const productService = {
   getAllProducts,
   createProduct,
   updateProduct,
   deleteProduct,
+  csvProduct,
+  uploadCsvProduct,
 };
 
 export default productService;

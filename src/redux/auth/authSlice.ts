@@ -40,16 +40,8 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
-  try {
-    /* const token = thunkAPI.getState().authService.user.refreshToken;
-    console.log('token');
-    return await authService.logout(token); */
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : 'An error occurred';
-    return thunkAPI.rejectWithValue(message);
-  }
+export const logout = createAsyncThunk('auth/logout', async () => {
+  await authService.logout();
 });
 
 export const authSlice = createSlice({

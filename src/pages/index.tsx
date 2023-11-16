@@ -41,8 +41,9 @@ import {
   CreateService,
   Footer,
   Header,
+  Error,
 } from './pages';
-import Csv from './orders/csv';
+import Csv from './product/csv';
 
 function PageRoutes() {
   return (
@@ -103,6 +104,9 @@ function PageRoutes() {
       <Route path="/setup/pages" element={<CommonPages />} />
       <Route path="/setup/pages/create" element={<CreatePage />} />
       <Route path="/setup/pages/edit/:slug" element={<UpdatePage />} />
+
+      {/* 404 Page */}
+      <Route path="*" element={<Error />} />
     </Routes>
   );
 }
