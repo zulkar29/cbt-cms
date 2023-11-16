@@ -1,9 +1,9 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { FaSignInAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { login, reset } from '../../redux/auth/authSlice';
+import './index.scss';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -51,12 +51,9 @@ function Login() {
   };
 
   return (
-    <>
+    <div className="login-page">
       <section className="heading">
-        <h1>
-          <FaSignInAlt /> Login
-        </h1>
-        <p>Login and start setting goals</p>
+        <h1>Login</h1>
       </section>
 
       <section className="form">
@@ -91,7 +88,7 @@ function Login() {
           </div>
         </form>
       </section>
-    </>
+    </div>
   );
 }
 

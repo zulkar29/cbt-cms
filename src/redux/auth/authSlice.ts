@@ -42,7 +42,9 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     console.log('token');
     return await authService.logout(token);
   } catch (error) {
-    return thunkAPI.rejectWithValue('Logout failed');
+    const message =
+      error instanceof Error ? error.message : 'An error occurred';
+    return thunkAPI.rejectWithValue(message);
   }
 });
 
@@ -76,10 +78,10 @@ export const authSlice = createSlice({
       .addCase(logout.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(logout.fulfilled, (state, action) => {
+      .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
-        // state.user = action.payload;
+        state.user = null;
       })
       .addCase(logout.rejected, (state, action) => {
         state.isLoading = false;
