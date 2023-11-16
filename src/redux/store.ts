@@ -8,6 +8,7 @@ import addBannerReducer from './add-banner/addBannerSlice';
 import subscriberReducer from './subscribe/subscribeSlice';
 import pageReducer from './pages/pageSlice';
 import settingsReducer from './settings/settingSlice';
+import authReducer from './auth/authSlice';
 // ...
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     subscribers: subscriberReducer,
     pages: pageReducer,
     settings: settingsReducer,
+    auth: authReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

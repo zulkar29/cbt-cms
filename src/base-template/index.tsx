@@ -2,21 +2,28 @@ import './index.scss';
 import Header from '../components/header';
 import PageRoutes from '../pages';
 import SideBar from '../components/sidebar';
+import { useAppSelector } from '../redux/hooks';
+import Login from '../pages/login';
 function BaseTemplate() {
+  const { user } = useAppSelector((state) => state.auth);
   return (
     <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <SideBar />
-        </div>
+      {user ? (
+        <div className="row">
+          <div className="col-md-2">
+            <SideBar />
+          </div>
 
-        <div className="col-md-10">
-          <Header />
-          <main className="main-area">
-            <PageRoutes />
-          </main>
+          <div className="col-md-10">
+            <Header />
+            <main className="main-area">
+              <PageRoutes />
+            </main>
+          </div>
         </div>
-      </div>
+      ) : (
+        <Login />
+      )}
     </div>
   );
 }
