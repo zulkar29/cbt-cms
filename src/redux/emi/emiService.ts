@@ -28,7 +28,7 @@ const createEmi = async (productData: IEmi) => {
   return data;
 };
 
-const updateEmi = async (id: number, categoryData: FormData) => {
+const updateEmi = async (id: number | string, categoryData: IEmi) => {
   const { data } = await axios.patch(`${API_URL}/emis/${id}`, categoryData);
   return data.data;
 };

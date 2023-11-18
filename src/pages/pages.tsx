@@ -42,6 +42,7 @@ import Header from './setup/header';
 import Error from './Error';
 import EmiPage from './Emi';
 import CreateEmi from './Emi/create-emi';
+import UpdateEmi from './Emi/update-emi';
 
 export {
   Blogs,
@@ -88,4 +89,5 @@ export {
   Error,
   EmiPage,
   CreateEmi,
+  UpdateEmi,
 };

@@ -4,10 +4,10 @@ import Input from '../../components/forms/text-input';
 import Column from '../../components/table/column';
 import { IEmi } from '../../interfaces/emi';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { createEmi, reset } from '../../redux/emi/emiSlice';
+import { reset, updateEmi } from '../../redux/emi/emiSlice';
 import { Button } from '../../components/button';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const initialState = {
   bank_name: '',
@@ -20,11 +20,13 @@ const initialState = {
   thirty_months: 0,
   thirty_six_months: 0,
 };
-const CreateEmi = () => {
+
+const UpdateEmi = () => {
+  const { slug } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [emiData, setEmiData] = useState<IEmi>(initialState);
-  const { isCreate } = useAppSelector((state) => state.emi);
+  const { isUpdate } = useAppSelector((state) => state.emi);
 
   const handleEmiData = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -39,19 +41,23 @@ const CreateEmi = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(createEmi(emiData));
+    dispatch(updateEmi({ id: Number(slug), emiData }));
   };
 
   useEffect(() => {
-    if (isCreate) {
-      toast.success('Emi bank added successfully');
+    if (isUpdate) {
+      toast.success('Emi bank updated successfully');
 
       navigate('/emi');
     }
     return () => {
       dispatch(reset());
     };
-  }, [isCreate, dispatch, navigate]);
+  }, [isUpdate, dispatch, navigate]);
+
+  useEffect(() => {
+    console.log('Talha');
+  }, [slug]);
 
   return (
     <div>
@@ -135,4 +141,4 @@ const CreateEmi = () => {
   );
 };
 
-export default CreateEmi;
+export default UpdateEmi;

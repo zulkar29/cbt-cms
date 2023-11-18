@@ -44,6 +44,7 @@ import {
   Error,
   EmiPage,
   CreateEmi,
+  UpdateEmi,
 } from './pages';
 import Csv from './product/csv';
 
@@ -97,6 +98,7 @@ function PageRoutes() {
       {/* EMI */}
       <Route path="/emi" element={<EmiPage />} />
       <Route path="/emi/create" element={<CreateEmi />} />
+      <Route path="/emi/edit/:slug" element={<UpdateEmi />} />
 
       {/* Settings */}
       <Route path="/setup/home-page" element={<SetupPage />} />

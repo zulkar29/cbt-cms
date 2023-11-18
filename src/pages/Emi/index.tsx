@@ -3,10 +3,10 @@ import Display from '../../components/display';
 import Row from '../../components/table/row';
 import Column from '../../components/table/column';
 import CustomIconArea from '../../components/custom-icon-area';
-import ViewButton from '../../components/button/view';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getEmis, reset } from '../../redux/emi/emiSlice';
 import CardBody from '../../components/card-body';
+import EditButton from '../../components/button/edit';
 
 const EmiPage = () => {
   const dispatch = useAppDispatch();
@@ -49,7 +49,7 @@ const EmiPage = () => {
             <Column className="col-md-1">{emi.thirty_six_months}</Column>
             <Column className="col-md-1">
               <CustomIconArea>
-                <ViewButton href="/" />
+                <EditButton editUrl={`/emi/edit/${emi.id}`} />
               </CustomIconArea>
             </Column>
           </Row>

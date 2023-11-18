@@ -30,7 +30,7 @@ const initialState: IState = {
 
 // Get user products
 export const createEmi = createAsyncThunk(
-  'product/createEmi',
+  'emi/createEmi',
   async (data: IEmi, thunkAPI) => {
     try {
       return await emiService.createEmi(data);
@@ -44,9 +44,9 @@ export const createEmi = createAsyncThunk(
     }
   }
 );
-// Get user products
+// Get Emi's
 export const getEmis = createAsyncThunk(
-  'product/getAllProducts',
+  'emi/getAllProducts',
   async ({ page, limit }: { [key: string]: number }, thunkAPI) => {
     try {
       return await emiService.getEmis({ page, limit });
@@ -62,13 +62,10 @@ export const getEmis = createAsyncThunk(
 );
 
 export const updateEmi = createAsyncThunk(
-  'category/update',
-  async (
-    { id, productData }: { id: number; productData: FormData },
-    thunkAPI
-  ) => {
+  'emi/update',
+  async ({ id, emiData }: { id: number | string; emiData: IEmi }, thunkAPI) => {
     try {
-      return await emiService.updateEmi(id, productData);
+      return await emiService.updateEmi(id, emiData);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data.message || 'An error occurred';
@@ -81,7 +78,7 @@ export const updateEmi = createAsyncThunk(
 );
 
 export const deleteEmi = createAsyncThunk(
-  'product/delete',
+  'emi/delete',
   async (ProductId: number, thunkAPI) => {
     try {
       return await emiService.deleteEmi(ProductId);
@@ -96,7 +93,7 @@ export const deleteEmi = createAsyncThunk(
   }
 );
 
-export const productSlice = createSlice({
+export const emiSlice = createSlice({
   name: 'emi',
   initialState,
   reducers: {
@@ -168,5 +165,5 @@ export const productSlice = createSlice({
   },
 });
 
-export const { reset } = productSlice.actions;
-export default productSlice.reducer;
+export const { reset } = emiSlice.actions;
+export default emiSlice.reducer;
