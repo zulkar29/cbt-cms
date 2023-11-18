@@ -40,6 +40,8 @@ import UpdatePage from './setup/update-pages';
 import Footer from '../pages/setup/footer';
 import Header from './setup/header';
 import Error from './Error';
+import EmiPage from './Emi';
+import CreateEmi from './Emi/create-emi';
 
 export {
   Blogs,
@@ -84,4 +86,6 @@ export {
   Footer,
   Header,
   Error,
+  EmiPage,
+  CreateEmi,
 };

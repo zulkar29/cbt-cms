@@ -153,6 +153,21 @@ export const sidebarLinks = [
   },
   {
     id: 10,
+    title: 'Emi',
+    icon: 'emi.png',
+    subLinks: [
+      {
+        subtitle: 'Available Emi',
+        slug: '/emi',
+      },
+      {
+        subtitle: 'Add Bank',
+        slug: '/emi/create',
+      },
+    ],
+  },
+  {
+    id: 11,
     title: 'Site Settings',
     icon: 'setting.png',
     subLinks: [

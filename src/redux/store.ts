@@ -9,6 +9,7 @@ import subscriberReducer from './subscribe/subscribeSlice';
 import pageReducer from './pages/pageSlice';
 import settingsReducer from './settings/settingSlice';
 import authReducer from './auth/authSlice';
+import emiReducer from './emi/emiSlice';
 // ...
 const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
     pages: pageReducer,
     settings: settingsReducer,
     auth: authReducer,
+    emi: emiReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;
