@@ -29,13 +29,6 @@ const AllOrders: React.FC = () => {
     setDisplayItem(Number(e.target.value));
   };
 
-  const csvData = [
-    ['firstname', 'lastname', 'email'],
-    ['Ahmed', 'Tomi', 'ah@smthing.co.com'],
-    ['Raed', 'Labes', 'rl@smthing.co.com'],
-    ['Yezzi', 'Min l3b', 'ymin@cocococo.com'],
-  ];
-
   useEffect(() => {
     dispatch(getOrders({ page: pageNumber, limit: displayItem }));
   }, [dispatch, pageNumber, displayItem]);
@@ -54,7 +47,7 @@ const AllOrders: React.FC = () => {
     <div>
       <Display>
         <div className="csv-icon" title="Download CSV">
-          <CSVLink data={csvData}>
+          <CSVLink data={orders}>
             <BsDownload />
           </CSVLink>
         </div>

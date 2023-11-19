@@ -1,4 +1,4 @@
-import { IOrderResponse } from './../../interfaces/order';
+import { IOrder, IOrderResponse } from './../../interfaces/order';
 import axios from 'axios';
 import { API_URL } from '../../constants';
 
@@ -23,6 +23,12 @@ const getAllOrders = async (filter: {
   return data;
 };
 
+// Update Order
+const updateOrder = async (id: number, orderData: Partial<IOrder>) => {
+  const { data } = await axios.patch(`${API_URL}/orders/${id}`, orderData);
+  return data.data;
+};
+
 const deleteOrder = async (ids: [number]) => {
   const { data } = await axios.delete(`${API_URL}/orders/?ids=[${ids}]`);
   return data.data;
@@ -31,6 +37,7 @@ const deleteOrder = async (ids: [number]) => {
 const productService = {
   getAllOrders,
   deleteOrder,
+  updateOrder,
 };
 
 export default productService;

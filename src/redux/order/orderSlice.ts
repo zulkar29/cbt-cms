@@ -7,6 +7,7 @@ interface IState {
   orders: IOrder[];
   totalCount: number;
   isError: boolean;
+  isUpdate: boolean;
   isSuccess: boolean;
   isDelete: boolean;
   isLoading: boolean;
@@ -18,6 +19,7 @@ const initialState: IState = {
   totalCount: 0,
   isError: false,
   isSuccess: false,
+  isUpdate: false,
   isDelete: false,
   isLoading: false,
   message: '',
@@ -30,6 +32,25 @@ export const getOrders = createAsyncThunk(
   async (filter: { [key: string]: number | string }, thunkAPI) => {
     try {
       return await orderService.getAllOrders(filter);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message || 'An error occurred';
+        return thunkAPI.rejectWithValue(message);
+      } else {
+        return thunkAPI.rejectWithValue('An error occurred');
+      }
+    }
+  }
+);
+
+export const updateProduct = createAsyncThunk(
+  'category/update',
+  async (
+    { id, orderData }: { id: number; orderData: Partial<IOrder> },
+    thunkAPI
+  ) => {
+    try {
+      return await orderService.updateOrder(id, orderData);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data.message || 'An error occurred';
@@ -57,7 +78,7 @@ export const deleteOrder = createAsyncThunk(
   }
 );
 
-export const productSlice = createSlice({
+export const orderSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
@@ -87,6 +108,21 @@ export const productSlice = createSlice({
         state.message = action.payload as string;
       })
 
+      /* TODO: UPDATE PRODUCT DATA SET */
+      .addCase(updateProduct.pending, (state) => {
+        state.isLoading = true;
+        state.isUpdate = false;
+      })
+      .addCase(updateProduct.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isUpdate = true;
+      })
+      .addCase(updateProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+
       /* TODO: DELETE CATEGORY DATA SET */
       .addCase(deleteOrder.pending, (state) => {
         state.isLoading = true;
@@ -104,5 +140,5 @@ export const productSlice = createSlice({
   },
 });
 
-export const { reset } = productSlice.actions;
-export default productSlice.reducer;
+export const { reset } = orderSlice.actions;
+export default orderSlice.reducer;
