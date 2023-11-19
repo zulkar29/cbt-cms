@@ -26,8 +26,8 @@ const initialState: IState = {
 
 // Get Order
 export const getOrders = createAsyncThunk(
-  'product/getAllProducts',
-  async (filter: { [key: string]: number }, thunkAPI) => {
+  'order/getAllOrder',
+  async (filter: { [key: string]: number | string }, thunkAPI) => {
     try {
       return await orderService.getAllOrders(filter);
     } catch (error) {
@@ -42,10 +42,10 @@ export const getOrders = createAsyncThunk(
 );
 // Delete Order
 export const deleteOrder = createAsyncThunk(
-  'product/delete',
-  async (ProductId: number, thunkAPI) => {
+  'order/delete',
+  async (ids: [number], thunkAPI) => {
     try {
-      return await orderService.deleteOrder(ProductId);
+      return await orderService.deleteOrder(ids);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data.message || 'An error occurred';
@@ -79,6 +79,7 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.orders = action.payload.data.rows;
+        state.totalCount = action.payload.data.count;
       })
       .addCase(getOrders.rejected, (state, action) => {
         state.isLoading = false;

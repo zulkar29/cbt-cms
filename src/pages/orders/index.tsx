@@ -9,12 +9,22 @@ import { CSVLink } from 'react-csv';
 import './index.scss';
 import Overflow from '../../components/overflow';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getOrders } from '../../redux/order/orderSlice';
+import { getOrders, reset } from '../../redux/order/orderSlice';
+import { toast } from 'react-toastify';
 
 const AllOrders: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { orders } = useAppSelector((state) => state.order);
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const { orders, isDelete, totalCount } = useAppSelector(
+    (state) => state.order
+  );
   const [displayItem, setDisplayItem] = useState(10);
+  const totalPage = Math.floor(totalCount / displayItem);
+
+  const handlePageChange = (selectedItem: { selected: number }) => {
+    setPageNumber(selectedItem.selected + 1);
+  };
+
   const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
     setDisplayItem(Number(e.target.value));
   };
@@ -27,8 +37,18 @@ const AllOrders: React.FC = () => {
   ];
 
   useEffect(() => {
-    dispatch(getOrders({}));
-  }, [dispatch]);
+    dispatch(getOrders({ page: pageNumber, limit: displayItem }));
+  }, [dispatch, pageNumber, displayItem]);
+
+  useEffect(() => {
+    if (isDelete) {
+      toast.success('Order deleted successfully');
+      dispatch(getOrders({}));
+    }
+    return () => {
+      dispatch(reset());
+    };
+  }, [isDelete, dispatch]);
 
   return (
     <div>
@@ -71,7 +91,11 @@ const AllOrders: React.FC = () => {
       <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
         <OrderTable orders={orders} />
-        <Pagination />
+        <Pagination
+          pageCount={pageNumber}
+          handlePageClick={handlePageChange}
+          totalPage={totalPage}
+        />
       </Display>
     </div>
   );

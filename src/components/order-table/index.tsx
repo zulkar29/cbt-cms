@@ -6,8 +6,15 @@ import ViewButton from '../button/view';
 import DeleteButton from '../button/delete';
 import DownloadButton from '../button/download';
 import { IOrder } from '../../interfaces/order';
+import { useAppDispatch } from '../../redux/hooks';
+import { deleteOrder } from '../../redux/order/orderSlice';
 
 const OrderTable = ({ orders }: { orders: IOrder[] }) => {
+  const dispatch = useAppDispatch();
+  const handleOrderDelete = (id: number) => {
+    dispatch(deleteOrder([id]));
+  };
+
   return (
     <>
       <>
@@ -40,7 +47,7 @@ const OrderTable = ({ orders }: { orders: IOrder[] }) => {
             <Column className="col-md-1">{`৳${order.final_price}`}</Column>
             <Column className="col-md-2">{order.name}</Column>
             <Column className="col-md-1">01724721383</Column>
-            <Column className="col-md-1">{1}</Column>
+            <Column className="col-md-1">{order?.orderItem?.length}</Column>
             <Column className="col-md-1">
               <Select>
                 <option selected>Paid</option>
@@ -66,11 +73,7 @@ const OrderTable = ({ orders }: { orders: IOrder[] }) => {
               <CustomIconArea>
                 <ViewButton href={'/orders/views/1'} />
                 <DownloadButton />
-                <DeleteButton
-                  onClick={() => {
-                    console.log('first');
-                  }}
-                />
+                <DeleteButton onClick={() => handleOrderDelete(order.id)} />
               </CustomIconArea>
             </Column>
           </Row>

@@ -23,8 +23,8 @@ const getAllOrders = async (filter: {
   return data;
 };
 
-const deleteOrder = async (videoId: number) => {
-  const { data } = await axios.delete(`${API_URL}/orders/?ids=[${videoId}]`);
+const deleteOrder = async (ids: [number]) => {
+  const { data } = await axios.delete(`${API_URL}/orders/?ids=[${ids}]`);
   return data.data;
 };
 
