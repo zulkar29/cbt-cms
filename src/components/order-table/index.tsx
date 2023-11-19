@@ -5,8 +5,9 @@ import CustomIconArea from '../custom-icon-area';
 import ViewButton from '../button/view';
 import DeleteButton from '../button/delete';
 import DownloadButton from '../button/download';
+import { IOrder } from '../../interfaces/order';
 
-const OrderTable = () => {
+const OrderTable = ({ orders }: { orders: IOrder[] }) => {
   return (
     <>
       <>
@@ -29,17 +30,17 @@ const OrderTable = () => {
         </Row>
       </>
       <>
-        {[...Array(10).keys()].map((_order, index) => (
+        {orders.map((order, index) => (
           <Row className="row" key={index}>
             <Column className="col-md-1">
               <input type="checkbox" name="select" id="select" />
             </Column>
-            <Column className="col-md-1">1762</Column>
-            <Column className="col-md-1"> GHA-1201</Column>
-            <Column className="col-md-1">৳3,240.00</Column>
-            <Column className="col-md-2">Mohammad bin Rashed</Column>
+            <Column className="col-md-1">{order.id}</Column>
+            <Column className="col-md-1"> </Column>
+            <Column className="col-md-1">{`৳${order.final_price}`}</Column>
+            <Column className="col-md-2">{order.name}</Column>
             <Column className="col-md-1">01724721383</Column>
-            <Column className="col-md-1">4</Column>
+            <Column className="col-md-1">{1}</Column>
             <Column className="col-md-1">
               <Select>
                 <option selected>Paid</option>
@@ -48,9 +49,14 @@ const OrderTable = () => {
             </Column>
             <Column className="col-md-1">
               <Select>
-                <option selected>Pending</option>
+                <option
+                  selected={order.order_status.toLowerCase() === 'pending'}
+                >
+                  Pending
+                </option>
                 <option>Confirm</option>
                 <option>Pick Up</option>
+                <option>Cancel</option>
                 <option>On The Way</option>
                 <option>Delivered</option>
               </Select>

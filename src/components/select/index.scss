@@ -3,12 +3,10 @@
 .selection {
   font-family: $primary-font;
   display: block;
-  margin-bottom: 10px;
   color: $secondary-color;
 }
 .select-wrapper {
   border: 1px solid $secondary-color;
-  margin-bottom: 10px;
   .select {
     display: block;
     width: 100%;

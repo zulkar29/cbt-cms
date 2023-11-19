@@ -2,16 +2,19 @@ import Pagination from '../../components/pagination';
 import OrderTable from '../../components/order-table';
 import Display from '../../components/display';
 import Filter from '../../components/filter';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import Input from '../../components/forms/text-input';
 import { BsDownload } from 'react-icons/bs';
 import { CSVLink } from 'react-csv';
 import './index.scss';
 import Overflow from '../../components/overflow';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { getOrders } from '../../redux/order/orderSlice';
 
 const AllOrders: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { orders } = useAppSelector((state) => state.order);
   const [displayItem, setDisplayItem] = useState(10);
-  console.log(displayItem);
   const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
     setDisplayItem(Number(e.target.value));
   };
@@ -22,6 +25,10 @@ const AllOrders: React.FC = () => {
     ['Raed', 'Labes', 'rl@smthing.co.com'],
     ['Yezzi', 'Min l3b', 'ymin@cocococo.com'],
   ];
+
+  useEffect(() => {
+    dispatch(getOrders({}));
+  }, [dispatch]);
 
   return (
     <div>
@@ -63,7 +70,7 @@ const AllOrders: React.FC = () => {
       </Display>
       <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
-        <OrderTable />
+        <OrderTable orders={orders} />
         <Pagination />
       </Display>
     </div>

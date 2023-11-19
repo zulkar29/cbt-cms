@@ -10,6 +10,7 @@ import pageReducer from './pages/pageSlice';
 import settingsReducer from './settings/settingSlice';
 import authReducer from './auth/authSlice';
 import emiReducer from './emi/emiSlice';
+import orderReducer from './order/orderSlice';
 // ...
 const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
     settings: settingsReducer,
     auth: authReducer,
     emi: emiReducer,
+    order: orderReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;
