@@ -6,14 +6,35 @@ import ViewButton from '../button/view';
 import DeleteButton from '../button/delete';
 import DownloadButton from '../button/download';
 import { IOrder } from '../../interfaces/order';
-import { useAppDispatch } from '../../redux/hooks';
-import { deleteOrder } from '../../redux/order/orderSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { deleteOrder, reset, updateOrder } from '../../redux/order/orderSlice';
+import { ChangeEvent, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const OrderTable = ({ orders }: { orders: IOrder[] }) => {
   const dispatch = useAppDispatch();
+  const { isUpdate, message } = useAppSelector((state) => state.order);
   const handleOrderDelete = (id: number) => {
     dispatch(deleteOrder([id]));
   };
+
+  const handleStatusChange = (
+    orderId: number,
+    e: ChangeEvent<HTMLSelectElement>
+  ) => {
+    dispatch(
+      updateOrder({ id: orderId, orderData: { order_status: e.target.value } })
+    );
+  };
+
+  useEffect(() => {
+    if (isUpdate) {
+      toast.success(`${message}`);
+    }
+    return () => {
+      dispatch(reset());
+    };
+  }, [isUpdate, dispatch]);
 
   return (
     <>
@@ -55,17 +76,47 @@ const OrderTable = ({ orders }: { orders: IOrder[] }) => {
               </Select>
             </Column>
             <Column className="col-md-1">
-              <Select>
+              <Select
+                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                  handleStatusChange(order.id, e)
+                }
+              >
                 <option
+                  value={'pending'}
                   selected={order.order_status.toLowerCase() === 'pending'}
                 >
                   Pending
                 </option>
-                <option>Confirm</option>
-                <option>Pick Up</option>
-                <option>Cancel</option>
-                <option>On The Way</option>
-                <option>Delivered</option>
+                <option
+                  value={'confirm'}
+                  selected={order.order_status.toLowerCase() === 'confirm'}
+                >
+                  Confirm
+                </option>
+                <option
+                  value={'pickup'}
+                  selected={order.order_status.toLowerCase() === 'pickup'}
+                >
+                  Pick Up
+                </option>
+                <option
+                  value={'cancel'}
+                  selected={order.order_status.toLowerCase() === 'cancel'}
+                >
+                  Cancel
+                </option>
+                <option
+                  value={'on_the_way'}
+                  selected={order.order_status.toLowerCase() === 'on_the_way'}
+                >
+                  On The Way
+                </option>
+                <option
+                  value={'delivered'}
+                  selected={order.order_status.toLowerCase() === 'delivered'}
+                >
+                  Delivered
+                </option>
               </Select>
             </Column>
             <Column className="col-md-1">web</Column>

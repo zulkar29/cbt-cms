@@ -1,4 +1,4 @@
-import { IOrder, IOrderResponse } from './../../interfaces/order';
+import { IOrderResponse } from './../../interfaces/order';
 import axios from 'axios';
 import { API_URL } from '../../constants';
 
@@ -24,9 +24,13 @@ const getAllOrders = async (filter: {
 };
 
 // Update Order
-const updateOrder = async (id: number, orderData: Partial<IOrder>) => {
+const updateOrder = async (
+  id: number,
+  orderData: { [key: string]: string }
+) => {
   const { data } = await axios.patch(`${API_URL}/orders/${id}`, orderData);
-  return data.data;
+  console.log(data);
+  return data;
 };
 
 const deleteOrder = async (ids: [number]) => {

@@ -19,7 +19,7 @@ import Column from '../../components/table/column';
 import { useParams } from 'react-router-dom';
 
 const UpdateBlog = () => {
-  const { singleBlog, isSuccess } = useAppSelector((state) => state.blogs);
+  const { singleBlog } = useAppSelector((state) => state.blogs);
   const { id } = useParams();
   console.log(id);
   const dispatch = useAppDispatch();

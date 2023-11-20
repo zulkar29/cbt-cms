@@ -83,7 +83,7 @@ export const updateProduct = createAsyncThunk(
     }
   }
 );
-
+// Delete Product
 export const deleteProduct = createAsyncThunk(
   'product/delete',
   async (ProductId: number, thunkAPI) => {

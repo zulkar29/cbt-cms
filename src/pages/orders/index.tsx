@@ -55,26 +55,6 @@ const AllOrders: React.FC = () => {
           <div className="title">
             <h3>All Orders</h3>
           </div>
-          <div className="action">
-            <Overflow title="Bulk Action">
-              <div>Delete Selection</div>
-            </Overflow>
-            <Overflow title="Filter by status">
-              <div>
-                <p>Pending</p>
-              </div>
-              <div>
-                <p>Confirmed</p>
-              </div>
-              <div>
-                <p>Pick Up</p>
-              </div>
-              <div>
-                <p>On The Way</p>
-              </div>
-            </Overflow>
-            <input className="search" type="text" placeholder="Search" />
-          </div>
         </div>
         <div className="date-area">
           <Input type="date" htmlFor="start-date" label="Start Date" />
@@ -82,7 +62,30 @@ const AllOrders: React.FC = () => {
         </div>
       </Display>
       <Display>
-        <Filter handleDisplayItem={handleDisplayItem} />
+        <Filter
+          handleDisplayItem={handleDisplayItem}
+          leftElements={
+            <div className="action">
+              <Overflow title="Bulk Action">
+                <div>Delete Selection</div>
+              </Overflow>
+              <Overflow title="Filter by status">
+                <div>
+                  <p>Pending</p>
+                </div>
+                <div>
+                  <p>Confirmed</p>
+                </div>
+                <div>
+                  <p>Pick Up</p>
+                </div>
+                <div>
+                  <p>On The Way</p>
+                </div>
+              </Overflow>
+            </div>
+          }
+        />
         <OrderTable orders={orders} />
         <Pagination
           pageCount={pageNumber}

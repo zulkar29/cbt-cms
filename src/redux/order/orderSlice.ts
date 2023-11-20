@@ -43,10 +43,10 @@ export const getOrders = createAsyncThunk(
   }
 );
 
-export const updateProduct = createAsyncThunk(
-  'category/update',
+export const updateOrder = createAsyncThunk(
+  'order/update',
   async (
-    { id, orderData }: { id: number; orderData: Partial<IOrder> },
+    { id, orderData }: { id: number; orderData: { [key: string]: string } },
     thunkAPI
   ) => {
     try {
@@ -79,12 +79,14 @@ export const deleteOrder = createAsyncThunk(
 );
 
 export const orderSlice = createSlice({
-  name: 'product',
+  name: 'order',
   initialState,
   reducers: {
     reset: (state) => {
       state.isLoading = false;
       state.isSuccess = false;
+      state.isUpdate = false;
+      state.isDelete = false;
       state.isError = false;
       state.message = '';
     },
@@ -109,15 +111,16 @@ export const orderSlice = createSlice({
       })
 
       /* TODO: UPDATE PRODUCT DATA SET */
-      .addCase(updateProduct.pending, (state) => {
+      .addCase(updateOrder.pending, (state) => {
         state.isLoading = true;
         state.isUpdate = false;
       })
-      .addCase(updateProduct.fulfilled, (state) => {
+      .addCase(updateOrder.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isUpdate = true;
+        state.message = action.payload.message;
       })
-      .addCase(updateProduct.rejected, (state, action) => {
+      .addCase(updateOrder.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

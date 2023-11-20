@@ -4,8 +4,13 @@ import './index.scss';
 interface propsType {
   handleDisplayItem: (e: ChangeEvent<HTMLSelectElement>) => void;
   onSearch?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  leftElements?: React.ReactNode;
 }
-const Filter: React.FC<propsType> = ({ handleDisplayItem, onSearch }) => {
+const Filter: React.FC<propsType> = ({
+  handleDisplayItem,
+  onSearch,
+  leftElements,
+}) => {
   return (
     <div className="row">
       <div className="col-md-6">
@@ -27,14 +32,17 @@ const Filter: React.FC<propsType> = ({ handleDisplayItem, onSearch }) => {
         </div>
       </div>
       <div className="col-md-6">
-        <div id="admin-table_filter" className="filter-search">
-          <label>Search </label>
-          <input
-            type="search"
-            placeholder=""
-            aria-controls="admin-table"
-            onChange={onSearch}
-          />
+        <div className="row left-element">
+          {leftElements}
+          <div id="admin-table_filter" className="filter-search">
+            <label>Search </label>
+            <input
+              type="search"
+              placeholder=""
+              aria-controls="admin-table"
+              onChange={onSearch}
+            />
+          </div>
         </div>
       </div>
     </div>
