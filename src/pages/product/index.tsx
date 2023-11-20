@@ -6,6 +6,7 @@ import CardBody from '../../components/card-body';
 import Filter from '../../components/filter';
 import { ChangeEvent, useEffect, useState } from 'react';
 import {
+  deleteProduct,
   getProducts,
   reset,
   updateProduct,
@@ -24,18 +25,19 @@ const AllProducts: React.FC = () => {
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
   const dispatch = useAppDispatch();
   const [displayItem, setDisplayItem] = useState<number>(10);
-  const [page, setPage] = useState<number>(1);
+  const [pageNumber, setPageNumber] = useState<number>(1);
 
-  const { products, isLoading, isUpdate } = useAppSelector(
+  const { products, isDelete, totalCount, isUpdate } = useAppSelector(
     (state) => state.product
   );
+  const totalPage = Math.floor(totalCount / displayItem);
 
   useEffect(() => {
-    dispatch(getProducts({ page: page, limit: displayItem }));
+    dispatch(getProducts({ page: pageNumber, limit: displayItem }));
     return () => {
       dispatch(reset());
     };
-  }, [dispatch, page, displayItem, isUpdate]);
+  }, [dispatch, pageNumber, displayItem, isUpdate, isDelete]);
 
   const handleAllSelectedProducts = (e: ChangeEvent<HTMLInputElement>) => {
     const productIds = products.map((product) => Number(product.id));
@@ -61,8 +63,8 @@ const AllProducts: React.FC = () => {
     setDisplayItem(Number(e.target.value));
   };
 
-  const handlePageClick = (count: { selected: number }) => {
-    setPage(count.selected);
+  const handlePageChange = (selectedItem: { selected: number }) => {
+    setPageNumber(selectedItem.selected + 1);
   };
 
   const handleKeyPoint = (
@@ -80,26 +82,29 @@ const AllProducts: React.FC = () => {
           <div className="title">
             <h3>All Products</h3>
           </div>
-          <div className="action">
-            <Overflow title="Bulk Action">
-              <div>Delete Selection</div>
-            </Overflow>
-            <Overflow title="Sort By">
-              <div>Price {'(high > low)'}</div>
-              <div>Price {'(low > high)'}</div>
-              <div>
-                <p>Latest</p>
-              </div>
-              <div>
-                <p>Oldest</p>
-              </div>
-            </Overflow>
-            <input className="search" type="text" placeholder="Search" />
-          </div>
         </div>
       </Display>
       <Display>
-        <Filter handleDisplayItem={handleDisplayItem} />
+        <Filter
+          handleDisplayItem={handleDisplayItem}
+          leftElements={
+            <div className="action">
+              <Overflow title="Bulk Action">
+                <div>Delete Selection</div>
+              </Overflow>
+              <Overflow title="Sort By">
+                <div>Price {'(high > low)'}</div>
+                <div>Price {'(low > high)'}</div>
+                <div>
+                  <p>Latest</p>
+                </div>
+                <div>
+                  <p>Oldest</p>
+                </div>
+              </Overflow>
+            </div>
+          }
+        />
         <Row className="row">
           <Column className="col-md-1">
             <input
@@ -120,54 +125,65 @@ const AllProducts: React.FC = () => {
           <Column className="col-md-2">Action</Column>
         </Row>
 
-        {isLoading ? (
-          <div>Loading ...</div>
-        ) : (
-          products.map((product, index) => (
-            <Row key={index} className="row">
-              <Column className="col-md-1">
-                <input
-                  checked={selectedProducts.includes(product.id as number)}
-                  onClick={() => handleSelectedProducts(product.id as number)}
-                  type="checkbox"
-                  name=""
-                  id=""
-                />
-              </Column>
-              <Column className="col-md-1">
-                <img
-                  src={`${API_ROOT}/images/product/${product.image}`}
-                  alt="brand"
-                />
-              </Column>
-              <Column className="col-md-3">{product.title}</Column>
-              <Column className="col-md-1">0</Column>
-              <Column className="col-md-1">৳ 3000.00</Column>
-              <Column className="col-md-1">৳ 2800.00</Column>
-              <Column className="col-md-1">
-                <ToggleButton
+        {products.map((product, index) => (
+          <Row key={index} className="row">
+            <Column className="col-md-1">
+              <input
+                checked={selectedProducts.includes(product.id as number)}
+                onClick={() => handleSelectedProducts(product.id as number)}
+                type="checkbox"
+                name=""
+                id=""
+              />
+            </Column>
+            <Column className="col-md-1">
+              <img
+                src={`${API_ROOT}/images/product/${product.image}`}
+                alt="brand"
+              />
+            </Column>
+            <Column className="col-md-3">{product.title}</Column>
+            <Column className="col-md-1">0</Column>
+            <Column className="col-md-1">৳ 3000.00</Column>
+            <Column className="col-md-1">৳ 2800.00</Column>
+            <Column className="col-md-1">
+              <ToggleButton
+                onClick={() =>
+                  handleKeyPoint(product.id as number, {
+                    availability: !product.availability,
+                  })
+                }
+                isChecked={product.availability}
+              />
+            </Column>
+            <Column className="col-md-1">
+              <ToggleButton
+                onClick={() =>
+                  handleKeyPoint(product.id as number, {
+                    is_homepage: !product.is_homepage,
+                  })
+                }
+                isChecked={product.is_homepage}
+              />
+            </Column>
+            <Column className="col-md-2">
+              <CustomIconArea>
+                <ViewButton href="/products" />
+                <EditButton editUrl={`/products/edit/${product.id}`} />
+                <DeleteButton
                   onClick={() =>
-                    handleKeyPoint(product.id as number, {
-                      is_homepage: !product.is_homepage,
-                    })
+                    dispatch(deleteProduct([product.id as number]))
                   }
-                  isChecked={product.is_homepage}
                 />
-              </Column>
-              <Column className="col-md-1">
-                <ToggleButton isChecked />
-              </Column>
-              <Column className="col-md-2">
-                <CustomIconArea>
-                  <ViewButton href="/products" />
-                  <EditButton editUrl={`/products/edit/${product.id}`} />
-                  <DeleteButton onClick={() => console.log('first')} />
-                </CustomIconArea>
-              </Column>
-            </Row>
-          ))
-        )}
-        <Pagination handlePageClick={handlePageClick} />
+              </CustomIconArea>
+            </Column>
+          </Row>
+        ))}
+        <Pagination
+          pageCount={pageNumber}
+          handlePageClick={handlePageChange}
+          totalPage={totalPage}
+        />
       </Display>
     </div>
   );

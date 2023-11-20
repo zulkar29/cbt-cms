@@ -92,9 +92,9 @@ export const updateProduct = createAsyncThunk(
 // Delete Product
 export const deleteProduct = createAsyncThunk(
   'product/delete',
-  async (ProductId: number, thunkAPI) => {
+  async (ids: [number], thunkAPI) => {
     try {
-      return await productService.deleteProduct(ProductId);
+      return await productService.deleteProduct(ids);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data.message || 'An error occurred';
@@ -147,6 +147,7 @@ export const productSlice = createSlice({
       state.isCreate = false;
       state.isLoading = false;
       state.isSuccess = false;
+      state.isDelete = false;
       state.isError = false;
       state.isCsvUpload = false;
       state.message = '';
@@ -175,6 +176,7 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.products = action.payload.data.rows;
+        state.totalCount = action.payload.data.count;
       })
       .addCase(getProducts.rejected, (state, action) => {
         state.isLoading = false;

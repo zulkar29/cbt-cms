@@ -14,7 +14,7 @@ export interface IProduct {
   is_sale: boolean;
   is_feature: boolean;
   is_new: boolean;
-  availability: string;
+  availability: boolean;
   video_url: string;
   camping_end_date?: string;
   upload_by?: string;
