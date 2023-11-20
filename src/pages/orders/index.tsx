@@ -9,12 +9,13 @@ import { CSVLink } from 'react-csv';
 import './index.scss';
 import Overflow from '../../components/overflow';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getOrders, reset } from '../../redux/order/orderSlice';
+import { deleteOrder, getOrders, reset } from '../../redux/order/orderSlice';
 import { toast } from 'react-toastify';
 
 const AllOrders: React.FC = () => {
   const dispatch = useAppDispatch();
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const [selectedOrders, setSelectedOrders] = useState<number[]>([]);
   const { orders, isDelete, totalCount } = useAppSelector(
     (state) => state.order
   );
@@ -27,6 +28,30 @@ const AllOrders: React.FC = () => {
 
   const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
     setDisplayItem(Number(e.target.value));
+  };
+
+  const handleAllSelectedOrders = (e: ChangeEvent<HTMLInputElement>) => {
+    const productIds = orders.map((order) => Number(order.id));
+    if (e.target.checked) {
+      setSelectedOrders(productIds);
+    } else {
+      setSelectedOrders([]);
+    }
+  };
+
+  const handleSelectedOrder = (orderId: number) => {
+    const selectedOrdersSet = new Set(selectedOrders);
+
+    if (selectedOrdersSet.has(orderId)) {
+      selectedOrdersSet.delete(orderId);
+    } else {
+      selectedOrdersSet.add(orderId);
+    }
+
+    setSelectedOrders(Array.from(selectedOrdersSet));
+  };
+  const handleMultiDelete = () => {
+    dispatch(deleteOrder([...selectedOrders]));
   };
 
   useEffect(() => {
@@ -67,7 +92,7 @@ const AllOrders: React.FC = () => {
           leftElements={
             <div className="action">
               <Overflow title="Bulk Action">
-                <div>Delete Selection</div>
+                <div onClick={handleMultiDelete}>Delete Selection</div>
               </Overflow>
               <Overflow title="Filter by status">
                 <div>
@@ -86,7 +111,12 @@ const AllOrders: React.FC = () => {
             </div>
           }
         />
-        <OrderTable orders={orders} />
+        <OrderTable
+          orders={orders}
+          handleAllSelectedOrders={handleAllSelectedOrders}
+          handleSelectedOrder={handleSelectedOrder}
+          selectedOrders={selectedOrders}
+        />
         <Pagination
           pageCount={pageNumber}
           handlePageClick={handlePageChange}

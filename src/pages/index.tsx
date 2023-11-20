@@ -45,6 +45,7 @@ import {
   EmiPage,
   CreateEmi,
   UpdateEmi,
+  CreateCoupon,
 } from './pages';
 import Csv from './product/csv';
 
@@ -87,6 +88,7 @@ function PageRoutes() {
       <Route path="/faqs/edit/:slug" element={<UpdateFaq />} />
       {/* Marketing */}
       <Route path="/coupons" element={<CouponPage />} />
+      <Route path="/coupons/create" element={<CreateCoupon />} />
       <Route path="/banner" element={<BannerPage />} />
       <Route path="/banner/create" element={<CreateBanner />} />
 

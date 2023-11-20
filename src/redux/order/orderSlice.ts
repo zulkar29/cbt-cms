@@ -64,7 +64,7 @@ export const updateOrder = createAsyncThunk(
 // Delete Order
 export const deleteOrder = createAsyncThunk(
   'order/delete',
-  async (ids: [number], thunkAPI) => {
+  async (ids: number[], thunkAPI) => {
     try {
       return await orderService.deleteOrder(ids);
     } catch (error) {

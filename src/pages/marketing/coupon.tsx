@@ -21,7 +21,7 @@ const CouponPage: React.FC = () => {
 
   return (
     <div>
-      <CardBody header="Coupon" to="/coupon/create" />
+      <CardBody header="Coupon" to="/coupons/create" />
       <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
         <Table>

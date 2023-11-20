@@ -33,8 +33,9 @@ const updateOrder = async (
   return data;
 };
 
-const deleteOrder = async (ids: [number]) => {
-  const { data } = await axios.delete(`${API_URL}/orders/?ids=[${ids}]`);
+const deleteOrder = async (ids: number[]) => {
+  const idsString = ids.join(',');
+  const { data } = await axios.delete(`${API_URL}/orders/?ids=[${idsString}]`);
   return data.data;
 };
 

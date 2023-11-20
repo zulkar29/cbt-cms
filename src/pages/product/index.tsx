@@ -47,6 +47,7 @@ const AllProducts: React.FC = () => {
       setSelectedProducts([]);
     }
   };
+
   const handleSelectedProducts = (productsId: number) => {
     const selectedProductsSet = new Set(selectedProducts);
 

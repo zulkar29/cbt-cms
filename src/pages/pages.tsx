@@ -43,6 +43,7 @@ import Error from './Error';
 import EmiPage from './Emi';
 import CreateEmi from './Emi/create-emi';
 import UpdateEmi from './Emi/update-emi';
+import CreateCoupon from './marketing/create-coupon';
 
 export {
   Blogs,
@@ -90,4 +91,5 @@ export {
   EmiPage,
   CreateEmi,
   UpdateEmi,
+  CreateCoupon,
 };

@@ -1,5 +1,4 @@
 import DeleteButton from '../../components/button/delete';
-import ViewButton from '../../components/button/view';
 import CustomIconArea from '../../components/custom-icon-area';
 import Display from '../../components/display';
 import Column from '../../components/table/column';
@@ -29,7 +28,6 @@ const Queries = () => {
           </Column>
           <Column className="col-md-2">
             <CustomIconArea>
-              <ViewButton href="/" />
               <DeleteButton onClick={() => console.log('first')} />
             </CustomIconArea>
           </Column>

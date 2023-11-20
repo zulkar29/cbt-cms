@@ -8,14 +8,27 @@ import DownloadButton from '../button/download';
 import { IOrder } from '../../interfaces/order';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { deleteOrder, reset, updateOrder } from '../../redux/order/orderSlice';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import './index.scss';
 
-const OrderTable = ({ orders }: { orders: IOrder[] }) => {
+interface IProps {
+  orders: IOrder[];
+  handleAllSelectedOrders?: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleSelectedOrder?: (orderId: number) => void;
+  selectedOrders?: number[];
+}
+
+const OrderTable = ({
+  orders,
+  handleAllSelectedOrders,
+  handleSelectedOrder,
+  selectedOrders,
+}: IProps) => {
   const dispatch = useAppDispatch();
   const { isUpdate, message } = useAppSelector((state) => state.order);
-  const [invoiceVisible, setInvoiceVisible] = useState(false);
+
+  // const [invoiceVisible, setInvoiceVisible] = useState(false);
   const handleOrderDelete = (id: number) => {
     dispatch(deleteOrder([id]));
   };
@@ -28,6 +41,7 @@ const OrderTable = ({ orders }: { orders: IOrder[] }) => {
       updateOrder({ id: orderId, orderData: { order_status: e.target.value } })
     );
   };
+
   const handlePaymentChange = (
     orderId: number,
     e: ChangeEvent<HTMLSelectElement>
@@ -55,7 +69,16 @@ const OrderTable = ({ orders }: { orders: IOrder[] }) => {
         <Row className="row">
           <Column className="col-md-1">
             <form>
-              <input type="checkbox" name="select-all" id="select-all" />
+              <input
+                type="checkbox"
+                name="select-all"
+                id="select-all"
+                onChange={(e) =>
+                  handleAllSelectedOrders
+                    ? handleAllSelectedOrders(e)
+                    : console.log('first')
+                }
+              />
             </form>
           </Column>
           <Column className="col-md-1">Order Num.</Column>
@@ -74,7 +97,19 @@ const OrderTable = ({ orders }: { orders: IOrder[] }) => {
         {orders.map((order, index) => (
           <Row className="row" key={index}>
             <Column className="col-md-1">
-              <input type="checkbox" name="select" id="select" />
+              <input
+                type="checkbox"
+                name="select"
+                id="select"
+                checked={
+                  selectedOrders
+                    ? selectedOrders.includes(order.id as number)
+                    : false
+                }
+                onClick={() =>
+                  handleSelectedOrder && handleSelectedOrder(order.id as number)
+                }
+              />
             </Column>
             <Column className="col-md-1">{order.id}</Column>
             <Column className="col-md-1"> </Column>
@@ -147,7 +182,7 @@ const OrderTable = ({ orders }: { orders: IOrder[] }) => {
             <Column className="col-md-1">
               <CustomIconArea>
                 <ViewButton href={`/orders/views/${order.id}`} />
-                <DownloadButton onClick={() => setInvoiceVisible(true)} />
+                <DownloadButton onClick={() => console.log(true)} />
                 <DeleteButton onClick={() => handleOrderDelete(order.id)} />
               </CustomIconArea>
             </Column>
