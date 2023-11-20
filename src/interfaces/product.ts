@@ -10,6 +10,7 @@ export interface IProduct {
   discount_price: string;
   delivery_fee: string;
   is_visible: boolean;
+  is_homepage: boolean;
   is_sale: boolean;
   is_feature: boolean;
   is_new: boolean;

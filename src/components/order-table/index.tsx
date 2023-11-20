@@ -8,12 +8,14 @@ import DownloadButton from '../button/download';
 import { IOrder } from '../../interfaces/order';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { deleteOrder, reset, updateOrder } from '../../redux/order/orderSlice';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import './index.scss';
 
 const OrderTable = ({ orders }: { orders: IOrder[] }) => {
   const dispatch = useAppDispatch();
   const { isUpdate, message } = useAppSelector((state) => state.order);
+  const [invoiceVisible, setInvoiceVisible] = useState(false);
   const handleOrderDelete = (id: number) => {
     dispatch(deleteOrder([id]));
   };
@@ -24,6 +26,17 @@ const OrderTable = ({ orders }: { orders: IOrder[] }) => {
   ) => {
     dispatch(
       updateOrder({ id: orderId, orderData: { order_status: e.target.value } })
+    );
+  };
+  const handlePaymentChange = (
+    orderId: number,
+    e: ChangeEvent<HTMLSelectElement>
+  ) => {
+    dispatch(
+      updateOrder({
+        id: orderId,
+        orderData: { delivery_method: e.target.value },
+      })
     );
   };
 
@@ -70,9 +83,20 @@ const OrderTable = ({ orders }: { orders: IOrder[] }) => {
             <Column className="col-md-1">01724721383</Column>
             <Column className="col-md-1">{order?.orderItem?.length}</Column>
             <Column className="col-md-1">
-              <Select>
-                <option selected>Paid</option>
-                <option>Unpaid</option>
+              <Select
+                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                  handlePaymentChange(order.id, e)
+                }
+              >
+                <option value={'paid'} selected>
+                  Paid
+                </option>
+                <option
+                  value={'unpaid'}
+                  selected={order.delivery_method == 'unpaid'}
+                >
+                  Unpaid
+                </option>
               </Select>
             </Column>
             <Column className="col-md-1">
@@ -123,7 +147,7 @@ const OrderTable = ({ orders }: { orders: IOrder[] }) => {
             <Column className="col-md-1">
               <CustomIconArea>
                 <ViewButton href={'/orders/views/1'} />
-                <DownloadButton />
+                <DownloadButton onClick={() => setInvoiceVisible(true)} />
                 <DeleteButton onClick={() => handleOrderDelete(order.id)} />
               </CustomIconArea>
             </Column>

@@ -1,7 +1,8 @@
+import { IOrder } from '../../interfaces/order';
 import Column from '../table/column';
 import './index.scss';
 
-const Invoice = () => {
+const Invoice = ({ order }: { order: IOrder }) => {
   return (
     <div className="invoice">
       <div className="invoice-header">
@@ -11,15 +12,15 @@ const Invoice = () => {
         <h4 className="customer-details">Customer Details</h4>
         <div className="details">
           <div className="left">
-            <p>Name: Md Shekh Talha</p>
-            <p>Email: info@gazihomeapppance.com</p>
-            <p>Phone: +8801766688840 </p>
-            <p>Address: 340, Avenue3, Road 5, Mirpur DOHS, Mirpur </p>
+            <p>Name: {order.name}</p>
+            <p>Email: {order.email}</p>
+            <p>Phone: {order.mobile} </p>
+            <p>Address: {order.address} </p>
           </div>
           <div className="order-details right">
-            <p>Order date: 10-08-2023</p>
-            <p>Invoice No: GHA-261</p>
-            <p>Order No: 20230810-11135133</p>
+            <p>Order date: {order.created_at}</p>
+            <p>Invoice No: GHA-{order.id}</p>
+            <p>Order No: {order.id}</p>
           </div>
         </div>
       </div>
@@ -41,28 +42,19 @@ const Invoice = () => {
           <Column className="col-md-2 heading">Unit price (BDT)</Column>
           <Column className="col-md-2 heading">Total</Column>
         </div>
-        <>
-          <div className="row">
-            <Column className="col-md-2 heading">01</Column>
-            <Column className="col-md-3 heading">
-              GA-BGS-30 - Gazi Smiss Gas Stove (LPG)
-            </Column>
-            <Column className="col-md-2 heading">Depvered</Column>
-            <Column className="col-md-1 heading">1</Column>
-            <Column className="col-md-2 heading">৳13,500.00</Column>
-            <Column className="col-md-2 heading">৳13,500.00</Column>
-          </div>
-          <div className="row">
-            <Column className="col-md-2 heading">01</Column>
-            <Column className="col-md-3 heading">
-              GA-BGS-30 - Gazi Smiss Gas Stove (LPG)
-            </Column>
-            <Column className="col-md-2 heading">Depvered</Column>
-            <Column className="col-md-1 heading">1</Column>
-            <Column className="col-md-2 heading">৳13,500.00</Column>
-            <Column className="col-md-2 heading">৳13,500.00</Column>
-          </div>
-        </>
+        {/*  <>
+          {order.order -
+            items.map((product, index) => (
+              <div className="row" key={index}>
+                <Column className="col-md-2 heading">01</Column>
+                <Column className="col-md-3 heading">{product.title}</Column>
+                <Column className="col-md-2 heading">Depvered</Column>
+                <Column className="col-md-1 heading">1</Column>
+                <Column className="col-md-2 heading">৳13,500.00</Column>
+                <Column className="col-md-2 heading">৳13,500.00</Column>
+              </div>
+            ))}
+        </> */}
         <div className="row">
           <Column className="col-md-8 ">
             <h3>Notes:</h3>

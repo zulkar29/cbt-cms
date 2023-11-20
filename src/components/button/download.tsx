@@ -6,9 +6,9 @@ interface IProps {
   onClick?: () => void;
 }
 
-const DownloadButton: React.FC<IProps> = () => {
+const DownloadButton: React.FC<IProps> = ({ onClick }) => {
   return (
-    <div title="Download" className="download-icon">
+    <div title="Download" className="download-icon" onClick={onClick}>
       <GoDownload />
     </div>
   );

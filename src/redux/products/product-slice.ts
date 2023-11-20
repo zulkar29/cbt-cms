@@ -68,7 +68,13 @@ export const getProducts = createAsyncThunk(
 export const updateProduct = createAsyncThunk(
   'category/update',
   async (
-    { id, productData }: { id: number; productData: FormData },
+    {
+      id,
+      productData,
+    }: {
+      id: number;
+      productData: FormData | { [key: string]: string | number | boolean };
+    },
     thunkAPI
   ) => {
     try {

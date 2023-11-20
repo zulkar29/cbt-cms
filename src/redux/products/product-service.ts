@@ -28,7 +28,10 @@ const createProduct = async (productData: FormData) => {
   return data;
 };
 
-const updateProduct = async (id: number, categoryData: FormData) => {
+const updateProduct = async (
+  id: number,
+  categoryData: FormData | { [key: string]: string | number | boolean }
+) => {
   const { data } = await axios.patch(`${API_URL}/products/${id}`, categoryData);
   return data.data;
 };

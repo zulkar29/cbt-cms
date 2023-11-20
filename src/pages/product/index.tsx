@@ -5,7 +5,11 @@ import Pagination from '../../components/pagination';
 import CardBody from '../../components/card-body';
 import Filter from '../../components/filter';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { getProducts, reset } from '../../redux/products/product-slice';
+import {
+  getProducts,
+  reset,
+  updateProduct,
+} from '../../redux/products/product-slice';
 import ToggleButton from '../../components/forms/checkbox';
 import CustomIconArea from '../../components/custom-icon-area';
 import EditButton from '../../components/button/edit';
@@ -22,14 +26,16 @@ const AllProducts: React.FC = () => {
   const [displayItem, setDisplayItem] = useState<number>(10);
   const [page, setPage] = useState<number>(1);
 
-  const { products, isLoading } = useAppSelector((state) => state.product);
+  const { products, isLoading, isUpdate } = useAppSelector(
+    (state) => state.product
+  );
 
   useEffect(() => {
     dispatch(getProducts({ page: page, limit: displayItem }));
     return () => {
       dispatch(reset());
     };
-  }, [dispatch, page, displayItem]);
+  }, [dispatch, page, displayItem, isUpdate]);
 
   const handleAllSelectedProducts = (e: ChangeEvent<HTMLInputElement>) => {
     const productIds = products.map((product) => Number(product.id));
@@ -57,6 +63,13 @@ const AllProducts: React.FC = () => {
 
   const handlePageClick = (count: { selected: number }) => {
     setPage(count.selected);
+  };
+
+  const handleKeyPoint = (
+    id: number,
+    updateData: { [key: string]: string | number | boolean }
+  ) => {
+    dispatch(updateProduct({ id, productData: updateData }));
   };
 
   return (
@@ -132,7 +145,14 @@ const AllProducts: React.FC = () => {
               <Column className="col-md-1">৳ 3000.00</Column>
               <Column className="col-md-1">৳ 2800.00</Column>
               <Column className="col-md-1">
-                <ToggleButton isChecked />
+                <ToggleButton
+                  onClick={() =>
+                    handleKeyPoint(product.id as number, {
+                      is_homepage: !product.is_homepage,
+                    })
+                  }
+                  isChecked={product.is_homepage}
+                />
               </Column>
               <Column className="col-md-1">
                 <ToggleButton isChecked />
@@ -140,7 +160,7 @@ const AllProducts: React.FC = () => {
               <Column className="col-md-2">
                 <CustomIconArea>
                   <ViewButton href="/products" />
-                  <EditButton editUrl={`/products/edit/1`} />
+                  <EditButton editUrl={`/products/edit/${product.id}`} />
                   <DeleteButton onClick={() => console.log('first')} />
                 </CustomIconArea>
               </Column>
