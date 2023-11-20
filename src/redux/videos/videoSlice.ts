@@ -72,7 +72,8 @@ export const deleteVideo = createAsyncThunk(
   'videos/delete',
   async (videoId: number | string, thunkAPI) => {
     try {
-      return await videoService.deleteVideo(videoId);
+      const token = thunkAPI.getState().auth.user.refreshToken;
+      return await videoService.deleteVideo(videoId, token);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';

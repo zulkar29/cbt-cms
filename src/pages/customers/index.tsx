@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import Display from '../../components/display';
 import Pagination from '../../components/pagination';
 import Column from '../../components/table/column';
@@ -8,28 +8,60 @@ import { CSVLink } from 'react-csv';
 import { BsDownload } from 'react-icons/bs';
 import CustomIconArea from '../../components/custom-icon-area';
 import DeleteButton from '../../components/button/delete';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import {
+  deleteCustomer,
+  getCustomers,
+  reset,
+} from '../../redux/customer/customerSlice';
+import { toast } from 'react-toastify';
 
 const Customers: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const [pageNumber, setPageNumber] = useState<number>(1);
   const [displayItem, setDisplayItem] = useState(10);
+  const { customers, isError, isDelete, message, totalCount } = useAppSelector(
+    (state) => state.customer
+  );
 
-  console.log(displayItem);
+  const totalPage = Math.floor(totalCount / displayItem);
 
   const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
     setDisplayItem(Number(e.target.value));
   };
 
-  const csvData = [
-    ['firstname', 'lastname', 'email'],
-    ['Ahmed', 'Tomi', 'ah@smthing.co.com'],
-    ['Raed', 'Labes', 'rl@smthing.co.com'],
-    ['Yezzi', 'Min l3b', 'ymin@cocococo.com'],
-  ];
+  const handlePageChange = (selectedItem: { selected: number }) => {
+    setPageNumber(selectedItem.selected + 1);
+  };
+
+  const handleCustomerDelete = (id: number) => {
+    dispatch(deleteCustomer([id]));
+  };
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(`${message}`);
+    }
+    if (isDelete) {
+      toast.success(`${message}`);
+    }
+    return () => {
+      dispatch(reset());
+    };
+  }, [isDelete, isError]);
+
+  useEffect(() => {
+    dispatch(getCustomers({ page: pageNumber, limit: displayItem }));
+    return () => {
+      dispatch(reset());
+    };
+  }, [dispatch, pageNumber, displayItem, isDelete]);
 
   return (
     <div>
       <Display>
         <div className="csv-icon" title="Download CSV">
-          <CSVLink data={csvData}>
+          <CSVLink data={customers}>
             <BsDownload />
           </CSVLink>
         </div>
@@ -40,19 +72,25 @@ const Customers: React.FC = () => {
           <Column className="col-md-3">Phone</Column>
           <Column className="col-md-3">Actions</Column>
         </Row>
-        {[...Array(3).keys()].map((_customer, index) => (
+        {customers.map((customer, index) => (
           <Row className="row" key={index}>
-            <Column className="col-md-3">Md Sheikh Talha</Column>
-            <Column className="col-md-3">talha.halcyon@gmail.com</Column>
-            <Column className="col-md-3">+8801724721383</Column>
+            <Column className="col-md-3">{customer.name}</Column>
+            <Column className="col-md-3">{customer.email}</Column>
+            <Column className="col-md-3">{customer.mobile}</Column>
             <Column className="col-md-3">
               <CustomIconArea>
-                <DeleteButton onClick={() => console.log('first')} />
+                <DeleteButton
+                  onClick={() => handleCustomerDelete(customer.id as number)}
+                />
               </CustomIconArea>
             </Column>
           </Row>
         ))}
-        <Pagination />
+        <Pagination
+          pageCount={pageNumber}
+          handlePageClick={handlePageChange}
+          totalPage={totalPage}
+        />
       </Display>
     </div>
   );

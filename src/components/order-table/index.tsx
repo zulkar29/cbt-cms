@@ -81,7 +81,7 @@ const OrderTable = ({ orders }: { orders: IOrder[] }) => {
             <Column className="col-md-1">{`৳${order.final_price}`}</Column>
             <Column className="col-md-2">{order.name}</Column>
             <Column className="col-md-1">01724721383</Column>
-            <Column className="col-md-1">{order?.orderItem?.length}</Column>
+            <Column className="col-md-1">{order?.orderItems?.length}</Column>
             <Column className="col-md-1">
               <Select
                 onChange={(e: ChangeEvent<HTMLSelectElement>) =>
@@ -146,7 +146,7 @@ const OrderTable = ({ orders }: { orders: IOrder[] }) => {
             <Column className="col-md-1">web</Column>
             <Column className="col-md-1">
               <CustomIconArea>
-                <ViewButton href={'/orders/views/1'} />
+                <ViewButton href={`/orders/views/${order.id}`} />
                 <DownloadButton onClick={() => setInvoiceVisible(true)} />
                 <DeleteButton onClick={() => handleOrderDelete(order.id)} />
               </CustomIconArea>

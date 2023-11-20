@@ -35,8 +35,16 @@ const updateVideo = async (videoData: Partial<IVideo>) => {
   return data.data;
 };
 
-const deleteVideo = async (videoId: number | string) => {
-  const { data } = await axios.delete(`${API_URL}/videos/?ids=[${videoId}]`);
+const deleteVideo = async (videoId: number | string, token: string) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const { data } = await axios.delete(
+    `${API_URL}/videos/?ids=[${videoId}]`,
+    config
+  );
   return data.data;
 };
 

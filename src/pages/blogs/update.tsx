@@ -21,7 +21,6 @@ import { useParams } from 'react-router-dom';
 const UpdateBlog = () => {
   const { singleBlog } = useAppSelector((state) => state.blogs);
   const { id } = useParams();
-  console.log(id);
   const dispatch = useAppDispatch();
   const [title, setTitle] = useState('');
   const [image, setImage] = useState<File | string | null>(null);

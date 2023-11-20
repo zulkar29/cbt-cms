@@ -11,6 +11,7 @@ import settingsReducer from './settings/settingSlice';
 import authReducer from './auth/authSlice';
 import emiReducer from './emi/emiSlice';
 import orderReducer from './order/orderSlice';
+import customerReducer from './customer/customerSlice';
 // ...
 const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ const store = configureStore({
     auth: authReducer,
     emi: emiReducer,
     order: orderReducer,
+    customer: customerReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

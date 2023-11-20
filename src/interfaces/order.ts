@@ -14,7 +14,7 @@ export interface IOrder {
   delivery_fee: number;
   coupon_code: null | string;
   discount: number;
-  order_items: IProduct[];
+  orderItems: IProduct[];
   final_price: number;
   order_status: string;
   created_at: string;

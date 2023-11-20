@@ -42,19 +42,22 @@ const Invoice = ({ order }: { order: IOrder }) => {
           <Column className="col-md-2 heading">Unit price (BDT)</Column>
           <Column className="col-md-2 heading">Total</Column>
         </div>
-        {/*  <>
-          {order.order -
-            items.map((product, index) => (
+        {
+          <>
+            {order?.orderItems?.map((product, index) => (
               <div className="row" key={index}>
                 <Column className="col-md-2 heading">01</Column>
-                <Column className="col-md-3 heading">{product.title}</Column>
+                <Column className="col-md-3 heading">
+                  {product.product_name}
+                </Column>
                 <Column className="col-md-2 heading">Depvered</Column>
                 <Column className="col-md-1 heading">1</Column>
                 <Column className="col-md-2 heading">৳13,500.00</Column>
                 <Column className="col-md-2 heading">৳13,500.00</Column>
               </div>
             ))}
-        </> */}
+          </>
+        }
         <div className="row">
           <Column className="col-md-8 ">
             <h3>Notes:</h3>

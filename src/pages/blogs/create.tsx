@@ -42,7 +42,6 @@ const CreateBlog: React.FC = () => {
   }, [isCreate, message, dispatch, isError]);
 
   const [description, setDescription] = useState('');
-  console.log(blogData);
 
   const handleBlogData = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
