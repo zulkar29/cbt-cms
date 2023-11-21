@@ -25,6 +25,7 @@ const Settings: React.FC = () => {
   const [settings, setSettings] = useState<ISettings>(setting);
   const [logo, setLogo] = useState<File | null>(null);
   const [favicon, setFavicon] = useState<File | null>(null);
+  const [popup, setPopup] = useState<File | null>(null);
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) =>
@@ -40,6 +41,12 @@ const Settings: React.FC = () => {
     }
   };
   const handleFaviconChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      setFavicon(file);
+    }
+  };
+  const handlePopupChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
       setFavicon(file);
@@ -63,7 +70,9 @@ const Settings: React.FC = () => {
     if (favicon) {
       formData.append('favicon', favicon);
     }
-    console.log(formData);
+    if (popup) {
+      formData.append('popup_image', popup);
+    }
     dispatch(updateSettings(formData));
   };
 
@@ -159,7 +168,7 @@ const Settings: React.FC = () => {
               <Input
                 onChange={handleChange}
                 label="instagram url"
-                value={settings.instgram_url}
+                value={settings.instagram_url}
                 name="instagram_url"
                 htmlFor="t-url"
               />
@@ -182,16 +191,18 @@ const Settings: React.FC = () => {
           <Column className="col-md-6">
             <Display>
               <Input
-                name="play_store"
+                name="play_store_url"
                 onChange={handleChange}
                 htmlFor="play-store"
                 label="Play Store Link"
+                value={settings.play_store_url}
               />
               <Input
-                name="app_store"
+                name="app_store_url"
                 onChange={handleChange}
                 htmlFor="app-store"
                 label="App Store Link"
+                value={settings.app_store_url}
               />
               <TextArea
                 label="google analytics"
@@ -224,13 +235,13 @@ const Settings: React.FC = () => {
                 alt="logo"
               />
               <FileInput
-                onChange={handleFaviconChange}
-                name="popup"
+                onChange={handlePopupChange}
+                name="popup_image"
                 label="Popup"
               />
 
               <img
-                src={`${API_ROOT}/images/setting/${setting.favicon}`}
+                src={`${API_ROOT}/images/setting/${setting.popup_image}`}
                 alt="logo"
               />
             </Display>

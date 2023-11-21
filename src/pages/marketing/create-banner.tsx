@@ -10,6 +10,7 @@ import { useState, ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { createAddBanner, reset } from '../../redux/add-banner/addBannerSlice';
 import { IAdBanner } from '../../interfaces/addBanner';
+import { useNavigate } from 'react-router-dom';
 
 const options = [
   { label: 'Home', value: 'home' },
@@ -26,6 +27,7 @@ const initialState = {
   is_visible: true,
 };
 const CreateBanner = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { isCreate, message, isError } = useAppSelector(
     (state) => state.banner
@@ -68,7 +70,7 @@ const CreateBanner = () => {
     if (isCreate) {
       toast.success(`${message}`);
       setBannerData(initialState);
-      window.location.reload();
+      navigate('/banner');
     }
     if (isError) {
       toast.error('Blog create filed');

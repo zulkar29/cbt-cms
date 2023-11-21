@@ -16,6 +16,8 @@ const AllOrders: React.FC = () => {
   const dispatch = useAppDispatch();
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [selectedOrders, setSelectedOrders] = useState<number[]>([]);
+  const [orderStatus, setOrderStatus] = useState('');
+  const [onSearch, setOnSearch] = useState('');
   const { orders, isDelete, totalCount } = useAppSelector(
     (state) => state.order
   );
@@ -30,6 +32,11 @@ const AllOrders: React.FC = () => {
     setDisplayItem(Number(e.target.value));
   };
 
+  const handleOnSearch = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setOnSearch(e.target.value);
+  };
   const handleAllSelectedOrders = (e: ChangeEvent<HTMLInputElement>) => {
     const productIds = orders.map((order) => Number(order.id));
     if (e.target.checked) {
@@ -55,8 +62,15 @@ const AllOrders: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getOrders({ page: pageNumber, limit: displayItem }));
-  }, [dispatch, pageNumber, displayItem]);
+    dispatch(
+      getOrders({
+        page: pageNumber,
+        limit: displayItem,
+        order_status: orderStatus,
+        search_term: onSearch,
+      })
+    );
+  }, [dispatch, pageNumber, displayItem, orderStatus, onSearch]);
 
   useEffect(() => {
     if (isDelete) {
@@ -89,6 +103,7 @@ const AllOrders: React.FC = () => {
       <Display>
         <Filter
           handleDisplayItem={handleDisplayItem}
+          onSearch={handleOnSearch}
           leftElements={
             <div className="action">
               <Overflow title="Bulk Action">
@@ -96,16 +111,22 @@ const AllOrders: React.FC = () => {
               </Overflow>
               <Overflow title="Filter by status">
                 <div>
-                  <p>Pending</p>
+                  <p onClick={() => setOrderStatus('pending')}>Pending</p>
                 </div>
                 <div>
-                  <p>Confirmed</p>
+                  <p onClick={() => setOrderStatus('confirm')}>Confirmed</p>
                 </div>
                 <div>
-                  <p>Pick Up</p>
+                  <p onClick={() => setOrderStatus('pickup')}>Pick Up</p>
                 </div>
                 <div>
-                  <p>On The Way</p>
+                  <p onClick={() => setOrderStatus('on_the_way')}>On The Way</p>
+                </div>
+                <div>
+                  <p onClick={() => setOrderStatus('delivered')}>Delivered</p>
+                </div>
+                <div>
+                  <p onClick={() => setOrderStatus('cancel')}>Cancel</p>
                 </div>
               </Overflow>
             </div>

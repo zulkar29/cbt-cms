@@ -12,6 +12,7 @@ import authReducer from './auth/authSlice';
 import emiReducer from './emi/emiSlice';
 import orderReducer from './order/orderSlice';
 import customerReducer from './customer/customerSlice';
+import serviceReducer from './service/keypointSlice';
 // ...
 const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
     emi: emiReducer,
     order: orderReducer,
     customer: customerReducer,
+    services: serviceReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

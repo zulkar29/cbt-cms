@@ -1,6 +1,5 @@
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
-import Table from '../../components/table';
 import Row from '../../components/table/row';
 import Column from '../../components/table/column';
 import Select from '../../components/select';
@@ -24,36 +23,33 @@ const CouponPage: React.FC = () => {
       <CardBody header="Coupon" to="/coupons/create" />
       <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
-        <Table>
-          <thead>
-            <Row>
-              <th>#</th>
-              <th>Code</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>Status</th>
-              <th>Action</th>
-            </Row>
-          </thead>
-          <tbody>
-            {[...Array(3).keys()].map((_coupon, index) => (
-              <Row key={index}>
-                <Column>01</Column>
-                <Column>OFFER50</Column>
-                <Column>10-01-2023</Column>
-                <Column>28-02-2023</Column>
-                <Column>
-                  <Select />
-                </Column>
-                <Column>
-                  <CustomIconArea>
-                    <EditButton editUrl="/" />
-                  </CustomIconArea>
-                </Column>
-              </Row>
-            ))}
-          </tbody>
-        </Table>
+
+        <Row className="row">
+          <Column className="col-md-2">#</Column>
+          <Column className="col-md-2">Code</Column>
+          <Column className="col-md-2">Start Date</Column>
+          <Column className="col-md-2">End Date</Column>
+          <Column className="col-md-2">Status</Column>
+          <Column className="col-md-2">Action</Column>
+        </Row>
+        {[...Array(3).keys()].map((_coupon, index) => (
+          <Row className="row" key={index}>
+            <Column className="col-md-2">01</Column>
+            <Column className="col-md-2">OFFER50</Column>
+            <Column className="col-md-2">10-01-2023</Column>
+            <Column className="col-md-2">28-02-2023</Column>
+            <Column className="col-md-2">
+              <Select>
+                <option value="1">Value</option>
+              </Select>
+            </Column>
+            <Column className="col-md-2">
+              <CustomIconArea>
+                <EditButton editUrl="/" />
+              </CustomIconArea>
+            </Column>
+          </Row>
+        ))}
         <Pagination />
       </Display>
     </div>
