@@ -49,7 +49,7 @@ const Settings: React.FC = () => {
   const handlePopupChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
-      setFavicon(file);
+      setPopup(file);
     }
   };
 

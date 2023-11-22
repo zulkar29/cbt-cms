@@ -36,10 +36,12 @@ const updateProduct = async (
   return data.data;
 };
 
-const deleteProduct = async (ids: [number]) => {
-  console.log(ids);
-  const { data } = await axios.delete(`${API_URL}/products/?ids=[${[...ids]}]`);
-  return data.data;
+const deleteProduct = async (ids: number[]) => {
+  const idsString = ids.join(',');
+  const { data } = await axios.delete(
+    `${API_URL}/products/?ids=[${idsString}]`
+  );
+  return data;
 };
 
 const csvProduct = async () => {

@@ -20,24 +20,45 @@ import Overflow from '../../components/overflow';
 import './index.scss';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { API_ROOT } from '../../constants';
+import { toast } from 'react-toastify';
 
 const AllProducts: React.FC = () => {
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
+  const [onSearch, setOnSearch] = useState('');
   const dispatch = useAppDispatch();
   const [displayItem, setDisplayItem] = useState<number>(10);
   const [pageNumber, setPageNumber] = useState<number>(1);
 
-  const { products, isDelete, totalCount, isUpdate } = useAppSelector(
+  const { products, isDelete, totalCount, isUpdate, message } = useAppSelector(
     (state) => state.product
   );
   const totalPage = Math.floor(totalCount / displayItem);
 
+  const handleOnSearch = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setOnSearch(e.target.value);
+  };
+
   useEffect(() => {
-    dispatch(getProducts({ page: pageNumber, limit: displayItem }));
+    if (isDelete) {
+      toast.success(`${message}`);
+    }
+    dispatch(
+      getProducts({ page: pageNumber, limit: displayItem, search: onSearch })
+    );
     return () => {
       dispatch(reset());
     };
-  }, [dispatch, pageNumber, displayItem, isUpdate, isDelete]);
+  }, [
+    dispatch,
+    pageNumber,
+    displayItem,
+    isUpdate,
+    isDelete,
+    onSearch,
+    message,
+  ]);
 
   const handleAllSelectedProducts = (e: ChangeEvent<HTMLInputElement>) => {
     const productIds = products.map((product) => Number(product.id));
@@ -60,6 +81,10 @@ const AllProducts: React.FC = () => {
     setSelectedProducts(Array.from(selectedProductsSet));
   };
 
+  const handleMultiDelete = () => {
+    dispatch(deleteProduct([...selectedProducts]));
+  };
+
   const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
     setDisplayItem(Number(e.target.value));
   };
@@ -79,19 +104,13 @@ const AllProducts: React.FC = () => {
     <div>
       <CardBody header="Product" to="/products/create" />
       <Display>
-        <div className="row filter-action">
-          <div className="title">
-            <h3>All Products</h3>
-          </div>
-        </div>
-      </Display>
-      <Display>
         <Filter
           handleDisplayItem={handleDisplayItem}
+          onSearch={handleOnSearch}
           leftElements={
             <div className="action">
               <Overflow title="Bulk Action">
-                <div>Delete Selection</div>
+                <div onClick={handleMultiDelete}>Delete Selection</div>
               </Overflow>
               <Overflow title="Sort By">
                 <div>Price {'(high > low)'}</div>

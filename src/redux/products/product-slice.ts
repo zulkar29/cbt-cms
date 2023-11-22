@@ -51,9 +51,9 @@ export const createProduct = createAsyncThunk(
 // Get user products
 export const getProducts = createAsyncThunk(
   'product/getAllProducts',
-  async ({ page, limit }: { [key: string]: number }, thunkAPI) => {
+  async (fileter: { [key: string]: string | number }, thunkAPI) => {
     try {
-      return await productService.getAllProducts({ page, limit });
+      return await productService.getAllProducts(fileter);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data.message || 'An error occurred';
@@ -92,7 +92,7 @@ export const updateProduct = createAsyncThunk(
 // Delete Product
 export const deleteProduct = createAsyncThunk(
   'product/delete',
-  async (ids: [number], thunkAPI) => {
+  async (ids: number[], thunkAPI) => {
     try {
       return await productService.deleteProduct(ids);
     } catch (error) {
@@ -197,14 +197,15 @@ export const productSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      /* TODO: DELETE CATEGORY DATA SET */
+      /* TODO: DELETE Product DATA SET */
       .addCase(deleteProduct.pending, (state) => {
         state.isLoading = true;
         state.isDelete = false;
       })
-      .addCase(deleteProduct.fulfilled, (state) => {
+      .addCase(deleteProduct.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isDelete = true;
+        state.message = action.payload.message;
       })
       .addCase(deleteProduct.rejected, (state, action) => {
         state.isLoading = false;
