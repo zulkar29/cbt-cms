@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { API_URL } from '../../constants';
 import { ICustomerResponse } from '../../interfaces/customer';
+import jwtInterceptor from '../../components/interceptor';
 
 // get all products
 const getAllCustomer = async (filter: {
@@ -18,7 +19,7 @@ const getAllCustomer = async (filter: {
     // Add query string to the URL
     url += `?${queryString}`;
   }
-  const { data } = await axios.get(url);
+  const { data } = await jwtInterceptor.get(url);
 
   return data;
 };
