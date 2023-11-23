@@ -28,9 +28,12 @@ const getCategory = async (filter: {
   return data;
 };
 
-const updateCategory = async (categoryData: Partial<ICategory>) => {
+const updateCategory = async (
+  slug: number | string,
+  categoryData: Partial<ICategory> | FormData
+) => {
   const { data } = await axios.patch(
-    `${API_URL}/categories/${categoryData.id}`,
+    `${API_URL}/categories/${slug}`,
     categoryData
   );
   return data.data;

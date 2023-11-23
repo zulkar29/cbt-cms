@@ -80,7 +80,10 @@ export const getBlogs = createAsyncThunk(
 
 export const updateBlog = createAsyncThunk(
   'blogs/update',
-  async ({ id, blogData }: { id: number; blogData: FormData }, thunkAPI) => {
+  async (
+    { id, blogData }: { id: number; blogData: FormData | Partial<BlogData> },
+    thunkAPI
+  ) => {
     try {
       return await blogService.updateBlog(id, blogData);
     } catch (error) {

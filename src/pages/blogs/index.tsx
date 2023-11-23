@@ -29,7 +29,10 @@ const Blogs: React.FC = () => {
 
   const handleStatusChange = (blog: BlogData) => {
     dispatch(
-      updateBlog({ id: blog.id as number, is_visible: !blog.is_visible })
+      updateBlog({
+        id: blog.id as number,
+        blogData: { is_visible: !blog.is_visible },
+      })
     );
     setTimeout(
       () => dispatch(getBlogs({ page: pageNumber, limit: displayItem })),

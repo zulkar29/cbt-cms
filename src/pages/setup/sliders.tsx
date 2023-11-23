@@ -36,7 +36,7 @@ const Sliders = () => {
 
   return (
     <div>
-      <CardBody header="Banner" to="/banner/create" />
+      <CardBody header="Banner" to="/setup/sliders/create" />
       <Display>
         <Row className="row">
           <Column className="col-md-4">Image</Column>

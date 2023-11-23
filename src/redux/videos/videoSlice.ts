@@ -46,8 +46,9 @@ export const createVideo = createAsyncThunk(
 export const getVideos = createAsyncThunk(
   'videos/getAll',
   async ({ page, limit }: { page: number; limit: number }, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
     try {
-      return await videoService.getVideos({ page, limit });
+      return await videoService.getVideos({ page, limit, token });
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';

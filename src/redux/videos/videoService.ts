@@ -17,12 +17,20 @@ const createNewVideo = async (
 const getVideos = async ({
   page,
   limit,
+  token,
 }: {
   page: number;
   limit: number;
+  token: string;
 }): Promise<IVideoResponse> => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
   const { data } = await axios.get(
-    `${API_URL}/videos?page=${page}&limit=${limit}`
+    `${API_URL}/videos?page=${page}&limit=${limit}`,
+    config
   );
   return data;
 };

@@ -8,18 +8,22 @@ import TextArea from '../../components/forms/textarea';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   getCategories,
+  reset,
   updateCategory,
 } from '../../redux/category/categorySlice';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Column from '../../components/table/column';
 import Select from '../../components/select';
+import axios from 'axios';
+import { API_URL } from '../../constants';
 
 const UpdateCategory: React.FC = (): JSX.Element => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  // const { slug } = useParams();
-  const { categories } = useAppSelector((state) => state.category);
+  const { slug } = useParams();
+  const { categories, isUpdate } = useAppSelector((state) => state.category);
   const [title, setTitle] = useState('');
-  const [slug, setSlug] = useState('');
+  const [slug_url, setSlug] = useState('');
   const [parent_category, setParentCategory] = useState('');
   const [image, setImage] = useState<File | string | null>(null);
   const [meta_title, setMetaTitle] = useState('');
@@ -37,24 +41,47 @@ const UpdateCategory: React.FC = (): JSX.Element => {
     const formData = new FormData();
 
     formData.append('title', title);
-    formData.append('slug', slug);
+    formData.append('slug', slug_url);
     formData.append('parent_category', parent_category);
     if (image !== null) {
       formData.append('image', image);
     }
     formData.append('meta_title', meta_title);
     formData.append('meta_description', meta_description);
+
+    dispatch(updateCategory({ slug: slug as string, categoryData: formData }));
   };
 
   useEffect(() => {
+    if (isUpdate) {
+      navigate('/category');
+    }
     dispatch(getCategories({}));
-  }, [dispatch]);
+    return () => {
+      dispatch(reset());
+    };
+  }, [dispatch, isUpdate, navigate]);
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log('first');
+      try {
+        const response = await axios.get(`${API_URL}/categories/${slug}`);
+        const data = response.data.data;
+
+        // Set state values based on the fetched data
+        setTitle(data.title);
+        setSlug(data.slug);
+        setParentCategory(data.parent_category);
+        setImage(data.image);
+        setMetaTitle(data.meta_title);
+        setMetaDescription(data.meta_description);
+      } catch (error) {
+        console.error('Error fetching category data:', error);
+      }
     };
-  }, []);
+
+    fetchData();
+  }, [slug]);
 
   return (
     <div>
@@ -69,6 +96,7 @@ const UpdateCategory: React.FC = (): JSX.Element => {
                 label="Title *"
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter Title"
+                value={title}
                 required
               />
               <Input
@@ -78,6 +106,7 @@ const UpdateCategory: React.FC = (): JSX.Element => {
                 onChange={(e) => setSlug(e.target.value)}
                 placeholder="Enter Slug"
                 required
+                value={slug_url}
               />
               <Select
                 htmlFor="Choose Parent category"
@@ -88,7 +117,7 @@ const UpdateCategory: React.FC = (): JSX.Element => {
                   <option
                     key={index}
                     value={category.slug}
-                    selected={category.slug === slug}
+                    selected={category.slug === parent_category}
                   >
                     {category.title}
                   </option>
@@ -107,11 +136,13 @@ const UpdateCategory: React.FC = (): JSX.Element => {
                 placeholder="Meta Title"
                 htmlFor="meta-title"
                 onChange={(e) => setMetaTitle(e.target.value)}
+                value={meta_title}
               />
               <TextArea
                 name="meta_description"
                 placeholder="Meta Description"
                 onChange={(e) => setMetaDescription(e.target.value)}
+                value={meta_description}
               />
             </Column>
           </div>

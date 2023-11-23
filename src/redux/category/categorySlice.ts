@@ -63,9 +63,15 @@ export const getCategories = createAsyncThunk(
 
 export const updateCategory = createAsyncThunk(
   'category/update',
-  async (categoryData: Partial<ICategory>, thunkAPI) => {
+  async (
+    {
+      slug,
+      categoryData,
+    }: { slug: number | string; categoryData: Partial<ICategory> | FormData },
+    thunkAPI
+  ) => {
     try {
-      return await categoryService.updateCategory(categoryData);
+      return await categoryService.updateCategory(slug, categoryData);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';

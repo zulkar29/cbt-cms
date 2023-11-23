@@ -30,7 +30,10 @@ const Categories: React.FC = () => {
 
   const handleVisibility = (category: ICategory) => {
     dispatch(
-      updateCategory({ id: category.id, is_feature: !category.is_feature })
+      updateCategory({
+        slug: category.id as number,
+        categoryData: { is_feature: !category.is_feature },
+      })
     );
   };
 

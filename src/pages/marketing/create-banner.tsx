@@ -13,7 +13,8 @@ import { IAdBanner } from '../../interfaces/addBanner';
 import { useNavigate } from 'react-router-dom';
 
 const options = [
-  { label: 'Home', value: 'home' },
+  { label: 'Home-horizontal', value: 'home' },
+  { label: 'Home-vertical ', value: 'home-v' },
   { label: 'Product', value: 'product' },
   { label: 'Category', value: 'category' },
   { label: 'Video', value: 'video' },

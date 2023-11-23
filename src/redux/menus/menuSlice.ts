@@ -126,9 +126,10 @@ export const menuSlice = createSlice({
         state.isLoading = true;
         state.isDelete = false;
       })
-      .addCase(deleteMenu.fulfilled, (state) => {
+      .addCase(deleteMenu.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isDelete = true;
+        state.message = action.payload.message;
       })
       .addCase(deleteMenu.rejected, (state, action) => {
         state.isLoading = false;

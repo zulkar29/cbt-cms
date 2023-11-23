@@ -31,7 +31,7 @@ const initialState: ISettingResponse = {
     facebook_url: '',
     youtube_url: '',
     twitter_url: '',
-    instgram_url: '',
+    instagram_url: '',
     cash_on_message: null,
     online_payment_message: null,
     created_at: '',

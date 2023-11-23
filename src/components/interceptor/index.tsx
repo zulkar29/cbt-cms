@@ -6,7 +6,7 @@ jwtInterceptor.interceptors.request.use((config) => {
   const tokensDataString = localStorage.getItem('user');
   if (tokensDataString) {
     const tokensData = JSON.parse(tokensDataString);
-    config.headers.common['Authorization'] = `bearer ${tokensData.accessToken}`;
+    config.headers.common['Authorization'] = `Bearer ${tokensData.accessToken}`;
   }
   return config;
 });
@@ -20,6 +20,7 @@ jwtInterceptor.interceptors.response.use(
       const authDataString = localStorage.getItem('user');
       if (authDataString) {
         const authData = JSON.parse(authDataString);
+        console.log(authData);
         /*  const payload = {
           accessToken: authData.accessToken,
           refreshToken: authData.refreshToken,
@@ -32,7 +33,7 @@ jwtInterceptor.interceptors.response.use(
         // localStorage.setItem('tokens', JSON.stringify(apiResponse.data));
         error.config.headers[
           'Authorization'
-        ] = `bearer ${authData.data.refreshToken}`;
+        ] = `Bearer ${authData.refreshToken}`;
         return axios(error.config);
       } else {
         return Promise.reject(error);

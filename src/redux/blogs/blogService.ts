@@ -41,7 +41,10 @@ const singleBlog = async (blogId: number): Promise<BlogData> => {
   return data.data;
 };
 
-const updateBlog = async (id: number, blogData: FormData) => {
+const updateBlog = async (
+  id: number,
+  blogData: FormData | Partial<BlogData>
+) => {
   const { data } = await axios.patch(`${API_URL}/blogs/${id}`, blogData);
   return data.data;
 };
