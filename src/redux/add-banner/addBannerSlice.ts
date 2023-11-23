@@ -46,9 +46,14 @@ export const createAddBanner = createAsyncThunk(
 
 export const getAddBanner = createAsyncThunk(
   'addBanner/getAll',
-  async (_, thunkAPI) => {
+  async (
+    filter: {
+      [key: string]: string | number;
+    },
+    thunkAPI
+  ) => {
     try {
-      return await addBannerService.getAddBanner();
+      return await addBannerService.getAddBanner(filter);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';

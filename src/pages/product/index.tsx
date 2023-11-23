@@ -28,6 +28,7 @@ const AllProducts: React.FC = () => {
   const dispatch = useAppDispatch();
   const [displayItem, setDisplayItem] = useState<number>(10);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const [sort_by, setSortBy] = useState('');
 
   const { products, isDelete, totalCount, isUpdate, message } = useAppSelector(
     (state) => state.product
@@ -45,7 +46,12 @@ const AllProducts: React.FC = () => {
       toast.success(`${message}`);
     }
     dispatch(
-      getProducts({ page: pageNumber, limit: displayItem, search: onSearch })
+      getProducts({
+        page: pageNumber,
+        limit: displayItem,
+        search: onSearch,
+        sort_by: sort_by,
+      })
     );
     return () => {
       dispatch(reset());
@@ -58,6 +64,7 @@ const AllProducts: React.FC = () => {
     isDelete,
     onSearch,
     message,
+    sort_by,
   ]);
 
   const handleAllSelectedProducts = (e: ChangeEvent<HTMLInputElement>) => {
@@ -113,12 +120,16 @@ const AllProducts: React.FC = () => {
                 <div onClick={handleMultiDelete}>Delete Selection</div>
               </Overflow>
               <Overflow title="Sort By">
-                <div>Price {'(high > low)'}</div>
-                <div>Price {'(low > high)'}</div>
-                <div>
+                <div onClick={() => setSortBy('high')}>
+                  Price {'(high > low)'}
+                </div>
+                <div onClick={() => setSortBy('low')}>
+                  Price {'(low > high)'}
+                </div>
+                <div onClick={() => setSortBy('')}>
                   <p>Latest</p>
                 </div>
-                <div>
+                <div onClick={() => setSortBy('oldest')}>
                   <p>Oldest</p>
                 </div>
               </Overflow>

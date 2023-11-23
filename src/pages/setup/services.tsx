@@ -4,23 +4,29 @@ import Row from '../../components/table/row';
 import Column from '../../components/table/column';
 import CustomIconArea from '../../components/custom-icon-area';
 import DeleteButton from '../../components/button/delete';
-import ToggleButton from '../../components/forms/checkbox';
 import CardBody from '../../components/card-body';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useEffect } from 'react';
-import { getKeypoints } from '../../redux/service/keypointSlice';
+import {
+  deleteKeypoint,
+  getKeypoints,
+  reset,
+} from '../../redux/service/keypointSlice';
 import { API_ROOT } from '../../constants';
 
 const Services = () => {
   const dispatch = useAppDispatch();
-  const { services } = useAppSelector((state) => state.services);
+  const { services, isDelete } = useAppSelector((state) => state.services);
 
   useEffect(() => {
-    dispatch(getKeypoints({ page: 1, limit: 1 }));
-  }, [dispatch]);
+    dispatch(getKeypoints({ page: 1, limit: 10 }));
+    return () => {
+      dispatch(reset());
+    };
+  }, [dispatch, isDelete]);
 
-  const handleDelete = () => {
-    console.log('first');
+  const handleDelete = (id: number) => {
+    dispatch(deleteKeypoint(id));
   };
   return (
     <div>
@@ -31,7 +37,6 @@ const Services = () => {
           <Column className="col-md-2">Slug</Column>
           <Column className="col-md-2">Title</Column>
           <Column className="col-md-2">Sub Title</Column>
-          <Column className="col-md-2">Status</Column>
           <Column className="col-md-2">Options</Column>
         </Row>
         {services.map((service, index) => (
@@ -45,12 +50,12 @@ const Services = () => {
             <Column className="col-md-2">{service.url}</Column>
             <Column className="col-md-2">{service.title}</Column>
             <Column className="col-md-2">{service.subtitle}</Column>
-            <Column className="col-md-2">
-              <ToggleButton isChecked />
-            </Column>
+
             <Column className="col-md-2">
               <CustomIconArea>
-                <DeleteButton onClick={handleDelete} />
+                <DeleteButton
+                  onClick={() => handleDelete(Number(service.id))}
+                />
               </CustomIconArea>
             </Column>
           </Row>

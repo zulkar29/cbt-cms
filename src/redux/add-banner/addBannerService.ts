@@ -14,8 +14,23 @@ const createAddBanner = async (
   return data;
 };
 
-const getAddBanner = async (): Promise<IAddBannerResponse> => {
-  const { data } = await axios.get(`${API_URL}/banners`);
+const getAddBanner = async (filter: {
+  [key: string]: string | number;
+}): Promise<IAddBannerResponse> => {
+  let url = `${API_URL}/banners`;
+  if (filter && Object.keys(filter).length > 0) {
+    const queryString = Object.entries(filter)
+      .map(
+        ([key, value]) =>
+          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+      )
+      .join('&');
+
+    // Add query string to the URL
+    url += `?${queryString}`;
+  }
+  const { data } = await axios.get(url);
+
   return data;
 };
 

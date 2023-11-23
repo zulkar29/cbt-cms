@@ -28,11 +28,11 @@ const BannerPage = () => {
     dispatch(
       updateAddBanner({ id: banner.id, is_visible: !banner.is_visible })
     );
-    dispatch(getAddBanner());
+    dispatch(getAddBanner({}));
   };
 
   useEffect(() => {
-    dispatch(getAddBanner());
+    dispatch(getAddBanner({}));
   }, [dispatch, isDelete]);
 
   return (
@@ -41,7 +41,7 @@ const BannerPage = () => {
       <Display>
         <Row className="row">
           <Column className="col-md-7">Image</Column>
-          <Column className="col-md-2">Group</Column>
+          <Column className="col-md-2">Position</Column>
           <Column className="col-md-1">Status</Column>
           <Column className="col-md-2">Action</Column>
         </Row>

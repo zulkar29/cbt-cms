@@ -48,6 +48,7 @@ export const createProduct = createAsyncThunk(
     }
   }
 );
+
 // Get user products
 export const getProducts = createAsyncThunk(
   'product/getAllProducts',
