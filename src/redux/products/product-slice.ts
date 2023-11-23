@@ -32,7 +32,7 @@ const initialState: IState = {
   errorMessage: '',
 };
 
-// Get user products
+// Create products
 export const createProduct = createAsyncThunk(
   'product/createProduct',
   async (data: FormData, thunkAPI) => {
@@ -168,6 +168,7 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
       })
+      // get Product
       .addCase(getProducts.pending, (state) => {
         state.isLoading = true;
         state.isSuccess = false;

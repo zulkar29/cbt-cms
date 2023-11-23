@@ -18,6 +18,7 @@
     visibility: hidden;
     transition: all linear 0.3s;
     box-shadow: $shadow-sm;
+    z-index: 1;
   }
   .over > div {
     cursor: pointer;
