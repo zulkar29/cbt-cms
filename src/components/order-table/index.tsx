@@ -142,37 +142,37 @@ const OrderTable = ({
               >
                 <option
                   value={'pending'}
-                  selected={order.order_status.toLowerCase() === 'pending'}
+                  selected={order?.order_status.toLowerCase() === 'pending'}
                 >
                   Pending
                 </option>
                 <option
                   value={'confirm'}
-                  selected={order.order_status.toLowerCase() === 'confirm'}
+                  selected={order?.order_status.toLowerCase() === 'confirm'}
                 >
                   Confirm
                 </option>
                 <option
                   value={'pickup'}
-                  selected={order.order_status.toLowerCase() === 'pickup'}
+                  selected={order?.order_status.toLowerCase() === 'pickup'}
                 >
                   Pick Up
                 </option>
                 <option
                   value={'cancel'}
-                  selected={order.order_status.toLowerCase() === 'cancel'}
+                  selected={order?.order_status.toLowerCase() === 'cancel'}
                 >
                   Cancel
                 </option>
                 <option
                   value={'on_the_way'}
-                  selected={order.order_status.toLowerCase() === 'on_the_way'}
+                  selected={order?.order_status.toLowerCase() === 'on_the_way'}
                 >
                   On The Way
                 </option>
                 <option
                   value={'delivered'}
-                  selected={order.order_status.toLowerCase() === 'delivered'}
+                  selected={order?.order_status.toLowerCase() === 'delivered'}
                 >
                   Delivered
                 </option>

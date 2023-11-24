@@ -7,13 +7,7 @@ import Input from '../../components/forms/text-input';
 import TextArea from '../../components/forms/textarea';
 import DescriptionInput from '../../components/description';
 import './index.scss';
-import { toast } from 'react-toastify';
-import { BlogData } from '../../interfaces/blog';
-import {
-  reset,
-  singleBlog as blog,
-  updateBlog,
-} from '../../redux/blogs/blogSlice';
+import { singleBlog as blog, updateBlog } from '../../redux/blogs/blogSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import Column from '../../components/table/column';
 import { useParams } from 'react-router-dom';

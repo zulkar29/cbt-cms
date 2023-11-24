@@ -3,7 +3,7 @@ import './index.scss';
 interface IProps {
   label: string;
   name: string;
-  value: string;
+  value?: string;
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   options: { value: string; label: string }[];
   required?: boolean;

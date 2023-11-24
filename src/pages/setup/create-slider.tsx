@@ -3,7 +3,6 @@ import { Button } from '../../components/button';
 import CardBody from '../../components/card-body';
 import Display from '../../components/display';
 import FileInput from '../../components/forms/file-input';
-import Select from '../../components/forms/select';
 import Input from '../../components/forms/text-input';
 import { toast } from 'react-toastify';
 import { useState, ChangeEvent } from 'react';

@@ -83,6 +83,7 @@ export const menuSlice = createSlice({
   reducers: {
     reset: (state) => {
       state.isLoading = false;
+      state.isCreate = false;
       state.isSuccess = false;
       state.isDelete = false;
       state.isError = false;

@@ -7,8 +7,9 @@ import { deleteMenu, getMenus, reset } from '../../redux/menus/menuSlice';
 import CustomIconArea from '../../components/custom-icon-area';
 import DeleteButton from '../../components/button/delete';
 import { toast } from 'react-toastify';
+import CardBody from '../../components/card-body';
 
-const Header = () => {
+const Menus = () => {
   const dispatch = useAppDispatch();
   const { menus, isDelete, message } = useAppSelector((state) => state.menu);
 
@@ -26,8 +27,10 @@ const Header = () => {
       dispatch(reset());
     };
   }, [dispatch, isDelete]);
+
   return (
     <div>
+      <CardBody header="Menus" to="/setup/menus/create" />
       <Display>
         <Row className="row">
           <Column className="col-md-3">Name</Column>
@@ -42,7 +45,7 @@ const Header = () => {
             <Column className="col-md-3">{menu.position}</Column>
             <Column className="col-md-3">
               <CustomIconArea>
-                <DeleteButton onClick={() => handleDelete(menu.id)} />
+                <DeleteButton onClick={() => handleDelete(menu.id as number)} />
               </CustomIconArea>
             </Column>
           </Row>
@@ -52,4 +55,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Menus;

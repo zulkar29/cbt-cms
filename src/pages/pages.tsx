@@ -37,8 +37,8 @@ import Queries from './support/queries';
 import Subscriber from './support/subscriber';
 import CreatePage from './setup/create-pages';
 import UpdatePage from './setup/update-pages';
-import Footer from '../pages/setup/footer';
-import Header from './setup/header';
+import CreateMenu from './setup/create-menu';
+import Menus from './setup/menus';
 import Error from './Error';
 import EmiPage from './Emi';
 import CreateEmi from './Emi/create-emi';
@@ -85,8 +85,8 @@ export {
   Subscriber,
   CreatePage,
   UpdatePage,
-  Footer,
-  Header,
+  Menus,
+  CreateMenu,
   Error,
   EmiPage,
   CreateEmi,

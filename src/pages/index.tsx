@@ -39,13 +39,13 @@ import {
   CreateSlider,
   Services,
   CreateService,
-  Footer,
-  Header,
-  Error,
+  CreateMenu,
+  Menus,
   EmiPage,
   CreateEmi,
   UpdateEmi,
   CreateCoupon,
+  Error,
 } from './pages';
 import Csv from './product/csv';
 
@@ -105,8 +105,8 @@ function PageRoutes() {
       {/* Settings */}
       <Route path="/setup/home-page" element={<SetupPage />} />
       <Route path="/setup/setting" element={<Settings />} />
-      <Route path="/setup/footer" element={<Footer />} />
-      <Route path="/setup/header" element={<Header />} />
+      <Route path="/setup/menus/create" element={<CreateMenu />} />
+      <Route path="/setup/menus" element={<Menus />} />
       <Route path="/setup/sliders" element={<Sliders />} />
       <Route path="/setup/services" element={<Services />} />
       <Route path="/setup/services/create" element={<CreateService />} />

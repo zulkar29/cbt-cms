@@ -192,12 +192,8 @@ export const sidebarLinks = [
         slug: '/setup/pages',
       },
       {
-        subtitle: 'Header',
-        slug: '/setup/header',
-      },
-      {
-        subtitle: 'Footer',
-        slug: '/setup/footer',
+        subtitle: 'Menus',
+        slug: '/setup/menus',
       },
     ],
   },
