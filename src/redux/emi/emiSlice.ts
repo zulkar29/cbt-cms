@@ -100,6 +100,7 @@ export const emiSlice = createSlice({
     reset: (state) => {
       state.isCreate = false;
       state.isLoading = false;
+      state.isUpdate = false;
       state.isSuccess = false;
       state.isError = false;
       state.message = '';

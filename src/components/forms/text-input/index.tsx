@@ -6,7 +6,7 @@ interface IProps {
   placeholder?: string;
   label?: string;
   defaultValue?: string;
-  value?: string;
+  value?: string | number;
   required?: boolean;
   readOnly?: boolean;
   htmlFor: string;
