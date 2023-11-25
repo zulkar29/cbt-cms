@@ -17,20 +17,12 @@ const createNewVideo = async (
 const getVideos = async ({
   page,
   limit,
-  token,
 }: {
   page: number;
   limit: number;
-  token: string;
 }): Promise<IVideoResponse> => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
   const { data } = await axios.get(
-    `${API_URL}/videos?page=${page}&limit=${limit}`,
-    config
+    `${API_URL}/videos?page=${page}&limit=${limit}`
   );
   return data;
 };
@@ -43,16 +35,13 @@ const updateVideo = async (videoData: Partial<IVideo>) => {
   return data.data;
 };
 
-const deleteVideo = async (videoId: number | string, token: string) => {
-  const config = {
+const deleteVideo = async (videoId: number | string) => {
+  /*  const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  };
-  const { data } = await axios.delete(
-    `${API_URL}/videos/?ids=[${videoId}]`,
-    config
-  );
+  }; */
+  const { data } = await axios.delete(`${API_URL}/videos/?ids=[${videoId}]`);
   return data.data;
 };
 

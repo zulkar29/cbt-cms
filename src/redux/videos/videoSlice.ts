@@ -46,9 +46,8 @@ export const createVideo = createAsyncThunk(
 export const getVideos = createAsyncThunk(
   'videos/getAll',
   async ({ page, limit }: { page: number; limit: number }, thunkAPI) => {
-    const token = thunkAPI.getState().auth.user.token;
     try {
-      return await videoService.getVideos({ page, limit, token });
+      return await videoService.getVideos({ page, limit });
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -73,8 +72,7 @@ export const deleteVideo = createAsyncThunk(
   'videos/delete',
   async (videoId: number | string, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.refreshToken;
-      return await videoService.deleteVideo(videoId, token);
+      return await videoService.deleteVideo(videoId);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';

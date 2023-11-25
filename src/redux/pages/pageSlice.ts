@@ -58,7 +58,7 @@ export const getPages = createAsyncThunk(
 
 export const updatePages = createAsyncThunk(
   'pages/update',
-  async (pageData: Partial<IPagesResponse>, thunkAPI) => {
+  async (pageData: Partial<IPages>, thunkAPI) => {
     try {
       return await pageService.updatePages(pageData);
     } catch (error) {

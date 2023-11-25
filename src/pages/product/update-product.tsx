@@ -18,7 +18,7 @@ import 'rsuite/dist/rsuite.css';
 import { reset, updateProduct } from '../../redux/products/product-slice';
 import axios from 'axios';
 import { API_ROOT, API_URL } from '../../constants';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 interface IPhoto {
   id: number;
   product_id: number;
@@ -30,6 +30,7 @@ interface IPhoto {
 
 const UpdateProduct: React.FC = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.category);
   const [campaignDate, setCampaignDate] = useState<[Date, Date] | null>(null);
@@ -59,8 +60,6 @@ const UpdateProduct: React.FC = () => {
   const [sortDesc, setSortDesc] = useState('');
   const [policy, setPolicy] = useState('');
   const [availability, setAvailability] = useState(true);
-
-  console.log(image);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -135,6 +134,7 @@ const UpdateProduct: React.FC = () => {
   useEffect(() => {
     if (isUpdate) {
       toast.success(`${message}`);
+      navigate('/products');
     }
     if (isError) {
       toast.error(`${message}`);

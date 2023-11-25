@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_URL } from '../../constants';
 
 const jwtInterceptor = axios.create({});
 
@@ -21,16 +22,13 @@ jwtInterceptor.interceptors.response.use(
       if (authDataString) {
         const authData = JSON.parse(authDataString);
         console.log(authData);
-        /*  const payload = {
+        const payload = {
           accessToken: authData.accessToken,
           refreshToken: authData.refreshToken,
         };
 
-        const apiResponse = await axios.post(
-          'http://localhost:4000/auth/refreshtoken',
-          payload
-        ); */
-        // localStorage.setItem('tokens', JSON.stringify(apiResponse.data));
+        const apiResponse = await axios.post(`${API_URL}/auths/login`, payload);
+        localStorage.setItem('tokens', JSON.stringify(apiResponse.data));
         error.config.headers[
           'Authorization'
         ] = `Bearer ${authData.refreshToken}`;

@@ -33,6 +33,7 @@ const store = configureStore({
     services: serviceReducer,
     menu: menuReducer,
   },
+  // devTools: false,
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
