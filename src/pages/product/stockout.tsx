@@ -12,17 +12,20 @@ import EditButton from '../../components/button/edit';
 import DeleteButton from '../../components/button/delete';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getProducts, reset } from '../../redux/products/product-slice';
+import { API_ROOT } from '../../constants';
 
 const StockOutProducts: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { products, isLoading } = useAppSelector((state) => state.product);
+  const { products, isLoading, totalCount } = useAppSelector(
+    (state) => state.product
+  );
   const [displayItem, setDisplayItem] = useState(10);
-  const [page, setPage] = useState<number>(1);
+  const [pageNumber, setPageNumber] = useState<number>(1);
 
-  console.log(page);
+  const totalPage = Math.floor(totalCount / displayItem);
 
-  const handlePageClick = (count: { selected: number }) => {
-    setPage(count.selected + 1);
+  const handlePageChange = (selectedItem: { selected: number }) => {
+    setPageNumber(selectedItem.selected + 1);
   };
 
   const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -30,11 +33,13 @@ const StockOutProducts: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getProducts({ page: page, limit: displayItem }));
+    dispatch(
+      getProducts({ page: pageNumber, limit: displayItem, quantity: 0 })
+    );
     return () => {
       dispatch(reset());
     };
-  }, [dispatch, page, displayItem]);
+  }, [dispatch, pageNumber, displayItem]);
 
   return (
     <div>
@@ -69,19 +74,19 @@ const StockOutProducts: React.FC = () => {
               </Column>
               <Column className="col-md-1">
                 <img
-                  src="https://geniusdevs.com/codecanyon/omnimart40/assets/images/1634135320H408d7d7e37b4437297de600584c1af1fL.jpg"
-                  alt="product"
+                  src={`${API_ROOT}/images/product/${product.image}`}
+                  alt="brand"
                 />
               </Column>
               <Column className="col-md-3">{product.title}</Column>
-              <Column className="col-md-1">0</Column>
-              <Column className="col-md-1">৳ 3000.00</Column>
-              <Column className="col-md-1">৳ 2800.00</Column>
+              <Column className="col-md-1">{product.quantity}</Column>
+              <Column className="col-md-1">৳ {product.regular_price}</Column>
+              <Column className="col-md-1">৳ {product.discount_price}</Column>
               <Column className="col-md-1">
-                <ToggleButton isChecked />
+                <ToggleButton isChecked={product.is_visible} />
               </Column>
               <Column className="col-md-1">
-                <ToggleButton isChecked />
+                <ToggleButton isChecked={product.is_homepage} />
               </Column>
               <Column className="col-md-2">
                 <CustomIconArea>
@@ -93,7 +98,11 @@ const StockOutProducts: React.FC = () => {
             </Row>
           ))
         )}
-        <Pagination handlePageClick={handlePageClick} totalPage={3} />
+        <Pagination
+          pageCount={pageNumber}
+          handlePageClick={handlePageChange}
+          totalPage={totalPage}
+        />
       </Display>
     </div>
   );

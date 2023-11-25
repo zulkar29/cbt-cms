@@ -174,17 +174,17 @@ const AllProducts: React.FC = () => {
               />
             </Column>
             <Column className="col-md-3">{product.title}</Column>
-            <Column className="col-md-1">0</Column>
-            <Column className="col-md-1">৳ 3000.00</Column>
-            <Column className="col-md-1">৳ 2800.00</Column>
+            <Column className="col-md-1">{product.quantity}</Column>
+            <Column className="col-md-1">৳ {product.regular_price}</Column>
+            <Column className="col-md-1">৳ {product.discount_price}</Column>
             <Column className="col-md-1">
               <ToggleButton
                 onClick={() =>
                   handleKeyPoint(product.id as number, {
-                    availability: !product.availability,
+                    is_visible: !product.is_visible,
                   })
                 }
-                isChecked={product.availability}
+                isChecked={product.is_visible}
               />
             </Column>
             <Column className="col-md-1">

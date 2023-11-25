@@ -9,6 +9,7 @@ const CreateCoupon = () => {
   const [discountType, setDiscountType] = useState<'percent' | 'flat' | ''>('');
   const [discount, setDiscount] = useState(0);
   const [campaignDate, setCampaignDate] = useState<[Date, Date] | null>(null);
+  console.log({ discountType, discount });
 
   return (
     <div>

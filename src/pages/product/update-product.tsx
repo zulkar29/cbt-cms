@@ -15,15 +15,29 @@ import { DateRangePicker } from 'rsuite';
 import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'react-toastify';
 import 'rsuite/dist/rsuite.css';
-import { createProduct, reset } from '../../redux/products/product-slice';
+import { reset, updateProduct } from '../../redux/products/product-slice';
+import axios from 'axios';
+import { API_ROOT, API_URL } from '../../constants';
+import { useParams } from 'react-router-dom';
+interface IPhoto {
+  id: number;
+  product_id: number;
+  image: string;
+  order_number: number;
+  created_at: string;
+  updated_at: string;
+}
 
 const UpdateProduct: React.FC = () => {
+  const { slug } = useParams();
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.category);
   const [campaignDate, setCampaignDate] = useState<[Date, Date] | null>(null);
-  const { isCreate } = useAppSelector((state) => state.product);
+  const { isUpdate, isError, message } = useAppSelector(
+    (state) => state.product
+  );
   const [title, setTile] = useState<string>('');
-  const [slug, setSlug] = useState('');
+  const [url, setUrl] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [galleryImages, setGalleryImages] = useState<File[] | null>(null);
@@ -46,31 +60,7 @@ const UpdateProduct: React.FC = () => {
   const [policy, setPolicy] = useState('');
   const [availability, setAvailability] = useState(true);
 
-  /*   console.log({
-    campaignDate,
-    title,
-    slug,
-    description,
-    image,
-    galleryImages,
-    category,
-    quantity,
-    regularPrice,
-    discountPrice,
-    discountType,
-    discount,
-    deliveryFee,
-    videoUrl,
-    metaTitle,
-    metaName,
-    metaDescription,
-    isSale,
-    isFeature,
-    isNew,
-    sortDesc,
-    policy,
-    availability,
-  }); */
+  console.log(image);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -98,8 +88,9 @@ const UpdateProduct: React.FC = () => {
     const formData = new FormData();
 
     formData.append('title', title);
-    formData.append('slug', slug);
+    formData.append('slug', url);
     formData.append('description', description);
+    formData.append('policy', policy);
     if (image !== null) {
       formData.append('image', image);
     }
@@ -110,10 +101,10 @@ const UpdateProduct: React.FC = () => {
     formData.append('delivery_fee', deliveryFee.toString());
     formData.append('status', status.toString());
     formData.append('video_url', videoUrl);
-    if (campaignDate !== null) {
+    /* if (campaignDate !== null) {
       formData.append('camping_start_date', campaignDate[0].toString());
       formData.append('camping_end_date', campaignDate[1].toString());
-    }
+    } */
     formData.append('upload_by', 'admin');
     formData.append('availability', availability.toString());
     galleryImages?.forEach((g_image, index) => {
@@ -130,7 +121,7 @@ const UpdateProduct: React.FC = () => {
     formData.append('is_feature', isFeature.toString());
     formData.append('is_new', isNew.toString());
 
-    dispatch(createProduct(formData));
+    dispatch(updateProduct({ id: Number(slug), productData: formData }));
   };
 
   useEffect(() => {
@@ -142,17 +133,76 @@ const UpdateProduct: React.FC = () => {
   }, [discountType, regularPrice, discount]);
 
   useEffect(() => {
-    if (isCreate) {
-      toast.success('Product created successfully');
+    if (isUpdate) {
+      toast.success(`${message}`);
+    }
+    if (isError) {
+      toast.error(`${message}`);
     }
     return () => {
       dispatch(reset());
     };
-  }, [dispatch, isCreate]);
+  }, [dispatch, isUpdate]);
 
   useEffect(() => {
     dispatch(getCategories({}));
   }, [dispatch]);
+
+  useEffect(() => {
+    const fetchEmiData = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/products/${slug}`);
+        const { data } = response.data;
+
+        setTile(data.title);
+        setUrl(data.slug);
+        setDescription(data.description);
+        setImage(data.image);
+        setCategory(data.category_slug);
+        setQuantity(data.quantity);
+        setRegularPrice(data.regular_price);
+        setDiscountPrice(data.discount_price);
+        setDiscountType('');
+        setStatus(data.is_visible === 1);
+        setDiscount(data.discount);
+        setDeliveryFee(data.delivery_fee);
+        setVideoUrl(data.video_url);
+        setMetaTitle(data.meta_title);
+        setMetaName(data.meta_name);
+        setMetaDescription(data.meta_description);
+        setIsSale(data.is_sale === 1);
+        setIsFeature(data.is_feature === 1);
+        setIsNew(data.is_new === 1);
+        setSortDesc(data.sort_description);
+        setPolicy(data.policy || '');
+        setAvailability(data.availability === 1);
+
+        if (data.camping_start_date && data.camping_end_date) {
+          setCampaignDate([
+            new Date(data.camping_start_date),
+            new Date(data.camping_end_date),
+          ]);
+        }
+
+        if (data['product-photos'] && data['product-photos'].length > 0) {
+          const galleryImageFiles = data['product-photos'].map(
+            (photo: IPhoto) => ({
+              id: photo.id,
+              product_id: photo.product_id,
+              image: photo.image,
+              order_number: photo.order_number,
+              created_at: photo.created_at,
+              updated_at: photo.updated_at,
+            })
+          );
+          setGalleryImages(galleryImageFiles);
+        }
+      } catch (error) {
+        console.error('Error fetching EMI data:', error);
+      }
+    };
+    fetchEmiData();
+  }, [slug]);
 
   return (
     <div className="create-product">
@@ -165,14 +215,16 @@ const UpdateProduct: React.FC = () => {
                 <Input
                   label="Product Title *"
                   placeholder="Enter Name"
-                  onBlur={(e) => setTile(e.target.value)}
+                  value={title}
+                  onChange={(e) => setTile(e.target.value)}
                   htmlFor="name"
                   required
                 />
                 <Input
                   label="Slug *"
+                  value={url}
                   placeholder="Enter Slug"
-                  onBlur={(e) => setSlug(e.target.value)}
+                  onChange={(e) => setUrl(e.target.value)}
                   htmlFor="slug"
                   required
                 />
@@ -182,24 +234,17 @@ const UpdateProduct: React.FC = () => {
                 <FileInput
                   label="Featured Image *"
                   onChange={handleImageChange}
-                  required
                 />
                 <p className="wearing">
-                  Image Size Should Be 800 x 800.
+                  Image Size Should Be 600 x 600.
                   <br /> or square size
                 </p>
-                {image && (
+                {typeof image === 'string' && (
                   <div className="product-image">
                     <img
-                      src={URL.createObjectURL(image)}
+                      src={`${API_ROOT}/images/product/${image}`}
                       alt="gazi home appliance"
                     />
-                    <span
-                      className="cross"
-                      onClick={() => removeGalleryImage(image)}
-                    >
-                      <RxCross2 />
-                    </span>
                   </div>
                 )}
                 <br />
@@ -215,8 +260,9 @@ const UpdateProduct: React.FC = () => {
                 <Input
                   placeholder="Video Link"
                   label="Video Link"
+                  value={videoUrl}
                   htmlFor="video"
-                  onBlur={(e) => setVideoUrl(e.target.value)}
+                  onChange={(e) => setVideoUrl(e.target.value)}
                 />
                 <p className="wearing">
                   Use proper link without extra parameter.
@@ -229,17 +275,16 @@ const UpdateProduct: React.FC = () => {
                   label="Gallery Images"
                   onChange={handleGalleryImageChange}
                   multiple
-                  required
                 />
                 <div className="row">
                   {galleryImages &&
                     galleryImages.length > 0 &&
                     galleryImages.map((image, index) => (
                       <div key={index} className="product-image">
-                        <img
+                        {/*  <img
                           src={URL.createObjectURL(image)}
                           alt="gazi home appliance"
-                        />
+                        /> */}
                         <span
                           className="cross"
                           onClick={() => removeGalleryImage(image)}
@@ -274,9 +319,8 @@ const UpdateProduct: React.FC = () => {
             <div className="right-body">
               <Display>
                 <Button className="save-btn" type="submit">
-                  Save & Publish
+                  Save & Update
                 </Button>
-                <Button type="submit">Save & Unpublished</Button>
               </Display>
 
               <Display>
@@ -284,6 +328,7 @@ const UpdateProduct: React.FC = () => {
                   placeholder="Regular Price"
                   label="Regular Price"
                   htmlFor="regular-price"
+                  value={regularPrice}
                   onChange={(e) => setRegularPrice(Number(e.target.value))}
                   required
                 />
@@ -292,6 +337,7 @@ const UpdateProduct: React.FC = () => {
                     placeholder="Discount Price"
                     label="Discount Price"
                     htmlFor="discount-price"
+                    value={discountPrice}
                     onChange={(e) => setDiscount(Number(e.target.value))}
                     required
                   />
@@ -311,23 +357,29 @@ const UpdateProduct: React.FC = () => {
               <Display>
                 <label className="label">Select Category*</label>
                 <Select onChange={(e) => setCategory(e.target.value)} required>
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.slug}>
-                      {category.title}
+                  {categories.map((ctg) => (
+                    <option
+                      key={ctg.id}
+                      value={ctg.slug}
+                      selected={ctg.slug === category}
+                    >
+                      {ctg.title}
                     </option>
                   ))}
                 </Select>
                 <TextArea
                   label="Product short description *"
                   placeholder="Product short description"
-                  onBlur={(e) => setSortDesc(e.target.value)}
+                  value={sortDesc}
+                  onChange={(e) => setSortDesc(e.target.value)}
                 />
                 <Input
                   type="number"
                   placeholder="Quantity"
                   label="Quantity"
                   htmlFor="Quantity"
-                  onBlur={(e) => setQuantity(Number(e.target.value))}
+                  value={quantity}
+                  onChange={(e) => setQuantity(Number(e.target.value))}
                   defaultValue="0"
                   required
                 />
@@ -367,16 +419,19 @@ const UpdateProduct: React.FC = () => {
                 <Input
                   placeholder="Meta Title"
                   htmlFor="meta-title"
-                  onBlur={(e) => setMetaTitle(e.target.value)}
+                  value={metaTitle}
+                  onChange={(e) => setMetaTitle(e.target.value)}
                 />
                 <Input
                   placeholder="Meta Name"
                   htmlFor="meta-name"
-                  onBlur={(e) => setMetaName(e.target.value)}
+                  value={metaName}
+                  onChange={(e) => setMetaName(e.target.value)}
                 />
                 <TextArea
                   placeholder="Meta Description"
-                  onBlur={(e) => setMetaDescription(e.target.value)}
+                  value={metaDescription}
+                  onChange={(e) => setMetaDescription(e.target.value)}
                 />
               </Display>
             </div>

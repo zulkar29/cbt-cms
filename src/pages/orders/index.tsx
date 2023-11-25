@@ -3,7 +3,6 @@ import OrderTable from '../../components/order-table';
 import Display from '../../components/display';
 import Filter from '../../components/filter';
 import { ChangeEvent, useEffect, useState } from 'react';
-import Input from '../../components/forms/text-input';
 import { BsDownload } from 'react-icons/bs';
 import { CSVLink } from 'react-csv';
 import './index.scss';
@@ -11,6 +10,7 @@ import Overflow from '../../components/overflow';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { deleteOrder, getOrders, reset } from '../../redux/order/orderSlice';
 import { toast } from 'react-toastify';
+import { DateRangePicker } from 'rsuite';
 
 const AllOrders: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -18,6 +18,7 @@ const AllOrders: React.FC = () => {
   const [selectedOrders, setSelectedOrders] = useState<number[]>([]);
   const [orderStatus, setOrderStatus] = useState('');
   const [onSearch, setOnSearch] = useState('');
+  const [orderDate, setOrderDate] = useState<[Date, Date] | null>(null);
   const { orders, isDelete, totalCount } = useAppSelector(
     (state) => state.order
   );
@@ -61,6 +62,11 @@ const AllOrders: React.FC = () => {
     dispatch(deleteOrder([...selectedOrders]));
   };
 
+  const formatDateForURL = (date: Date): string => {
+    const isoString = date.toISOString();
+    return isoString.split('T')[0];
+  };
+
   useEffect(() => {
     dispatch(
       getOrders({
@@ -68,9 +74,11 @@ const AllOrders: React.FC = () => {
         limit: displayItem,
         order_status: orderStatus,
         search_term: onSearch,
+        start_date: orderDate ? formatDateForURL(orderDate[0]) : '',
+        end_date: orderDate ? formatDateForURL(orderDate[1]) : '',
       })
     );
-  }, [dispatch, pageNumber, displayItem, orderStatus, onSearch]);
+  }, [dispatch, pageNumber, displayItem, orderStatus, onSearch, orderDate]);
 
   useEffect(() => {
     if (isDelete) {
@@ -96,8 +104,11 @@ const AllOrders: React.FC = () => {
           </div>
         </div>
         <div className="date-area">
-          <Input type="date" htmlFor="start-date" label="Start Date" />
-          <Input type="date" htmlFor="end-date" label="End Date" />
+          <DateRangePicker
+            className={`date-area`}
+            value={orderDate}
+            onChange={(dateRange) => setOrderDate(dateRange)}
+          />
         </div>
       </Display>
       <Display>

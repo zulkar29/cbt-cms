@@ -37,7 +37,7 @@ const CreateProduct: React.FC = () => {
   const [discountType, setDiscountType] = useState<'percent' | 'flat' | ''>('');
   const [status, setStatus] = useState(true);
   const [discount, setDiscount] = useState(0);
-  const [deliveryFee, setDeliveryFee] = useState(0);
+  const [deliveryFee] = useState(0);
   const [videoUrl, setVideoUrl] = useState('');
   const [metaTitle, setMetaTitle] = useState('');
   const [metaName, setMetaName] = useState('');
@@ -47,7 +47,7 @@ const CreateProduct: React.FC = () => {
   const [isNew, setIsNew] = useState(true);
   const [sortDesc, setSortDesc] = useState('');
   const [policy, setPolicy] = useState('');
-  const [availability, setAvailability] = useState(true);
+  const [availability] = useState(true);
   const [isVariant, setIsVariant] = useState(false);
 
   const gasTypeOptions = [

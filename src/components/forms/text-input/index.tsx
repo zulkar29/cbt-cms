@@ -13,6 +13,8 @@ interface IProps {
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onBlur?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   name?: string;
+  min?: string;
+  max?: string;
 }
 
 const Input: React.FC<IProps> = ({
@@ -27,6 +29,8 @@ const Input: React.FC<IProps> = ({
   name,
   onChange,
   onBlur,
+  min,
+  max,
 }) => {
   return (
     <div className="text">
@@ -42,6 +46,8 @@ const Input: React.FC<IProps> = ({
         value={value}
         required={required}
         readOnly={readOnly}
+        min={min}
+        max={max}
       />
     </div>
   );

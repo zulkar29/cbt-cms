@@ -4,20 +4,30 @@ import { API_URL } from '../../constants';
 
 // get all products
 const getAllOrders = async (filter: {
-  [key: string]: string | number;
+  [key: string]: string | number | boolean;
 }): Promise<IOrderResponse> => {
   let url = `${API_URL}/orders`;
-  if (filter && Object.keys(filter).length > 0) {
-    const queryString = Object.entries(filter)
+
+  // Filter out keys with false values
+  const filteredFilter: { [key: string]: string | number | boolean } = {};
+  Object.entries(filter).forEach(([key, value]) => {
+    if (value !== false) {
+      filteredFilter[key] = value;
+    }
+  });
+
+  if (Object.keys(filteredFilter).length > 0) {
+    const queryString = Object.entries(filteredFilter)
       .map(
         ([key, value]) =>
-          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+          `${encodeURIComponent(key)}=${encodeURIComponent(value.toString())}`
       )
       .join('&');
 
     // Add query string to the URL
     url += `?${queryString}`;
   }
+
   const { data } = await axios.get(url);
 
   return data;
