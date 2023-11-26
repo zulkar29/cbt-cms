@@ -147,7 +147,7 @@ const UpdateCategory: React.FC = (): JSX.Element => {
             </Column>
           </div>
           <div className="text-right">
-            <Button type="submit">Create</Button>
+            <Button type="submit">Update</Button>
           </div>
         </form>
       </Display>
