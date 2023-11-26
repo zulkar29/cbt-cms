@@ -181,10 +181,10 @@ const AllProducts: React.FC = () => {
               <ToggleButton
                 onClick={() =>
                   handleKeyPoint(product.id as number, {
-                    is_visible: !product.is_visible,
+                    is_visible: product.is_visible == 0 ? 1 : 0,
                   })
                 }
-                isChecked={product.is_visible}
+                isChecked={Boolean(product.is_visible)}
               />
             </Column>
             <Column className="col-md-1">

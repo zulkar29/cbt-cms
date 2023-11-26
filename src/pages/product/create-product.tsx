@@ -18,10 +18,12 @@ import { createProduct, reset } from '../../redux/products/product-slice';
 import ReactSelect from 'react-select';
 import makeAnimated from 'react-select/animated';
 import 'rsuite/dist/rsuite.css';
+import { useNavigate } from 'react-router-dom';
 const animatedComponents = makeAnimated();
 
 const CreateProduct: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { categories } = useAppSelector((state) => state.category);
   const [campaignDate, setCampaignDate] = useState<[Date, Date] | null>(null);
   const { isCreate } = useAppSelector((state) => state.product);
@@ -152,11 +154,12 @@ const CreateProduct: React.FC = () => {
   useEffect(() => {
     if (isCreate) {
       toast.success('Product created successfully');
+      navigate('/products');
     }
     return () => {
       dispatch(reset());
     };
-  }, [dispatch, isCreate]);
+  }, [dispatch, isCreate, navigate]);
 
   useEffect(() => {
     dispatch(getCategories({}));
@@ -323,7 +326,7 @@ const CreateProduct: React.FC = () => {
                 <Button className="save-btn" type="submit">
                   Save & Publish
                 </Button>
-                <Button type="submit">Save & Unpublished</Button>
+                {/* <Button type="submit">Save & Unpublished</Button> */}
               </Display>
 
               <Display>

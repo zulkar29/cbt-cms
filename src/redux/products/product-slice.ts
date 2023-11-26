@@ -148,6 +148,7 @@ export const productSlice = createSlice({
       state.isCreate = false;
       state.isLoading = false;
       state.isSuccess = false;
+      state.isUpdate = false;
       state.isDelete = false;
       state.isError = false;
       state.isCsvUpload = false;
@@ -190,9 +191,10 @@ export const productSlice = createSlice({
         state.isLoading = true;
         state.isUpdate = false;
       })
-      .addCase(updateProduct.fulfilled, (state) => {
+      .addCase(updateProduct.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isUpdate = true;
+        state.message = action.payload.message;
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.isLoading = false;

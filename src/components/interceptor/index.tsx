@@ -21,7 +21,6 @@ jwtInterceptor.interceptors.response.use(
       const authDataString = localStorage.getItem('user');
       if (authDataString) {
         const authData = JSON.parse(authDataString);
-        console.log(authData);
         const payload = {
           accessToken: authData.accessToken,
           refreshToken: authData.refreshToken,

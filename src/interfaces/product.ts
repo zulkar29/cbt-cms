@@ -9,7 +9,7 @@ export interface IProduct {
   regular_price: string;
   discount_price: string;
   delivery_fee: string;
-  is_visible: boolean;
+  is_visible: 0 | 1;
   is_homepage: boolean;
   is_sale: boolean;
   is_feature: boolean;

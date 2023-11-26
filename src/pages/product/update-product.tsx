@@ -61,6 +61,8 @@ const UpdateProduct: React.FC = () => {
   const [policy, setPolicy] = useState('');
   const [availability, setAvailability] = useState(true);
 
+  console.log(discountPrice);
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
@@ -134,7 +136,7 @@ const UpdateProduct: React.FC = () => {
   useEffect(() => {
     if (isUpdate) {
       toast.success(`${message}`);
-      navigate('/products');
+      // navigate('/products');
     }
     if (isError) {
       toast.error(`${message}`);
