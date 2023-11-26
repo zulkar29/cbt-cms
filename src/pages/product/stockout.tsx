@@ -83,7 +83,7 @@ const StockOutProducts: React.FC = () => {
               <Column className="col-md-1">৳ {product.regular_price}</Column>
               <Column className="col-md-1">৳ {product.discount_price}</Column>
               <Column className="col-md-1">
-                <ToggleButton isChecked={product.is_visible} />
+                <ToggleButton isChecked={product.is_visible == 1} />
               </Column>
               <Column className="col-md-1">
                 <ToggleButton isChecked={product.is_homepage} />

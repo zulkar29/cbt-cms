@@ -41,7 +41,7 @@ const UpdateProduct: React.FC = () => {
   const [url, setUrl] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
-  const [updateImage, setupdateImage] = useState<File | null>(null);
+  const [updateImage, setUpdateImage] = useState<File | null>(null);
   const [galleryImages, setGalleryImages] = useState<File[] | null>(null);
   const [category, setCategory] = useState<string>('');
   const [quantity, setQuantity] = useState(0);
@@ -65,7 +65,7 @@ const UpdateProduct: React.FC = () => {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
-      setImage(file);
+      setUpdateImage(file);
     }
   };
   const handleGalleryImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -91,8 +91,8 @@ const UpdateProduct: React.FC = () => {
     formData.append('slug', url);
     formData.append('description', description);
     formData.append('policy', policy);
-    if (image !== null) {
-      formData.append('image', image);
+    if (updateImage !== null) {
+      formData.append('image', updateImage);
     }
     formData.append('category_slug', category);
     formData.append('quantity', quantity.toString());
@@ -135,7 +135,7 @@ const UpdateProduct: React.FC = () => {
   useEffect(() => {
     if (isUpdate) {
       toast.success(`Product updated successfully`);
-      // navigate('/products');
+      navigate('/products');
     }
     if (isError) {
       toast.error(`${message}`);

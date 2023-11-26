@@ -36,7 +36,7 @@ const updateCategory = async (
     `${API_URL}/categories/${slug}`,
     categoryData
   );
-  return data.data;
+  return data;
 };
 
 const deleteCategory = async (videoId: number) => {

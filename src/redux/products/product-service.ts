@@ -33,7 +33,7 @@ const updateProduct = async (
   categoryData: FormData | { [key: string]: string | number | boolean }
 ) => {
   const { data } = await axios.patch(`${API_URL}/products/${id}`, categoryData);
-  return data.data;
+  return data;
 };
 
 const deleteProduct = async (ids: number[]) => {
