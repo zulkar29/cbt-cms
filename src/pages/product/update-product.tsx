@@ -41,6 +41,7 @@ const UpdateProduct: React.FC = () => {
   const [url, setUrl] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
+  const [updateImage, setupdateImage] = useState<File | null>(null);
   const [galleryImages, setGalleryImages] = useState<File[] | null>(null);
   const [category, setCategory] = useState<string>('');
   const [quantity, setQuantity] = useState(0);
@@ -60,8 +61,6 @@ const UpdateProduct: React.FC = () => {
   const [sortDesc, setSortDesc] = useState('');
   const [policy, setPolicy] = useState('');
   const [availability, setAvailability] = useState(true);
-
-  console.log(discountPrice);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -135,7 +134,7 @@ const UpdateProduct: React.FC = () => {
 
   useEffect(() => {
     if (isUpdate) {
-      toast.success(`${message}`);
+      toast.success(`Product updated successfully`);
       // navigate('/products');
     }
     if (isError) {
@@ -382,7 +381,6 @@ const UpdateProduct: React.FC = () => {
                   htmlFor="Quantity"
                   value={quantity}
                   onChange={(e) => setQuantity(Number(e.target.value))}
-                  defaultValue="0"
                   required
                 />
               </Display>

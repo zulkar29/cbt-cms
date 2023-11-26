@@ -20,13 +20,14 @@ import Filter from '../../components/filter';
 
 const Categories: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { categories, isUpdate, isDelete, totalCount } = useAppSelector(
-    (state) => state.category
-  );
+  const { categories, isUpdate, isSuccess, isDelete, totalCount } =
+    useAppSelector((state) => state.category);
   const [displayItem, setDisplayItem] = useState<number>(10);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [search, setSearch] = useState<string>('');
   const totalPage = Math.floor(totalCount / displayItem);
+
+  console.log(search);
 
   const handleVisibility = (category: ICategory) => {
     dispatch(
@@ -55,7 +56,7 @@ const Categories: React.FC = () => {
 
   useEffect(() => {
     dispatch(getCategories({ page: pageNumber, limit: 15, title: search }));
-  }, [dispatch, isUpdate, isDelete, pageNumber, search]);
+  }, [dispatch, isUpdate, isDelete, pageNumber, search, isSuccess]);
 
   return (
     <div>

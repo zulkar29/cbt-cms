@@ -110,6 +110,7 @@ const CreateProduct: React.FC = () => {
     formData.append('title', title);
     formData.append('slug', slug);
     formData.append('description', description);
+    formData.append('policy', policy);
     if (image !== null) {
       formData.append('image', image);
     }
