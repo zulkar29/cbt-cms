@@ -31,6 +31,7 @@ export interface IOrder {
   order_status: string;
   created_at: string;
   updated_at: string;
+  order_form: string;
 }
 
 export interface IOrderResponse {

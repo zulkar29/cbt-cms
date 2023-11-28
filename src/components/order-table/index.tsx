@@ -115,7 +115,7 @@ const OrderTable = ({
             <Column className="col-md-1"> </Column>
             <Column className="col-md-1">{`৳${order.final_price}`}</Column>
             <Column className="col-md-2">{order.name}</Column>
-            <Column className="col-md-1">01724721383</Column>
+            <Column className="col-md-1">{order.mobile}</Column>
             <Column className="col-md-1">{order?.orderItems?.length}</Column>
             <Column className="col-md-1">
               <Select
@@ -178,7 +178,7 @@ const OrderTable = ({
                 </option>
               </Select>
             </Column>
-            <Column className="col-md-1">web</Column>
+            <Column className="col-md-1">{order.order_form}</Column>
             <Column className="col-md-1">
               <CustomIconArea>
                 <ViewButton href={`/orders/views/${order.id}`} />
