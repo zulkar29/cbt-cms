@@ -39,10 +39,10 @@ const EmiPage = () => {
         {emis.map((emi, index) => (
           <Row className="row" key={index}>
             <Column className="col-md-3">{emi.bank_name}</Column>
-            <Column className="col-md-1">{emi.thirty_months}</Column>
+            <Column className="col-md-1">{emi.three_months}</Column>
             <Column className="col-md-1">{emi.six_months}</Column>
             <Column className="col-md-1">{emi.nine_months}</Column>
-            <Column className="col-md-1">{emi.thirty_months}</Column>
+            <Column className="col-md-1">{emi.twelve_months}</Column>
             <Column className="col-md-1">{emi.eighteen_months}</Column>
             <Column className="col-md-1">{emi.twenty_four_months}</Column>
             <Column className="col-md-1">{emi.thirty_months}</Column>
