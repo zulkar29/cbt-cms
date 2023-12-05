@@ -28,6 +28,7 @@ const UpdateCategory: React.FC = (): JSX.Element => {
   const [image, setImage] = useState<File | string | null>(null);
   const [meta_title, setMetaTitle] = useState('');
   const [meta_description, setMetaDescription] = useState('');
+  const [order_id, setOrderId] = useState('');
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -48,6 +49,7 @@ const UpdateCategory: React.FC = (): JSX.Element => {
     }
     formData.append('meta_title', meta_title);
     formData.append('meta_description', meta_description);
+    formData.append('order_id', order_id);
 
     dispatch(updateCategory({ slug: slug as string, categoryData: formData }));
   };
@@ -75,6 +77,7 @@ const UpdateCategory: React.FC = (): JSX.Element => {
         setImage(data.image);
         setMetaTitle(data.meta_title);
         setMetaDescription(data.meta_description);
+        setOrderId(data.order_id);
       } catch (error) {
         console.error('Error fetching category data:', error);
       }
@@ -107,6 +110,15 @@ const UpdateCategory: React.FC = (): JSX.Element => {
                 placeholder="Enter Slug"
                 required
                 value={slug_url}
+              />
+              <Input
+                htmlFor="order_id"
+                name="order_id"
+                label="Position No"
+                value={order_id}
+                placeholder="Enter Position"
+                onChange={(e) => setOrderId(e.target.value)}
+                required
               />
               <Select
                 htmlFor="Choose Parent category"

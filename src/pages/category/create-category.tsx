@@ -22,7 +22,10 @@ const initialState = {
   slug: '',
   parent_category: '',
   image: null as File | null,
-  is_feature: true,
+  is_feature: false,
+  meta_title: '',
+  meta_description: '',
+  order_id: '',
 };
 
 const CreateCategory: React.FC = () => {
@@ -30,6 +33,7 @@ const CreateCategory: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [categoryData, setCategoryData] = useState<ICategory>(initialState);
+  console.log(categoryData);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -100,6 +104,14 @@ const CreateCategory: React.FC = () => {
                 label="Slug *"
                 onChange={handleChange}
                 placeholder="Enter Slug"
+                required
+              />
+              <Input
+                htmlFor="order_id"
+                name="order_id"
+                label="Position No"
+                onChange={handleChange}
+                placeholder="Enter Position"
                 required
               />
               <Select
