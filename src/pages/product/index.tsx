@@ -33,7 +33,6 @@ const AllProducts: React.FC = () => {
   const { products, isDelete, totalCount, isUpdate, message } = useAppSelector(
     (state) => state.product
   );
-  console.log(isUpdate);
   const totalPage = Math.floor(totalCount / displayItem);
 
   const handleOnSearch = (

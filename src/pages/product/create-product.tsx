@@ -37,16 +37,16 @@ const CreateProduct: React.FC = () => {
   const [regularPrice, setRegularPrice] = useState(0);
   const [discountPrice, setDiscountPrice] = useState(0);
   const [discountType, setDiscountType] = useState<'percent' | 'flat' | ''>('');
-  const [status, setStatus] = useState(true);
   const [discount, setDiscount] = useState(0);
   const [deliveryFee] = useState(0);
   const [videoUrl, setVideoUrl] = useState('');
   const [metaTitle, setMetaTitle] = useState('');
   const [metaName, setMetaName] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
-  const [isSale, setIsSale] = useState(true);
-  const [isFeature, setIsFeature] = useState(true);
-  const [isNew, setIsNew] = useState(true);
+  const [status, setStatus] = useState<0 | 1>(1);
+  const [isSale, setIsSale] = useState<0 | 1>(0);
+  const [isFeature, setIsFeature] = useState<0 | 1>(0);
+  const [isNew, setIsNew] = useState<0 | 1>(0);
   const [sortDesc, setSortDesc] = useState('');
   const [policy, setPolicy] = useState('');
   const [availability] = useState(true);
@@ -136,7 +136,6 @@ const CreateProduct: React.FC = () => {
     formData.append('meta_description', metaDescription);
     formData.append('sort_description', sortDesc);
     formData.append('is_homepage', '1');
-
     formData.append('is_sale', isSale.toString());
     formData.append('is_feature', isFeature.toString());
     formData.append('is_new', isNew.toString());
@@ -216,6 +215,7 @@ const CreateProduct: React.FC = () => {
                     >
                       <RxCross2 />
                     </span>
+                    <input type="text" />
                   </div>
                 )}
                 <br />
@@ -262,6 +262,7 @@ const CreateProduct: React.FC = () => {
                         >
                           <RxCross2 />
                         </span>
+                        <input type="text" defaultValue={1} />
                       </div>
                     ))}
                 </div>
@@ -388,29 +389,29 @@ const CreateProduct: React.FC = () => {
                 <div className="sudo-item">
                   <span>Is New</span>
                   <ToggleButton
-                    isChecked={isNew}
-                    onClick={() => setIsNew(!isNew)}
+                    isChecked={isNew == 1}
+                    onClick={() => setIsNew(isNew == 0 ? 1 : 0)}
                   />
                 </div>
                 <div className="sudo-item">
                   <span>Is Sale</span>
                   <ToggleButton
-                    isChecked={isSale}
-                    onClick={() => setIsSale(!isSale)}
+                    isChecked={isSale === 1}
+                    onClick={() => setIsSale(isSale == 0 ? 1 : 0)}
                   />
                 </div>
                 <div className="sudo-item">
                   <span>Is Feature</span>
                   <ToggleButton
-                    isChecked={isFeature}
-                    onClick={() => setIsFeature(!isFeature)}
+                    isChecked={isFeature == 1}
+                    onClick={() => setIsFeature(isFeature == 0 ? 1 : 0)}
                   />
                 </div>
                 <div className="sudo-item">
                   <span>Status</span>
                   <ToggleButton
-                    isChecked={status}
-                    onClick={() => setStatus(!status)}
+                    isChecked={status === 1}
+                    onClick={() => setStatus(status == 0 ? 1 : 0)}
                   />
                 </div>
               </Display>

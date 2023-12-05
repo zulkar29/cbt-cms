@@ -44,6 +44,8 @@ import EmiPage from './Emi';
 import CreateEmi from './Emi/create-emi';
 import UpdateEmi from './Emi/update-emi';
 import CreateCoupon from './marketing/create-coupon';
+import Notification from './notification';
+import CreateNotification from './notification/create';
 
 export {
   Blogs,
@@ -92,4 +94,6 @@ export {
   CreateEmi,
   UpdateEmi,
   CreateCoupon,
+  CreateNotification,
+  Notification,
 };

@@ -46,6 +46,8 @@ import {
   UpdateEmi,
   CreateCoupon,
   Error,
+  Notification,
+  CreateNotification,
 } from './pages';
 import Csv from './product/csv';
 
@@ -114,6 +116,10 @@ function PageRoutes() {
       <Route path="/setup/pages" element={<CommonPages />} />
       <Route path="/setup/pages/create" element={<CreatePage />} />
       <Route path="/setup/pages/edit/:slug" element={<UpdatePage />} />
+
+      {/* Notification */}
+      <Route path="/notification" element={<Notification />} />
+      <Route path="/notification/create" element={<CreateNotification />} />
 
       {/* 404 Page */}
       <Route path="*" element={<Error />} />

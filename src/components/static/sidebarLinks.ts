@@ -89,6 +89,21 @@ export const sidebarLinks = [
   },
   {
     id: 6,
+    title: 'Notifications',
+    icon: 'bell.png',
+    subLinks: [
+      {
+        subtitle: 'Add',
+        slug: '/notification/create',
+      },
+      {
+        subtitle: 'All notifications',
+        slug: '/notification',
+      },
+    ],
+  },
+  {
+    id: 6,
     title: 'Videos',
     icon: 'video.png',
     subLinks: [
