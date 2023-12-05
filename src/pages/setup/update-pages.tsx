@@ -7,19 +7,24 @@ import Column from '../../components/table/column';
 import { Button } from '../../components/button';
 import axios from 'axios';
 import { API_URL } from '../../constants';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CardBody from '../../components/card-body';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { reset, updatePages } from '../../redux/pages/pageSlice';
+import { toast } from 'react-toastify';
 
 const initialState = {
   title: '',
   slug: '',
-  content: '',
   meta_title: '',
   meta_description: '',
 };
 
 const UpdatePage = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { isUpdate } = useAppSelector((state) => state.pages);
   const [pageData, setPageData] = useState(initialState);
   const [content, setContent] = useState('');
 
@@ -34,7 +39,7 @@ const UpdatePage = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // dispatch(createPages(pageData));
+    dispatch(updatePages({ ...pageData, content, id: Number(slug) }));
   };
 
   useEffect(() => {
@@ -47,7 +52,6 @@ const UpdatePage = () => {
         setPageData({
           title: data.title || '',
           slug: data.slug || '',
-          content: data.content || '',
           meta_title: data.meta_title || '',
           meta_description: data.meta_description || '',
         });
@@ -59,6 +63,19 @@ const UpdatePage = () => {
 
     fetchData();
   }, [slug]);
+
+  useEffect(() => {
+    if (isUpdate) {
+      toast.success('Page updated successfully');
+      setPageData(initialState);
+      setContent('');
+      navigate('/setup/pages');
+    }
+    return () => {
+      dispatch(reset());
+    };
+  }, [isUpdate, navigate, dispatch]);
+
   return (
     <div>
       <CardBody header="Update Page" to="/setup/pages" text="Back" />
