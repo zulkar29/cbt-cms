@@ -61,7 +61,7 @@ const CreatePage = () => {
 
   return (
     <div>
-      <CardBody header="Create a new Page" to="/setup/pages" />
+      <CardBody header="Create a new Page" to="/setup/pages" text="Back" />
       <form onSubmit={handleSubmit}>
         <div className="row">
           <Column className="col-md-8">

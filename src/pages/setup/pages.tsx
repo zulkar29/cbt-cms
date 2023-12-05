@@ -37,7 +37,7 @@ const CommonPages: React.FC = () => {
             <Column className="col-md-3">{page.slug}</Column>
             <Column className="col-md-3">
               <CustomIconArea>
-                <EditButton editUrl="/" />
+                <EditButton editUrl={`/setup/pages/edit/${page.id}`} />
                 <DeleteButton
                   onClick={() => handlePageDelete(page.id as number)}
                 />
