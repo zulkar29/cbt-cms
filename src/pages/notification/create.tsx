@@ -3,7 +3,10 @@ import Input from '../../components/forms/text-input';
 import TextArea from '../../components/forms/textarea';
 import { Button } from '../../components/button';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { createNotification } from '../../redux/notification/notificationSlice';
+import {
+  createNotification,
+  reset,
+} from '../../redux/notification/notificationSlice';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import Display from '../../components/display';
@@ -15,6 +18,7 @@ const CreateNotification = () => {
   const { isCreate, isError } = useAppSelector((state) => state.notification);
   const [title, setTitle] = useState('');
   const [details, setDetails] = useState('');
+  console.log(isError);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,7 +34,10 @@ const CreateNotification = () => {
     if (isError) {
       toast.error('Notification Error');
     }
-  }, [isCreate, isError, navigate]);
+    return () => {
+      dispatch(reset());
+    };
+  }, [isCreate, isError, navigate, dispatch]);
 
   return (
     <div>

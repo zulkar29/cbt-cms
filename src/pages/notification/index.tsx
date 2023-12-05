@@ -4,7 +4,10 @@ import Column from '../../components/table/column';
 import CardBody from '../../components/card-body';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useEffect } from 'react';
-import { getNotification } from '../../redux/notification/notificationSlice';
+import {
+  getNotification,
+  reset,
+} from '../../redux/notification/notificationSlice';
 
 const Notification = () => {
   const dispatch = useAppDispatch();
@@ -14,6 +17,10 @@ const Notification = () => {
 
   useEffect(() => {
     dispatch(getNotification());
+
+    return () => {
+      dispatch(reset());
+    };
   }, [isSuccess, dispatch]);
   return (
     <div>
