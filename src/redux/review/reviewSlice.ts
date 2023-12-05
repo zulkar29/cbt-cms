@@ -52,7 +52,7 @@ export const updateReview = createAsyncThunk(
 );
 
 export const reviewSlice = createSlice({
-  name: 'Blog',
+  name: 'review',
   initialState,
   reducers: {
     reset: () => initialState,
