@@ -32,6 +32,7 @@ const CreateProduct: React.FC = () => {
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [galleryImages, setGalleryImages] = useState<File[] | null>(null);
+  const [imageQuantities, setImageQuantities] = useState<number[]>([]);
   const [category, setCategory] = useState<string>('');
   const [quantity, setQuantity] = useState(0);
   const [regularPrice, setRegularPrice] = useState(0);
@@ -51,6 +52,8 @@ const CreateProduct: React.FC = () => {
   const [policy, setPolicy] = useState('');
   const [availability] = useState(true);
   const [isVariant, setIsVariant] = useState(false);
+
+  console.log(imageQuantities);
 
   const gasTypeOptions = [
     { label: 'NG', value: 'ng' },
@@ -88,20 +91,63 @@ const CreateProduct: React.FC = () => {
       setImage(file);
     }
   };
-  const handleGalleryImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+
+  /* const handleGalleryImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
       setGalleryImages(files);
     }
+  }; */
+  const handleGalleryImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+
+      // Initialize quantities for newly added images
+      const newQuantities = Array(files.length).fill(1);
+
+      setGalleryImages((prevImages) =>
+        prevImages ? [...prevImages, ...files] : files
+      );
+      setImageQuantities((prevQuantities) => [
+        ...prevQuantities,
+        ...newQuantities,
+      ]);
+    }
   };
-  const removeGalleryImage = (file: File) => {
+
+  const removeGalleryImage = (index: number) => {
+    setGalleryImages((prevImages) => {
+      if (prevImages) {
+        const newImages = [...prevImages];
+        newImages.splice(index, 1);
+        return newImages;
+      }
+      return [];
+    });
+
+    setImageQuantities((prevQuantities) => {
+      const newQuantities = [...prevQuantities];
+      newQuantities.splice(index, 1);
+      return newQuantities;
+    });
+  };
+
+  const handleQuantityChange = (index: number, value: number) => {
+    setImageQuantities((prevQuantities) => {
+      const newQuantities = [...prevQuantities];
+      newQuantities[index] = value;
+      return newQuantities;
+    });
+  };
+
+  /*  const removeGalleryImage = (file: File) => {
     if (galleryImages !== null) {
       const filterImages = galleryImages.filter(
         (singleFile) => singleFile.name != file.name
       );
       setGalleryImages(filterImages);
     }
-  };
+  }; */
 
   const handleProductSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -129,7 +175,7 @@ const CreateProduct: React.FC = () => {
     formData.append('availability', availability.toString());
     galleryImages?.forEach((g_image, index) => {
       formData.append('gallery_image', g_image);
-      formData.append('order_number', index.toString());
+      formData.append('order_number', imageQuantities[index].toString());
     });
     formData.append('meta_title', metaTitle);
     formData.append('meta_name', metaName);
@@ -199,26 +245,19 @@ const CreateProduct: React.FC = () => {
                   onChange={handleImageChange}
                   required
                 />
-                <p className="wearing">
-                  Image Size Should Be 800 x 800.
-                  <br /> or square size
-                </p>
                 {image && (
                   <div className="product-image">
                     <img
                       src={URL.createObjectURL(image)}
                       alt="gazi home appliance"
                     />
-                    <span
-                      className="cross"
-                      onClick={() => removeGalleryImage(image)}
-                    >
-                      <RxCross2 />
-                    </span>
-                    <input type="text" />
                   </div>
                 )}
                 <br />
+                <p className="wearing">
+                  Image Size Should Be 800 x 800.
+                  <br /> or square size
+                </p>
               </Display>
 
               <Display>
@@ -247,7 +286,7 @@ const CreateProduct: React.FC = () => {
                   multiple
                   required
                 />
-                <div className="row">
+                <div>
                   {galleryImages &&
                     galleryImages.length > 0 &&
                     galleryImages.map((image, index) => (
@@ -256,13 +295,22 @@ const CreateProduct: React.FC = () => {
                           src={URL.createObjectURL(image)}
                           alt="gazi home appliance"
                         />
+                        <input
+                          type="text"
+                          defaultValue={imageQuantities[index]}
+                          onBlur={(e) =>
+                            handleQuantityChange(
+                              index,
+                              parseInt(e.target.value, 10)
+                            )
+                          }
+                        />
                         <span
                           className="cross"
-                          onClick={() => removeGalleryImage(image)}
+                          onClick={() => removeGalleryImage(index)}
                         >
                           <RxCross2 />
                         </span>
-                        <input type="text" defaultValue={1} />
                       </div>
                     ))}
                 </div>

@@ -48,16 +48,14 @@ const UpdateProduct: React.FC = () => {
   const [regularPrice, setRegularPrice] = useState(0);
   const [discountPrice, setDiscountPrice] = useState(0);
   const [discountType, setDiscountType] = useState<'percent' | 'flat' | ''>('');
-  const [status, setStatus] = useState(true);
-  const [discount, setDiscount] = useState(0);
   const [deliveryFee, setDeliveryFee] = useState(0);
   const [videoUrl, setVideoUrl] = useState('');
   const [metaTitle, setMetaTitle] = useState('');
-  const [metaName, setMetaName] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
-  const [isSale, setIsSale] = useState(true);
-  const [isFeature, setIsFeature] = useState(true);
-  const [isNew, setIsNew] = useState(true);
+  const [status, setStatus] = useState<0 | 1>(1);
+  const [isSale, setIsSale] = useState<0 | 1>(0);
+  const [isFeature, setIsFeature] = useState<0 | 1>(0);
+  const [isNew, setIsNew] = useState<0 | 1>(0);
   const [sortDesc, setSortDesc] = useState('');
   const [policy, setPolicy] = useState('');
   const [availability, setAvailability] = useState(true);
@@ -101,10 +99,10 @@ const UpdateProduct: React.FC = () => {
     formData.append('delivery_fee', deliveryFee.toString());
     formData.append('status', status.toString());
     formData.append('video_url', videoUrl);
-    /* if (campaignDate !== null) {
+    if (campaignDate !== null) {
       formData.append('camping_start_date', campaignDate[0].toString());
       formData.append('camping_end_date', campaignDate[1].toString());
-    } */
+    }
     formData.append('upload_by', 'admin');
     formData.append('availability', availability.toString());
     galleryImages?.forEach((g_image, index) => {
@@ -112,7 +110,6 @@ const UpdateProduct: React.FC = () => {
       formData.append('order_number', index.toString());
     });
     formData.append('meta_title', metaTitle);
-    formData.append('meta_name', metaName);
     formData.append('meta_description', metaDescription);
     formData.append('sort_description', sortDesc);
     formData.append('is_homepage', '1');
@@ -124,13 +121,13 @@ const UpdateProduct: React.FC = () => {
     dispatch(updateProduct({ id: Number(slug), productData: formData }));
   };
 
-  useEffect(() => {
+  /*  useEffect(() => {
     if (discountType === 'flat') {
-      setDiscountPrice(regularPrice - discount);
+      setDiscountPrice(regularPrice - discountPrice);
     } else {
-      setDiscountPrice(regularPrice - (regularPrice * discount) / 100);
+      // setDiscountPrice(regularPrice - (regularPrice * discount) / 100);
     }
-  }, [discountType, regularPrice, discount]);
+  }, [discountType, regularPrice]); */
 
   useEffect(() => {
     if (isUpdate) {
@@ -162,21 +159,19 @@ const UpdateProduct: React.FC = () => {
         setCategory(data.category_slug);
         setQuantity(data.quantity);
         setRegularPrice(data.regular_price);
-        setDiscountPrice(data.discount_price);
+        setDiscountPrice(Number(data?.discount_price));
         setDiscountType('');
-        setStatus(data.is_visible === 1);
-        setDiscount(data.discount);
+        setStatus(data.is_visible);
         setDeliveryFee(data.delivery_fee);
         setVideoUrl(data.video_url);
         setMetaTitle(data.meta_title);
-        setMetaName(data.meta_name);
         setMetaDescription(data.meta_description);
-        setIsSale(data.is_sale === 1);
-        setIsFeature(data.is_feature === 1);
-        setIsNew(data.is_new === 1);
+        setIsSale(data.is_sale);
+        setIsFeature(data.is_feature);
+        setIsNew(data.is_new);
         setSortDesc(data.sort_description);
-        setPolicy(data.policy || '');
-        setAvailability(data.availability === 1);
+        setPolicy(data?.policy || '');
+        setAvailability(data.availability);
 
         if (data.camping_start_date && data.camping_end_date) {
           setCampaignDate([
@@ -204,7 +199,7 @@ const UpdateProduct: React.FC = () => {
     };
     fetchEmiData();
   }, [slug]);
-
+  console.log(discountPrice);
   return (
     <div className="create-product">
       <CardBody header="Update Product" to="/products" text="back" />
@@ -339,7 +334,7 @@ const UpdateProduct: React.FC = () => {
                     label="Discount Price"
                     htmlFor="discount-price"
                     value={discountPrice}
-                    onChange={(e) => setDiscount(Number(e.target.value))}
+                    onChange={(e) => setDiscountPrice(Number(e.target.value))}
                     required
                   />
                   <div>
@@ -389,29 +384,29 @@ const UpdateProduct: React.FC = () => {
                 <div className="sudo-item">
                   <span>Is New</span>
                   <ToggleButton
-                    isChecked={isNew}
-                    onClick={() => setIsNew(!isNew)}
+                    isChecked={isNew == 1}
+                    onClick={() => setIsNew(isNew == 0 ? 1 : 0)}
                   />
                 </div>
                 <div className="sudo-item">
                   <span>Is Sale</span>
                   <ToggleButton
-                    isChecked={isSale}
-                    onClick={() => setIsSale(!isSale)}
+                    isChecked={isSale === 1}
+                    onClick={() => setIsSale(isSale == 0 ? 1 : 0)}
                   />
                 </div>
                 <div className="sudo-item">
                   <span>Is Feature</span>
                   <ToggleButton
-                    isChecked={isFeature}
-                    onClick={() => setIsFeature(!isFeature)}
+                    isChecked={isFeature == 1}
+                    onClick={() => setIsFeature(isFeature == 0 ? 1 : 0)}
                   />
                 </div>
                 <div className="sudo-item">
                   <span>Status</span>
                   <ToggleButton
-                    isChecked={status}
-                    onClick={() => setStatus(!status)}
+                    isChecked={status == 1}
+                    onClick={() => setStatus(status == 0 ? 1 : 0)}
                   />
                 </div>
               </Display>
@@ -421,12 +416,6 @@ const UpdateProduct: React.FC = () => {
                   htmlFor="meta-title"
                   value={metaTitle}
                   onChange={(e) => setMetaTitle(e.target.value)}
-                />
-                <Input
-                  placeholder="Meta Name"
-                  htmlFor="meta-name"
-                  value={metaName}
-                  onChange={(e) => setMetaName(e.target.value)}
                 />
                 <TextArea
                   placeholder="Meta Description"

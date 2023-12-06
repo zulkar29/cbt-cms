@@ -8,9 +8,11 @@ import DownloadButton from '../button/download';
 import { IOrder } from '../../interfaces/order';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { deleteOrder, reset, updateOrder } from '../../redux/order/orderSlice';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import './index.scss';
+import Invoice from '../invoice';
+import ReactToPrint from 'react-to-print';
 
 interface IProps {
   orders: IOrder[];
@@ -27,7 +29,7 @@ const OrderTable = ({
 }: IProps) => {
   const dispatch = useAppDispatch();
   const { isUpdate, message } = useAppSelector((state) => state.order);
-
+  const componentRef = useRef<HTMLDivElement>(null);
   // const [invoiceVisible, setInvoiceVisible] = useState(false);
   const handleOrderDelete = (id: number) => {
     dispatch(deleteOrder([id]));
@@ -184,10 +186,16 @@ const OrderTable = ({
             <Column className="col-md-1">
               <CustomIconArea>
                 <ViewButton href={`/orders/views/${order.id}`} />
-                <DownloadButton />
+                <ReactToPrint
+                  trigger={() => <DownloadButton />}
+                  content={() => componentRef.current}
+                />
                 <DeleteButton onClick={() => handleOrderDelete(order.id)} />
               </CustomIconArea>
             </Column>
+            <div className="print-area" ref={componentRef}>
+              {<Invoice order={order} />}
+            </div>
           </Row>
         ))}
       </>
