@@ -48,6 +48,7 @@ import {
   Error,
   Notification,
   CreateNotification,
+  CustomOrder,
 } from './pages';
 import Csv from './product/csv';
 
@@ -73,6 +74,7 @@ function PageRoutes() {
       <Route path="/orders/pending" element={<PendingOrders />} />
       <Route path="/orders/delivered" element={<Delivered />} />
       <Route path="/orders/canceled" element={<Canceled />} />
+      <Route path="/orders/custom" element={<CustomOrder />} />
       <Route path="/orders/views/:slug" element={<OrderView />} />
       {/* Blog */}
       <Route path="/blogs" element={<Blogs />} />

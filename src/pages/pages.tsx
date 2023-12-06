@@ -46,6 +46,7 @@ import UpdateEmi from './Emi/update-emi';
 import CreateCoupon from './marketing/create-coupon';
 import Notification from './notification';
 import CreateNotification from './notification/create';
+import CustomOrder from './orders/custom-order';
 
 export {
   Blogs,
@@ -96,4 +97,5 @@ export {
   CreateCoupon,
   CreateNotification,
   Notification,
+  CustomOrder,
 };

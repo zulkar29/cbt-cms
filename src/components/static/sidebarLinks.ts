@@ -57,6 +57,10 @@ export const sidebarLinks = [
         slug: '/orders',
       },
       {
+        subtitle: 'Custom Orders',
+        slug: '/orders/custom',
+      },
+      {
         subtitle: 'Pending Orders',
         slug: '/orders/pending',
       },
