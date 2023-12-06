@@ -121,6 +121,19 @@ const UpdateProduct: React.FC = () => {
     dispatch(updateProduct({ id: Number(slug), productData: formData }));
   };
 
+  useEffect(() => {
+    if (discountType === 'percent') {
+      // Calculate discount price based on percentage
+      setDiscountPrice((regularPrice * discountPrice) / 100);
+    } else if (discountType === 'flat') {
+      // Use flat discount value
+      setDiscountPrice(discountPrice);
+    } else {
+      // Reset discount price if discount type is empty
+      setDiscountPrice(0);
+    }
+  }, [regularPrice, discountType, discountPrice]);
+
   /*  useEffect(() => {
     if (discountType === 'flat') {
       setDiscountPrice(regularPrice - discountPrice);
@@ -333,7 +346,7 @@ const UpdateProduct: React.FC = () => {
                     placeholder="Discount Price"
                     label="Discount Price"
                     htmlFor="discount-price"
-                    value={discountPrice}
+                    defaultValue={discountPrice.toString()}
                     onChange={(e) => setDiscountPrice(Number(e.target.value))}
                     required
                   />
