@@ -64,7 +64,7 @@ const OrderTable = ({
   }, [isUpdate, dispatch]);
 
   return (
-    <>
+    <div className="order-table">
       <>
         <Row className="row">
           <Column className="col-md-1">
@@ -84,8 +84,8 @@ const OrderTable = ({
           <Column className="col-md-1">Order Num.</Column>
           <Column className="col-md-1">Invoice NO</Column>
           <Column className="col-md-1">Total Amount</Column>
-          <Column className="col-md-2">Customer</Column>
-          <Column className="col-md-1">Contact No</Column>
+          <Column className="col-md-1">Customer</Column>
+          <Column className="col-md-2">Contact No</Column>
           <Column className="col-md-1">Num. of Products</Column>
           <Column className="col-md-1">Payment Status</Column>
           <Column className="col-md-1">Delivery Status</Column>
@@ -112,11 +112,13 @@ const OrderTable = ({
               />
             </Column>
             <Column className="col-md-1">{order.id}</Column>
-            <Column className="col-md-1"> </Column>
+            <Column className="col-md-1">
+              {order.order_Prefix} - {order.id}
+            </Column>
             <Column className="col-md-1">{`৳${order.final_price}`}</Column>
-            <Column className="col-md-2">{order.name}</Column>
-            <Column className="col-md-1">{order.mobile}</Column>
-            <Column className="col-md-1">{order?.orderItems?.length}</Column>
+            <Column className="col-md-1">{order.name}</Column>
+            <Column className="col-md-2">{order.mobile}</Column>
+            <Column className="col-md-1">{order.total_item}</Column>
             <Column className="col-md-1">
               <Select
                 onChange={(e: ChangeEvent<HTMLSelectElement>) =>
@@ -182,14 +184,14 @@ const OrderTable = ({
             <Column className="col-md-1">
               <CustomIconArea>
                 <ViewButton href={`/orders/views/${order.id}`} />
-                <DownloadButton onClick={() => console.log(true)} />
+                <DownloadButton />
                 <DeleteButton onClick={() => handleOrderDelete(order.id)} />
               </CustomIconArea>
             </Column>
           </Row>
         ))}
       </>
-    </>
+    </div>
   );
 };
 
