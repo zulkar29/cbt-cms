@@ -27,6 +27,8 @@ const Categories: React.FC = () => {
   const [search, setSearch] = useState<string>('');
   const totalPage = Math.floor(totalCount / displayItem);
 
+  console.log(displayItem);
+
   console.log(isUpdate);
 
   const handleVisibility = (category: ICategory) => {
@@ -55,7 +57,9 @@ const Categories: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getCategories({ page: pageNumber, limit: 15, title: search }));
+    dispatch(
+      getCategories({ page: pageNumber, limit: displayItem, title: search })
+    );
   }, [dispatch, isUpdate, isDelete, pageNumber, search, isSuccess]);
 
   return (

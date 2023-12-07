@@ -4,8 +4,10 @@ import Pagination from '../../components/pagination';
 import Column from '../../components/table/column';
 import Row from '../../components/table/row';
 import ToggleButton from '../../components/forms/checkbox';
+import { useAppSelector } from '../../redux/hooks';
 
 const Reviews: React.FC = () => {
+  // const {} = useAppSelector(state=> state.r)
   return (
     <div>
       <CardBody header="Reviews" to="/products/reviews#" />

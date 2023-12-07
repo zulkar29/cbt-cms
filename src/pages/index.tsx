@@ -49,6 +49,9 @@ import {
   Notification,
   CreateNotification,
   CustomOrder,
+  Attributes,
+  CreateAttributes,
+  UpdateAttribute,
 } from './pages';
 import Csv from './product/csv';
 
@@ -67,6 +70,9 @@ function PageRoutes() {
       <Route path="/products/create" element={<CreateProduct />} />
       <Route path="/products/stockout" element={<StockOutProducts />} />
       <Route path="/products/reviews" element={<Reviews />} />
+      <Route path="/attributes" element={<Attributes />} />
+      <Route path="/attributes/create" element={<CreateAttributes />} />
+      <Route path="/attributes/edit/:slug" element={<UpdateAttribute />} />
 
       {/* Orders */}
       <Route path="/orders" element={<AllOrders />} />

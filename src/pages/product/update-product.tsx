@@ -64,7 +64,6 @@ const UpdateProduct: React.FC = () => {
   const [availability, setAvailability] = useState(true);
   const [orderNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(isLoading);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -86,15 +85,12 @@ const UpdateProduct: React.FC = () => {
       axios
         .post(`${API_URL}/product-photos`, formData)
         .then((response) => {
-          // Handle success, you can access the response data if needed
           console.log('API call successful', response.data);
         })
         .catch((error) => {
-          // Handle error, you can access the error response if needed
           console.error('API call failed', error);
         })
         .finally(() => {
-          // This block will run whether the API call is successful or not
           setIsLoading(false);
         });
     }
@@ -133,10 +129,6 @@ const UpdateProduct: React.FC = () => {
     }
     formData.append('upload_by', 'admin');
     formData.append('availability', availability.toString());
-    galleryImages?.forEach((g_image, index) => {
-      formData.append('gallery_image', g_image);
-      formData.append('order_number', index.toString());
-    });
     formData.append('meta_title', metaTitle);
     formData.append('meta_description', metaDescription);
     formData.append('sort_description', sortDesc);

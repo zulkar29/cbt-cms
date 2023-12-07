@@ -15,9 +15,9 @@ const updateReview = async (faqData: Partial<IReview>) => {
   return data;
 };
 
-const faqService = {
+const reviewService = {
   getReview,
   updateReview,
 };
 
-export default faqService;
+export default reviewService;

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import faqService from './reviewService';
 import { IReview } from '../../interfaces/review';
+import reviewService from './reviewService';
 
 interface IBlogResponse {
   reviews: IReview[];
@@ -29,7 +29,7 @@ export const getReview = createAsyncThunk(
   'review/getAll',
   async (_, thunkAPI) => {
     try {
-      return await faqService.getReview();
+      return await reviewService.getReview();
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -40,9 +40,9 @@ export const getReview = createAsyncThunk(
 
 export const updateReview = createAsyncThunk(
   'review/update',
-  async (faqData: Partial<IReview>, thunkAPI) => {
+  async (data: Partial<IReview>, thunkAPI) => {
     try {
-      return await faqService.updateReview(faqData);
+      return await reviewService.updateReview(data);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';

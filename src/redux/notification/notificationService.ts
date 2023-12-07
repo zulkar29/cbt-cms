@@ -22,9 +22,9 @@ const getNotification = async (): Promise<INotificationResponse> => {
   return data;
 };
 
-const faqService = {
+const NotificationService = {
   createNotification,
   getNotification,
 };
 
-export default faqService;
+export default NotificationService;

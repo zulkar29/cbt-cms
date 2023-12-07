@@ -19,6 +19,9 @@ import ReactSelect from 'react-select';
 import makeAnimated from 'react-select/animated';
 import 'rsuite/dist/rsuite.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { API_URL } from '../../constants';
+import { Attribute, IAttributeResponse } from '../../interfaces/attribute';
 const animatedComponents = makeAnimated();
 
 const CreateProduct: React.FC = () => {
@@ -52,38 +55,33 @@ const CreateProduct: React.FC = () => {
   const [policy, setPolicy] = useState('');
   const [availability] = useState(true);
   const [isVariant, setIsVariant] = useState(false);
+  const [attributes, setAttributes] = useState<Attribute[]>([]);
 
-  console.log(imageQuantities);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get<IAttributeResponse>(
+          `${API_URL}/attributes`
+        );
+
+        // Handle successful response
+        console.log('Fetched data successfully', response.data);
+
+        // Update state with the fetched data
+        setAttributes(response.data?.data?.rows);
+      } catch (error) {
+        // Handle error
+        console.error('Failed to fetch data', error);
+      }
+    };
+    // Fetch data when the component mounts
+    fetchData();
+  }, []); // Empty dependency array ensures the effect runs only once when the component mounts
 
   const gasTypeOptions = [
     { label: 'NG', value: 'ng' },
     { label: 'LPG', value: 'lpg' },
   ];
-  /*   console.log({
-    campaignDate,
-    title,
-    slug,
-    description,
-    image,
-    galleryImages,
-    category,
-    quantity,
-    regularPrice,
-    discountPrice,
-    discountType,
-    discount,
-    deliveryFee,
-    videoUrl,
-    metaTitle,
-    metaName,
-    metaDescription,
-    isSale,
-    isFeature,
-    isNew,
-    sortDesc,
-    policy,
-    availability,
-  }); */
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {

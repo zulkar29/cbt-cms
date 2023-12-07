@@ -21,7 +21,7 @@ const Notification = () => {
     return () => {
       dispatch(reset());
     };
-  }, [isSuccess, dispatch]);
+  }, [dispatch]);
   return (
     <div>
       <CardBody header="Notifications" to="/notification/create" />

@@ -34,6 +34,10 @@ export const sidebarLinks = [
         slug: '/products',
       },
       {
+        subtitle: 'Attributes',
+        slug: '/attributes',
+      },
+      {
         subtitle: 'Stock Out Products',
         slug: '/products/stockout',
       },
