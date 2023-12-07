@@ -19,6 +19,7 @@ import { reset, updateProduct } from '../../redux/products/product-slice';
 import axios from 'axios';
 import { API_ROOT, API_URL } from '../../constants';
 import { useNavigate, useParams } from 'react-router-dom';
+import { string } from 'prop-types';
 interface IPhoto {
   id: number;
   product_id: number;
@@ -59,6 +60,7 @@ const UpdateProduct: React.FC = () => {
   const [sortDesc, setSortDesc] = useState('');
   const [policy, setPolicy] = useState('');
   const [availability, setAvailability] = useState(true);
+  const [orderNumber] = useState(1);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -67,9 +69,13 @@ const UpdateProduct: React.FC = () => {
     }
   };
   const handleGalleryImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const formData = new FormData();
     if (e.target.files) {
-      const files = Array.from(e.target.files);
-      setGalleryImages(files);
+      const file = e.target.files[0];
+      formData.append('image', file);
+      formData.append('order_number', orderNumber.toString());
+      formData.append('product_id', slug as string);
+      axios.post(`${API_URL}/product-photos`, formData);
     }
   };
   const removeGalleryImage = (file: File) => {
@@ -283,7 +289,6 @@ const UpdateProduct: React.FC = () => {
                 <FileInput
                   label="Gallery Images"
                   onChange={handleGalleryImageChange}
-                  multiple
                 />
                 <div className="update-gallery">
                   {galleryImages &&
