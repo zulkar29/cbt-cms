@@ -212,7 +212,7 @@ const UpdateProduct: React.FC = () => {
     };
     fetchEmiData();
   }, [slug]);
-  console.log(discountPrice);
+  console.log(galleryImages);
   return (
     <div className="create-product">
       <CardBody header="Update Product" to="/products" text="back" />
@@ -285,18 +285,28 @@ const UpdateProduct: React.FC = () => {
                   onChange={handleGalleryImageChange}
                   multiple
                 />
-                <div className="row">
+                <div className="update-gallery">
                   {galleryImages &&
                     galleryImages.length > 0 &&
-                    galleryImages.map((image, index) => (
+                    galleryImages.map((productPhoto, index) => (
                       <div key={index} className="product-image">
-                        {/*  <img
-                          src={URL.createObjectURL(image)}
+                        <img
+                          src={`${API_ROOT}/images/product/${productPhoto.image}`}
                           alt="gazi home appliance"
-                        /> */}
+                        />
+                        <input
+                          type="text"
+                          defaultValue={productPhoto.order_number}
+                          /*  onBlur={(e) =>
+                            handleQuantityChange(
+                              index,
+                              parseInt(e.target.value, 10)
+                            )
+                          } */
+                        />
                         <span
                           className="cross"
-                          onClick={() => removeGalleryImage(image)}
+                          onClick={() => removeGalleryImage(index)}
                         >
                           <RxCross2 />
                         </span>
