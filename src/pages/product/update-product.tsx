@@ -19,7 +19,7 @@ import { reset, updateProduct } from '../../redux/products/product-slice';
 import axios from 'axios';
 import { API_ROOT, API_URL } from '../../constants';
 import { useNavigate, useParams } from 'react-router-dom';
-import { string } from 'prop-types';
+import { IGalleryPhoto } from '../../interfaces/product';
 interface IPhoto {
   id: number;
   product_id: number;
@@ -43,7 +43,9 @@ const UpdateProduct: React.FC = () => {
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [updateImage, setUpdateImage] = useState<File | null>(null);
-  const [galleryImages, setGalleryImages] = useState<File[] | null>(null);
+  const [galleryImages, setGalleryImages] = useState<IGalleryPhoto[] | null>(
+    null
+  );
   const [category, setCategory] = useState<string>('');
   const [quantity, setQuantity] = useState(0);
   const [regularPrice, setRegularPrice] = useState(0);
@@ -61,6 +63,8 @@ const UpdateProduct: React.FC = () => {
   const [policy, setPolicy] = useState('');
   const [availability, setAvailability] = useState(true);
   const [orderNumber] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  console.log(isLoading);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -68,23 +72,41 @@ const UpdateProduct: React.FC = () => {
       setUpdateImage(file);
     }
   };
+
   const handleGalleryImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsLoading(true);
     const formData = new FormData();
+
     if (e.target.files) {
       const file = e.target.files[0];
       formData.append('image', file);
       formData.append('order_number', orderNumber.toString());
       formData.append('product_id', slug as string);
-      axios.post(`${API_URL}/product-photos`, formData);
+
+      axios
+        .post(`${API_URL}/product-photos`, formData)
+        .then((response) => {
+          // Handle success, you can access the response data if needed
+          console.log('API call successful', response.data);
+        })
+        .catch((error) => {
+          // Handle error, you can access the error response if needed
+          console.error('API call failed', error);
+        })
+        .finally(() => {
+          // This block will run whether the API call is successful or not
+          setIsLoading(false);
+        });
     }
   };
-  const removeGalleryImage = (file: File) => {
-    if (galleryImages !== null) {
-      const filterImages = galleryImages.filter(
-        (singleFile) => singleFile.name != file.name
-      );
-      setGalleryImages(filterImages);
+
+  const removeGalleryImage = async (id: number) => {
+    setIsLoading(true);
+    const res = await axios.delete(`${API_URL}/product-photos?ids=[${id}]`);
+    if (res.data) {
+      toast.success('Gallery image deleted Successfully');
     }
+    setIsLoading(false);
   };
 
   const handleProductSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -217,8 +239,8 @@ const UpdateProduct: React.FC = () => {
       }
     };
     fetchEmiData();
-  }, [slug]);
-  console.log(galleryImages);
+  }, [slug, isLoading]);
+
   return (
     <div className="create-product">
       <CardBody header="Update Product" to="/products" text="back" />
@@ -311,7 +333,7 @@ const UpdateProduct: React.FC = () => {
                         />
                         <span
                           className="cross"
-                          onClick={() => removeGalleryImage(index)}
+                          onClick={() => removeGalleryImage(productPhoto.id)}
                         >
                           <RxCross2 />
                         </span>

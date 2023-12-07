@@ -24,6 +24,14 @@ export interface IProduct {
   updated_at?: string;
   created_at?: string;
 }
+export type IGalleryPhoto = {
+  id: number;
+  product_id: string;
+  order_number: string;
+  image: string;
+  updated_at: string;
+  created_at: string;
+};
 
 export interface IProductResponse {
   massage: string;
