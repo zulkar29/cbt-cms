@@ -36,6 +36,19 @@ export interface IOrder {
   total_item: number;
 }
 
+export type ISingleOrder = {
+  id: number;
+  order_id: number;
+  product_id: number;
+  product_name: string;
+  product_attribute: null | string;
+  quantity: number;
+  regular_price: number;
+  discount_price: number;
+  created_at: string;
+  updated_at: string;
+};
+
 export interface IOrderResponse {
   massage: string;
   data: { count: number; rows: IOrder[] };

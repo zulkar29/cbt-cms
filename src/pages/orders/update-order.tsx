@@ -6,13 +6,7 @@ import './custom-order.scss';
 import { useEffect, useRef, useState } from 'react';
 import { getProducts, reset } from '../../redux/products/product-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import {
-  addToCart,
-  clearCart,
-  decrementQuantity,
-  incrementQuantity,
-  removeFromCart,
-} from '../../redux/cart/cartSlice';
+import { addToCart, clearCart } from '../../redux/cart/cartSlice';
 import axios from 'axios';
 import { API_URL } from '../../constants';
 import { toast } from 'react-toastify';
@@ -20,11 +14,11 @@ import { FiPlus } from 'react-icons/fi';
 import { LuMinus } from 'react-icons/lu';
 import { RxCross2 } from 'react-icons/rx';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ISingleOrder } from '../../interfaces/order';
 
 const UpdateOrder = () => {
   const { slug } = useParams();
   const { products } = useAppSelector((state) => state.product);
-  const { cart: cartItems } = useAppSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [name, setName] = useState('');
@@ -33,13 +27,16 @@ const UpdateOrder = () => {
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [thana, setThana] = useState('');
-  const [discount, setDiscount] = useState(0);
-  const [shipping, setShipping] = useState(0);
-  const [orderItems, setOrderItems] = useState([]);
+  // const [discount, setDiscount] = useState(0);
+  // const [shipping, setShipping] = useState(0);
+  const [orderItems, setOrderItems] = useState<ISingleOrder[]>([]);
   const [final_price, setFinalPrice] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
   const [search, setSearch] = useState('');
   const productAreaRef = useRef<HTMLDivElement>(null);
+  const [loading, setLoading] = useState(false);
+
+  console.log(orderItems);
 
   const orderData = {
     name,
@@ -48,9 +45,6 @@ const UpdateOrder = () => {
     address,
     city,
     thana,
-    final_price: final_price + shipping - discount,
-    delivery_fee: 0,
-    orderItems,
   };
 
   const handleOrder = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -95,7 +89,7 @@ const UpdateOrder = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API_URL}/attributes/${slug}`);
+        const response = await axios.get(`${API_URL}/orders/${slug}`);
         const data = response.data.data;
 
         // Set state values based on the fetched data
@@ -113,7 +107,31 @@ const UpdateOrder = () => {
     };
 
     fetchData();
-  }, [slug]);
+  }, [slug, loading]);
+
+  const handleIncrementOrderItem = async (data: ISingleOrder) => {
+    const orderId = data.id;
+
+    try {
+      setLoading(true);
+
+      // Update order item quantity
+      await axios.patch(`${API_URL}/order-items/${orderId}`, {
+        quantity: data.quantity + 1,
+      });
+
+      // Update order final price
+      await axios.patch(`${API_URL}/orders/${slug}`, {
+        final_price: final_price + data.discount_price,
+      });
+
+      // Handle success if needed
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -125,37 +143,43 @@ const UpdateOrder = () => {
               <div className="col-md-5 custom-item">
                 <Input
                   htmlFor="customer"
+                  value={name}
                   placeholder="Name"
                   onBlur={(e) => setName(e.target.value)}
                 />
                 <Input
                   htmlFor="email"
+                  value={email}
                   placeholder="Email"
                   onBlur={(e) => setEmail(e.target.value)}
                 />
                 <Input
                   htmlFor="mobile"
+                  value={mobile}
                   placeholder="Mobile"
                   onBlur={(e) => setMobile(e.target.value)}
                 />
                 <Input
                   htmlFor="address"
+                  value={address}
                   placeholder="Address"
                   onBlur={(e) => setAddress(e.target.value)}
                 />
                 <Input
                   htmlFor="city"
+                  value={city}
                   placeholder="City"
                   onBlur={(e) => setCity(e.target.value)}
                 />
                 <Input
                   htmlFor="thana"
+                  value={thana}
                   placeholder="Thana"
                   onBlur={(e) => setThana(e.target.value)}
                 />
               </div>
               <div className="col-md-4 custom-item">
-                <Input
+                {/*  <Input
                   htmlFor="discount"
                   placeholder="discount"
                   onChange={(e) => setDiscount(Number(e.target.value))}
@@ -164,7 +188,7 @@ const UpdateOrder = () => {
                   htmlFor="shipping"
                   placeholder="shipping"
                   onChange={(e) => setShipping(Number(e.target.value))}
-                />
+                /> */}
                 {/* <Input htmlFor="variant" placeholder="variant" /> */}
                 <div className="product-area" ref={productAreaRef}>
                   <Input
@@ -197,31 +221,31 @@ const UpdateOrder = () => {
                       </ul>
                     </div>
                   )}
-                  {cartItems.map((cart) => (
+                  {orderItems.map((order) => (
                     <div className="row order-item">
                       <div className="col-md-6">
-                        <p className="title">{cart.title}</p>
+                        <p className="title">{order.product_name}</p>
                       </div>
                       <div className="col-md-2 price">
-                        <p>{cart.price}</p>
+                        <p>{order.quantity}</p>
                       </div>
                       <div className="col-md-3">
                         <div className="qnty">
                           <FiPlus
                             className="plus"
-                            onClick={() => dispatch(incrementQuantity(cart))}
+                            onClick={() => handleIncrementOrderItem(order)}
                           />
-                          <p>{cart.quantity}</p>
+                          <p>{order.quantity}</p>
                           <LuMinus
                             className="minus"
-                            onClick={() => dispatch(decrementQuantity(cart))}
+                            // onClick={() => dispatch(decrementQuantity(order))}
                           />
                         </div>
                       </div>
                       <div className="col-md-1">
                         <RxCross2
                           className="cross"
-                          onClick={() => dispatch(removeFromCart(cart))}
+                          // onClick={() => dispatch(removeFromCart(cart))}
                         />
                       </div>
                     </div>
@@ -234,13 +258,13 @@ const UpdateOrder = () => {
                     <div className="col-md-9 left">Product Total Price</div>
                     <div className="col-md-3 right">{final_price}</div>
                     <div className="col-md-9 left">Shipping</div>
-                    <div className="col-md-3 right">{shipping}</div>
+                    {/*  <div className="col-md-3 right">{shipping}</div>
                     <div className="col-md-9 left">Discount</div>
                     <div className="col-md-3 right">{discount}</div>
                     <div className="col-md-9 left">Total</div>
                     <div className="col-md-3 right">
                       {final_price + shipping - discount}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
