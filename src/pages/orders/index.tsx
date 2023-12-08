@@ -23,7 +23,7 @@ const AllOrders: React.FC = () => {
     (state) => state.order
   );
   const [displayItem, setDisplayItem] = useState(10);
-  const totalPage = Math.floor(totalCount / displayItem);
+  const totalPage = Math.ceil(totalCount / displayItem);
 
   const handlePageChange = (selectedItem: { selected: number }) => {
     setPageNumber(selectedItem.selected + 1);

@@ -24,7 +24,7 @@ const Customers: React.FC = () => {
     (state) => state.customer
   );
 
-  const totalPage = Math.floor(totalCount / displayItem);
+  const totalPage = Math.ceil(totalCount / displayItem);
 
   const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
     setDisplayItem(Number(e.target.value));

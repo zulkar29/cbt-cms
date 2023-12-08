@@ -25,7 +25,7 @@ const Blogs: React.FC = () => {
     (state) => state.blogs
   );
 
-  const totalPage = Math.floor(totalCount / displayItem);
+  const totalPage = Math.ceil(totalCount / displayItem);
 
   const handleStatusChange = (blog: BlogData) => {
     dispatch(

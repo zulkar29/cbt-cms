@@ -15,7 +15,7 @@ const Canceled: React.FC = () => {
   const { orders, isDelete, totalCount } = useAppSelector(
     (state) => state.order
   );
-  const totalPage = Math.floor(totalCount / displayItem);
+  const totalPage = Math.ceil(totalCount / displayItem);
 
   const handlePageChange = (selectedItem: { selected: number }) => {
     setPageNumber(selectedItem.selected + 1);
