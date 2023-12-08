@@ -17,6 +17,7 @@ import menuReducer from './menus/menuSlice';
 import notificationReducer from './notification/notificationSlice';
 import queryReducer from './query/querySlice';
 import reviewReducer from './review/reviewSlice';
+import cartReducer from './cart/cartSlice';
 // ...
 const store = configureStore({
   reducer: {
@@ -38,6 +39,7 @@ const store = configureStore({
     notification: notificationReducer,
     query: queryReducer,
     review: reviewReducer,
+    cart: cartReducer,
   },
   // devTools: false,
 });

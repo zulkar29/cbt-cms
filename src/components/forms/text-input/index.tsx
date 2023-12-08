@@ -16,6 +16,7 @@ interface IProps {
   min?: string;
   max?: string;
   onFocus?: () => void;
+  autocomplete?: string;
 }
 
 const Input: React.FC<IProps> = ({
@@ -31,6 +32,7 @@ const Input: React.FC<IProps> = ({
   onChange,
   onBlur,
   onFocus,
+  autocomplete,
   min,
   max,
 }) => {
@@ -51,6 +53,7 @@ const Input: React.FC<IProps> = ({
         readOnly={readOnly}
         min={min}
         max={max}
+        autoComplete={autocomplete}
       />
     </div>
   );
