@@ -7,7 +7,8 @@ import ToggleButton from '../../components/forms/checkbox';
 import { useAppSelector } from '../../redux/hooks';
 
 const Reviews: React.FC = () => {
-  // const {} = useAppSelector(state=> state.r)
+  const { reviews } = useAppSelector((state) => state.review);
+  console.log(reviews);
   return (
     <div>
       <CardBody header="Reviews" to="/products/reviews#" />

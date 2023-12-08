@@ -11,9 +11,7 @@ import {
 
 const Notification = () => {
   const dispatch = useAppDispatch();
-  const { notifications, isSuccess } = useAppSelector(
-    (state) => state.notification
-  );
+  const { notifications } = useAppSelector((state) => state.notification);
 
   useEffect(() => {
     dispatch(getNotification());

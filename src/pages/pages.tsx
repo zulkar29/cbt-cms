@@ -47,7 +47,7 @@ import CreateCoupon from './marketing/create-coupon';
 import Notification from './notification';
 import CreateNotification from './notification/create';
 import CustomOrder from './orders/custom-order';
-import Attributes from './product/Attributes';
+import Attributes from './product/attributes';
 import CreateAttributes from './product/create-attributes';
 import UpdateAttribute from './product/update-attribute';
 

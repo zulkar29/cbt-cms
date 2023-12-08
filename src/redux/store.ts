@@ -16,6 +16,7 @@ import serviceReducer from './service/keypointSlice';
 import menuReducer from './menus/menuSlice';
 import notificationReducer from './notification/notificationSlice';
 import queryReducer from './query/querySlice';
+import reviewReducer from './review/reviewSlice';
 // ...
 const store = configureStore({
   reducer: {
@@ -36,6 +37,7 @@ const store = configureStore({
     menu: menuReducer,
     notification: notificationReducer,
     query: queryReducer,
+    review: reviewReducer,
   },
   // devTools: false,
 });
