@@ -19,9 +19,10 @@ import { toast } from 'react-toastify';
 import { FiPlus } from 'react-icons/fi';
 import { LuMinus } from 'react-icons/lu';
 import { RxCross2 } from 'react-icons/rx';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const UpdateOrder = () => {
+  const { slug } = useParams();
   const { products } = useAppSelector((state) => state.product);
   const { cart: cartItems } = useAppSelector((state) => state.cart);
   const navigate = useNavigate();
@@ -34,21 +35,11 @@ const UpdateOrder = () => {
   const [thana, setThana] = useState('');
   const [discount, setDiscount] = useState(0);
   const [shipping, setShipping] = useState(0);
-  // const [varient, setVarient] = useState('');
+  const [orderItems, setOrderItems] = useState([]);
+  const [final_price, setFinalPrice] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
   const [search, setSearch] = useState('');
   const productAreaRef = useRef<HTMLDivElement>(null);
-
-  const final_price = cartItems.reduce(
-    (accumulator, currentValue) =>
-      accumulator + currentValue.price * currentValue.quantity,
-    0
-  );
-
-  const orderItem = cartItems.map((item) => ({
-    product_id: item.product_id,
-    quantity: item.quantity,
-  }));
 
   const orderData = {
     name,
@@ -57,13 +48,9 @@ const UpdateOrder = () => {
     address,
     city,
     thana,
-    order_form: 'custom',
     final_price: final_price + shipping - discount,
     delivery_fee: 0,
-    payment_method: 'custom',
-    order_status: 'pending',
-    delivery_method: 'custom',
-    orderItem,
+    orderItems,
   };
 
   const handleOrder = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -104,6 +91,29 @@ const UpdateOrder = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isFocus]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/attributes/${slug}`);
+        const data = response.data.data;
+
+        // Set state values based on the fetched data
+        setName(data.name);
+        setEmail(data.email);
+        setMobile(data.mobile);
+        setAddress(data.address);
+        setCity(data.city);
+        setThana(data.thana);
+        setFinalPrice(data.final_price);
+        setOrderItems(data.orderItems);
+      } catch (error) {
+        console.error('Error fetching category data:', error);
+      }
+    };
+
+    fetchData();
+  }, [slug]);
 
   return (
     <div>
@@ -235,7 +245,7 @@ const UpdateOrder = () => {
                 </div>
               </div>
             </div>
-            <Button type="submit">Create Order</Button>
+            <Button type="submit">Update Order</Button>
           </form>
         </div>
       </Display>

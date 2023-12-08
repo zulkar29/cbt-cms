@@ -52,6 +52,7 @@ import {
   Attributes,
   CreateAttributes,
   UpdateAttribute,
+  UpdateOrder,
 } from './pages';
 import Csv from './product/csv';
 
@@ -82,6 +83,7 @@ function PageRoutes() {
       <Route path="/orders/canceled" element={<Canceled />} />
       <Route path="/orders/custom" element={<CustomOrder />} />
       <Route path="/orders/views/:slug" element={<OrderView />} />
+      <Route path="/orders/edit/:slug" element={<UpdateOrder />} />
       {/* Blog */}
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/blogs/create" element={<CreateBlog />} />

@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import './index.scss';
 import Invoice from '../invoice';
 import ReactToPrint from 'react-to-print';
+import EditButton from '../button/edit';
 
 interface IProps {
   orders: IOrder[];
@@ -186,6 +187,7 @@ const OrderTable = ({
             <Column className="col-md-1">
               <CustomIconArea>
                 <ViewButton href={`/orders/views/${order.id}`} />
+                <EditButton editUrl={`/orders/edit/${order.id}`} />
                 <ReactToPrint
                   trigger={() => <DownloadButton />}
                   content={() => componentRef.current}

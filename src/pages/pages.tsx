@@ -50,6 +50,7 @@ import CustomOrder from './orders/custom-order';
 import Attributes from './product/attributes';
 import CreateAttributes from './product/create-attributes';
 import UpdateAttribute from './product/update-attribute';
+import UpdateOrder from './orders/update-order';
 
 export {
   Blogs,
@@ -104,4 +105,5 @@ export {
   Attributes,
   CreateAttributes,
   UpdateAttribute,
+  UpdateOrder,
 };
