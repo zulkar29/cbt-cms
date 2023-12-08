@@ -21,7 +21,7 @@ import { LuMinus } from 'react-icons/lu';
 import { RxCross2 } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 
-const CustomOrder = () => {
+const UpdateOrder = () => {
   const { products } = useAppSelector((state) => state.product);
   const { cart: cartItems } = useAppSelector((state) => state.cart);
   const navigate = useNavigate();
@@ -243,4 +243,4 @@ const CustomOrder = () => {
   );
 };
 
-export default CustomOrder;
+export default UpdateOrder;
