@@ -18,6 +18,8 @@ const CustomOrder = () => {
   const [discount, setDiscount] = useState(0);
   const [shipping, setShipping] = useState(0);
   const [varient, setVarient] = useState('');
+  const [isFocus, setIsFocus] = useState(false);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     getProducts({});
@@ -63,9 +65,19 @@ const CustomOrder = () => {
                 />
               </div>
               <div className="col-md-4 custom-item">
-                <Input htmlFor="customer" placeholder="discount" />
-                <Input htmlFor="customer" placeholder="shipping" />
-                <Input htmlFor="customer" placeholder="variant" />
+                <Input htmlFor="discount" placeholder="discount" />
+                <Input htmlFor="shipping" placeholder="shipping" />
+                <Input htmlFor="variant" placeholder="variant" />
+                <div>
+                  <Input
+                    htmlFor="search"
+                    placeholder="Search Product"
+                    onChange={(e) => setSearch(e.target.value)}
+                    onBlur={() => setIsFocus(false)}
+                    onFocus={() => setIsFocus(true)}
+                  />
+                  {isFocus && <div>Something</div>}
+                </div>
               </div>
               <div className="col-md-3 custom-item">Summery</div>
             </div>

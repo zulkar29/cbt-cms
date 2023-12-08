@@ -15,6 +15,7 @@ interface IProps {
   name?: string;
   min?: string;
   max?: string;
+  onFocus?: () => void;
 }
 
 const Input: React.FC<IProps> = ({
@@ -29,6 +30,7 @@ const Input: React.FC<IProps> = ({
   name,
   onChange,
   onBlur,
+  onFocus,
   min,
   max,
 }) => {
@@ -41,6 +43,7 @@ const Input: React.FC<IProps> = ({
         id={htmlFor}
         onChange={onChange}
         onBlur={onBlur}
+        onFocus={onFocus}
         placeholder={placeholder}
         defaultValue={defaultValue}
         value={value}
