@@ -72,7 +72,7 @@ const CustomOrder = () => {
       await axios.post(`${API_URL}/orders`, orderData).then(() => {
         toast.success('Order create successfully');
         dispatch(clearCart());
-        navigate('/');
+        navigate('/orders');
         // window.location.reload();
       });
     } catch (error) {
@@ -116,31 +116,37 @@ const CustomOrder = () => {
                 <Input
                   htmlFor="customer"
                   placeholder="Name"
+                  label="Customer Name"
                   onBlur={(e) => setName(e.target.value)}
                 />
                 <Input
                   htmlFor="email"
                   placeholder="Email"
+                  label="Customer Email"
                   onBlur={(e) => setEmail(e.target.value)}
                 />
                 <Input
                   htmlFor="mobile"
                   placeholder="Mobile"
+                  label="Customer Mobile"
                   onBlur={(e) => setMobile(e.target.value)}
                 />
                 <Input
                   htmlFor="address"
                   placeholder="Address"
+                  label="Address"
                   onBlur={(e) => setAddress(e.target.value)}
                 />
                 <Input
                   htmlFor="city"
                   placeholder="City"
+                  label="City"
                   onBlur={(e) => setCity(e.target.value)}
                 />
                 <Input
                   htmlFor="thana"
                   placeholder="Thana"
+                  label="Thana"
                   onBlur={(e) => setThana(e.target.value)}
                 />
               </div>
@@ -148,11 +154,13 @@ const CustomOrder = () => {
                 <Input
                   htmlFor="discount"
                   placeholder="discount"
+                  label="Discount Price"
                   onChange={(e) => setDiscount(Number(e.target.value))}
                 />
                 <Input
                   htmlFor="shipping"
                   placeholder="shipping"
+                  label="Shipping Price"
                   onChange={(e) => setShipping(Number(e.target.value))}
                 />
                 {/* <Input htmlFor="variant" placeholder="variant" /> */}
@@ -160,6 +168,7 @@ const CustomOrder = () => {
                   <Input
                     htmlFor="search"
                     placeholder="Search Product"
+                    label="Search Product"
                     onChange={(e) => setSearch(e.target.value)}
                     // onBlur={() => setIsFocus(false)}
                     autocomplete="off"

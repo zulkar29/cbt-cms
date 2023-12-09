@@ -6,7 +6,6 @@ import './custom-order.scss';
 import { useEffect, useRef, useState } from 'react';
 import { getProducts, reset } from '../../redux/products/product-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { addToCart, clearCart } from '../../redux/cart/cartSlice';
 import axios from 'axios';
 import { API_URL } from '../../constants';
 import { toast } from 'react-toastify';
@@ -15,6 +14,7 @@ import { LuMinus } from 'react-icons/lu';
 import { RxCross2 } from 'react-icons/rx';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ISingleOrder } from '../../interfaces/order';
+import { IProduct } from '../../interfaces/product';
 
 const UpdateOrder = () => {
   const { slug } = useParams();
@@ -27,6 +27,7 @@ const UpdateOrder = () => {
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [thana, setThana] = useState('');
+  const [quantity, setQuantity] = useState(0);
   // const [discount, setDiscount] = useState(0);
   // const [shipping, setShipping] = useState(0);
   const [orderItems, setOrderItems] = useState<ISingleOrder[]>([]);
@@ -35,8 +36,6 @@ const UpdateOrder = () => {
   const [search, setSearch] = useState('');
   const productAreaRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(false);
-
-  console.log(orderItems);
 
   const orderData = {
     name,
@@ -50,11 +49,9 @@ const UpdateOrder = () => {
   const handleOrder = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post(`${API_URL}/orders`, orderData).then(() => {
-        toast.success('Order create successfully');
-        dispatch(clearCart());
-        navigate('/');
-        // window.location.reload();
+      await axios.patch(`${API_URL}/orders/${slug}`, orderData).then((res) => {
+        toast.success(`${res.data.message}`);
+        navigate('/orders');
       });
     } catch (error) {
       console.log(error);
@@ -101,6 +98,7 @@ const UpdateOrder = () => {
         setThana(data.thana);
         setFinalPrice(data.final_price);
         setOrderItems(data.orderItems);
+        setQuantity(data.quantity);
       } catch (error) {
         console.error('Error fetching category data:', error);
       }
@@ -132,10 +130,77 @@ const UpdateOrder = () => {
       setLoading(false);
     }
   };
+  const handleDecrementOrderItem = async (data: ISingleOrder) => {
+    const orderId = data.id;
+
+    try {
+      setLoading(true);
+
+      // Update order item quantity
+      await axios.patch(`${API_URL}/order-items/${orderId}`, {
+        quantity: data.quantity - 1,
+      });
+
+      // Update order final price
+      await axios.patch(`${API_URL}/orders/${slug}`, {
+        final_price: final_price - data.discount_price,
+      });
+
+      // Handle success if needed
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRemoveOrderItem = async (data: ISingleOrder) => {
+    const orderId = data.id;
+
+    try {
+      setLoading(true);
+
+      // Delete order item quantity
+      await axios.delete(`${API_URL}/order-items/?ids=[${orderId}]`);
+
+      // Update order final price
+      await axios.patch(`${API_URL}/orders/${slug}`, {
+        final_price: final_price - data.discount_price * data.quantity,
+        quantity: quantity - 1,
+      });
+
+      // Handle success if needed
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const addOrderItem = async (data: IProduct) => {
+    const itemData = {
+      order_id: slug,
+      product_id: data.id,
+      product_name: data.title,
+      quantity: 1,
+      regular_price: data.regular_price,
+      discount_price: data.discount_price,
+    };
+    try {
+      setLoading(true);
+      await axios.post(`${API_URL}/order-items`, itemData).then(() => {
+        toast.success('Product added successfully');
+      });
+      // Total price updated
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
-      <CardBody header="Custom Order" to="/orders" text="Back" />
+      <CardBody header="Update Order" to="/orders" text="Back" />
       <Display>
         <div>
           <form onSubmit={handleOrder}>
@@ -145,37 +210,37 @@ const UpdateOrder = () => {
                   htmlFor="customer"
                   value={name}
                   placeholder="Name"
-                  onBlur={(e) => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
                 <Input
                   htmlFor="email"
                   value={email}
                   placeholder="Email"
-                  onBlur={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
                   htmlFor="mobile"
                   value={mobile}
                   placeholder="Mobile"
-                  onBlur={(e) => setMobile(e.target.value)}
+                  onChange={(e) => setMobile(e.target.value)}
                 />
                 <Input
                   htmlFor="address"
                   value={address}
                   placeholder="Address"
-                  onBlur={(e) => setAddress(e.target.value)}
+                  onChange={(e) => setAddress(e.target.value)}
                 />
                 <Input
                   htmlFor="city"
                   value={city}
                   placeholder="City"
-                  onBlur={(e) => setCity(e.target.value)}
+                  onChange={(e) => setCity(e.target.value)}
                 />
                 <Input
                   htmlFor="thana"
                   value={thana}
                   placeholder="Thana"
-                  onBlur={(e) => setThana(e.target.value)}
+                  onChange={(e) => setThana(e.target.value)}
                 />
               </div>
               <div className="col-md-4 custom-item">
@@ -195,7 +260,7 @@ const UpdateOrder = () => {
                     htmlFor="search"
                     placeholder="Search Product"
                     onChange={(e) => setSearch(e.target.value)}
-                    // onBlur={() => setIsFocus(false)}
+                    // onChange={() => setIsFocus(false)}
                     autocomplete="off"
                     onFocus={() => setIsFocus(true)}
                   />
@@ -203,18 +268,7 @@ const UpdateOrder = () => {
                     <div className="select-product">
                       <ul>
                         {products.map((product) => (
-                          <li
-                            onClick={() =>
-                              dispatch(
-                                addToCart({
-                                  product_id: product?.id as number,
-                                  price: Number(product.discount_price),
-                                  title: product.title,
-                                  quantity: 1,
-                                })
-                              )
-                            }
-                          >
+                          <li onClick={() => addOrderItem(product)}>
                             {product.title}
                           </li>
                         ))}
@@ -238,14 +292,14 @@ const UpdateOrder = () => {
                           <p>{order.quantity}</p>
                           <LuMinus
                             className="minus"
-                            // onClick={() => dispatch(decrementQuantity(order))}
+                            onClick={() => handleDecrementOrderItem(order)}
                           />
                         </div>
                       </div>
                       <div className="col-md-1">
                         <RxCross2
                           className="cross"
-                          // onClick={() => dispatch(removeFromCart(cart))}
+                          onClick={() => handleRemoveOrderItem(order)}
                         />
                       </div>
                     </div>

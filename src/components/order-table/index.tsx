@@ -118,7 +118,20 @@ const OrderTable = ({
             <Column className="col-md-1">
               {order.order_Prefix} - {order.id}
             </Column>
-            <Column className="col-md-1">{`৳${order.final_price}`}</Column>
+            <Column className="col-md-1">{`৳${order.orderItems.reduce(
+              (sum, item) => {
+                // Check if discount_price is null or 0
+                if (item.discount_price === null || item.discount_price === 0) {
+                  // Add regular_price * quantity to the sum
+                  sum += item.regular_price * item.quantity;
+                } else {
+                  // Add discount_price * quantity to the sum
+                  sum += item.discount_price * item.quantity;
+                }
+                return sum;
+              },
+              0
+            )}`}</Column>
             <Column className="col-md-1">{order.name}</Column>
             <Column className="col-md-2">{order.mobile}</Column>
             <Column className="col-md-1">{order.total_item}</Column>

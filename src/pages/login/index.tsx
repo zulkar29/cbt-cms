@@ -45,7 +45,7 @@ function Login() {
     e.preventDefault();
 
     const userData = {
-      email,
+      user_name: email,
       password,
     };
 

@@ -3,6 +3,7 @@ import Column from '../table/column';
 import './index.scss';
 
 const Invoice = ({ order }: { order: IOrder }) => {
+  console.log(order);
   return (
     <div className="invoice">
       <div className="invoice-header">
@@ -46,14 +47,21 @@ const Invoice = ({ order }: { order: IOrder }) => {
           <>
             {order?.orderItems?.map((product, index) => (
               <div className="row" key={index}>
-                <Column className="col-md-2 heading">01</Column>
+                <Column className="col-md-2 heading">{index + 1}</Column>
                 <Column className="col-md-3 heading">
                   {product.product_name}
                 </Column>
                 <Column className="col-md-2 heading">Depvered</Column>
-                <Column className="col-md-1 heading">1</Column>
-                <Column className="col-md-2 heading">৳13,500.00</Column>
-                <Column className="col-md-2 heading">৳13,500.00</Column>
+                <Column className="col-md-1 heading">{product.quantity}</Column>
+                <Column className="col-md-2 heading">
+                  ৳{product.discount_price ?? product.regular_price}
+                </Column>
+                <Column className="col-md-2 heading">
+                  ৳
+                  {product.discount_price
+                    ? product.discount_price * product.quantity
+                    : product.regular_price * product.quantity}
+                </Column>
               </div>
             ))}
           </>
@@ -71,15 +79,45 @@ const Invoice = ({ order }: { order: IOrder }) => {
             <div className="summery">
               <div className="row">
                 <p className="heading sort-summery">Sub Total</p>
-                <p className="heading sort-summery">৳13,500.00</p>
+                <p className="heading sort-summery">{`৳${order?.orderItems?.reduce(
+                  (sum, item) => {
+                    // Check if discount_price is null or 0
+                    if (
+                      item.discount_price === null ||
+                      item.discount_price === 0
+                    ) {
+                      // Add regular_price * quantity to the sum
+                      sum += item.regular_price * item.quantity;
+                    } else {
+                      // Add discount_price * quantity to the sum
+                      sum += item.discount_price * item.quantity;
+                    }
+                    return sum;
+                  },
+                  0
+                )}`}</p>
                 <p className="heading sort-summery">Shipping cost</p>
-                <p className="heading sort-summery">৳00.00</p>
-                <p className="heading sort-summery">Total Tax</p>
                 <p className="heading sort-summery">৳00.00</p>
                 <p className="heading sort-summery">Coupon Discount</p>
                 <p className="heading sort-summery">৳00.00</p>
                 <p className="heading sort-summery">Grand Total</p>
-                <p className="heading sort-summery">৳13,500.00</p>
+                <p className="heading sort-summery">{`৳${order?.orderItems?.reduce(
+                  (sum, item) => {
+                    // Check if discount_price is null or 0
+                    if (
+                      item.discount_price === null ||
+                      item.discount_price === 0
+                    ) {
+                      // Add regular_price * quantity to the sum
+                      sum += item.regular_price * item.quantity;
+                    } else {
+                      // Add discount_price * quantity to the sum
+                      sum += item.discount_price * item.quantity;
+                    }
+                    return sum;
+                  },
+                  0
+                )}`}</p>
               </div>
             </div>
           </Column>
