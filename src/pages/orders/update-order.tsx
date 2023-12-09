@@ -15,6 +15,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ISingleOrder } from '../../interfaces/order';
 import { IProduct } from '../../interfaces/product';
+import Column from '../../components/table/column';
 
 const UpdateOrder = () => {
   const { slug } = useParams();
@@ -119,9 +120,9 @@ const UpdateOrder = () => {
       });
 
       // Update order final price
-      await axios.patch(`${API_URL}/orders/${slug}`, {
+      /* await axios.patch(`${API_URL}/orders/${slug}`, {
         final_price: final_price + data.discount_price,
-      });
+      }); */
 
       // Handle success if needed
     } catch (error) {
@@ -142,9 +143,9 @@ const UpdateOrder = () => {
       });
 
       // Update order final price
-      await axios.patch(`${API_URL}/orders/${slug}`, {
+      /*  await axios.patch(`${API_URL}/orders/${slug}`, {
         final_price: final_price - data.discount_price,
-      });
+      }); */
 
       // Handle success if needed
     } catch (error) {
@@ -164,10 +165,10 @@ const UpdateOrder = () => {
       await axios.delete(`${API_URL}/order-items/?ids=[${orderId}]`);
 
       // Update order final price
-      await axios.patch(`${API_URL}/orders/${slug}`, {
+      /*  await axios.patch(`${API_URL}/orders/${slug}`, {
         final_price: final_price - data.discount_price * data.quantity,
         quantity: quantity - 1,
-      });
+      }); */
 
       // Handle success if needed
     } catch (error) {
@@ -204,125 +205,213 @@ const UpdateOrder = () => {
       <Display>
         <div>
           <form onSubmit={handleOrder}>
-            <div className="row">
-              <div className="col-md-5 custom-item">
-                <Input
-                  htmlFor="customer"
-                  value={name}
-                  placeholder="Name"
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <Input
-                  htmlFor="email"
-                  value={email}
-                  placeholder="Email"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <Input
-                  htmlFor="mobile"
-                  value={mobile}
-                  placeholder="Mobile"
-                  onChange={(e) => setMobile(e.target.value)}
-                />
-                <Input
-                  htmlFor="address"
-                  value={address}
-                  placeholder="Address"
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-                <Input
-                  htmlFor="city"
-                  value={city}
-                  placeholder="City"
-                  onChange={(e) => setCity(e.target.value)}
-                />
-                <Input
-                  htmlFor="thana"
-                  value={thana}
-                  placeholder="Thana"
-                  onChange={(e) => setThana(e.target.value)}
-                />
-              </div>
-              <div className="col-md-4 custom-item">
-                {/*  <Input
-                  htmlFor="discount"
-                  placeholder="discount"
-                  onChange={(e) => setDiscount(Number(e.target.value))}
-                />
-                <Input
-                  htmlFor="shipping"
-                  placeholder="shipping"
-                  onChange={(e) => setShipping(Number(e.target.value))}
-                /> */}
-                {/* <Input htmlFor="variant" placeholder="variant" /> */}
-                <div className="product-area" ref={productAreaRef}>
-                  <Input
-                    htmlFor="search"
-                    placeholder="Search Product"
-                    onChange={(e) => setSearch(e.target.value)}
-                    // onChange={() => setIsFocus(false)}
-                    autocomplete="off"
-                    onFocus={() => setIsFocus(true)}
-                  />
-                  {isFocus && (
-                    <div className="select-product">
-                      <ul>
-                        {products.map((product) => (
-                          <li onClick={() => addOrderItem(product)}>
-                            {product.title}
-                          </li>
-                        ))}
-                      </ul>
+            <>
+              <div className="invoice">
+                <div className="invoice-header">
+                  <div className="title">
+                    <img
+                      src="/assets/images/invoice-header.png"
+                      alt="invoice"
+                    />
+                  </div>
+                  <h4 className="customer-details">Customer Details</h4>
+                  <div className="details">
+                    <div className="left">
+                      <Input
+                        htmlFor="customer"
+                        value={name}
+                        placeholder="Name"
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                      <Input
+                        htmlFor="email"
+                        value={email}
+                        placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      <Input
+                        htmlFor="mobile"
+                        value={mobile}
+                        placeholder="Mobile"
+                        onChange={(e) => setMobile(e.target.value)}
+                      />
+                      <Input
+                        htmlFor="address"
+                        value={address}
+                        placeholder="Address"
+                        onChange={(e) => setAddress(e.target.value)}
+                      />
+                      <Input
+                        htmlFor="city"
+                        value={city}
+                        placeholder="City"
+                        onChange={(e) => setCity(e.target.value)}
+                      />
+                      <Input
+                        htmlFor="thana"
+                        value={thana}
+                        placeholder="Thana"
+                        onChange={(e) => setThana(e.target.value)}
+                      />
                     </div>
-                  )}
-                  {orderItems.map((order) => (
-                    <div className="row order-item">
-                      <div className="col-md-6">
-                        <p className="title">{order.product_name}</p>
+                    <div className="order-details right">
+                      <div className="product-area" ref={productAreaRef}>
+                        <Input
+                          htmlFor="search"
+                          placeholder="Search Product"
+                          onChange={(e) => setSearch(e.target.value)}
+                          // onChange={() => setIsFocus(false)}
+                          autocomplete="off"
+                          onFocus={() => setIsFocus(true)}
+                        />
+                        {isFocus && (
+                          <div className="select-product">
+                            <ul>
+                              {products.map((product) => (
+                                <li onClick={() => addOrderItem(product)}>
+                                  {product.title}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                        {/* {orderItems.map((order) => (
+                          <div className="row order-item">
+                            <div className="col-md-6">
+                              <p className="title">{order.product_name}</p>
+                            </div>
+                            <div className="col-md-2 price">
+                              <p>{order.quantity}</p>
+                            </div>
+                            <div className="col-md-3"></div>
+                            <div className="col-md-1">
+                             
+                            </div>
+                          </div>
+                        ))} */}
                       </div>
-                      <div className="col-md-2 price">
-                        <p>{order.quantity}</p>
-                      </div>
-                      <div className="col-md-3">
-                        <div className="qnty">
-                          <FiPlus
-                            className="plus"
-                            onClick={() => handleIncrementOrderItem(order)}
-                          />
-                          <p>{order.quantity}</p>
-                          <LuMinus
-                            className="minus"
-                            onClick={() => handleDecrementOrderItem(order)}
-                          />
+                    </div>
+                  </div>
+                </div>
+
+                {/* <div className="invoice-body">
+        <p>Bill to:</p>
+        <p>Iftakher</p>
+        <p> House: 12, Road: 01, Block I. Basundhara R/A, Dhaka, Bangladesh </p>
+        <p>Email: iftebmw@gmail.com</p>
+        <p>Phone: 01976100280</p>
+      </div> */}
+
+                <div className="invoice-table">
+                  <div className="row ">
+                    <Column className="col-md-2 heading">SL. </Column>
+                    <Column className="col-md-3 heading">Description</Column>
+                    <Column className="col-md-2 heading">Model</Column>
+                    <Column className="col-md-1 heading">Qty</Column>
+                    <Column className="col-md-2 heading">
+                      Unit price (BDT)
+                    </Column>
+                    <Column className="col-md-2 heading">Total</Column>
+                  </div>
+                  {
+                    <>
+                      {orderItems?.map((product, index) => (
+                        <div className="row" key={index}>
+                          <Column className="col-md-2 heading">
+                            <RxCross2
+                              className="cross"
+                              onClick={() => handleRemoveOrderItem(product)}
+                            />{' '}
+                            {index + 1}
+                          </Column>
+                          <Column className="col-md-3 heading">
+                            {product.product_name}
+                          </Column>
+                          <Column className="col-md-2 heading">Depvered</Column>
+                          <Column className="col-md-1 heading">
+                            <div className="qnty">
+                              <FiPlus
+                                className="plus"
+                                onClick={() =>
+                                  handleIncrementOrderItem(product)
+                                }
+                              />
+                              <p>{product.quantity}</p>
+                              <LuMinus
+                                className="minus"
+                                onClick={() =>
+                                  handleDecrementOrderItem(product)
+                                }
+                              />
+                            </div>
+                          </Column>
+                          <Column className="col-md-2 heading">
+                            ৳{product.discount_price ?? product.regular_price}
+                          </Column>
+                          <Column className="col-md-2 heading">
+                            ৳
+                            {product.discount_price
+                              ? product.discount_price * product.quantity
+                              : product.regular_price * product.quantity}
+                          </Column>
+                        </div>
+                      ))}
+                    </>
+                  }
+                  <div className="row">
+                    <Column className="col-md-8 "> </Column>
+                    <Column className="col-md-4">
+                      <div className="summery">
+                        <div className="row">
+                          <p className="heading sort-summery">Sub Total</p>
+                          <p className="heading sort-summery">{`৳${orderItems?.reduce(
+                            (sum, item) => {
+                              // Check if discount_price is null or 0
+                              if (
+                                item.discount_price === null ||
+                                item.discount_price === 0
+                              ) {
+                                // Add regular_price * quantity to the sum
+                                sum += item.regular_price * item.quantity;
+                              } else {
+                                // Add discount_price * quantity to the sum
+                                sum += item.discount_price * item.quantity;
+                              }
+                              return sum;
+                            },
+                            0
+                          )}`}</p>
+                          <p className="heading sort-summery">Shipping cost</p>
+                          <p className="heading sort-summery">৳00.00</p>
+                          <p className="heading sort-summery">
+                            Coupon Discount
+                          </p>
+                          <p className="heading sort-summery">৳00.00</p>
+                          <p className="heading sort-summery">Grand Total</p>
+                          <p className="heading sort-summery">{`৳${orderItems?.reduce(
+                            (sum, item) => {
+                              // Check if discount_price is null or 0
+                              if (
+                                item.discount_price === null ||
+                                item.discount_price === 0
+                              ) {
+                                // Add regular_price * quantity to the sum
+                                sum += item.regular_price * item.quantity;
+                              } else {
+                                // Add discount_price * quantity to the sum
+                                sum += item.discount_price * item.quantity;
+                              }
+                              return sum;
+                            },
+                            0
+                          )}`}</p>
                         </div>
                       </div>
-                      <div className="col-md-1">
-                        <RxCross2
-                          className="cross"
-                          onClick={() => handleRemoveOrderItem(order)}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="col-md-3 custom-item">
-                <div className="summery">
-                  <div className="row">
-                    <div className="col-md-9 left">Product Total Price</div>
-                    <div className="col-md-3 right">{final_price}</div>
-                    <div className="col-md-9 left">Shipping</div>
-                    {/*  <div className="col-md-3 right">{shipping}</div>
-                    <div className="col-md-9 left">Discount</div>
-                    <div className="col-md-3 right">{discount}</div>
-                    <div className="col-md-9 left">Total</div>
-                    <div className="col-md-3 right">
-                      {final_price + shipping - discount}
-                    </div> */}
+                    </Column>
                   </div>
                 </div>
               </div>
-            </div>
+            </>
             <Button type="submit">Update Order</Button>
           </form>
         </div>

@@ -32,7 +32,7 @@ export interface IOrder {
   created_at: string;
   updated_at: string;
   order_form: string;
-  order_Prefix: string;
+  order_prefix: string;
   total_item: number;
 }
 

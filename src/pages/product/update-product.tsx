@@ -50,7 +50,7 @@ const UpdateProduct: React.FC = () => {
   const [quantity, setQuantity] = useState(0);
   const [regularPrice, setRegularPrice] = useState(0);
   const [discountPrice, setDiscountPrice] = useState(0);
-  const [discountType, setDiscountType] = useState<'percent' | 'flat' | ''>('');
+
   const [deliveryFee, setDeliveryFee] = useState(0);
   const [videoUrl, setVideoUrl] = useState('');
   const [metaTitle, setMetaTitle] = useState('');
@@ -64,6 +64,8 @@ const UpdateProduct: React.FC = () => {
   const [availability, setAvailability] = useState(true);
   const [orderNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+
+  console.log(discountPrice);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -141,19 +143,6 @@ const UpdateProduct: React.FC = () => {
     dispatch(updateProduct({ id: Number(slug), productData: formData }));
   };
 
-  useEffect(() => {
-    if (discountType === 'percent') {
-      // Calculate discount price based on percentage
-      setDiscountPrice((regularPrice * discountPrice) / 100);
-    } else if (discountType === 'flat') {
-      // Use flat discount value
-      setDiscountPrice(discountPrice);
-    } else {
-      // Reset discount price if discount type is empty
-      setDiscountPrice(0);
-    }
-  }, [regularPrice, discountType, discountPrice]);
-
   /*  useEffect(() => {
     if (discountType === 'flat') {
       setDiscountPrice(regularPrice - discountPrice);
@@ -193,7 +182,6 @@ const UpdateProduct: React.FC = () => {
         setQuantity(data.quantity);
         setRegularPrice(data.regular_price);
         setDiscountPrice(Number(data?.discount_price));
-        setDiscountType('');
         setStatus(data.is_visible);
         setDeliveryFee(data.delivery_fee);
         setVideoUrl(data.video_url);
@@ -370,16 +358,16 @@ const UpdateProduct: React.FC = () => {
                   onChange={(e) => setRegularPrice(Number(e.target.value))}
                   required
                 />
+                <Input
+                  placeholder="Discount Price"
+                  label="Discount Price"
+                  htmlFor="discount-price"
+                  defaultValue={discountPrice.toString()}
+                  onChange={(e) => setDiscountPrice(Number(e.target.value))}
+                  required
+                />
                 <div className="discount-area">
-                  <Input
-                    placeholder="Discount Price"
-                    label="Discount Price"
-                    htmlFor="discount-price"
-                    defaultValue={discountPrice.toString()}
-                    onChange={(e) => setDiscountPrice(Number(e.target.value))}
-                    required
-                  />
-                  <div>
+                  {/*                   <div>
                     <Select
                       onChange={(e) =>
                         setDiscountType(e.target.value as 'flat' | 'percent')
@@ -388,7 +376,7 @@ const UpdateProduct: React.FC = () => {
                       <option value="flat">Flat</option>
                       <option value="percent">Percent</option>
                     </Select>
-                  </div>
+                  </div> */}
                 </div>
               </Display>
 

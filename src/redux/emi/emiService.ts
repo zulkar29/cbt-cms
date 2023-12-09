@@ -35,7 +35,7 @@ const updateEmi = async (id: number | string, categoryData: IEmi) => {
 
 const deleteEmi = async (videoId: number) => {
   const { data } = await axios.delete(`${API_URL}/emis/?ids=[${videoId}]`);
-  return data.data;
+  return data;
 };
 
 const emiService = {

@@ -41,7 +41,8 @@ const CreateProduct: React.FC = () => {
   const [regularPrice, setRegularPrice] = useState(0);
   const [discountPrice, setDiscountPrice] = useState(0);
   const [discountType, setDiscountType] = useState<'percent' | 'flat' | ''>('');
-  const [discount, setDiscount] = useState(0);
+  const [discountSelectedAmount, setDiscountSelectedAmount] = useState(0);
+  // const [discount, setDiscount] = useState(0);
   const [deliveryFee] = useState(0);
   const [videoUrl, setVideoUrl] = useState('');
   const [metaTitle, setMetaTitle] = useState('');
@@ -59,8 +60,6 @@ const CreateProduct: React.FC = () => {
   const [selectedAttributes, setSelectedAttributes] = useState<
     { name: string; value: string }[]
   >([]);
-
-  console.log(selectedAttributes);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -189,11 +188,13 @@ const CreateProduct: React.FC = () => {
 
   useEffect(() => {
     if (discountType === 'flat') {
-      setDiscountPrice(regularPrice - discount);
+      setDiscountPrice(regularPrice - discountSelectedAmount);
     } else {
-      setDiscountPrice(regularPrice - (regularPrice * discount) / 100);
+      setDiscountPrice(
+        regularPrice - (regularPrice * discountSelectedAmount) / 100
+      );
     }
-  }, [discountType, regularPrice, discount]);
+  }, [discountType, regularPrice, discountSelectedAmount]);
 
   useEffect(() => {
     if (isCreate) {
@@ -415,7 +416,9 @@ const CreateProduct: React.FC = () => {
                     placeholder="Discount Price"
                     label="Discount Price"
                     htmlFor="discount-price"
-                    onChange={(e) => setDiscount(Number(e.target.value))}
+                    onChange={(e) =>
+                      setDiscountSelectedAmount(Number(e.target.value))
+                    }
                     required
                   />
                   <div>

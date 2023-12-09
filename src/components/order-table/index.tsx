@@ -116,7 +116,7 @@ const OrderTable = ({
             </Column>
             <Column className="col-md-1">{order.id}</Column>
             <Column className="col-md-1">
-              {order.order_Prefix} - {order.id}
+              {order.order_prefix} - {order.id}
             </Column>
             <Column className="col-md-1">{`৳${order.orderItems.reduce(
               (sum, item) => {
@@ -134,7 +134,7 @@ const OrderTable = ({
             )}`}</Column>
             <Column className="col-md-1">{order.name}</Column>
             <Column className="col-md-2">{order.mobile}</Column>
-            <Column className="col-md-1">{order.total_item}</Column>
+            <Column className="col-md-1">{order.orderItems.length}</Column>
             <Column className="col-md-1">
               <Select
                 onChange={(e: ChangeEvent<HTMLSelectElement>) =>

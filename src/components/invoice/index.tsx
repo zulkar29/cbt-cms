@@ -3,7 +3,6 @@ import Column from '../table/column';
 import './index.scss';
 
 const Invoice = ({ order }: { order: IOrder }) => {
-  console.log(order);
   return (
     <div className="invoice">
       <div className="invoice-header">
