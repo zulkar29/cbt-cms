@@ -51,6 +51,9 @@ import Attributes from './product/attributes';
 import CreateAttributes from './product/create-attributes';
 import UpdateAttribute from './product/update-attribute';
 import UpdateOrder from './orders/update-order';
+import CreateShipping from './marketing/create-shipping';
+import Shipping from './marketing/shipping';
+import UpdateShipping from './marketing/update-shipping';
 
 export {
   Blogs,
@@ -106,4 +109,7 @@ export {
   CreateAttributes,
   UpdateAttribute,
   UpdateOrder,
+  CreateShipping,
+  Shipping,
+  UpdateShipping,
 };

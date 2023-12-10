@@ -53,6 +53,9 @@ import {
   CreateAttributes,
   UpdateAttribute,
   UpdateOrder,
+  Shipping,
+  CreateShipping,
+  UpdateShipping,
 } from './pages';
 import Csv from './product/csv';
 
@@ -103,6 +106,9 @@ function PageRoutes() {
       <Route path="/coupons/create" element={<CreateCoupon />} />
       <Route path="/banner" element={<BannerPage />} />
       <Route path="/banner/create" element={<CreateBanner />} />
+      <Route path="/shipping" element={<Shipping />} />
+      <Route path="/shipping/create" element={<CreateShipping />} />
+      <Route path="/shipping/edit/:slug" element={<UpdateShipping />} />
 
       {/* Support */}
       <Route path="/support" element={<TicketPage />} />

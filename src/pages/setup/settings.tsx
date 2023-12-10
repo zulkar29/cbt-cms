@@ -232,12 +232,12 @@ const Settings: React.FC = () => {
               <FileInput
                 onChange={handlePopupChange}
                 name="popup_image"
-                label="Popup"
+                label="favicon"
               />
 
               <img
                 src={`${API_ROOT}/images/setting/${setting.popup_image}`}
-                alt="logo"
+                alt="popup"
               />
             </Display>
             <Display>

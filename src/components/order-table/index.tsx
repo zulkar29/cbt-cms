@@ -1,26 +1,18 @@
 import Row from '../table/row';
 import Column from '../table/column';
-import Select from '../select';
-import CustomIconArea from '../custom-icon-area';
-import ViewButton from '../button/view';
-import DeleteButton from '../button/delete';
-import DownloadButton from '../button/download';
 import { IOrder } from '../../interfaces/order';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { deleteOrder, reset, updateOrder } from '../../redux/order/orderSlice';
 import { ChangeEvent, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import './index.scss';
-import Invoice from '../invoice';
-import ReactToPrint from 'react-to-print';
-import EditButton from '../button/edit';
 import SingleItem from './singleItem';
 
 interface IProps {
   orders: IOrder[];
   handleAllSelectedOrders?: (e: ChangeEvent<HTMLInputElement>) => void;
   handleSelectedOrder?: (orderId: number) => void;
-  selectedOrders?: number[];
+  selectedOrders: number[];
 }
 
 const OrderTable = ({
@@ -106,6 +98,7 @@ const OrderTable = ({
             handlePaymentChange={handlePaymentChange}
             handleStatusChange={handleStatusChange}
             handleSelectedOrder={handleSelectedOrder}
+            selectedOrders={selectedOrders}
           />
         ))}
       </>
