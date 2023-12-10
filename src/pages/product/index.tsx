@@ -135,6 +135,7 @@ const AllProducts: React.FC = () => {
               </Overflow>
             </div>
           }
+          isFilter
         />
         <Row className="row">
           <Column className="col-md-1">

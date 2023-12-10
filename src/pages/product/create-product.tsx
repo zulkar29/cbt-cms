@@ -207,7 +207,7 @@ const CreateProduct: React.FC = () => {
   }, [dispatch, isCreate, navigate]);
 
   useEffect(() => {
-    dispatch(getCategories({}));
+    dispatch(getCategories({ page: 1, limit: 50 }));
 
     return () => {
       dispatch(reset());
@@ -419,7 +419,6 @@ const CreateProduct: React.FC = () => {
                     onChange={(e) =>
                       setDiscountSelectedAmount(Number(e.target.value))
                     }
-                    required
                   />
                   <div>
                     <Select

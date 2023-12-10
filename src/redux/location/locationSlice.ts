@@ -28,7 +28,7 @@ const initialState: IState = {
   errorMessage: '',
 };
 
-// Get user products
+// Create Location
 export const createLocation = createAsyncThunk(
   'location/createLocation',
   async (data: ILcation, thunkAPI) => {
@@ -44,7 +44,7 @@ export const createLocation = createAsyncThunk(
     }
   }
 );
-// Get Emi's
+// Get Location
 export const getLocations = createAsyncThunk(
   'location/getAllProducts',
   async ({ page, limit }: { [key: string]: number }, thunkAPI) => {
@@ -152,7 +152,7 @@ export const locationSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      /* TODO: DELETE CATEGORY DATA SET */
+      /* TODO: DELETE Location DATA SET */
       .addCase(deleteLocation.pending, (state) => {
         state.isLoading = true;
         state.isDelete = false;

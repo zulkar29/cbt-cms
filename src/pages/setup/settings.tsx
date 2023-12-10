@@ -149,7 +149,6 @@ const Settings: React.FC = () => {
                 value={settings.facebook_url}
                 name="facebook_url"
                 htmlFor="f-url"
-                required
               />
               <Input
                 onChange={handleChange}
@@ -178,13 +177,11 @@ const Settings: React.FC = () => {
                 label="Cash on message"
                 value={settings.cash_on_message as string}
                 name="cash_on_message"
-                required
               />
               <TextArea
                 label="online payment message"
                 value={settings.online_payment_message as string}
                 name="online_payment_message"
-                required
               />
             </Display>
           </Column>
@@ -208,13 +205,11 @@ const Settings: React.FC = () => {
                 label="google analytics"
                 value={settings.google_analytics}
                 name="google_analytics"
-                required
               />
               <TextArea
                 label="Facebook pixel"
                 value={settings.facebook_pixel}
                 name="facebook_pixel"
-                required
               />
             </Display>
             <Display>
@@ -250,13 +245,11 @@ const Settings: React.FC = () => {
                 label="Footer script"
                 value={settings.footer_script}
                 name="footer_script"
-                required
               />
               <TextArea
                 label="Header Script"
                 value={settings.header_script}
                 name="header_script"
-                required
               />
             </Display>
           </Column>

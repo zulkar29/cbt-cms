@@ -37,6 +37,7 @@ const UpdateOrder = () => {
   const [search, setSearch] = useState('');
   const productAreaRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(false);
+  console.log({ quantity, final_price });
 
   const orderData = {
     name,

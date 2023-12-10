@@ -37,7 +37,7 @@ const Invoice = ({ order }: { order: IOrder }) => {
         <div className="row ">
           <Column className="col-md-2 heading">SL. </Column>
           <Column className="col-md-3 heading">Description</Column>
-          <Column className="col-md-2 heading">Model</Column>
+          <Column className="col-md-2 heading">Attribute</Column>
           <Column className="col-md-1 heading">Qty</Column>
           <Column className="col-md-2 heading">Unit price (BDT)</Column>
           <Column className="col-md-2 heading">Total</Column>
@@ -50,7 +50,7 @@ const Invoice = ({ order }: { order: IOrder }) => {
                 <Column className="col-md-3 heading">
                   {product.product_name}
                 </Column>
-                <Column className="col-md-2 heading">Depvered</Column>
+                <Column className="col-md-2 heading">-</Column>
                 <Column className="col-md-1 heading">{product.quantity}</Column>
                 <Column className="col-md-2 heading">
                   ৳{product.discount_price ?? product.regular_price}

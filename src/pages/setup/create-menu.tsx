@@ -11,8 +11,8 @@ import { useNavigate } from 'react-router-dom';
 
 const options = [
   { label: 'help', value: 'help' },
-  { label: 'CreateMenu_one ', value: 'CreateMenu_two' },
-  { label: 'CreateMenu_two', value: 'CreateMenu_two' },
+  { label: 'Footer_one ', value: 'footer_one' },
+  { label: 'Footer_two', value: 'footer_two' },
 ];
 
 const CreateMenu: FC = () => {

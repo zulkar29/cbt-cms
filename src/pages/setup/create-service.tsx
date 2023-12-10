@@ -97,11 +97,7 @@ const CreateService = () => {
             </Column>
             <Column className="col-md-6">
               <Display>
-                <FileInput
-                  label="Black Icon"
-                  required
-                  onChange={handleImageChange}
-                />
+                <FileInput label="Icon" required onChange={handleImageChange} />
                 <Select
                   name="group_by"
                   onChange={handleBannerData}

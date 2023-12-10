@@ -72,11 +72,15 @@ const Categories: React.FC = () => {
     <div>
       <CardBody header="Categories" to="/categories/create" />
       <Display>
-        <Filter handleDisplayItem={handleDisplayItem} onSearch={onSearch} />
+        <Filter
+          handleDisplayItem={handleDisplayItem}
+          onSearch={onSearch}
+          isFilter
+        />
         <Row className="row">
           <Column className="col-md-3">Banner</Column>
           <Column className="col-md-3">Name</Column>
-          <Column className="col-md-2"> Parent Category</Column>
+          <Column className="col-md-2"> Category Position</Column>
           <Column className="col-md-2">Featured</Column>
           <Column className="col-md-1">Options</Column>
         </Row>

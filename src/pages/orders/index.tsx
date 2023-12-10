@@ -142,6 +142,7 @@ const AllOrders: React.FC = () => {
               </Overflow>
             </div>
           }
+          isFilter
         />
         <OrderTable
           orders={orders}

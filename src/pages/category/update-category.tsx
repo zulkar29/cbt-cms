@@ -58,7 +58,7 @@ const UpdateCategory: React.FC = (): JSX.Element => {
     if (isUpdate) {
       navigate('/category');
     }
-    dispatch(getCategories({}));
+    dispatch(getCategories({ page: 1, limit: 50 }));
     return () => {
       dispatch(reset());
     };

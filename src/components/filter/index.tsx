@@ -5,11 +5,13 @@ interface propsType {
   handleDisplayItem: (e: ChangeEvent<HTMLSelectElement>) => void;
   onSearch?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   leftElements?: React.ReactNode;
+  isFilter?: boolean;
 }
 const Filter: React.FC<propsType> = ({
   handleDisplayItem,
   onSearch,
   leftElements,
+  isFilter = false,
 }) => {
   return (
     <div className="row">
@@ -34,15 +36,17 @@ const Filter: React.FC<propsType> = ({
       <div className="col-md-6">
         <div className="row left-element">
           {leftElements}
-          <div id="admin-table_filter" className="filter-search">
-            <label>Search </label>
-            <input
-              type="search"
-              placeholder=""
-              aria-controls="admin-table"
-              onChange={onSearch}
-            />
-          </div>
+          {isFilter && (
+            <div id="admin-table_filter" className="filter-search">
+              <label>Search </label>
+              <input
+                type="search"
+                placeholder=""
+                aria-controls="admin-table"
+                onChange={onSearch}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

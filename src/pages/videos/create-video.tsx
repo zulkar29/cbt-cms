@@ -6,7 +6,7 @@ import Input from '../../components/forms/text-input';
 import { Button } from '../../components/button';
 import { IVideo } from '../../interfaces/video';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { createVideo } from '../../redux/videos/videoSlice';
+import { createVideo, reset } from '../../redux/videos/videoSlice';
 
 const initialData = {
   title: '',
@@ -42,6 +42,9 @@ const CreateVideo: React.FC = () => {
     if (isError) {
       toast.error('Failed to create video');
     }
+    return () => {
+      dispatch(reset());
+    };
   }, [dispatch, isCreate, isError]);
   return (
     <div>

@@ -33,8 +33,6 @@ const CreateCategory: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [categoryData, setCategoryData] = useState<ICategory>(initialState);
-  console.log(categoryData);
-
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) =>
@@ -81,7 +79,7 @@ const CreateCategory: React.FC = () => {
   }, [isCreate, dispatch]);
 
   useEffect(() => {
-    dispatch(getCategories({}));
+    dispatch(getCategories({ page: 1, limit: 50 }));
   }, [dispatch]);
   return (
     <div>
@@ -112,7 +110,6 @@ const CreateCategory: React.FC = () => {
                 label="Position No"
                 onChange={handleChange}
                 placeholder="Enter Position"
-                required
               />
               <Select
                 htmlFor="Choose Parent category"

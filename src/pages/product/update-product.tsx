@@ -181,7 +181,7 @@ const UpdateProduct: React.FC = () => {
         setCategory(data.category_slug);
         setQuantity(data.quantity);
         setRegularPrice(data.regular_price);
-        setDiscountPrice(Number(data?.discount_price));
+        setDiscountPrice(Number(data.discount_price));
         setStatus(data.is_visible);
         setDeliveryFee(data.delivery_fee);
         setVideoUrl(data.video_url);
@@ -362,9 +362,8 @@ const UpdateProduct: React.FC = () => {
                   placeholder="Discount Price"
                   label="Discount Price"
                   htmlFor="discount-price"
-                  defaultValue={discountPrice.toString()}
+                  value={discountPrice}
                   onChange={(e) => setDiscountPrice(Number(e.target.value))}
-                  required
                 />
                 <div className="discount-area">
                   {/*                   <div>
@@ -404,7 +403,7 @@ const UpdateProduct: React.FC = () => {
                   placeholder="Quantity"
                   label="Quantity"
                   htmlFor="Quantity"
-                  value={quantity}
+                  defaultValue={quantity.toString()}
                   onChange={(e) => setQuantity(Number(e.target.value))}
                   required
                 />

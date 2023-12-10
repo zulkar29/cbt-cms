@@ -7,7 +7,7 @@ import TextArea from '../../components/forms/textarea';
 import Column from '../../components/table/column';
 import './index.scss';
 import { IHomePage } from '../../interfaces/homePage';
-import { API_URL } from '../../constants';
+import { API_ROOT, API_URL } from '../../constants';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -41,7 +41,7 @@ const SetupPage: React.FC = () => {
 
       setHomeData((prevState) => ({
         ...prevState,
-        image: file,
+        special_product_photo: file,
       }));
     }
   };
@@ -117,6 +117,10 @@ const SetupPage: React.FC = () => {
                 label="Special Product Image"
                 name="special_product_photo"
                 onChange={handleImageChange}
+              />
+              <img
+                src={`${API_ROOT}/images/home-page/${homeData.special_product_photo}`}
+                alt=""
               />
             </Display>
           </Column>
