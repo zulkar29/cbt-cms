@@ -98,7 +98,6 @@ const CreatePage = () => {
                 value={pageData.meta_title}
                 onChange={handleChange}
                 placeholder="Enter Title"
-                required
               />
               <TextArea
                 label="Meta Description"
@@ -106,7 +105,6 @@ const CreatePage = () => {
                 value={pageData.meta_description}
                 onChange={handleChange}
                 placeholder="Meta description"
-                required
               />
               <Button type="submit">Save Page</Button>
             </Display>

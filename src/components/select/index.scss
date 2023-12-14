@@ -7,10 +7,11 @@
 }
 .select-wrapper {
   border: 1px solid $secondary-color;
+  margin-bottom: 7px;
   .select {
     display: block;
     width: 100%;
-    // padding: 8px 5px;
+    padding: 3px 5px;
     border: none;
     font-size: 14px;
 

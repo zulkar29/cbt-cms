@@ -54,7 +54,7 @@ const CreateProduct: React.FC = () => {
   const [isNew, setIsNew] = useState<0 | 1>(0);
   const [sortDesc, setSortDesc] = useState('');
   const [policy, setPolicy] = useState('');
-  const [availability] = useState(true);
+  const [availability, setAvailability] = useState('');
   const [isVariant, setIsVariant] = useState(false);
   const [attributes, setAttributes] = useState<Attribute[]>([]);
   const [selectedAttributes, setSelectedAttributes] = useState<
@@ -162,14 +162,14 @@ const CreateProduct: React.FC = () => {
     formData.append('regular_price', regularPrice.toString());
     formData.append('discount_price', discountPrice.toString());
     formData.append('delivery_fee', deliveryFee.toString());
-    formData.append('status', status.toString());
+    formData.append('is_visible', status.toString());
     formData.append('video_url', videoUrl);
     if (campaignDate !== null) {
       formData.append('camping_start_date', campaignDate[0].toString());
       formData.append('camping_end_date', campaignDate[1].toString());
     }
     formData.append('upload_by', 'admin');
-    formData.append('availability', availability.toString());
+    formData.append('availability', availability);
     galleryImages?.forEach((g_image, index) => {
       formData.append('gallery_image', g_image);
       formData.append('order_number', imageQuantities[index].toString());
@@ -434,28 +434,42 @@ const CreateProduct: React.FC = () => {
               </Display>
 
               <Display>
-                <label className="label">Select Category*</label>
-                <Select onChange={(e) => setCategory(e.target.value)} required>
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.slug}>
-                      {category.title}
-                    </option>
-                  ))}
-                </Select>
-                <TextArea
-                  label="Product short description *"
-                  placeholder="Product short description"
-                  onBlur={(e) => setSortDesc(e.target.value)}
-                />
-                <Input
-                  type="number"
-                  placeholder="Quantity"
-                  label="Quantity"
-                  htmlFor="Quantity"
-                  onBlur={(e) => setQuantity(Number(e.target.value))}
-                  defaultValue="0"
-                  required
-                />
+                <div className="p-wrapper">
+                  <Select
+                    htmlFor="Select Category*"
+                    onChange={(e) => setCategory(e.target.value)}
+                    required
+                  >
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.slug}>
+                        {category.title}
+                      </option>
+                    ))}
+                  </Select>
+                  <Select
+                    htmlFor="Availability"
+                    onChange={(e) => setAvailability(e.target.value)}
+                  >
+                    <option value="1">In Stock</option>
+                    <option value="2">Out of Stock</option>
+                    <option value="3">Upcoming</option>
+                  </Select>
+                  <TextArea
+                    label="Product short description *"
+                    placeholder="Product short description"
+                    onBlur={(e) => setSortDesc(e.target.value)}
+                  />
+
+                  <Input
+                    type="number"
+                    placeholder="Quantity"
+                    label="Quantity"
+                    htmlFor="Quantity"
+                    onBlur={(e) => setQuantity(Number(e.target.value))}
+                    defaultValue="0"
+                    required
+                  />
+                </div>
               </Display>
 
               <Display>

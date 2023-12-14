@@ -61,7 +61,7 @@ const UpdateProduct: React.FC = () => {
   const [isNew, setIsNew] = useState<0 | 1>(0);
   const [sortDesc, setSortDesc] = useState('');
   const [policy, setPolicy] = useState('');
-  const [availability, setAvailability] = useState(true);
+  const [availability, setAvailability] = useState<number>(0);
   const [orderNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -123,7 +123,7 @@ const UpdateProduct: React.FC = () => {
     formData.append('regular_price', regularPrice.toString());
     formData.append('discount_price', discountPrice.toString());
     formData.append('delivery_fee', deliveryFee.toString());
-    formData.append('status', status.toString());
+    formData.append('is_visible', status.toString());
     formData.append('video_url', videoUrl);
     if (campaignDate !== null) {
       formData.append('camping_start_date', campaignDate[0].toString());
@@ -143,13 +143,7 @@ const UpdateProduct: React.FC = () => {
     dispatch(updateProduct({ id: Number(slug), productData: formData }));
   };
 
-  /*  useEffect(() => {
-    if (discountType === 'flat') {
-      setDiscountPrice(regularPrice - discountPrice);
-    } else {
-      // setDiscountPrice(regularPrice - (regularPrice * discount) / 100);
-    }
-  }, [discountType, regularPrice]); */
+  const handleAvailability = (data: string) => setAvailability(Number(data));
 
   useEffect(() => {
     if (isUpdate) {
@@ -391,6 +385,20 @@ const UpdateProduct: React.FC = () => {
                       {ctg.title}
                     </option>
                   ))}
+                </Select>
+                <Select
+                  htmlFor="Availability"
+                  onChange={(e) => handleAvailability(e.target.value)}
+                >
+                  <option value="1" selected={availability === 1}>
+                    In Stock
+                  </option>
+                  <option value="2" selected={availability === 2}>
+                    Out of Stock
+                  </option>
+                  <option value="3" selected={availability === 3}>
+                    Upcoming
+                  </option>
                 </Select>
                 <TextArea
                   label="Product short description *"
