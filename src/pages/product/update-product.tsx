@@ -65,8 +65,6 @@ const UpdateProduct: React.FC = () => {
   const [orderNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(discountPrice);
-
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];

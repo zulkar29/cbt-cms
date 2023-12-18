@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { createAddBanner, reset } from '../../redux/add-banner/addBannerSlice';
 import { IAdBanner } from '../../interfaces/addBanner';
 import { useNavigate } from 'react-router-dom';
+import { getCategories } from '../../redux/category/categorySlice';
 
 const options = [
   { label: 'Home-horizontal', value: 'home' },
@@ -30,9 +31,18 @@ const initialState = {
 const CreateBanner = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { categories } = useAppSelector((state) => state.category);
   const { isCreate, message, isError } = useAppSelector(
     (state) => state.banner
   );
+
+  const categoriesFormate = categories.map((category) => {
+    return {
+      label: category.title,
+      value: category.slug,
+    };
+  });
+
   const [bannerData, setBannerData] = useState<IAdBanner>(initialState);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,6 +77,9 @@ const CreateBanner = () => {
     dispatch(createAddBanner(formData));
   };
 
+  useEffect(() => {
+    dispatch(getCategories({ page: 1, limit: 100 }));
+  }, [dispatch]);
   useEffect(() => {
     if (isCreate) {
       toast.success(`${message}`);
@@ -106,7 +119,7 @@ const CreateBanner = () => {
             onChange={handleBannerData}
             label="Select Group"
             value={bannerData.group_by as string}
-            options={options}
+            options={[...options, ...categoriesFormate]}
             required
           />
           <Button type="submit">Create</Button>
