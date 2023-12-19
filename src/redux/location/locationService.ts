@@ -6,7 +6,7 @@ import { API_URL } from '../../constants';
 const getLocations = async (filter: {
   [key: string]: string | number;
 }): Promise<ILocationResponse> => {
-  let url = `${API_URL}/location`;
+  let url = `${API_URL}/shippings`;
   if (filter && Object.keys(filter).length > 0) {
     const queryString = Object.entries(filter)
       .map(
@@ -24,17 +24,22 @@ const getLocations = async (filter: {
 };
 
 const createLocation = async (productData: ILcation) => {
-  const { data } = await axios.post(`${API_URL}/location`, productData);
+  const { data } = await axios.post(`${API_URL}/shippings`, productData);
   return data;
 };
 
 const updateLocation = async (id: number | string, categoryData: ILcation) => {
-  const { data } = await axios.patch(`${API_URL}/location/${id}`, categoryData);
-  return data.data;
+  const { data } = await axios.patch(
+    `${API_URL}/shippings/${id}`,
+    categoryData
+  );
+  return data;
 };
 
-const deleteLocation = async (videoId: number) => {
-  const { data } = await axios.delete(`${API_URL}/location/?ids=[${videoId}]`);
+const deleteLocation = async (locationId: number) => {
+  const { data } = await axios.delete(
+    `${API_URL}/shippings/?ids=[${locationId}]`
+  );
   return data;
 };
 

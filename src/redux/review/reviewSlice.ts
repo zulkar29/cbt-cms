@@ -27,9 +27,9 @@ const initialState: IBlogResponse = {
 
 export const getReview = createAsyncThunk(
   'review/getAll',
-  async (_, thunkAPI) => {
+  async (filter: { [key: string]: string | number }, thunkAPI) => {
     try {
-      return await reviewService.getReview();
+      return await reviewService.getReview(filter);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';

@@ -18,6 +18,7 @@ import notificationReducer from './notification/notificationSlice';
 import queryReducer from './query/querySlice';
 import reviewReducer from './review/reviewSlice';
 import cartReducer from './cart/cartSlice';
+import locationReducer from './location/locationSlice';
 // ...
 const store = configureStore({
   reducer: {
@@ -40,6 +41,7 @@ const store = configureStore({
     query: queryReducer,
     review: reviewReducer,
     cart: cartReducer,
+    location: locationReducer,
   },
   // devTools: false,
 });

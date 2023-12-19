@@ -1,6 +1,6 @@
 export interface ILcation {
   id?: number;
-  name: string;
+  location: string;
   price: string;
   created_at?: string;
   updated_at?: string;

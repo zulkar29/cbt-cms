@@ -7,7 +7,12 @@ import Column from '../../components/table/column';
 import Row from '../../components/table/row';
 import ToggleButton from '../../components/forms/checkbox';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { deleteBlog, getBlogs, updateBlog } from '../../redux/blogs/blogSlice';
+import {
+  deleteBlog,
+  getBlogs,
+  reset,
+  updateBlog,
+} from '../../redux/blogs/blogSlice';
 import { BlogData } from '../../interfaces/blog';
 import EditButton from '../../components/button/edit';
 import CustomIconArea from '../../components/custom-icon-area';
@@ -51,11 +56,17 @@ const Blogs: React.FC = () => {
     if (isUpdate) {
       toast.success('Blog updated successfully');
     }
+    return () => {
+      dispatch(reset());
+    };
   }, [isUpdate]);
 
   useEffect(() => {
     dispatch(getBlogs({ page: pageNumber, limit: displayItem }));
     window.scrollTo(0, 0);
+    return () => {
+      dispatch(reset());
+    };
   }, [dispatch, pageNumber, displayItem]);
 
   /*   const handleSelectedBlog = (blogId: number) => {

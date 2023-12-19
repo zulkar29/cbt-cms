@@ -12,6 +12,7 @@ import { BlogData } from '../../interfaces/blog';
 import { createBlog, reset } from '../../redux/blogs/blogSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import Column from '../../components/table/column';
+import { useNavigate, useRoutes } from 'react-router-dom';
 const initialBlogData = {
   title: '',
   image: null,
@@ -22,6 +23,7 @@ const initialBlogData = {
 };
 
 const CreateBlog: React.FC = () => {
+  const navigate = useNavigate();
   const [blogData, setBlogData] = useState<BlogData>(initialBlogData);
   const formRef = useRef<HTMLFormElement | null>(null);
   const dispatch = useAppDispatch();
@@ -32,6 +34,7 @@ const CreateBlog: React.FC = () => {
   useEffect(() => {
     if (isCreate) {
       toast.success(`${message}`);
+      navigate('/blogs');
     }
     if (isError) {
       toast.error('Blog create filed');

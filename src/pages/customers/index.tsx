@@ -39,9 +39,6 @@ const Customers: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isError) {
-      toast.error(`${message}`);
-    }
     if (isDelete) {
       toast.success(`${message}`);
     }

@@ -307,7 +307,7 @@ const UpdateOrder = () => {
                   <div className="row ">
                     <Column className="col-md-2 heading">SL. </Column>
                     <Column className="col-md-3 heading">Description</Column>
-                    <Column className="col-md-2 heading">Model</Column>
+                    <Column className="col-md-2 heading">Variant</Column>
                     <Column className="col-md-1 heading">Qty</Column>
                     <Column className="col-md-2 heading">
                       Unit price (BDT)

@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 const options = [
   { label: 'Home', value: 'home' },
+  { label: 'Product', value: 'product' },
   { label: 'Others', value: 'other' },
 ];
 

@@ -4,41 +4,73 @@ import Pagination from '../../components/pagination';
 import Column from '../../components/table/column';
 import Row from '../../components/table/row';
 import ToggleButton from '../../components/forms/checkbox';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { getReview, reset, updateReview } from '../../redux/review/reviewSlice';
+import Filter from '../../components/filter';
 
 const Reviews: React.FC = () => {
-  const { reviews } = useAppSelector((state) => state.review);
-  console.log(reviews);
+  const dispatch = useAppDispatch();
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [displayItem, setDisplayItem] = useState(10);
+  const { reviews, isUpdate, totalCount } = useAppSelector(
+    (state) => state.review
+  );
+  const totalPage = Math.ceil(totalCount / displayItem);
+  const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
+    setDisplayItem(Number(e.target.value));
+  };
+  const handlePageChange = (selectedItem: { selected: number }) => {
+    setPageNumber(selectedItem.selected + 1);
+  };
+
+  const handleUpdateReview = (status: boolean, id: number) => {
+    dispatch(updateReview({ is_visible: status, id: id }));
+  };
+
+  useEffect(() => {
+    dispatch(getReview({ page: pageNumber, limit: displayItem }));
+
+    return () => {
+      dispatch(reset());
+    };
+  }, [dispatch, pageNumber, displayItem, isUpdate]);
+
   return (
     <div>
       <CardBody header="Reviews" to="/products/reviews#" />
       <Display>
+        <Filter handleDisplayItem={handleDisplayItem} />
         <Row className="row">
           <Column className="col-md-1">#</Column>
           <Column className="col-md-2">Name</Column>
-          <Column className="col-md-2">Email</Column>
-          <Column className="col-md-2">Products</Column>
+          <Column className="col-md-4">Products</Column>
           <Column className="col-md-3">Review</Column>
           <Column className="col-md-1">Rating</Column>
           <Column className="col-md-1">Published</Column>
         </Row>
-        {[...Array(6).keys()].map((_review, index) => (
+        {reviews.map((review, index) => (
           <Row className="row" key={index}>
             <Column className="col-md-1">1</Column>
-            <Column className="col-md-2">Talha</Column>
-            <Column className="col-md-2">admin@admin.com</Column>
-            <Column className="col-md-2">Gazi Oval Sauce Pan GSP-26C</Column>
-            <Column className="col-md-3">
-              New French Elegant White Bubble Sleeve Party Dress Casual A-Line
-              Dresses, Long Sleeve Dresses
-            </Column>
+            <Column className="col-md-2">{review.name}</Column>
+            <Column className="col-md-4">{review.product_name}</Column>
+            <Column className="col-md-3">{review.comment}</Column>
             <Column className="col-md-1">3.5</Column>
             <Column className="col-md-1">
-              <ToggleButton isChecked />
+              <ToggleButton
+                isChecked={review.is_visible}
+                onClick={() =>
+                  handleUpdateReview(!review.is_visible, review.id)
+                }
+              />
             </Column>
           </Row>
         ))}
-        <Pagination />
+        <Pagination
+          pageCount={pageNumber}
+          handlePageClick={handlePageChange}
+          totalPage={totalPage}
+        />
       </Display>
     </div>
   );
