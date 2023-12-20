@@ -54,6 +54,7 @@ import UpdateOrder from './orders/update-order';
 import CreateShipping from './marketing/create-shipping';
 import Shipping from './marketing/shipping';
 import UpdateShipping from './marketing/update-shipping';
+import UpdateCoupon from './marketing/update-coupon';
 
 export {
   Blogs,
@@ -112,4 +113,5 @@ export {
   CreateShipping,
   Shipping,
   UpdateShipping,
+  UpdateCoupon,
 };

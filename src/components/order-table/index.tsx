@@ -3,7 +3,7 @@ import Column from '../table/column';
 import { IOrder } from '../../interfaces/order';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { deleteOrder, reset, updateOrder } from '../../redux/order/orderSlice';
-import { ChangeEvent, useEffect, useRef } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import './index.scss';
 import SingleItem from './singleItem';
@@ -12,7 +12,7 @@ interface IProps {
   orders: IOrder[];
   handleAllSelectedOrders?: (e: ChangeEvent<HTMLInputElement>) => void;
   handleSelectedOrder?: (orderId: number) => void;
-  selectedOrders: number[];
+  selectedOrders?: number[];
 }
 
 const OrderTable = ({
@@ -23,7 +23,7 @@ const OrderTable = ({
 }: IProps) => {
   const dispatch = useAppDispatch();
   const { isUpdate, message } = useAppSelector((state) => state.order);
-  const componentRef = useRef<HTMLDivElement>(null);
+  // const componentRef = useRef<HTMLDivElement>(null);
   // const [invoiceVisible, setInvoiceVisible] = useState(false);
   const handleOrderDelete = (id: number) => {
     dispatch(deleteOrder([id]));

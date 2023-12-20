@@ -76,6 +76,8 @@ const Settings: React.FC = () => {
     dispatch(updateSettings(formData));
   };
 
+  console.log(setting);
+
   useEffect(() => {
     if (isUpdate) {
       toast.success('Updated successfully');
@@ -177,11 +179,13 @@ const Settings: React.FC = () => {
                 label="Cash on message"
                 value={settings.cash_on_message as string}
                 name="cash_on_message"
+                onChange={handleChange}
               />
               <TextArea
                 label="online payment message"
                 value={settings.online_payment_message as string}
                 name="online_payment_message"
+                onChange={handleChange}
               />
             </Display>
           </Column>

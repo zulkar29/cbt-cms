@@ -1,0 +1,50 @@
+  {isVariant &&
+                  attributes.map((attribute, index) => (
+                    <div className="input-group" key={index}>
+                      <p className="group-title">{attribute.name}</p>
+                      <ReactSelect
+                        className="select-box"
+                        closeMenuOnSelect={false}
+                        components={animatedComponents}
+                        isMulti
+                        options={attribute.value.split(',').map((option) => ({
+                          value: option.trim(),
+                          label: option.trim(),
+                        }))}
+                        value={selectedAttributes
+                          .filter(
+                            (selected) => selected.name === attribute.name
+                          )
+                          .map((selected) => ({
+                            value: selected.value,
+                            label: selected.value,
+                          }))}
+                        onChange={(selectedOption) => {
+                          // Handle selected option
+                          const updatedSelectedAttributes = [
+                            ...selectedAttributes.filter(
+                              (selected) => selected.name !== attribute.name
+                            ),
+                            ...selectedOption.map((option) => ({
+                              name: attribute.name,
+                              value: option.value,
+                            })),
+                          ];
+                          setSelectedAttributes(updatedSelectedAttributes);
+                        }}
+                        /*  options={attribute.value.split(',').map((option) => ({
+                          value: option.trim(),
+                          label: option.trim(),
+                        }))}
+                        onChange={(selectedOption) => {
+                          // Handle selected option
+                          setSelectedAttributes(
+                            selectedOption.map((option) => ({
+                              key: attribute.name,
+                              value: option.value,
+                            }))
+                          );
+                        }} */
+                      />
+                    </div>
+                  ))}

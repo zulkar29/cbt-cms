@@ -367,15 +367,12 @@ const UpdateOrder = () => {
                           <p className="heading sort-summery">Sub Total</p>
                           <p className="heading sort-summery">{`৳${orderItems?.reduce(
                             (sum, item) => {
-                              // Check if discount_price is null or 0
                               if (
                                 item.discount_price === null ||
                                 item.discount_price === 0
                               ) {
-                                // Add regular_price * quantity to the sum
                                 sum += item.regular_price * item.quantity;
                               } else {
-                                // Add discount_price * quantity to the sum
                                 sum += item.discount_price * item.quantity;
                               }
                               return sum;
@@ -391,15 +388,12 @@ const UpdateOrder = () => {
                           <p className="heading sort-summery">Grand Total</p>
                           <p className="heading sort-summery">{`৳${orderItems?.reduce(
                             (sum, item) => {
-                              // Check if discount_price is null or 0
                               if (
                                 item.discount_price === null ||
                                 item.discount_price === 0
                               ) {
-                                // Add regular_price * quantity to the sum
                                 sum += item.regular_price * item.quantity;
                               } else {
-                                // Add discount_price * quantity to the sum
                                 sum += item.discount_price * item.quantity;
                               }
                               return sum;

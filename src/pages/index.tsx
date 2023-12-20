@@ -56,6 +56,7 @@ import {
   Shipping,
   CreateShipping,
   UpdateShipping,
+  UpdateCoupon,
 } from './pages';
 import Csv from './product/csv';
 
@@ -104,6 +105,7 @@ function PageRoutes() {
       {/* Marketing */}
       <Route path="/coupons" element={<CouponPage />} />
       <Route path="/coupons/create" element={<CreateCoupon />} />
+      <Route path="/coupons/edit/:slug" element={<UpdateCoupon />} />
       <Route path="/banner" element={<BannerPage />} />
       <Route path="/banner/create" element={<CreateBanner />} />
       <Route path="/shipping" element={<Shipping />} />

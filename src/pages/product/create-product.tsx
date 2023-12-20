@@ -56,12 +56,12 @@ const CreateProduct: React.FC = () => {
   const [policy, setPolicy] = useState('');
   const [availability, setAvailability] = useState('');
   const [isVariant, setIsVariant] = useState(false);
-  const [attributes, setAttributes] = useState<Attribute[]>([]);
-  const [selectedAttributes, setSelectedAttributes] = useState<
+  const [attributes, setAttributes] = useState('');
+  /* const [selectedAttributes, setSelectedAttributes] = useState<
     { name: string; value: string }[]
-  >([]);
+  >([]); */
 
-  useEffect(() => {
+  /* useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get<IAttributeResponse>(
@@ -80,7 +80,7 @@ const CreateProduct: React.FC = () => {
     };
     // Fetch data when the component mounts
     fetchData();
-  }, []);
+  }, []); */
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -182,6 +182,9 @@ const CreateProduct: React.FC = () => {
     formData.append('is_sale', isSale.toString());
     formData.append('is_feature', isFeature.toString());
     formData.append('is_new', isNew.toString());
+    if (attributes) {
+      formData.append('gas_type', attributes);
+    }
 
     dispatch(createProduct(formData));
   };
@@ -326,56 +329,16 @@ const CreateProduct: React.FC = () => {
                     isChecked={isVariant}
                   />
                 </div>
-                {isVariant &&
-                  attributes.map((attribute, index) => (
-                    <div className="input-group" key={index}>
-                      <p className="group-title">{attribute.name}</p>
-                      <ReactSelect
-                        className="select-box"
-                        closeMenuOnSelect={false}
-                        components={animatedComponents}
-                        isMulti
-                        options={attribute.value.split(',').map((option) => ({
-                          value: option.trim(),
-                          label: option.trim(),
-                        }))}
-                        value={selectedAttributes
-                          .filter(
-                            (selected) => selected.name === attribute.name
-                          )
-                          .map((selected) => ({
-                            value: selected.value,
-                            label: selected.value,
-                          }))}
-                        onChange={(selectedOption) => {
-                          // Handle selected option
-                          const updatedSelectedAttributes = [
-                            ...selectedAttributes.filter(
-                              (selected) => selected.name !== attribute.name
-                            ),
-                            ...selectedOption.map((option) => ({
-                              name: attribute.name,
-                              value: option.value,
-                            })),
-                          ];
-                          setSelectedAttributes(updatedSelectedAttributes);
-                        }}
-                        /*  options={attribute.value.split(',').map((option) => ({
-                          value: option.trim(),
-                          label: option.trim(),
-                        }))}
-                        onChange={(selectedOption) => {
-                          // Handle selected option
-                          setSelectedAttributes(
-                            selectedOption.map((option) => ({
-                              key: attribute.name,
-                              value: option.value,
-                            }))
-                          );
-                        }} */
-                      />
-                    </div>
-                  ))}
+                {isVariant && (
+                  <div>
+                    <Input
+                      placeholder="use comma(,) for different type"
+                      label="Variant"
+                      htmlFor="variant"
+                      onBlur={(e) => setAttributes(e.target.value)}
+                    />
+                  </div>
+                )}
               </Display>
               <Display>
                 <h5 className="product-title">Product Description</h5>

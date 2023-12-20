@@ -12,7 +12,7 @@ import { BlogData } from '../../interfaces/blog';
 import { createBlog, reset } from '../../redux/blogs/blogSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import Column from '../../components/table/column';
-import { useNavigate, useRoutes } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const initialBlogData = {
   title: '',
   image: null,

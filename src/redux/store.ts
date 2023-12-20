@@ -19,6 +19,7 @@ import queryReducer from './query/querySlice';
 import reviewReducer from './review/reviewSlice';
 import cartReducer from './cart/cartSlice';
 import locationReducer from './location/locationSlice';
+import couponReducer from './coupon/couponSlice';
 // ...
 const store = configureStore({
   reducer: {
@@ -42,6 +43,7 @@ const store = configureStore({
     review: reviewReducer,
     cart: cartReducer,
     location: locationReducer,
+    coupon: couponReducer,
   },
   // devTools: false,
 });
