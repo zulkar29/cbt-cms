@@ -55,6 +55,8 @@ import CreateShipping from './marketing/create-shipping';
 import Shipping from './marketing/shipping';
 import UpdateShipping from './marketing/update-shipping';
 import UpdateCoupon from './marketing/update-coupon';
+import Warranty from './warranty';
+import WarrantyDetails from './warranty/details';
 
 export {
   Blogs,
@@ -114,4 +116,6 @@ export {
   Shipping,
   UpdateShipping,
   UpdateCoupon,
+  Warranty,
+  WarrantyDetails,
 };

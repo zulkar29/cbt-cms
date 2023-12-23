@@ -93,7 +93,7 @@ export const deleteCoupon = createAsyncThunk(
 );
 
 export const couponSlice = createSlice({
-  name: 'Blog',
+  name: 'coupon',
   initialState,
   reducers: {
     reset: () => initialState,

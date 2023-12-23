@@ -183,7 +183,8 @@ const CreateProduct: React.FC = () => {
     formData.append('is_feature', isFeature.toString());
     formData.append('is_new', isNew.toString());
     if (attributes) {
-      formData.append('gas_type', attributes);
+      formData.append('attribute_key', 'Gas Type');
+      formData.append('attribute_value', attributes);
     }
 
     dispatch(createProduct(formData));
