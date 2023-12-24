@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const AttributeSingle: React.FC<IProps> = ({data, handleAddAttribute, handleRemoveAttribute}) => {
-  
+
   const [attributeValues, setAttributeValues] = useState<any[]>([]);
   const [selectedAttributeValues, setSelectedAttributeValues] = useState<any[]>([]);
   
@@ -27,7 +27,7 @@ const AttributeSingle: React.FC<IProps> = ({data, handleAddAttribute, handleRemo
     }else{
       setSelectedAttributeValues([]);
     }
-  },[data?.value, data?.selectedValues]);
+  },[data?.value, data?.selectedValues?.length]);
 
   return (
     <div className='attribute-single'>
