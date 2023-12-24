@@ -22,6 +22,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../constants';
 import { Attribute, IAttributeResponse } from '../../interfaces/attribute';
+import AttributeSingle from './attribute-single';
+
 const animatedComponents = makeAnimated();
 
 const CreateProduct: React.FC = () => {
@@ -56,31 +58,82 @@ const CreateProduct: React.FC = () => {
   const [policy, setPolicy] = useState('');
   const [availability, setAvailability] = useState('');
   const [isVariant, setIsVariant] = useState(false);
-  const [attributes, setAttributes] = useState('');
-  /* const [selectedAttributes, setSelectedAttributes] = useState<
-    { name: string; value: string }[]
-  >([]); */
+  const [attributes, setAttributes] = useState<any[]>([]);
+  const [selectedAttributes, setSelectedAttributes] = useState<any[]>([]);
 
-  /* useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<IAttributeResponse>(
-          `${API_URL}/attributes`
-        );
-
-        // Handle successful response
-        console.log('Fetched data successfully', response.data);
-
-        // Update state with the fetched data
-        setAttributes(response.data?.data?.rows);
+        const response = await axios.get<IAttributeResponse>(`${API_URL}/attributes`);
+        if(response?.status===200){
+          let tempAttributes: any[] = response?.data?.data?.rows;
+          tempAttributes = tempAttributes?.length>0 ? tempAttributes?.map(item=>{return {...item, selectedValues: []}}) : [];
+          setAttributes(tempAttributes);
+        }
       } catch (error) {
-        // Handle error
         console.error('Failed to fetch data', error);
       }
     };
-    // Fetch data when the component mounts
     fetchData();
-  }, []); */
+  }, []); 
+
+  const handleAddAttribute = (attribute: string, attributeValue: string | null = null) => {
+    if(attributeValue){
+      setSelectedAttributes(prevState=>prevState.map(item=>{
+        if(item.name===attribute){
+          let tempAttrVals: string[] = item.value.indexOf(',') > -1 ? item.value.split(',') : [item.value];
+          let tempFilteredAttrVals: string[] = tempAttrVals.filter(val=>val!==attributeValue);
+          let tempFilteredValsString: string = "";
+          if(tempFilteredAttrVals?.length>1){
+            tempFilteredAttrVals?.map((val, i)=>{
+              if(tempFilteredAttrVals.length==i+1){
+                tempFilteredValsString += `${val}`;
+              }else{
+                tempFilteredValsString += `${val},`;
+              }
+            });
+          }else{
+            tempFilteredValsString = tempFilteredAttrVals[0];
+          }
+          item.value = tempFilteredValsString===undefined ?  "" : tempFilteredValsString;
+          item.selectedValues.push(attributeValue);
+        }
+        return item;
+      }));
+    }else{
+      if(attribute!==""){
+        let tempObj = {};
+        attributes.map(item=>{
+          if(item?.name===attribute){
+            tempObj = item;
+          }
+        });
+        setAttributes(prevState=>prevState?.filter(item=>item.name!==attribute));
+        setSelectedAttributes(prevState=>[tempObj, ...prevState]);
+      }
+    }
+  };
+
+  const handleRemoveAttribute = (attribute: string, attributeValue: string | null = null) => {
+    if(attributeValue){
+      setSelectedAttributes(prevState=>prevState.map(item=>{
+        if(item.name===attribute){
+          item.value = (item.value==="") ? attributeValue : `${item.value},${attributeValue}`;
+          item.selectedValues = item.selectedValues.filter((val: string)=>val!==attributeValue);
+        }
+        return item;
+      }));
+    }else{
+      let tempObj = {};
+      selectedAttributes.map(item=>{
+        if(item?.name===attribute){
+          tempObj = item;
+        }
+      });
+      setSelectedAttributes(prevState=>prevState?.filter(item=>item.name!==attribute));
+      setAttributes(prevState=>[tempObj, ...prevState]);
+    }
+  };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -182,10 +235,19 @@ const CreateProduct: React.FC = () => {
     formData.append('is_sale', isSale.toString());
     formData.append('is_feature', isFeature.toString());
     formData.append('is_new', isNew.toString());
-    if (attributes) {
-      formData.append('gas_type', attributes);
-    }
+    if (isVariant) {
+      let tempSelAttri: any[] = [];
+      selectedAttributes?.length>0 && selectedAttributes?.map(item=>{
+        if(item?.selectedValues?.length>0){
+          tempSelAttri.push({
+            name: item.name,
+            value: item?.selectedValues
+          });
+        }
+      });
+      formData.append('attributes', JSON.stringify(tempSelAttri));
 
+    }
     dispatch(createProduct(formData));
   };
 
@@ -330,14 +392,15 @@ const CreateProduct: React.FC = () => {
                   />
                 </div>
                 {isVariant && (
-                  <div>
-                    <Input
-                      placeholder="use comma(,) for different type"
-                      label="Variant"
-                      htmlFor="variant"
-                      onBlur={(e) => setAttributes(e.target.value)}
-                    />
-                  </div>
+                  <>
+                    <select name="attributes" onChange={(e)=>handleAddAttribute(e.target.value)} className='attribute-list' value={""}>
+                      <option value="">Select attributes</option>
+                      {attributes?.length > 0 && attributes?.map((item, i)=><option key={i} value={item?.name}>{item?.name}</option>)}
+                    </select>
+                    <div className='attribute-selected'>
+                      {selectedAttributes?.length > 0 && selectedAttributes?.map((item, i)=> <AttributeSingle key={i} data={item} handleAddAttribute={handleAddAttribute} handleRemoveAttribute={handleRemoveAttribute}/>)}
+                    </div>
+                  </>
                 )}
               </Display>
               <Display>

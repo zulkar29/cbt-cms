@@ -34,6 +34,7 @@ export interface IOrder {
   order_form: string;
   order_prefix: string;
   total_item: number;
+  coupon: any;
 }
 
 export type ISingleOrder = {
