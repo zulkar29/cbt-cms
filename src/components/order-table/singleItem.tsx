@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useRef } from 'react';
+import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
 import Column from '../table/column';
 import { IOrder } from '../../interfaces/order';
 import CustomIconArea from '../custom-icon-area';
@@ -36,6 +36,108 @@ const SingleItem: FC<IProps> = ({
   handleOrderDelete,
 }: IProps) => {
   const componentRef = useRef<HTMLDivElement>(null);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [orderItems, setOrderItems] = useState(order?.orderItems || []);
+
+  useEffect(() => {
+    if (order?.coupon) {
+      if (order?.coupon?.discount_type === 'flat') {
+        let tempDisCart = order?.orderItems;
+        if (order?.coupon?.product_id) {
+          let tempIdsArr: any[] = [];
+          if (order?.coupon?.product_id?.split(',')?.length > 0) {
+            tempIdsArr = order?.coupon?.product_id?.split(',');
+          } else {
+            tempIdsArr = [order?.coupon?.product_id];
+          }
+          tempDisCart = tempDisCart?.map((item: any) => {
+            if (tempIdsArr.find((element) => element == item.product_id)) {
+              return {
+                ...item,
+                discount_price:
+                  item.regular_price - order?.coupon?.discount_amount,
+              };
+            }
+            return item;
+          });
+        } else {
+          tempDisCart = tempDisCart?.map((item: any) => {
+            return {
+              ...item,
+              discount_price:
+                item.regular_price - order?.coupon?.discount_amount,
+            };
+          });
+        }
+        setOrderItems((prevState: any) => {
+          return {
+            ...prevState,
+            orderItems: tempDisCart,
+          };
+        });
+      } else {
+        let tempDisCart = order?.orderItems;
+        if (order?.coupon?.product_id) {
+          let tempIdsArr: any[] = [];
+          if (order?.coupon?.product_id?.split(',')?.length > 0) {
+            tempIdsArr = order?.coupon?.product_id?.split(',');
+          } else {
+            tempIdsArr = [order?.coupon?.product_id];
+          }
+          tempDisCart = tempDisCart?.map((item: any) => {
+            if (tempIdsArr.find((element) => element == item.product_id)) {
+              return {
+                ...item,
+                discount_price:
+                  item.regular_price -
+                  item.regular_price *
+                    (order?.coupon.discount_amount / 100),
+              };
+            }
+            return item;
+          });
+        } else {
+          tempDisCart = tempDisCart?.map((item: any) => {
+            return {
+              ...item,
+              discount_price:
+                item.regular_price -
+                item.regular_price *
+                  (order?.coupon.discount_amount / 100),
+            };
+          });
+        }
+        setOrderItems((prevState: any) => {
+          return {
+            ...prevState,
+            orderItems: tempDisCart,
+          };
+        });
+      }
+    }
+  }, [order]);
+
+  useEffect(() => {
+    if (orderItems?.length > 0) {
+      if (order?.coupon) {
+        console.log("I am here 1");
+        let finalPrice = 0;
+        orderItems?.map((item: any) => {
+          finalPrice += item?.discount_price * item?.quantity;
+        });
+        setTotalPrice(finalPrice);
+      } else {
+        console.log("I am here 2");
+        let finalPrice = 0;
+        orderItems?.map((item: any) => {
+          finalPrice += item?.discount_price
+            ? item?.discount_price
+            : item?.regular_price * item?.quantity;
+        });
+        setTotalPrice(finalPrice);
+      }
+    }
+  }, [order, orderItems]);
 
   return (
     <>
@@ -59,20 +161,7 @@ const SingleItem: FC<IProps> = ({
         <Column className="col-md-1">
           {order.order_prefix} - {order.id}
         </Column>
-        <Column className="col-md-1">{`৳${order.orderItems.reduce(
-          (sum, item) => {
-            // Check if discount_price is null or 0
-            if (item.discount_price === null || item.discount_price === 0) {
-              // Add regular_price * quantity to the sum
-              sum += item.regular_price * item.quantity;
-            } else {
-              // Add discount_price * quantity to the sum
-              sum += item.discount_price * item.quantity;
-            }
-            return sum;
-          },
-          0
-        )}`}</Column>
+        <Column className="col-md-1">{`৳${totalPrice}`}</Column>
         <Column className="col-md-1">{order.name}</Column>
         <Column className="col-md-2">{order.mobile}</Column>
         <Column className="col-md-1">{order.orderItems.length}</Column>
