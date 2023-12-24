@@ -1,24 +1,35 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Display from '../../components/display';
 import ToggleButton from '../../components/forms/checkbox';
 import Row from '../../components/table/row';
 import Column from '../../components/table/column';
 import CustomIconArea from '../../components/custom-icon-area';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getRefund, updateRefund } from '../../redux/refund/refundSlice';
+import {
+  deleteRefund,
+  getRefund,
+  updateRefund,
+} from '../../redux/refund/refundSlice';
 import DeleteButton from '../../components/button/delete';
+import Pagination from '../../components/pagination';
 
 const Warranty = () => {
   const dispatch = useAppDispatch();
-  const { refunds, isUpdate } = useAppSelector((state) => state.refund);
-
+  const { refunds, isUpdate, totalCount, isDelete } = useAppSelector(
+    (state) => state.refund
+  );
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const totalPage = Math.ceil(totalCount / 10);
   const updateStatus = (id: number, status: string) => {
     dispatch(updateRefund({ refund_status: status, id }));
   };
+  const handlePageChange = (selectedItem: { selected: number }) => {
+    setPageNumber(selectedItem.selected + 1);
+  };
 
   useEffect(() => {
-    dispatch(getRefund());
-  }, [dispatch, isUpdate]);
+    dispatch(getRefund({ page: pageNumber }));
+  }, [dispatch, isUpdate, pageNumber, isDelete]);
   return (
     <div>
       <Display>
@@ -51,12 +62,17 @@ const Warranty = () => {
             <Column className="col-md-2">
               <CustomIconArea>
                 <DeleteButton
-                  onClick={() => updateStatus(refund.id, 'cancel')}
+                  onClick={() => dispatch(deleteRefund(refund.id))}
                 />
               </CustomIconArea>
             </Column>
           </Row>
         ))}
+        <Pagination
+          pageCount={pageNumber}
+          handlePageClick={handlePageChange}
+          totalPage={totalPage}
+        />
       </Display>
     </div>
   );

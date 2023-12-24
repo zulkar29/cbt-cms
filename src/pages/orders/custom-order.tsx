@@ -183,7 +183,10 @@ const CustomOrder = () => {
                               dispatch(
                                 addToCart({
                                   product_id: product?.id as number,
-                                  price: Number(product.discount_price),
+                                  price:
+                                    Number(product.discount_price) !== 0
+                                      ? Number(product.discount_price)
+                                      : Number(product.regular_price),
                                   title: product.title,
                                   quantity: 1,
                                 })

@@ -31,9 +31,14 @@ const initialState: IBlogResponse = {
 
 export const getRefund = createAsyncThunk(
   'refunds/getAll',
-  async (_, thunkAPI) => {
+  async (
+    filter: {
+      [key: string]: string | number;
+    },
+    thunkAPI
+  ) => {
     try {
-      return await refundService.getRefund();
+      return await refundService.getRefund(filter);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';

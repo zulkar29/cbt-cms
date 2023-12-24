@@ -81,7 +81,7 @@ export const sidebarLinks = [
   {
     id: 45,
     title: 'Warranty',
-    icon: 'blog.png',
+    icon: 'refund.png',
     subLinks: [
       {
         subtitle: 'warranty',

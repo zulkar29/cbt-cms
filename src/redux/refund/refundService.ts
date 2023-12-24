@@ -7,8 +7,22 @@ export interface ICreateResponse {
   data: IRefund[];
 }
 
-const getRefund = async (): Promise<IRefundResponse> => {
-  const { data } = await axios.get(`${API_URL}/refunds`);
+const getRefund = async (filter: {
+  [key: string]: string | number;
+}): Promise<IRefundResponse> => {
+  let url = `${API_URL}/refunds`;
+  if (filter && Object.keys(filter).length > 0) {
+    const queryString = Object.entries(filter)
+      .map(
+        ([key, value]) =>
+          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+      )
+      .join('&');
+
+    // Add query string to the URL
+    url += `?${queryString}`;
+  }
+  const { data } = await axios.get(url);
   return data;
 };
 
