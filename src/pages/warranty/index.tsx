@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Display from '../../components/display';
 import ToggleButton from '../../components/forms/checkbox';
 import Row from '../../components/table/row';
 import Column from '../../components/table/column';
 import CustomIconArea from '../../components/custom-icon-area';
-import ViewButton from '../../components/button/view';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getRefund, updateRefund } from '../../redux/refund/refundSlice';
 import DeleteButton from '../../components/button/delete';

@@ -1,6 +1,4 @@
-import React from 'react';
 import Display from '../../components/display';
-import Input from '../../components/forms/text-input';
 import { Button } from '../../components/button';
 import TextArea from '../../components/forms/textarea';
 import CardBody from '../../components/card-body';
@@ -25,8 +23,6 @@ const WarrantyDetails = () => {
           <Button type="submit">Submit</Button>
         </form>
       </Display>
-
-      <Display></Display>
     </>
   );
 };
