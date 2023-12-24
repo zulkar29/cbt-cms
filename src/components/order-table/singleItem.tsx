@@ -120,14 +120,12 @@ const SingleItem: FC<IProps> = ({
   useEffect(() => {
     if (orderItems?.length > 0) {
       if (order?.coupon) {
-        console.log("I am here 1");
         let finalPrice = 0;
         orderItems?.map((item: any) => {
           finalPrice += item?.discount_price * item?.quantity;
         });
         setTotalPrice(finalPrice);
       } else {
-        console.log("I am here 2");
         let finalPrice = 0;
         orderItems?.map((item: any) => {
           finalPrice += item?.discount_price
