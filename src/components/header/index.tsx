@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BsBell } from 'react-icons/bs';
+// import { BsBell } from 'react-icons/bs';
 import './index.scss';
 import Popup from '../popup';
 import ProfilePopup from '../popup/profile';
@@ -8,9 +8,9 @@ function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isProfile, setIsProfile] = useState(false);
 
-  const handleButtonClick = () => {
+  /*  const handleButtonClick = () => {
     setIsPopupOpen(true);
-  };
+  }; */
   const handleProfileClick = () => {
     setIsProfile(!isProfile);
   };
