@@ -1,4 +1,5 @@
 import { IOrder } from '../../interfaces/order';
+import { formatDate } from '../date-formate';
 import Column from '../table/column';
 import './index.scss';
 
@@ -18,7 +19,7 @@ const Invoice = ({ order }: { order: IOrder }) => {
             <p>Address: {order.address} </p>
           </div>
           <div className="order-details right">
-            <p>Order date: {order.created_at}</p>
+            <p>Order date: {formatDate(order.created_at)}</p>
             <p>Invoice No: GHA-{order.id}</p>
             <p>Order No: {order.id}</p>
           </div>

@@ -11,7 +11,7 @@ const updateSettings = async (
   settingData: FormData
 ): Promise<ISettingsResponse> => {
   const { data } = await axios.put(`${API_URL}/settings`, settingData);
-  return data.data;
+  return data;
 };
 
 const settingService = {

@@ -3,10 +3,10 @@ import { Button } from '../../components/button';
 import TextArea from '../../components/forms/textarea';
 import CardBody from '../../components/card-body';
 
-const WarrantyDetails = () => {
+const RefundDetails = () => {
   return (
     <>
-      <CardBody header="Warranty Details" to="/warranty" text="Back" />
+      <CardBody header="Warranty Details" to="/refund" text="Back" />
       <Display>
         <div className="flex">
           <h3>Reason:</h3>
@@ -27,4 +27,4 @@ const WarrantyDetails = () => {
   );
 };
 
-export default WarrantyDetails;
+export default RefundDetails;

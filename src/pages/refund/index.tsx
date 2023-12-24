@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Display from '../../components/display';
-import ToggleButton from '../../components/forms/checkbox';
 import Row from '../../components/table/row';
 import Column from '../../components/table/column';
 import CustomIconArea from '../../components/custom-icon-area';
@@ -8,12 +7,16 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   deleteRefund,
   getRefund,
+  reset,
   updateRefund,
 } from '../../redux/refund/refundSlice';
 import DeleteButton from '../../components/button/delete';
 import Pagination from '../../components/pagination';
+import Select from '../../components/select';
+import './index.scss';
+import { toast } from 'react-toastify';
 
-const Warranty = () => {
+const Refund = () => {
   const dispatch = useAppDispatch();
   const { refunds, isUpdate, totalCount, isDelete } = useAppSelector(
     (state) => state.refund
@@ -29,9 +32,21 @@ const Warranty = () => {
 
   useEffect(() => {
     dispatch(getRefund({ page: pageNumber }));
+    return () => {
+      dispatch(reset());
+    };
   }, [dispatch, isUpdate, pageNumber, isDelete]);
+  useEffect(() => {
+    if (isUpdate) {
+      toast.success('Refund updated successfully');
+    }
+    return () => {
+      dispatch(reset());
+    };
+  }, [dispatch, isUpdate]);
+
   return (
-    <div>
+    <div className="refund">
       <Display>
         <Row className="row">
           <Column className="col-md-1">Order No</Column>
@@ -49,15 +64,26 @@ const Warranty = () => {
             <Column className="col-md-1">{refund.product_price}</Column>
             <Column className="col-md-4">{refund.message}</Column>
             <Column className="col-md-2">
-              <ToggleButton
-                onClick={() =>
-                  updateStatus(
-                    refund.id,
-                    refund.refund_status === 'approved' ? 'pending' : 'approved'
-                  )
-                }
-                isChecked={refund.refund_status === 'approved'}
-              />
+              <Select onChange={(e) => updateStatus(refund.id, e.target.value)}>
+                <option
+                  value="pending"
+                  selected={refund.refund_status === 'pending'}
+                >
+                  Pending
+                </option>
+                <option
+                  value="approved"
+                  selected={refund.refund_status === 'approved'}
+                >
+                  Approved
+                </option>
+                <option
+                  value="cancel"
+                  selected={refund.refund_status === 'cancel'}
+                >
+                  Cancel
+                </option>
+              </Select>
             </Column>
             <Column className="col-md-2">
               <CustomIconArea>
@@ -78,4 +104,4 @@ const Warranty = () => {
   );
 };
 
-export default Warranty;
+export default Refund;

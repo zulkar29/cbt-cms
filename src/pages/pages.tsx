@@ -55,8 +55,8 @@ import CreateShipping from './marketing/create-shipping';
 import Shipping from './marketing/shipping';
 import UpdateShipping from './marketing/update-shipping';
 import UpdateCoupon from './marketing/update-coupon';
-import Warranty from './warranty';
-import WarrantyDetails from './warranty/details';
+import Warranty from './refund';
+import WarrantyDetails from './refund/details';
 
 export {
   Blogs,

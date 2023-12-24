@@ -30,7 +30,7 @@ const Csv: React.FC = () => {
       toast.error(`${errorMessage}`);
     }
     if (isCsvUpload) {
-      toast.success(`${message}`);
+      toast.success(`Csv uploaded`);
     }
     return () => {
       dispatch(reset());

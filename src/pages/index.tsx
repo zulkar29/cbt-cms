@@ -92,8 +92,8 @@ function PageRoutes() {
       <Route path="/orders/edit/:slug" element={<UpdateOrder />} />
 
       {/* Warranty */}
-      <Route path="/warranty" element={<Warranty />} />
-      <Route path="/warranty/:slug" element={<WarrantyDetails />} />
+      <Route path="/refund" element={<Warranty />} />
+      <Route path="/refund/:slug" element={<WarrantyDetails />} />
 
       {/* Blog */}
       <Route path="/blogs" element={<Blogs />} />

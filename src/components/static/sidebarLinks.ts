@@ -80,12 +80,12 @@ export const sidebarLinks = [
   },
   {
     id: 45,
-    title: 'Warranty',
+    title: 'Refund',
     icon: 'refund.png',
     subLinks: [
       {
-        subtitle: 'warranty',
-        slug: '/warranty',
+        subtitle: 'Refund',
+        slug: '/refund',
       },
     ],
   },
