@@ -69,12 +69,7 @@ const SingleItem: FC<IProps> = ({
             };
           });
         }
-        setOrderItems((prevState: any) => {
-          return {
-            ...prevState,
-            orderItems: tempDisCart,
-          };
-        });
+        setOrderItems(tempDisCart);
       } else {
         let tempDisCart = order?.orderItems;
         if (order?.coupon?.product_id) {
@@ -105,12 +100,7 @@ const SingleItem: FC<IProps> = ({
             };
           });
         }
-        setOrderItems((prevState: any) => {
-          return {
-            ...prevState,
-            orderItems: tempDisCart,
-          };
-        });
+        setOrderItems(tempDisCart);
       }
     }
   }, [order]);
