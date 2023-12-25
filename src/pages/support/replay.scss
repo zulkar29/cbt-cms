@@ -1,0 +1,49 @@
+@import '../../styles/index.scss';
+.replay-area {
+  max-height: 400px;
+  min-height: 250px;
+  overflow-y: scroll;
+  margin-bottom: 20px;
+
+  .left {
+    width: 30%;
+    background: $primary-color;
+    padding: 2px;
+    color: $white-color;
+    margin-bottom: 10px;
+    p {
+      font-family: $primary-font;
+      font-size: 14px;
+    }
+  }
+  .right {
+    width: 30%;
+    background: $primary-color;
+    padding: 2px;
+    color: $white-color;
+    margin-left: auto;
+    margin-bottom: 10px;
+  }
+  img {
+    width: 100%;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}

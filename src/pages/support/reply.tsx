@@ -1,20 +1,37 @@
 // import React from 'react';
-import Input from '../../components/forms/text-input';
+import { Button } from '../../components/button';
+import FileInput from '../../components/forms/file-input';
+import TextArea from '../../components/forms/textarea';
+import './replay.scss';
 
 const Replay = () => {
   return (
     <div>
-      <div>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
-          quae eaque animi numquam sapiente quis nesciunt error hic, temporibus
-          ad deleniti neque, accusantium velit fuga officia dignissimos? Eius,
-          assumenda unde.
-        </p>
+      <div className="replay-area">
+        <div className="left">
+          <img src="/assets/images/product.png" alt="replay" />
+          <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Voluptatibus quae eaque animi numquam sapiente quis nesciunt error
+            hic, temporibus ad deleniti neque, accusantium velit fuga officia
+            dignissimos? Eius, assumenda unde.
+          </p>
+        </div>
+        <div className="right">
+          <img src="/assets/images/product.png" alt="replay" />
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Voluptatibus quae eaque animi numquam sapiente quis nesciunt error
+            hic, temporibus ad deleniti neque, accusantium velit fuga officia
+            dignissimos? Eius, assumenda unde.
+          </p>
+        </div>
       </div>
       <form>
         {/* <Input htmlFor="f" label="Image" ty/> */}
-        <Input htmlFor="f" label="Message" />
+        <TextArea placeholder="Message" />
+        <FileInput />
+        <Button type="submit">Replay</Button>
       </form>
     </div>
   );
