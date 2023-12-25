@@ -70,6 +70,7 @@ const UpdateProduct: React.FC = () => {
   const [isVariant, setIsVariant] = useState(false);
   const [attributes, setAttributes] = useState<any[]>([]);
   const [selectedAttributes, setSelectedAttributes] = useState<any[]>([]);
+  const [previousSelectedAttributes, setPreviousSelectedAttributes] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,6 +85,7 @@ const UpdateProduct: React.FC = () => {
             if(response2?.status===200){
               let selectedAttributeList = response2?.data?.data?.rows;
               if(selectedAttributeList?.length>0){
+                setPreviousSelectedAttributes(selectedAttributeList);
                 setIsVariant(true);
                 if(tempAttributes?.length>0){
                   tempAttributes?.map(item=>{
@@ -280,6 +282,24 @@ const UpdateProduct: React.FC = () => {
     formData.append('is_sale', isSale.toString());
     formData.append('is_feature', isFeature.toString());
     formData.append('is_new', isNew.toString());
+    if (isVariant) {
+      console.log("previousSelectedAttributes : ", previousSelectedAttributes);
+      let tempSelAttri: any[] = [];
+      selectedAttributes?.length>0 && selectedAttributes?.map(item=>{
+        if(item?.selectedValues?.length>0){
+          let itm:any = previousSelectedAttributes?.length>0 && previousSelectedAttributes.find(row=>row?.attribute_key===item?.name)
+          if(itm?.id){
+            tempSelAttri.push({
+              id: itm.id,
+              name: item.name,
+              value: item?.selectedValues
+            });
+          }
+        }
+      });
+      formData.append('attributes', JSON.stringify(tempSelAttri));
+      console.log(tempSelAttri);
+    }
 
     dispatch(updateProduct({ id: Number(slug), productData: formData }));
   };
