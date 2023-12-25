@@ -6,8 +6,9 @@ import { useEffect } from 'react';
 import CustomIconArea from '../../components/custom-icon-area';
 import EditButton from '../../components/button/edit';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { deleteCoupon, getCoupon } from '../../redux/coupon/couponSlice';
+import { deleteCoupon, getCoupon, reset } from '../../redux/coupon/couponSlice';
 import DeleteButton from '../../components/button/delete';
+import { toast } from 'react-toastify';
 
 const CouponPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +19,14 @@ const CouponPage: React.FC = () => {
   };
 
   useEffect(() => {
+    if (isDelete) {
+      toast.success('Coupon deleted successfully');
+    }
     dispatch(getCoupon({}));
+
+    return () => {
+      dispatch(reset());
+    };
   }, [dispatch, isDelete]);
 
   return (

@@ -27,7 +27,7 @@ const UpdateOrder = () => {
   const [mobile, setMobile] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
-  const [thana, setThana] = useState('');
+  // const [thana, setThana] = useState('');
   const [quantity, setQuantity] = useState(0);
   // const [discount, setDiscount] = useState(0);
   // const [shipping, setShipping] = useState(0);
@@ -45,7 +45,6 @@ const UpdateOrder = () => {
     mobile,
     address,
     city,
-    thana,
   };
 
   const handleOrder = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -97,7 +96,7 @@ const UpdateOrder = () => {
         setMobile(data.mobile);
         setAddress(data.address);
         setCity(data.city);
-        setThana(data.thana);
+        // setThana(data.thana);
         setFinalPrice(data.final_price);
         setOrderItems(data.orderItems);
         setQuantity(data.quantity);
@@ -219,45 +218,51 @@ const UpdateOrder = () => {
                   <div className="details">
                     <div className="left">
                       <Input
+                        label="Name"
                         htmlFor="customer"
                         value={name}
                         placeholder="Name"
                         onChange={(e) => setName(e.target.value)}
                       />
                       <Input
+                        label="Email"
                         htmlFor="email"
                         value={email}
                         placeholder="Email"
                         onChange={(e) => setEmail(e.target.value)}
                       />
                       <Input
+                        label="Mobile"
                         htmlFor="mobile"
                         value={mobile}
                         placeholder="Mobile"
                         onChange={(e) => setMobile(e.target.value)}
                       />
                       <Input
+                        label="Address"
                         htmlFor="address"
                         value={address}
                         placeholder="Address"
                         onChange={(e) => setAddress(e.target.value)}
                       />
                       <Input
+                        label="City"
                         htmlFor="city"
                         value={city}
                         placeholder="City"
                         onChange={(e) => setCity(e.target.value)}
                       />
-                      <Input
+                      {/*  <Input
                         htmlFor="thana"
                         value={thana}
                         placeholder="Thana"
                         onChange={(e) => setThana(e.target.value)}
-                      />
+                      /> */}
                     </div>
                     <div className="order-details right">
                       <div className="product-area" ref={productAreaRef}>
                         <Input
+                          label="Search"
                           htmlFor="search"
                           placeholder="Search Product"
                           onChange={(e) => setSearch(e.target.value)}

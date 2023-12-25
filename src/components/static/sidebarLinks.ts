@@ -26,7 +26,7 @@ export const sidebarLinks = [
     icon: 'product.png',
     subLinks: [
       {
-        subtitle: 'Create Products',
+        subtitle: 'Products',
         slug: '/products/create',
       },
       {
@@ -75,6 +75,17 @@ export const sidebarLinks = [
       {
         subtitle: 'Canceled Orders',
         slug: '/orders/canceled',
+      },
+    ],
+  },
+  {
+    id: 45,
+    title: 'Refund',
+    icon: 'refund.png',
+    subLinks: [
+      {
+        subtitle: 'Refund',
+        slug: '/refund',
       },
     ],
   },

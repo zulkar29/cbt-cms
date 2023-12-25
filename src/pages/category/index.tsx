@@ -26,8 +26,6 @@ const Categories: React.FC = () => {
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [search, setSearch] = useState<string>('');
   const totalPage = Math.ceil(totalCount / displayItem);
-  console.log(totalPage);
-  console.log(displayItem);
 
   const handleVisibility = (category: ICategory) => {
     dispatch(

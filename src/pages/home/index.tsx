@@ -1,6 +1,9 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import './index.scss';
-import Chart from '../../components/chart';
+// import Chart from '../../components/chart';
+import { API_URL } from '../../constants';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 interface IData {
   name: string;
@@ -55,7 +58,9 @@ const data: IData[] = [
 ];
 
 const HomePage: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [data, setData] = useState<any>({});
+  const [loading, setLoading] = useState(true);
+  /* const [activeIndex, setActiveIndex] = useState(0);
   const activeItem = data[activeIndex];
 
   const handleClick = useCallback(
@@ -63,57 +68,139 @@ const HomePage: React.FC = () => {
       setActiveIndex(index);
     },
     [setActiveIndex]
-  );
+  ); */
+
+  console.log(data);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/dashboards`);
+
+        setData(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="">
       <div className="row">
         <div className="col-md-3">
-          <div className="chart-card">
-            <div className="img">
-              <img src="/assets/images/checkout.png" alt="cart" />
+          <Link to="/orders">
+            <div className="chart-card">
+              <div className="img">
+                <img src="/assets/images/checkout.png" alt="cart" />
+              </div>
+              <div className="info">
+                <h5>Total Orders</h5>
+                <h3>{data.totalOrder}</h3>
+              </div>
             </div>
-            <div className="info">
-              <h5>Total Orders</h5>
-              <h3>56</h3>
-            </div>
-          </div>
+          </Link>
         </div>
         <div className="col-md-3">
-          <div className="chart-card">
-            <div className="img">
-              <img src="/assets/images/pending.png" alt="cart" />
+          <Link to="/orders/pending">
+            <div className="chart-card">
+              <div className="img">
+                <img src="/assets/images/pending.png" alt="cart" />
+              </div>
+              <div className="info">
+                <h5>Pending Orders</h5>
+                <h3>{data.totalPendingOrder}</h3>
+              </div>
             </div>
-            <div className="info">
-              <h5>Pending Orders</h5>
-              <h3>12</h3>
-            </div>
-          </div>
+          </Link>
         </div>
         <div className="col-md-3">
-          <div className="chart-card">
-            <div className="img">
-              <img src="/assets/images/gift.png" alt="cart" />
+          <Link to="/products">
+            <div className="chart-card">
+              <div className="img">
+                <img src="/assets/images/gift.png" alt="cart" />
+              </div>
+              <div className="info">
+                <h5>Total Products</h5>
+                <h3>{data.totalOrder}</h3>
+              </div>
             </div>
-            <div className="info">
-              <h5>Total Products</h5>
-              <h3>156</h3>
-            </div>
-          </div>
+          </Link>
         </div>
         <div className="col-md-3">
-          <div className="chart-card">
-            <div className="img">
-              <img src="/assets/images/people.png" alt="cart" />
+          <Link to="/customers">
+            <div className="chart-card">
+              <div className="img">
+                <img src="/assets/images/people.png" alt="cart" />
+              </div>
+              <div className="info">
+                <h5>Total Customers</h5>
+                <h3>{data.totalUser}</h3>
+              </div>
             </div>
-            <div className="info">
-              <h5>Total Customers</h5>
-              <h3>36</h3>
+          </Link>
+        </div>
+        <div className="col-md-3">
+          <Link to={'/products/stockout'}>
+            <div className="chart-card">
+              <div className="img">
+                <img src="/assets/images/out-of-stock.png" alt="cart" />
+              </div>
+              <div className="info">
+                <h5>Stock Out Products</h5>
+                <h3>{data.totalOutStock}</h3>
+              </div>
             </div>
-          </div>
+          </Link>
+        </div>
+        <div className="col-md-3">
+          <Link to={'/subscriber'}>
+            <div className="chart-card">
+              <div className="img">
+                <img src="/assets/images/subscribe.png" alt="cart" />
+              </div>
+              <div className="info">
+                <h5>Subscribers</h5>
+                <h3>{data.totalSubscribe}</h3>
+              </div>
+            </div>
+          </Link>
+        </div>
+        <div className="col-md-3">
+          <Link to={'/blogs'}>
+            <div className="chart-card">
+              <div className="img">
+                <img src="/assets/images/blog.png" alt="cart" />
+              </div>
+              <div className="info">
+                <h5>Blogs</h5>
+                <h3>{data.totalBlog}</h3>
+              </div>
+            </div>
+          </Link>
+        </div>
+        <div className="col-md-3">
+          <Link to={'/queries'}>
+            <div className="chart-card">
+              <div className="img">
+                <img src="/assets/images/question.png" alt="cart" />
+              </div>
+              <div className="info">
+                <h5>Queries</h5>
+                <h3>{data.totalQuery}</h3>
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
-      <div className="row">
+      {/* <div className="row">
         <div className="chart-item col-md-6">
           <Chart
             data={data}
@@ -130,7 +217,7 @@ const HomePage: React.FC = () => {
             handleClick={handleClick}
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
