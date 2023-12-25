@@ -19,7 +19,7 @@ const Replay = () => {
         </div>
         <div className="right">
           <img src="/assets/images/product.png" alt="replay" />
-          <p>
+          <p className="text">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Voluptatibus quae eaque animi numquam sapiente quis nesciunt error
             hic, temporibus ad deleniti neque, accusantium velit fuga officia

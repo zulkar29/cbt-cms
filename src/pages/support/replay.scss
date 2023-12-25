@@ -11,10 +11,11 @@
     padding: 2px;
     color: $white-color;
     margin-bottom: 10px;
-    p {
-      font-family: $primary-font;
-      font-size: 14px;
-    }
+  }
+  .text {
+    font-family: $primary-font;
+    font-size: 14px;
+    padding: 10px 7px;
   }
   .right {
     width: 30%;
