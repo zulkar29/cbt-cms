@@ -21,6 +21,7 @@ import cartReducer from './cart/cartSlice';
 import locationReducer from './location/locationSlice';
 import couponReducer from './coupon/couponSlice';
 import refundReducer from './refund/refundSlice';
+import supportReducer from './support/supportSlice';
 // ...
 const store = configureStore({
   reducer: {
@@ -46,6 +47,7 @@ const store = configureStore({
     location: locationReducer,
     coupon: couponReducer,
     refund: refundReducer,
+    support: supportReducer,
   },
   // devTools: false,
 });

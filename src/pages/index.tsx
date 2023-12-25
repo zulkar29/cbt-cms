@@ -59,6 +59,7 @@ import {
   UpdateCoupon,
   Warranty,
   WarrantyDetails,
+  Replay,
 } from './pages';
 import Csv from './product/csv';
 
@@ -121,6 +122,7 @@ function PageRoutes() {
 
       {/* Support */}
       <Route path="/support" element={<TicketPage />} />
+      <Route path="/support/:slug" element={<Replay />} />
       <Route path="/queries" element={<Queries />} />
       <Route path="/subscriber" element={<Subscriber />} />
 
