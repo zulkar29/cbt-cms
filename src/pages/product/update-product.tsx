@@ -20,6 +20,8 @@ import axios from 'axios';
 import { API_ROOT, API_URL } from '../../constants';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IGalleryPhoto } from '../../interfaces/product';
+import AttributeSingle from './attribute-single';
+import { IAttributeResponse } from '../../interfaces/attribute';
 interface IPhoto {
   id: number;
   product_id: number;
@@ -30,6 +32,7 @@ interface IPhoto {
 }
 
 const UpdateProduct: React.FC = () => {
+  let runCount = 0;
   const { slug } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -64,6 +67,146 @@ const UpdateProduct: React.FC = () => {
   const [availability, setAvailability] = useState<number>(0);
   const [orderNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [isVariant, setIsVariant] = useState(false);
+  const [attributes, setAttributes] = useState<any[]>([]);
+  const [selectedAttributes, setSelectedAttributes] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get<IAttributeResponse>(`${API_URL}/attributes`);
+        if(response?.status===200){
+          let tempAttributes: any[] = response?.data?.data?.rows;
+          tempAttributes = tempAttributes?.length>0 ? tempAttributes?.map(item=>{return {...item, selectedValues: []}}) : [];
+          // setAttributes(tempAttributes);
+          try{
+            const response2 = await axios.get(`${API_URL}/product-attributes/attributes/${slug}`);
+            if(response2?.status===200){
+              let selectedAttributeList = response2?.data?.data?.rows;
+              if(selectedAttributeList?.length>0){
+                setIsVariant(true);
+                if(tempAttributes?.length>0){
+                  tempAttributes?.map(item=>{
+                    let matchFound = false;
+                    let valuesFound: any = "";
+                    selectedAttributeList = selectedAttributeList?.filter((row:any)=>{
+                      if(item?.name===row?.attribute_key){
+                        matchFound = true;
+                        valuesFound = row?.attribute_value;
+                        return false;
+                      }else{
+                        return true;
+                      }
+                    });
+                    if(matchFound){
+                      setSelectedAttributes(prevState=>{
+                        if(Array.isArray(valuesFound)){
+                          valuesFound = valuesFound.join(',');
+                        }
+                        valuesFound = valuesFound.indexOf(',') > -1 ? valuesFound.split(',') : [valuesFound];
+                        let itemValue: any[] = item?.value?.indexOf(',') > -1 ? item?.value?.split(',') : [item?.value];
+                        itemValue = itemValue?.filter(val=>{
+                          if(valuesFound.find((itm:any)=>itm===val)){
+                            return false;
+                          }else{
+                            return true;
+                          }
+                        });
+                        if(prevState?.length==0){
+                          return [{...item, value: itemValue.join(','), selectedValues: valuesFound}];
+                        }else{
+                          if(prevState.find(attr=>attr?.name===item?.name)){
+                            return [...prevState];
+                          }else{
+                            return [...prevState, {...item, value: itemValue.join(','), selectedValues: valuesFound}];
+                          }
+                        }
+                      });
+                    }else{
+                      setAttributes(prevState=>{
+                        if(prevState?.length==0){
+                          return [item];
+                        }else{
+                          if(prevState.find(attr=>attr?.name===item?.name)){
+                            return [...prevState];
+                          }else{
+                            return [...prevState, item];
+                          }
+                        }
+                      });
+                    }
+                  });
+                }
+              }
+            }
+          }catch(error2){
+            console.log(error2);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch data', error);
+      }
+    };
+    fetchData();
+  }, []); 
+
+  const handleAddAttribute = (attribute: string, attributeValue: string | null = null) => {
+    if(attributeValue){
+      setSelectedAttributes(prevState=>prevState.map(item=>{
+        if(item.name===attribute){
+          let tempAttrVals: string[] = item.value.indexOf(',') > -1 ? item.value.split(',') : [item.value];
+          let tempFilteredAttrVals: string[] = tempAttrVals.filter(val=>val!==attributeValue);
+          let tempFilteredValsString: string = "";
+          if(tempFilteredAttrVals?.length>1){
+            tempFilteredAttrVals?.map((val, i)=>{
+              if(tempFilteredAttrVals.length==i+1){
+                tempFilteredValsString += `${val}`;
+              }else{
+                tempFilteredValsString += `${val},`;
+              }
+            });
+          }else{
+            tempFilteredValsString = tempFilteredAttrVals[0];
+          }
+          item.value = tempFilteredValsString===undefined ?  "" : tempFilteredValsString;
+          item.selectedValues.push(attributeValue);
+        }
+        return item;
+      }));
+    }else{
+      if(attribute!==""){
+        let tempObj = {};
+        attributes.map(item=>{
+          if(item?.name===attribute){
+            tempObj = item;
+          }
+        });
+        setAttributes(prevState=>prevState?.filter(item=>item.name!==attribute));
+        setSelectedAttributes(prevState=>[tempObj, ...prevState]);
+      }
+    }
+  };
+
+  const handleRemoveAttribute = (attribute: string, attributeValue: string | null = null) => {
+    if(attributeValue){
+      setSelectedAttributes(prevState=>prevState.map(item=>{
+        if(item.name===attribute){
+          item.value = (item.value==="") ? attributeValue : `${item.value},${attributeValue}`;
+          item.selectedValues = item.selectedValues.filter((val: string)=>val!==attributeValue);
+        }
+        return item;
+      }));
+    }else{
+      let tempObj = {};
+      selectedAttributes.map(item=>{
+        if(item?.name===attribute){
+          tempObj = item;
+        }
+      });
+      setSelectedAttributes(prevState=>prevState?.filter(item=>item.name!==attribute));
+      setAttributes(prevState=>[tempObj, ...prevState]);
+    }
+  };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -165,7 +308,6 @@ const UpdateProduct: React.FC = () => {
       try {
         const response = await axios.get(`${API_URL}/products/${slug}`);
         const { data } = response.data;
-
         setTile(data.title);
         setUrl(data.slug);
         setDescription(data.description);
@@ -238,7 +380,6 @@ const UpdateProduct: React.FC = () => {
                   required
                 />
               </Display>
-
               <Display>
                 <FileInput
                   label="Featured Image *"
@@ -258,7 +399,6 @@ const UpdateProduct: React.FC = () => {
                 )}
                 <br />
               </Display>
-
               <Display>
                 <label htmlFor="">Campaign Date</label>
                 <DateRangePicker
@@ -315,6 +455,27 @@ const UpdateProduct: React.FC = () => {
                 <p className="wearing">
                   Image Size Should Be 800 x 800. or square size
                 </p>
+              </Display>
+              <Display>
+                <div></div>
+                <div className="variant">
+                  <p>Product Variation</p>
+                  <ToggleButton
+                    onClick={() => setIsVariant(prevState=>!prevState)}
+                    isChecked={isVariant}
+                  />
+                </div>
+                {isVariant && (
+                  <>
+                    <select name="attributes" onChange={(e)=>handleAddAttribute(e.target.value)} className='attribute-list' value={""}>
+                      <option value="">Select attributes</option>
+                      {attributes?.length > 0 && attributes?.map((item, i)=><option key={i} value={item?.name}>{item?.name}</option>)}
+                    </select>
+                    <div className='attribute-selected'>
+                      {selectedAttributes?.length > 0 && selectedAttributes?.map((item, i)=> <AttributeSingle key={i} data={item} handleAddAttribute={handleAddAttribute} handleRemoveAttribute={handleRemoveAttribute}/>)}
+                    </div>
+                  </>
+                )}
               </Display>
               <Display>
                 <h5 className="product-title">Product Description</h5>
