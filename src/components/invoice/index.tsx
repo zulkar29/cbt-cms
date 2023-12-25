@@ -10,7 +10,7 @@ const Invoice = ({ order }: { order: IOrder }) => {
 
   useEffect(() => {
     if (order?.coupon) {
-      if (order?.coupon?.discount_type === '0') {
+      if (order?.coupon?.discount_type === 'flat') {
         let tempDisCart = order?.orderItems;
         if (order?.coupon?.product_id) {
           let tempIdsArr: any[] = [];
