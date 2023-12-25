@@ -75,9 +75,9 @@ const OrderTable = ({
                     : console.log('first')
                 }
               />
+              <p className="sudo">SI NO.</p>
             </form>
           </Column>
-          <Column className="col-md-1">Order Num.</Column>
           <Column className="col-md-1">Invoice NO</Column>
           <Column className="col-md-1">Total Amount</Column>
           <Column className="col-md-1">Customer</Column>
@@ -86,7 +86,7 @@ const OrderTable = ({
           <Column className="col-md-1">Payment Status</Column>
           <Column className="col-md-1">Delivery Status</Column>
           <Column className="col-md-1">Order From</Column>
-          <Column className="col-md-1">Options</Column>
+          <Column className="col-md-2">Options</Column>
         </Row>
       </>
       <>

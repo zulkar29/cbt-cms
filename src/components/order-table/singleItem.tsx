@@ -90,8 +90,7 @@ const SingleItem: FC<IProps> = ({
                 ...item,
                 discount_price:
                   item.regular_price -
-                  item.regular_price *
-                    (order?.coupon.discount_amount / 100),
+                  item.regular_price * (order?.coupon.discount_amount / 100),
               };
             }
             return item;
@@ -102,8 +101,7 @@ const SingleItem: FC<IProps> = ({
               ...item,
               discount_price:
                 item.regular_price -
-                item.regular_price *
-                  (order?.coupon.discount_amount / 100),
+                item.regular_price * (order?.coupon.discount_amount / 100),
             };
           });
         }
@@ -154,8 +152,8 @@ const SingleItem: FC<IProps> = ({
               handleSelectedOrder && handleSelectedOrder(order.id as number)
             }
           />
+          <div className="sudo">{order.id}</div>
         </Column>
-        <Column className="col-md-1">{order.id}</Column>
         <Column className="col-md-1">
           {order.order_prefix} - {order.id}
         </Column>
@@ -225,7 +223,7 @@ const SingleItem: FC<IProps> = ({
           </Select>
         </Column>
         <Column className="col-md-1">{order.order_form}</Column>
-        <Column className="col-md-1">
+        <Column className="col-md-2">
           <CustomIconArea>
             <ViewButton href={`/orders/views/${order.id}`} />
             <EditButton editUrl={`/orders/edit/${order.id}`} />

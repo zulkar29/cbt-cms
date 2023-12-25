@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Display from '../../components/display';
 import Row from '../../components/table/row';
 import Column from '../../components/table/column';
@@ -9,23 +9,32 @@ import {
 } from '../../redux/subscribe/subscribeSlice';
 import CustomIconArea from '../../components/custom-icon-area';
 import DeleteButton from '../../components/button/delete';
+import Pagination from '../../components/pagination';
+import CardBody from '../../components/card-body';
 
 const Subscriber = () => {
+  const [pageNumber, setPageNumber] = useState<number>(1);
   const dispatch = useAppDispatch();
-  const { subscribers, isDelete } = useAppSelector(
+  const { subscribers, isDelete, totalCount } = useAppSelector(
     (state) => state.subscribers
   );
+
+  const totalPage = Math.ceil(totalCount / 15);
 
   const handleSubscriber = (id: number) => {
     dispatch(deleteSubscriber(id));
   };
+  const handlePageChange = (selectedItem: { selected: number }) => {
+    setPageNumber(selectedItem.selected + 1);
+  };
 
   useEffect(() => {
-    dispatch(getSubscribers());
-  }, [dispatch, isDelete]);
+    dispatch(getSubscribers({ page: pageNumber, limit: 15 }));
+  }, [dispatch, isDelete, pageNumber]);
 
   return (
     <div>
+      <CardBody header="Subscriber" to="#" />
       <Display>
         <Row className="row">
           <Column className="col-md-11">Email</Column>
@@ -43,6 +52,11 @@ const Subscriber = () => {
             </Column>
           </Row>
         ))}
+        <Pagination
+          pageCount={pageNumber}
+          handlePageClick={handlePageChange}
+          totalPage={totalPage}
+        />
       </Display>
     </div>
   );

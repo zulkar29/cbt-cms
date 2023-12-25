@@ -45,9 +45,14 @@ export const createFaq = createAsyncThunk(
 
 export const getSubscribers = createAsyncThunk(
   'subscribers/getAll',
-  async (_, thunkAPI) => {
+  async (
+    filter: {
+      [key: string]: string | number;
+    },
+    thunkAPI
+  ) => {
     try {
-      return await subscribeService.getSubscribes();
+      return await subscribeService.getSubscribes(filter);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
