@@ -1,9 +1,101 @@
+import { useState, useEffect } from 'react';
 import { IOrder } from '../../interfaces/order';
 import { formatDate } from '../date-formate';
 import Column from '../table/column';
 import './index.scss';
 
 const Invoice = ({ order }: { order: IOrder }) => {
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [orderItems, setOrderItems] = useState<any[]>(order?.orderItems?.length > 0 ? order?.orderItems : []);
+
+  useEffect(() => {
+    if (order?.coupon) {
+      if (order?.coupon?.discount_type === 'flat') {
+        let tempDisCart = order?.orderItems;
+        if (order?.coupon?.product_id) {
+          let tempIdsArr: any[] = [];
+          if (order?.coupon?.product_id?.split(',')?.length > 0) {
+            tempIdsArr = order?.coupon?.product_id?.split(',');
+          } else {
+            tempIdsArr = [order?.coupon?.product_id];
+          }
+          tempDisCart = tempDisCart?.map((item: any) => {
+            if (tempIdsArr.find((element) => element == item.product_id)) {
+              return {
+                ...item,
+                discount_price:
+                  item.regular_price - order?.coupon?.discount_amount,
+              };
+            }
+            return item;
+          });
+        } else {
+          tempDisCart = tempDisCart?.map((item: any) => {
+            return {
+              ...item,
+              discount_price:
+                item.regular_price - order?.coupon?.discount_amount,
+            };
+          });
+        }
+        setOrderItems(tempDisCart);
+      } else {
+        let tempDisCart = order?.orderItems;
+        if (order?.coupon?.product_id) {
+          let tempIdsArr: any[] = [];
+          if (order?.coupon?.product_id?.split(',')?.length > 0) {
+            tempIdsArr = order?.coupon?.product_id?.split(',');
+          } else {
+            tempIdsArr = [order?.coupon?.product_id];
+          }
+          tempDisCart = tempDisCart?.map((item: any) => {
+            if (tempIdsArr.find((element) => element == item.product_id)) {
+              return {
+                ...item,
+                discount_price:
+                  item.regular_price -
+                  item.regular_price *
+                    (order?.coupon.discount_amount / 100),
+              };
+            }
+            return item;
+          });
+        } else {
+          tempDisCart = tempDisCart?.map((item: any) => {
+            return {
+              ...item,
+              discount_price:
+                item.regular_price -
+                item.regular_price *
+                  (order?.coupon.discount_amount / 100),
+            };
+          });
+        }
+        setOrderItems(tempDisCart);
+      }
+    }
+  }, [order]);
+
+  useEffect(() => {
+    if (orderItems?.length > 0) {
+      if (order?.coupon) {
+        let finalPrice = 0;
+        orderItems?.map((item: any) => {
+          finalPrice += item?.discount_price * item?.quantity;
+        });
+        setTotalPrice(finalPrice);
+      } else {
+        let finalPrice = 0;
+        orderItems?.map((item: any) => {
+          finalPrice += item?.discount_price
+            ? item?.discount_price
+            : item?.regular_price * item?.quantity;
+        });
+        setTotalPrice(finalPrice);
+      }
+    }
+  }, [order, orderItems]);
+
   return (
     <div className="invoice">
       <div className="invoice-header">
@@ -45,7 +137,7 @@ const Invoice = ({ order }: { order: IOrder }) => {
         </div>
         {
           <>
-            {order?.orderItems?.map((product, index) => (
+            {orderItems?.length>0 && orderItems?.map((product, index) => (
               <div className="row" key={index}>
                 <Column className="col-md-2 heading">{index + 1}</Column>
                 <Column className="col-md-3 heading">
@@ -79,45 +171,13 @@ const Invoice = ({ order }: { order: IOrder }) => {
             <div className="summery">
               <div className="row">
                 <p className="heading sort-summery">Sub Total</p>
-                <p className="heading sort-summery">{`৳${order?.orderItems?.reduce(
-                  (sum, item) => {
-                    // Check if discount_price is null or 0
-                    if (
-                      item.discount_price === null ||
-                      item.discount_price === 0
-                    ) {
-                      // Add regular_price * quantity to the sum
-                      sum += item.regular_price * item.quantity;
-                    } else {
-                      // Add discount_price * quantity to the sum
-                      sum += item.discount_price * item.quantity;
-                    }
-                    return sum;
-                  },
-                  0
-                )}`}</p>
+                <p className="heading sort-summery">{`৳${totalPrice}`}</p>
                 <p className="heading sort-summery">Shipping cost</p>
                 <p className="heading sort-summery">৳00.00</p>
                 <p className="heading sort-summery">Coupon Discount</p>
                 <p className="heading sort-summery">৳00.00</p>
                 <p className="heading sort-summery">Grand Total</p>
-                <p className="heading sort-summery">{`৳${order?.orderItems?.reduce(
-                  (sum, item) => {
-                    // Check if discount_price is null or 0
-                    if (
-                      item.discount_price === null ||
-                      item.discount_price === 0
-                    ) {
-                      // Add regular_price * quantity to the sum
-                      sum += item.regular_price * item.quantity;
-                    } else {
-                      // Add discount_price * quantity to the sum
-                      sum += item.discount_price * item.quantity;
-                    }
-                    return sum;
-                  },
-                  0
-                )}`}</p>
+                <p className="heading sort-summery">{`৳${totalPrice}`}</p>
               </div>
             </div>
           </Column>
