@@ -70,68 +70,104 @@ const UpdateProduct: React.FC = () => {
   const [isVariant, setIsVariant] = useState(false);
   const [attributes, setAttributes] = useState<any[]>([]);
   const [selectedAttributes, setSelectedAttributes] = useState<any[]>([]);
-  const [previousSelectedAttributes, setPreviousSelectedAttributes] = useState<any[]>([]);
+  const [previousSelectedAttributes, setPreviousSelectedAttributes] = useState<
+    any[]
+  >([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<IAttributeResponse>(`${API_URL}/attributes`);
-        if(response?.status===200){
+        const response = await axios.get<IAttributeResponse>(
+          `${API_URL}/attributes`
+        );
+        if (response?.status === 200) {
           let tempAttributes: any[] = response?.data?.data?.rows;
-          tempAttributes = tempAttributes?.length>0 ? tempAttributes?.map(item=>{return {...item, selectedValues: []}}) : [];
+          tempAttributes =
+            tempAttributes?.length > 0
+              ? tempAttributes?.map((item) => {
+                  return { ...item, selectedValues: [] };
+                })
+              : [];
           // setAttributes(tempAttributes);
-          try{
-            const response2 = await axios.get(`${API_URL}/product-attributes/attributes/${slug}`);
-            if(response2?.status===200){
+          try {
+            const response2 = await axios.get(
+              `${API_URL}/product-attributes/attributes/${slug}`
+            );
+            if (response2?.status === 200) {
               let selectedAttributeList = response2?.data?.data?.rows;
-              if(selectedAttributeList?.length>0){
+              if (selectedAttributeList?.length > 0) {
                 setPreviousSelectedAttributes(selectedAttributeList);
                 setIsVariant(true);
-                if(tempAttributes?.length>0){
-                  tempAttributes?.map(item=>{
+                if (tempAttributes?.length > 0) {
+                  tempAttributes?.map((item) => {
                     let matchFound = false;
-                    let valuesFound: any = "";
-                    selectedAttributeList = selectedAttributeList?.filter((row:any)=>{
-                      if(item?.name===row?.attribute_key){
-                        matchFound = true;
-                        valuesFound = row?.attribute_value;
-                        return false;
-                      }else{
-                        return true;
+                    let valuesFound: any = '';
+                    selectedAttributeList = selectedAttributeList?.filter(
+                      (row: any) => {
+                        if (item?.name === row?.attribute_key) {
+                          matchFound = true;
+                          valuesFound = row?.attribute_value;
+                          return false;
+                        } else {
+                          return true;
+                        }
                       }
-                    });
-                    if(matchFound){
-                      setSelectedAttributes(prevState=>{
-                        if(Array.isArray(valuesFound)){
+                    );
+                    if (matchFound) {
+                      setSelectedAttributes((prevState) => {
+                        if (Array.isArray(valuesFound)) {
                           valuesFound = valuesFound.join(',');
                         }
-                        valuesFound = valuesFound.indexOf(',') > -1 ? valuesFound.split(',') : [valuesFound];
-                        let itemValue: any[] = item?.value?.indexOf(',') > -1 ? item?.value?.split(',') : [item?.value];
-                        itemValue = itemValue?.filter(val=>{
-                          if(valuesFound.find((itm:any)=>itm===val)){
+                        valuesFound =
+                          valuesFound.indexOf(',') > -1
+                            ? valuesFound.split(',')
+                            : [valuesFound];
+                        let itemValue: any[] =
+                          item?.value?.indexOf(',') > -1
+                            ? item?.value?.split(',')
+                            : [item?.value];
+                        itemValue = itemValue?.filter((val) => {
+                          if (valuesFound.find((itm: any) => itm === val)) {
                             return false;
-                          }else{
+                          } else {
                             return true;
                           }
                         });
-                        if(prevState?.length==0){
-                          return [{...item, value: itemValue.join(','), selectedValues: valuesFound}];
-                        }else{
-                          if(prevState.find(attr=>attr?.name===item?.name)){
+                        if (prevState?.length == 0) {
+                          return [
+                            {
+                              ...item,
+                              value: itemValue.join(','),
+                              selectedValues: valuesFound,
+                            },
+                          ];
+                        } else {
+                          if (
+                            prevState.find((attr) => attr?.name === item?.name)
+                          ) {
                             return [...prevState];
-                          }else{
-                            return [...prevState, {...item, value: itemValue.join(','), selectedValues: valuesFound}];
+                          } else {
+                            return [
+                              ...prevState,
+                              {
+                                ...item,
+                                value: itemValue.join(','),
+                                selectedValues: valuesFound,
+                              },
+                            ];
                           }
                         }
                       });
-                    }else{
-                      setAttributes(prevState=>{
-                        if(prevState?.length==0){
+                    } else {
+                      setAttributes((prevState) => {
+                        if (prevState?.length == 0) {
                           return [item];
-                        }else{
-                          if(prevState.find(attr=>attr?.name===item?.name)){
+                        } else {
+                          if (
+                            prevState.find((attr) => attr?.name === item?.name)
+                          ) {
                             return [...prevState];
-                          }else{
+                          } else {
                             return [...prevState, item];
                           }
                         }
@@ -141,7 +177,7 @@ const UpdateProduct: React.FC = () => {
                 }
               }
             }
-          }catch(error2){
+          } catch (error2) {
             console.log(error2);
           }
         }
@@ -150,63 +186,90 @@ const UpdateProduct: React.FC = () => {
       }
     };
     fetchData();
-  }, []); 
+  }, []);
 
-  const handleAddAttribute = (attribute: string, attributeValue: string | null = null) => {
-    if(attributeValue){
-      setSelectedAttributes(prevState=>prevState.map(item=>{
-        if(item.name===attribute){
-          let tempAttrVals: string[] = item.value.indexOf(',') > -1 ? item.value.split(',') : [item.value];
-          let tempFilteredAttrVals: string[] = tempAttrVals.filter(val=>val!==attributeValue);
-          let tempFilteredValsString: string = "";
-          if(tempFilteredAttrVals?.length>1){
-            tempFilteredAttrVals?.map((val, i)=>{
-              if(tempFilteredAttrVals.length==i+1){
-                tempFilteredValsString += `${val}`;
-              }else{
-                tempFilteredValsString += `${val},`;
-              }
-            });
-          }else{
-            tempFilteredValsString = tempFilteredAttrVals[0];
+  const handleAddAttribute = (
+    attribute: string,
+    attributeValue: string | null = null
+  ) => {
+    if (attributeValue) {
+      setSelectedAttributes((prevState) =>
+        prevState.map((item) => {
+          if (item.name === attribute) {
+            let tempAttrVals: string[] =
+              item.value.indexOf(',') > -1
+                ? item.value.split(',')
+                : [item.value];
+            let tempFilteredAttrVals: string[] = tempAttrVals.filter(
+              (val) => val !== attributeValue
+            );
+            let tempFilteredValsString: string = '';
+            if (tempFilteredAttrVals?.length > 1) {
+              tempFilteredAttrVals?.map((val, i) => {
+                if (tempFilteredAttrVals.length == i + 1) {
+                  tempFilteredValsString += `${val}`;
+                } else {
+                  tempFilteredValsString += `${val},`;
+                }
+              });
+            } else {
+              tempFilteredValsString = tempFilteredAttrVals[0];
+            }
+            item.value =
+              tempFilteredValsString === undefined
+                ? ''
+                : tempFilteredValsString;
+            item.selectedValues.push(attributeValue);
           }
-          item.value = tempFilteredValsString===undefined ?  "" : tempFilteredValsString;
-          item.selectedValues.push(attributeValue);
-        }
-        return item;
-      }));
-    }else{
-      if(attribute!==""){
+          return item;
+        })
+      );
+    } else {
+      if (attribute !== '') {
         let tempObj = {};
-        attributes.map(item=>{
-          if(item?.name===attribute){
+        attributes.map((item) => {
+          if (item?.name === attribute) {
             tempObj = item;
           }
         });
-        setAttributes(prevState=>prevState?.filter(item=>item.name!==attribute));
-        setSelectedAttributes(prevState=>[tempObj, ...prevState]);
+        setAttributes((prevState) =>
+          prevState?.filter((item) => item.name !== attribute)
+        );
+        setSelectedAttributes((prevState) => [tempObj, ...prevState]);
       }
     }
   };
 
-  const handleRemoveAttribute = (attribute: string, attributeValue: string | null = null) => {
-    if(attributeValue){
-      setSelectedAttributes(prevState=>prevState.map(item=>{
-        if(item.name===attribute){
-          item.value = (item.value==="") ? attributeValue : `${item.value},${attributeValue}`;
-          item.selectedValues = item.selectedValues.filter((val: string)=>val!==attributeValue);
-        }
-        return item;
-      }));
-    }else{
+  const handleRemoveAttribute = (
+    attribute: string,
+    attributeValue: string | null = null
+  ) => {
+    if (attributeValue) {
+      setSelectedAttributes((prevState) =>
+        prevState.map((item) => {
+          if (item.name === attribute) {
+            item.value =
+              item.value === ''
+                ? attributeValue
+                : `${item.value},${attributeValue}`;
+            item.selectedValues = item.selectedValues.filter(
+              (val: string) => val !== attributeValue
+            );
+          }
+          return item;
+        })
+      );
+    } else {
       let tempObj = {};
-      selectedAttributes.map(item=>{
-        if(item?.name===attribute){
+      selectedAttributes.map((item) => {
+        if (item?.name === attribute) {
           tempObj = item;
         }
       });
-      setSelectedAttributes(prevState=>prevState?.filter(item=>item.name!==attribute));
-      setAttributes(prevState=>[tempObj, ...prevState]);
+      setSelectedAttributes((prevState) =>
+        prevState?.filter((item) => item.name !== attribute)
+      );
+      setAttributes((prevState) => [tempObj, ...prevState]);
     }
   };
 
@@ -283,20 +346,25 @@ const UpdateProduct: React.FC = () => {
     formData.append('is_feature', isFeature.toString());
     formData.append('is_new', isNew.toString());
     if (isVariant) {
-      console.log("previousSelectedAttributes : ", previousSelectedAttributes);
+      console.log('previousSelectedAttributes : ', previousSelectedAttributes);
       let tempSelAttri: any[] = [];
-      selectedAttributes?.length>0 && selectedAttributes?.map(item=>{
-        if(item?.selectedValues?.length>0){
-          let itm:any = previousSelectedAttributes?.length>0 && previousSelectedAttributes.find(row=>row?.attribute_key===item?.name)
-          if(itm?.id){
-            tempSelAttri.push({
-              id: itm.id,
-              name: item.name,
-              value: item?.selectedValues
-            });
+      selectedAttributes?.length > 0 &&
+        selectedAttributes?.map((item) => {
+          if (item?.selectedValues?.length > 0) {
+            let itm: any =
+              previousSelectedAttributes?.length > 0 &&
+              previousSelectedAttributes.find(
+                (row) => row?.attribute_key === item?.name
+              );
+            if (itm?.id) {
+              tempSelAttri.push({
+                id: itm.id,
+                name: item.name,
+                value: item?.selectedValues,
+              });
+            }
           }
-        }
-      });
+        });
       formData.append('attributes', JSON.stringify(tempSelAttri));
       console.log(tempSelAttri);
     }
@@ -320,7 +388,7 @@ const UpdateProduct: React.FC = () => {
   }, [dispatch, isUpdate]);
 
   useEffect(() => {
-    dispatch(getCategories({}));
+    dispatch(getCategories({ limit: 200 }));
   }, [dispatch]);
 
   useEffect(() => {
@@ -481,18 +549,36 @@ const UpdateProduct: React.FC = () => {
                 <div className="variant">
                   <p>Product Variation</p>
                   <ToggleButton
-                    onClick={() => setIsVariant(prevState=>!prevState)}
+                    onClick={() => setIsVariant((prevState) => !prevState)}
                     isChecked={isVariant}
                   />
                 </div>
                 {isVariant && (
                   <>
-                    <select name="attributes" onChange={(e)=>handleAddAttribute(e.target.value)} className='attribute-list' value={""}>
+                    <select
+                      name="attributes"
+                      onChange={(e) => handleAddAttribute(e.target.value)}
+                      className="attribute-list"
+                      value={''}
+                    >
                       <option value="">Select attributes</option>
-                      {attributes?.length > 0 && attributes?.map((item, i)=><option key={i} value={item?.name}>{item?.name}</option>)}
+                      {attributes?.length > 0 &&
+                        attributes?.map((item, i) => (
+                          <option key={i} value={item?.name}>
+                            {item?.name}
+                          </option>
+                        ))}
                     </select>
-                    <div className='attribute-selected'>
-                      {selectedAttributes?.length > 0 && selectedAttributes?.map((item, i)=> <AttributeSingle key={i} data={item} handleAddAttribute={handleAddAttribute} handleRemoveAttribute={handleRemoveAttribute}/>)}
+                    <div className="attribute-selected">
+                      {selectedAttributes?.length > 0 &&
+                        selectedAttributes?.map((item, i) => (
+                          <AttributeSingle
+                            key={i}
+                            data={item}
+                            handleAddAttribute={handleAddAttribute}
+                            handleRemoveAttribute={handleRemoveAttribute}
+                          />
+                        ))}
                     </div>
                   </>
                 )}
@@ -555,15 +641,18 @@ const UpdateProduct: React.FC = () => {
               <Display>
                 <label className="label">Select Category*</label>
                 <Select onChange={(e) => setCategory(e.target.value)} required>
-                  {categories.map((ctg) => (
-                    <option
-                      key={ctg.id}
-                      value={ctg.slug}
-                      selected={ctg.slug === category}
-                    >
-                      {ctg.title}
-                    </option>
-                  ))}
+                  {categories.map((ctg) => {
+                    console.log(ctg.slug);
+                    return (
+                      <option
+                        key={ctg.id}
+                        value={ctg.slug}
+                        selected={ctg?.slug == category}
+                      >
+                        {ctg.title}
+                      </option>
+                    );
+                  })}
                 </Select>
                 <Select
                   htmlFor="Availability"

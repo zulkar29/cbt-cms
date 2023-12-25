@@ -29,15 +29,18 @@ const initialState: IBlogResponse = {
   errorMessage: '',
 };
 
-export const getFaqs = createAsyncThunk('faqs/getAll', async (_, thunkAPI) => {
-  try {
-    return await supportService.getSupports();
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : 'An error occurred';
-    return thunkAPI.rejectWithValue(message);
+export const getSupport = createAsyncThunk(
+  'faqs/getAll',
+  async (_, thunkAPI) => {
+    try {
+      return await supportService.getSupports();
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'An error occurred';
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-});
+);
 
 export const updateFaq = createAsyncThunk(
   'faqs/update',
@@ -74,15 +77,15 @@ export const supportSlice = createSlice({
     builder
 
       /* TODO: GET FAQ DATA SET */
-      .addCase(getFaqs.pending, (state) => {
+      .addCase(getSupport.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getFaqs.fulfilled, (state, action) => {
+      .addCase(getSupport.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.supports = action.payload.data;
       })
-      .addCase(getFaqs.rejected, (state, action) => {
+      .addCase(getSupport.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

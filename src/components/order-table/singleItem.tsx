@@ -160,7 +160,7 @@ const SingleItem: FC<IProps> = ({
         <Column className="col-md-1">{`৳${totalPrice}`}</Column>
         <Column className="col-md-1">{order.name}</Column>
         <Column className="col-md-2">{order.mobile}</Column>
-        <Column className="col-md-1">{order.orderItems.length}</Column>
+        <Column className="col-md-1">{order.orderItems?.length}</Column>
         <Column className="col-md-1">
           <Select
             onChange={(e: ChangeEvent<HTMLSelectElement>) =>

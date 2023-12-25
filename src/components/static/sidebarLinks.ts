@@ -26,7 +26,7 @@ export const sidebarLinks = [
     icon: 'product.png',
     subLinks: [
       {
-        subtitle: 'Products',
+        subtitle: 'New Product',
         slug: '/products/create',
       },
       {

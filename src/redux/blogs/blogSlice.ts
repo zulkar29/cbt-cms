@@ -141,7 +141,6 @@ export const blogSlice = createSlice({
       })
       .addCase(getBlogs.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = true;
         state.message = action.payload;
       })
       /* TODO: SINGLE BLOG */

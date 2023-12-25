@@ -39,18 +39,10 @@ const Blogs: React.FC = () => {
         blogData: { is_visible: !blog.is_visible },
       })
     );
-    setTimeout(
-      () => dispatch(getBlogs({ page: pageNumber, limit: displayItem })),
-      500
-    );
   };
 
   const handleDeleteBlog = (blogId: number) => {
     dispatch(deleteBlog(blogId));
-    setTimeout(
-      () => dispatch(getBlogs({ page: pageNumber, limit: displayItem })),
-      500
-    );
   };
   useEffect(() => {
     if (isUpdate) {
@@ -59,7 +51,7 @@ const Blogs: React.FC = () => {
     return () => {
       dispatch(reset());
     };
-  }, [isUpdate]);
+  }, [isUpdate, dispatch]);
 
   useEffect(() => {
     dispatch(getBlogs({ page: pageNumber, limit: displayItem }));

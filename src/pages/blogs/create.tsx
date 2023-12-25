@@ -42,7 +42,7 @@ const CreateBlog: React.FC = () => {
     return () => {
       dispatch(reset());
     };
-  }, [isCreate, message, dispatch, isError]);
+  }, [isCreate, dispatch, isError]);
 
   const [description, setDescription] = useState('');
 
