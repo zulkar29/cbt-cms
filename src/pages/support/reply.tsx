@@ -5,56 +5,86 @@ import FileInput from '../../components/forms/file-input';
 import TextArea from '../../components/forms/textarea';
 import './replay.scss';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useAppSelector } from '../../redux/hooks';
 
 const Replay = () => {
+  const { user } = useAppSelector((state) => state.auth);
   const { slug } = useParams();
   const [messages, setMessages] = useState<any[]>([]);
+  const [text, setText] = useState('');
+  const [image, setImage] = useState(null);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const getTicketDetails = async () => {
+    try {
+      const response = await axios.get(`/supports/${slug}`);
+      if (response.status === 200) {
+        setText('');
+        setMessages(response?.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(`/supports`, {
+        details: text,
+        user_id: user?.user?.id,
+        parent_text_id:
+          messages.length > 0 ? messages[messages.length - 1].id : slug,
+        user_name: user?.user.name,
+      });
+      if (response.status === 201) {
+        toast.success(response.data.message);
+        setText('');
+        getTicketDetails();
+        setIsSuccess(true);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSuccess(false);
+    }
+  };
 
   useEffect(() => {
-    const getTicketDetails = async () => {
-      try {
-        const response = await axios.get(`/supports/${slug}`);
-        if (response.status === 200) {
-          setMessages(response?.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getTicketDetails();
   }, [slug]);
-
-  console.log(messages);
 
   return (
     <div>
       <div className="replay-area">
         {/* User Message */}
-        <div className="left">
-          <img src="/assets/images/product.png" alt="replay" />
-          <p className="text">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Voluptatibus quae eaque animi numquam sapiente quis nesciunt error
-            hic, temporibus ad deleniti neque, accusantium velit fuga officia
-            dignissimos? Eius, assumenda unde.
-          </p>
-        </div>
-        {/* Admin Message */}
-        <div className="right">
-          <img src="/assets/images/product.png" alt="replay" />
-          <p className="text">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Voluptatibus quae eaque animi numquam sapiente quis nesciunt error
-            hic, temporibus ad deleniti neque, accusantium velit fuga officia
-            dignissimos? Eius, assumenda unde.
-          </p>
-        </div>
+        {messages.map((message, index) => (
+          <div
+            className={`${
+              message.user_id === user?.user.id ? 'right' : 'left'
+            }`}
+            key={index}
+          >
+            {/* <img src="/assets/images/product.png" alt="replay" /> */}
+            <p className="text">{message.details}</p>
+          </div>
+        ))}
       </div>
-      <form>
-        {/* <Input htmlFor="f" label="Image" ty/> */}
-        <TextArea placeholder="Message" />
-        <FileInput />
+      <form onSubmit={handleSubmit}>
+        <TextArea
+          placeholder="Message"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          required
+        />
+        {/*  <FileInput
+          onChange={(e: any) =>
+            e.target.files[0] ? setImage(e.target.files[0]) : setImage(null)
+          }
+        /> */}
         <Button type="submit">Replay</Button>
       </form>
     </div>
