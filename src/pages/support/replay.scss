@@ -7,7 +7,7 @@
 
   .left {
     width: 30%;
-    background: $primary-color;
+
     padding: 2px;
     color: $white-color;
     margin-bottom: 10px;
@@ -15,15 +15,18 @@
   .text {
     font-family: $primary-font;
     font-size: 14px;
-    padding: 10px 7px;
+    padding: 5px 7px;
+    margin-bottom: 0;
+    background: $primary-color;
+    display: inline-block;
   }
   .right {
     width: 30%;
-    background: $primary-color;
     padding: 2px;
     color: $white-color;
     margin-left: auto;
     margin-bottom: 10px;
+    text-align: right;
   }
   img {
     width: 100%;
