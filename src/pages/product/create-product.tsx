@@ -280,6 +280,8 @@ const CreateProduct: React.FC = () => {
           }
         });
       formData.append('attributes', JSON.stringify(tempSelAttri));
+    }else{
+      formData.append('attributes', JSON.stringify([]));
     }
     dispatch(createProduct(formData));
   };

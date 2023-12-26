@@ -88,7 +88,6 @@ const UpdateProduct: React.FC = () => {
                   return { ...item, selectedValues: [] };
                 })
               : [];
-          // setAttributes(tempAttributes);
           try {
             const response2 = await axios.get(
               `${API_URL}/product-attributes/attributes/${slug}`
@@ -178,7 +177,7 @@ const UpdateProduct: React.FC = () => {
               }
             }
           } catch (error2) {
-            console.log(error2);
+            setAttributes(tempAttributes);
           }
         }
       } catch (error) {
@@ -293,7 +292,7 @@ const UpdateProduct: React.FC = () => {
       axios
         .post(`${API_URL}/product-photos`, formData)
         .then((response) => {
-          console.log('API call successful', response.data);
+          // console.log('API call successful', response.data);
         })
         .catch((error) => {
           console.error('API call failed', error);
@@ -346,29 +345,19 @@ const UpdateProduct: React.FC = () => {
     formData.append('is_feature', isFeature.toString());
     formData.append('is_new', isNew.toString());
     if (isVariant) {
-      console.log('previousSelectedAttributes : ', previousSelectedAttributes);
       let tempSelAttri: any[] = [];
-      selectedAttributes?.length > 0 &&
         selectedAttributes?.map((item) => {
           if (item?.selectedValues?.length > 0) {
-            let itm: any =
-              previousSelectedAttributes?.length > 0 &&
-              previousSelectedAttributes.find(
-                (row) => row?.attribute_key === item?.name
-              );
-            if (itm?.id) {
-              tempSelAttri.push({
-                id: itm.id,
-                name: item.name,
-                value: item?.selectedValues,
-              });
-            }
+            tempSelAttri.push({
+              name: item.name,
+              value: item?.selectedValues,
+            });
           }
         });
       formData.append('attributes', JSON.stringify(tempSelAttri));
-      console.log(tempSelAttri);
+    }else{
+      formData.append('attributes', JSON.stringify([]));
     }
-
     dispatch(updateProduct({ id: Number(slug), productData: formData }));
   };
 
