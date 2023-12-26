@@ -1,18 +1,17 @@
-import axios from 'axios';
-import { API_URL } from '../../constants';
+import axios from '../../lib';
 import { ICategory, ICategoryResponse } from '../../interfaces/category';
 
 const createCategory = async (
   categoryData: FormData
 ): Promise<Partial<ICategoryResponse>> => {
-  const { data } = await axios.post(`${API_URL}/categories`, categoryData);
+  const { data } = await axios.post(`/categories`, categoryData);
   return data;
 };
 
 const getCategory = async (filter: {
   [key: string]: string | number;
 }): Promise<ICategoryResponse> => {
-  let url = `${API_URL}/categories`;
+  let url = `/categories`;
   if (filter && Object.keys(filter).length > 0) {
     const queryString = Object.entries(filter)
       .map(
@@ -32,17 +31,12 @@ const updateCategory = async (
   slug: number | string,
   categoryData: Partial<ICategory> | FormData
 ) => {
-  const { data } = await axios.patch(
-    `${API_URL}/categories/${slug}`,
-    categoryData
-  );
+  const { data } = await axios.patch(`/categories/${slug}`, categoryData);
   return data;
 };
 
 const deleteCategory = async (videoId: number) => {
-  const { data } = await axios.delete(
-    `${API_URL}/categories/?ids=[${videoId}]`
-  );
+  const { data } = await axios.delete(`/categories/?ids=[${videoId}]`);
   return data.data;
 };
 

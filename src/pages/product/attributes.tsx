@@ -6,7 +6,7 @@ import Column from '../../components/table/column';
 import CustomIconArea from '../../components/custom-icon-area';
 import EditButton from '../../components/button/edit';
 import DeleteButton from '../../components/button/delete';
-import axios from 'axios';
+import axios from '../../lib';
 import { API_URL } from '../../constants';
 import { toast } from 'react-toastify';
 import { Attribute, IAttributeResponse } from '../../interfaces/attribute';

@@ -11,7 +11,7 @@ import { reset, updateCoupon } from '../../redux/coupon/couponSlice';
 import { getProducts } from '../../redux/products/product-slice';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import axios from '../../lib';
 import { API_URL } from '../../constants';
 
 const UpdateCoupon = () => {

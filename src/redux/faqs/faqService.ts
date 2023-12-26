@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { API_URL } from '../../constants';
+import axios from '../../lib';
 import { IFaq, IFaqResponse } from '../../interfaces/faq';
 
 export interface ICreateResponse {
@@ -8,22 +7,22 @@ export interface ICreateResponse {
 }
 
 const createFaq = async (faqData: IFaq): Promise<Partial<ICreateResponse>> => {
-  const { data } = await axios.post(`${API_URL}/faqs`, faqData);
+  const { data } = await axios.post(`/faqs`, faqData);
   return data;
 };
 
 const getFaqs = async (): Promise<IFaqResponse> => {
-  const { data } = await axios.get(`${API_URL}/faqs`);
+  const { data } = await axios.get(`/faqs`);
   return data;
 };
 
 const updateFaq = async (faqData: Partial<IFaq>) => {
-  const { data } = await axios.patch(`${API_URL}/faqs/${faqData.id}`, faqData);
+  const { data } = await axios.patch(`/faqs/${faqData.id}`, faqData);
   return data.data;
 };
 
 const deleteFaq = async (faqId: number | string) => {
-  const { data } = await axios.delete(`${API_URL}/faqs/?ids=[${faqId}]`);
+  const { data } = await axios.delete(`/faqs/?ids=[${faqId}]`);
   return data.data;
 };
 

@@ -14,7 +14,7 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import Column from '../../components/table/column';
 import Select from '../../components/select';
-import axios from 'axios';
+import axios from '../../lib';
 import { API_URL } from '../../constants';
 
 const UpdateCategory: React.FC = (): JSX.Element => {

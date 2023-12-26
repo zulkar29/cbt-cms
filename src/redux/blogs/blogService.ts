@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { API_URL } from '../../constants';
+import axios from '../../lib';
 import { BlogData, ResponseBlogData } from '../../interfaces/blog';
 
 export interface ICreateResponse {
@@ -19,7 +18,7 @@ export interface ICreateResponse {
 }
 
 const createNewBlog = async (blogData: FormData): Promise<ICreateResponse> => {
-  const { data } = await axios.post(`${API_URL}/blogs`, blogData);
+  const { data } = await axios.post(`/blogs`, blogData);
   return data;
 };
 
@@ -30,14 +29,12 @@ const getBlogs = async ({
   page: number;
   limit: number;
 }): Promise<ResponseBlogData> => {
-  const { data } = await axios.get(
-    `${API_URL}/blogs?page=${page}&limit=${limit}`
-  );
+  const { data } = await axios.get(`/blogs?page=${page}&limit=${limit}`);
   return data;
 };
 
 const singleBlog = async (blogId: number): Promise<BlogData> => {
-  const { data } = await axios.get(`${API_URL}/blogs/${blogId}`);
+  const { data } = await axios.get(`/blogs/${blogId}`);
   return data.data;
 };
 
@@ -45,12 +42,12 @@ const updateBlog = async (
   id: number,
   blogData: FormData | Partial<BlogData>
 ) => {
-  const { data } = await axios.patch(`${API_URL}/blogs/${id}`, blogData);
+  const { data } = await axios.patch(`/blogs/${id}`, blogData);
   return data.data;
 };
 
 const deleteBlog = async (blogId: number | string) => {
-  const { data } = await axios.delete(`${API_URL}/blogs/?ids=[${blogId}]`);
+  const { data } = await axios.delete(`/blogs/?ids=[${blogId}]`);
   return data.data;
 };
 

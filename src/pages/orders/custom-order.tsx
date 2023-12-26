@@ -13,7 +13,7 @@ import {
   incrementQuantity,
   removeFromCart,
 } from '../../redux/cart/cartSlice';
-import axios from 'axios';
+import axios from '../../lib';
 import { API_URL } from '../../constants';
 import { toast } from 'react-toastify';
 import { FiPlus } from 'react-icons/fi';

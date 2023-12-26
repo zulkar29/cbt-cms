@@ -3,7 +3,7 @@ import CardBody from '../../components/card-body';
 import Display from '../../components/display';
 import Input from '../../components/forms/text-input';
 import { Button } from '../../components/button';
-import axios from 'axios';
+import axios from '../../lib';
 import { API_URL } from '../../constants';
 import { useNavigate, useParams } from 'react-router-dom';
 

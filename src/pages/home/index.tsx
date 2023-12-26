@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './index.scss';
 // import Chart from '../../components/chart';
 import { API_URL } from '../../constants';
-import axios from 'axios';
+import axios from '../../lib';
 import { Link } from 'react-router-dom';
 
 /* interface IData {
@@ -69,8 +69,6 @@ const HomePage: React.FC = () => {
     },
     [setActiveIndex]
   ); */
-
-  console.log(data);
 
   useEffect(() => {
     const fetchData = async () => {

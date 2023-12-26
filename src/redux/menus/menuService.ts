@@ -1,11 +1,10 @@
 import { IMenu } from './../../interfaces/menu';
-import axios from 'axios';
-import { API_URL } from '../../constants';
+import axios from '../../lib';
 import { IMenuResponse } from '../../interfaces/menu';
 
 // create Menu
 const createMenu = async (productData: IMenu) => {
-  const { data } = await axios.post(`${API_URL}/menus`, productData);
+  const { data } = await axios.post(`/menus`, productData);
   return data;
 };
 
@@ -13,7 +12,7 @@ const createMenu = async (productData: IMenu) => {
 const getMenus = async (filter: {
   [key: string]: string | number;
 }): Promise<IMenuResponse> => {
-  let url = `${API_URL}/menus`;
+  let url = `/menus`;
   if (filter && Object.keys(filter).length > 0) {
     const queryString = Object.entries(filter)
       .map(
@@ -33,7 +32,7 @@ const getMenus = async (filter: {
 // Delete
 const deleteMenu = async (ids: number[]) => {
   const idsString = ids.join(',');
-  const { data } = await axios.delete(`${API_URL}/menus/?ids=[${idsString}]`);
+  const { data } = await axios.delete(`/menus/?ids=[${idsString}]`);
   return data;
 };
 

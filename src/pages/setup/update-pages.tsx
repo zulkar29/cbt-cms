@@ -5,7 +5,7 @@ import TextArea from '../../components/forms/textarea';
 import DescriptionInput from '../../components/description';
 import Column from '../../components/table/column';
 import { Button } from '../../components/button';
-import axios from 'axios';
+import axios from '../../lib';
 import { API_URL } from '../../constants';
 import { useNavigate, useParams } from 'react-router-dom';
 import CardBody from '../../components/card-body';

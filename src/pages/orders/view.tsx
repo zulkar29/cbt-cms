@@ -4,7 +4,7 @@ import Invoice from '../../components/invoice';
 import { AiOutlinePrinter } from 'react-icons/ai';
 import './view.scss';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../lib';
 import { API_URL } from '../../constants';
 import { IOrder } from '../../interfaces/order';
 

@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { API_URL } from '../../constants';
+import axios from '../../lib';
+
 import {
   INotification,
   INotificationResponse,
@@ -13,12 +13,12 @@ export interface ICreateResponse {
 const createNotification = async (
   faqData: INotification
 ): Promise<Partial<ICreateResponse>> => {
-  const { data } = await axios.post(`${API_URL}/notifications`, faqData);
+  const { data } = await axios.post(`/notifications`, faqData);
   return data;
 };
 
 const getNotification = async (): Promise<INotificationResponse> => {
-  const { data } = await axios.get(`${API_URL}/notifications`);
+  const { data } = await axios.get(`/notifications`);
   return data;
 };
 

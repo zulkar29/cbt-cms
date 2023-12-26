@@ -16,7 +16,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'react-toastify';
 import 'rsuite/dist/rsuite.css';
 import { reset, updateProduct } from '../../redux/products/product-slice';
-import axios from 'axios';
+import axios from '../../lib';
 import { API_ROOT, API_URL } from '../../constants';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IGalleryPhoto } from '../../interfaces/product';
@@ -679,7 +679,7 @@ const UpdateProduct: React.FC = () => {
                   placeholder="Quantity"
                   label="Quantity"
                   htmlFor="Quantity"
-                  defaultValue={quantity.toString()}
+                  value={quantity.toString()}
                   onChange={(e) => setQuantity(Number(e.target.value))}
                   required
                 />

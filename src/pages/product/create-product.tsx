@@ -18,7 +18,7 @@ import { createProduct, reset } from '../../redux/products/product-slice';
 // import makeAnimated from 'react-select/animated';
 import 'rsuite/dist/rsuite.css';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../lib';
 import { API_URL } from '../../constants';
 import { IAttributeResponse } from '../../interfaces/attribute';
 import AttributeSingle from './attribute-single';
@@ -59,9 +59,6 @@ const CreateProduct: React.FC = () => {
   const [isVariant, setIsVariant] = useState(false);
   const [attributes, setAttributes] = useState<any[]>([]);
   const [selectedAttributes, setSelectedAttributes] = useState<any[]>([]);
-
-  console.log(attributes);
-  console.log(selectedAttributes);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -6,7 +6,7 @@ import './custom-order.scss';
 import { useEffect, useRef, useState } from 'react';
 import { getProducts, reset } from '../../redux/products/product-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import axios from 'axios';
+import axios from '../../lib';
 import { API_URL } from '../../constants';
 import { toast } from 'react-toastify';
 import { FiPlus } from 'react-icons/fi';

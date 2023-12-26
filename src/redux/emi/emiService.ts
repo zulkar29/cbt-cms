@@ -1,12 +1,11 @@
-import axios from 'axios';
-import { API_URL } from '../../constants';
+import axios from '../../lib';
 import { IEmi, IEmiResponse } from '../../interfaces/emi';
 
 // get all Emis
 const getEmis = async (filter: {
   [key: string]: string | number;
 }): Promise<IEmiResponse> => {
-  let url = `${API_URL}/emis`;
+  let url = `/emis`;
   if (filter && Object.keys(filter).length > 0) {
     const queryString = Object.entries(filter)
       .map(
@@ -24,17 +23,17 @@ const getEmis = async (filter: {
 };
 
 const createEmi = async (productData: IEmi) => {
-  const { data } = await axios.post(`${API_URL}/emis`, productData);
+  const { data } = await axios.post(`/emis`, productData);
   return data;
 };
 
 const updateEmi = async (id: number | string, categoryData: IEmi) => {
-  const { data } = await axios.patch(`${API_URL}/emis/${id}`, categoryData);
+  const { data } = await axios.patch(`/emis/${id}`, categoryData);
   return data.data;
 };
 
 const deleteEmi = async (videoId: number) => {
-  const { data } = await axios.delete(`${API_URL}/emis/?ids=[${videoId}]`);
+  const { data } = await axios.delete(`/emis/?ids=[${videoId}]`);
   return data;
 };
 

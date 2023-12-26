@@ -1,12 +1,11 @@
 import { IOrderResponse } from './../../interfaces/order';
-import axios from 'axios';
-import { API_URL } from '../../constants';
+import axios from '../../lib';
 
 // get all products
 const getAllOrders = async (filter: {
   [key: string]: string | number | boolean;
 }): Promise<IOrderResponse> => {
-  let url = `${API_URL}/orders`;
+  let url = `/orders`;
 
   // Filter out keys with false values
   const filteredFilter: { [key: string]: string | number | boolean } = {};
@@ -38,14 +37,14 @@ const updateOrder = async (
   id: number,
   orderData: { [key: string]: string }
 ) => {
-  const { data } = await axios.patch(`${API_URL}/orders/${id}`, orderData);
+  const { data } = await axios.patch(`/orders/${id}`, orderData);
   console.log(data);
   return data;
 };
 
 const deleteOrder = async (ids: number[]) => {
   const idsString = ids.join(',');
-  const { data } = await axios.delete(`${API_URL}/orders/?ids=[${idsString}]`);
+  const { data } = await axios.delete(`/orders/?ids=[${idsString}]`);
   return data;
 };
 

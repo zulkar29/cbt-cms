@@ -1,12 +1,11 @@
-import axios from 'axios';
-import { API_URL } from '../../constants';
+import axios from '../../lib';
 import { ICustomerResponse } from '../../interfaces/customer';
 
 // get all products
 const getAllCustomer = async (filter: {
   [key: string]: string | number;
 }): Promise<ICustomerResponse> => {
-  let url = `${API_URL}/users`;
+  let url = `/users`;
   if (filter && Object.keys(filter).length > 0) {
     const queryString = Object.entries(filter)
       .map(
@@ -28,12 +27,12 @@ const updateCustomer = async (
   id: number,
   orderData: { [key: string]: string }
 ) => {
-  const { data } = await axios.patch(`${API_URL}/users/${id}`, orderData);
+  const { data } = await axios.patch(`/users/${id}`, orderData);
   return data;
 };
 
 const deleteCustomer = async (ids: [number]) => {
-  const { data } = await axios.delete(`${API_URL}/users/?ids=[${ids}]`);
+  const { data } = await axios.delete(`/users/?ids=[${ids}]`);
   return data;
 };
 

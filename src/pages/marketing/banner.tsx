@@ -15,7 +15,7 @@ import {
 } from '../../redux/add-banner/addBannerSlice';
 import { API_ROOT, API_URL } from '../../constants';
 import { IAdBanner } from '../../interfaces/addBanner';
-import axios from 'axios';
+import axios from '../../lib';
 
 const BannerPage = () => {
   const dispatch = useAppDispatch();

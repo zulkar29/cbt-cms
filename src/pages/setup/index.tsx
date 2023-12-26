@@ -8,7 +8,7 @@ import Column from '../../components/table/column';
 import './index.scss';
 import { IHomePage } from '../../interfaces/homePage';
 import { API_ROOT, API_URL } from '../../constants';
-import axios from 'axios';
+import axios from '../../lib';
 import { toast } from 'react-toastify';
 
 const initialState = {

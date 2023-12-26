@@ -8,8 +8,7 @@ import { reset, updateEmi } from '../../redux/emi/emiSlice';
 import { Button } from '../../components/button';
 import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
-import { API_URL } from '../../constants';
+import axios from '../../lib';
 
 const initialState = {
   bank_name: '',
@@ -60,7 +59,7 @@ const UpdateEmi = () => {
   useEffect(() => {
     const fetchEmiData = async () => {
       try {
-        const response = await axios.get(`${API_URL}/emis/${slug}`);
+        const response = await axios.get(`/emis/${slug}`);
         const data = response.data;
         setEmiData(data.data);
       } catch (error) {
