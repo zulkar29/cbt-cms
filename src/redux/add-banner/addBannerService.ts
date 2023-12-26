@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { API_URL } from '../../constants';
-import { IAdBanner, IAddBannerResponse } from '../../interfaces/addBanner';
+import {
+  IAdBanner,
+  IAddBannerResponse,
+  ISliderResponse,
+} from '../../interfaces/addBanner';
 
 export interface ICreateResponse {
   message: string;
@@ -14,21 +18,16 @@ const createAddBanner = async (
   return data;
 };
 
-const getAddBanner = async (filter: {
-  [key: string]: string | number;
-}): Promise<IAddBannerResponse> => {
-  let url = `${API_URL}/banners`;
-  if (filter && Object.keys(filter).length > 0) {
-    const queryString = Object.entries(filter)
-      .map(
-        ([key, value]) =>
-          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-      )
-      .join('&');
+const getAddBanner = async (): Promise<IAddBannerResponse> => {
+  const url = `${API_URL}/banners?not_slider=true`;
 
-    // Add query string to the URL
-    url += `?${queryString}`;
-  }
+  const { data } = await axios.get(url);
+
+  return data;
+};
+const getSlider = async (): Promise<ISliderResponse> => {
+  const url = `${API_URL}/banners/slider`;
+
   const { data } = await axios.get(url);
 
   return data;
@@ -52,6 +51,7 @@ const addBannerService = {
   getAddBanner,
   updateAddBanner,
   deleteBanner,
+  getSlider,
 };
 
 export default addBannerService;

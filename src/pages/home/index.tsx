@@ -5,7 +5,7 @@ import { API_URL } from '../../constants';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-interface IData {
+/* interface IData {
   name: string;
   uv: number;
   pv: number;
@@ -55,7 +55,7 @@ const data: IData[] = [
     pv: 4300,
     amt: 2100,
   },
-];
+]; */
 
 const HomePage: React.FC = () => {
   const [data, setData] = useState<any>({});

@@ -32,7 +32,7 @@ interface IPhoto {
 }
 
 const UpdateProduct: React.FC = () => {
-  let runCount = 0;
+  // let runCount = 0;
   const { slug } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

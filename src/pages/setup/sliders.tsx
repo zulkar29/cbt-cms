@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   deleteBanner,
   getAddBanner,
+  getSlider,
   updateAddBanner,
 } from '../../redux/add-banner/addBannerSlice';
 import { API_ROOT } from '../../constants';
@@ -27,11 +28,11 @@ const Sliders = () => {
     dispatch(
       updateAddBanner({ id: banner.id, is_visible: !banner.is_visible })
     );
-    dispatch(getAddBanner({}));
+    dispatch(getAddBanner());
   };
 
   useEffect(() => {
-    dispatch(getAddBanner({}));
+    dispatch(getSlider());
   }, [dispatch, isDelete]);
 
   return (

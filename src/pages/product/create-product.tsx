@@ -15,16 +15,15 @@ import { DateRangePicker } from 'rsuite';
 import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'react-toastify';
 import { createProduct, reset } from '../../redux/products/product-slice';
-import ReactSelect from 'react-select';
-import makeAnimated from 'react-select/animated';
+// import makeAnimated from 'react-select/animated';
 import 'rsuite/dist/rsuite.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../constants';
-import { Attribute, IAttributeResponse } from '../../interfaces/attribute';
+import { IAttributeResponse } from '../../interfaces/attribute';
 import AttributeSingle from './attribute-single';
 
-const animatedComponents = makeAnimated();
+// const animatedComponents = makeAnimated();
 
 const CreateProduct: React.FC = () => {
   const dispatch = useAppDispatch();

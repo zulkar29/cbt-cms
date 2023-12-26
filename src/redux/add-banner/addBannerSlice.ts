@@ -46,14 +46,21 @@ export const createAddBanner = createAsyncThunk(
 
 export const getAddBanner = createAsyncThunk(
   'addBanner/getAll',
-  async (
-    filter: {
-      [key: string]: string | number;
-    },
-    thunkAPI
-  ) => {
+  async (_, thunkAPI) => {
     try {
-      return await addBannerService.getAddBanner(filter);
+      return await addBannerService.getAddBanner();
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'An error occurred';
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+export const getSlider = createAsyncThunk(
+  'addBanner/slider',
+  async (_, thunkAPI) => {
+    try {
+      return await addBannerService.getSlider();
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -117,10 +124,25 @@ export const addBannerSlice = createSlice({
       .addCase(getAddBanner.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.addBanner = action.payload.data.rows;
-        state.totalCount = action.payload.data.count;
+        state.addBanner = action.payload?.data?.rows;
+        state.totalCount = action.payload?.data?.count;
       })
       .addCase(getAddBanner.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(getSlider.pending, (state) => {
+        state.isLoading = true;
+        state.isSuccess = false;
+      })
+      .addCase(getSlider.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.addBanner = action.payload.data;
+        console.log(action.payload);
+      })
+      .addCase(getSlider.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

@@ -13,3 +13,7 @@ export interface IAddBannerResponse {
     rows: IAdBanner[];
   };
 }
+
+export interface ISliderResponse {
+  data: IAdBanner[];
+}
