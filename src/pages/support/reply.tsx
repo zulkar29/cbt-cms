@@ -1,7 +1,6 @@
 // import React from 'react';
 import axios from '../../lib';
 import { Button } from '../../components/button';
-import FileInput from '../../components/forms/file-input';
 import TextArea from '../../components/forms/textarea';
 import './replay.scss';
 import { useParams } from 'react-router-dom';
@@ -14,8 +13,7 @@ const Replay = () => {
   const { slug } = useParams();
   const [messages, setMessages] = useState<any[]>([]);
   const [text, setText] = useState('');
-  const [image, setImage] = useState(null);
-  const [isSuccess, setIsSuccess] = useState(false);
+  // const [image, setImage] = useState(null);
 
   const getTicketDetails = async () => {
     try {
@@ -44,12 +42,9 @@ const Replay = () => {
         toast.success(response.data.message);
         setText('');
         getTicketDetails();
-        setIsSuccess(true);
       }
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsSuccess(false);
     }
   };
 
