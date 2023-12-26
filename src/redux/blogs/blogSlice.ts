@@ -127,6 +127,7 @@ export const blogSlice = createSlice({
         state.isLoading = false;
         state.isLoading = false;
         state.isError = true;
+        console.log(action.payload);
         state.errorMessage = (action.payload as ICreateResponse).message;
       })
       /* TODO: GET BLOG DATA SET */

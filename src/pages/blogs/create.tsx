@@ -84,9 +84,6 @@ const CreateBlog: React.FC = () => {
     });
     formData.append('description', description);
     dispatch(createBlog(formData));
-    //reset form
-    setBlogData(initialBlogData);
-    setDescription('');
   };
 
   return (
