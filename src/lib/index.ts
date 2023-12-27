@@ -32,9 +32,7 @@ api.interceptors.response.use(
     },
     (error) => {
         if(error?.response?.status===401){
-            localStorage.removeItem('login');
-            localStorage.removeItem('cartItems');
-            localStorage.removeItem('wishListItems');
+            localStorage.removeItem('user');
             window.location.replace(`${process.env.VITE_FRONTEND_URL}/login`);
         }
         return Promise.reject(error);
