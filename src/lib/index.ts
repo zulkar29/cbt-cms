@@ -1,18 +1,44 @@
 import axios from 'axios';
-// import https from 'https';
 import { API_URL } from '../constants';
 
 const api = axios.create({
   baseURL: API_URL,
   timeout: 5000,
-  //   withCredentials: true,
 });
-/* if (process.env.NODE_ENV === 'development') {
-  const httpsAgent = new https.Agent({
-    rejectUnauthorized: false,
-  });
-  api.defaults.httpsAgent = httpsAgent;
-  console.log(process.env.NODE_ENV, `RejectUnauthorized is disabled.`);
-} */
+
+api.interceptors.request.use(
+  (config) => {
+    const userString = localStorage.getItem("user");
+    let accessToken: string | undefined;
+    if (userString !== null) {
+      const user = JSON.parse(userString);
+      accessToken = user.accessToken;
+    }
+    if (accessToken) {
+      if (config.headers) {
+        config.headers.token = accessToken;
+      }
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+api.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    (error) => {
+        if(error?.response?.status===401){
+            localStorage.removeItem('login');
+            localStorage.removeItem('cartItems');
+            localStorage.removeItem('wishListItems');
+            window.location.replace(`${process.env.VITE_FRONTEND_URL}/login`);
+        }
+        return Promise.reject(error);
+    }
+);
 
 export default api;
