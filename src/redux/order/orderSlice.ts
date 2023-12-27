@@ -108,6 +108,7 @@ export const orderSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload as string;
+        state.orders = [];
       })
 
       /* TODO: UPDATE PRODUCT DATA SET */

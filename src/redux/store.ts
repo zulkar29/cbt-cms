@@ -22,6 +22,7 @@ import locationReducer from './location/locationSlice';
 import couponReducer from './coupon/couponSlice';
 import refundReducer from './refund/refundSlice';
 import supportReducer from './support/supportSlice';
+import commentReducer from './comments/commentSlice';
 // ...
 const store = configureStore({
   reducer: {
@@ -48,6 +49,7 @@ const store = configureStore({
     coupon: couponReducer,
     refund: refundReducer,
     support: supportReducer,
+    comment: commentReducer,
   },
   // devTools: false,
 });

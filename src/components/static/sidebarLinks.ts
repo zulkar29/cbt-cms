@@ -98,6 +98,10 @@ export const sidebarLinks = [
         subtitle: 'Blogs',
         slug: '/blogs',
       },
+      {
+        subtitle: 'Comments',
+        slug: '/blogs/comments',
+      },
     ],
   },
   {

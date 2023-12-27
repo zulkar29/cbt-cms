@@ -185,6 +185,7 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload as string;
+        state.products = [];
       })
       /* TODO: UPDATE PRODUCT DATA SET */
       .addCase(updateProduct.pending, (state) => {

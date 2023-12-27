@@ -58,6 +58,7 @@ import UpdateCoupon from './marketing/update-coupon';
 import Warranty from './refund';
 import WarrantyDetails from './refund/details';
 import Replay from './support/reply';
+import BlogComment from './blogs/comments';
 
 export {
   Blogs,
@@ -120,4 +121,5 @@ export {
   Warranty,
   WarrantyDetails,
   Replay,
+  BlogComment,
 };

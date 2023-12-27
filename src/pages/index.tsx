@@ -60,6 +60,7 @@ import {
   Warranty,
   WarrantyDetails,
   Replay,
+  BlogComment,
 } from './pages';
 import Csv from './product/csv';
 
@@ -100,6 +101,8 @@ function PageRoutes() {
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/blogs/create" element={<CreateBlog />} />
       <Route path="/blogs/edit/:id" element={<UpdateBlog />} />
+      <Route path="/blogs/comments" element={<BlogComment />} />
+
       {/* Customers */}
       <Route path="/customers" element={<Customers />} />
       {/* Videos */}
