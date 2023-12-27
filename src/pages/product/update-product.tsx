@@ -73,7 +73,7 @@ const UpdateProduct: React.FC = () => {
   const [previousSelectedAttributes, setPreviousSelectedAttributes] = useState<
     any[]
   >([]);
-
+console.log(previousSelectedAttributes);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -292,7 +292,7 @@ const UpdateProduct: React.FC = () => {
       axios
         .post(`${API_URL}/product-photos`, formData)
         .then((response) => {
-          // console.log('API call successful', response.data);
+           console.log('API call successful', response.data);
         })
         .catch((error) => {
           console.error('API call failed', error);
