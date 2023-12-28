@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAppSelector } from '../../redux/hooks';
+import { API_ROOT } from '../../constants';
 
 const Replay = () => {
   const { user } = useAppSelector((state) => state.auth);
@@ -63,7 +64,13 @@ const Replay = () => {
             }`}
             key={index}
           >
-            {/* <img src="/assets/images/product.png" alt="replay" /> */}
+            {message.image && (
+              <img
+                src={`${API_ROOT}/images/support/${message.image}`}
+                alt="replay"
+              />
+            )}
+
             <p className="text">{message.details}</p>
           </div>
         ))}

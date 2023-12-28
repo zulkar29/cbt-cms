@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../lib';
 import { API_URL } from '../../constants';
 import { ISupport, ISupportResponse } from '../../interfaces/support';
 

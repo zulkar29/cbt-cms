@@ -8,7 +8,7 @@ function BaseTemplate() {
   const { user } = useAppSelector((state) => state.auth);
   return (
     <div className="container-fluid">
-      {user ? (
+      {user && user?.user?.role_id === 1 ? (
         <div className="row">
           <div className="col-md-2">
             <SideBar />

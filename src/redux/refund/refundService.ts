@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { API_URL } from '../../constants';
+import axios from '../../lib';
 import { IRefund, IRefundResponse } from '../../interfaces/refund';
 
 export interface ICreateResponse {
@@ -10,7 +9,7 @@ export interface ICreateResponse {
 const getRefund = async (filter: {
   [key: string]: string | number;
 }): Promise<IRefundResponse> => {
-  let url = `${API_URL}/refunds`;
+  let url = `/refunds`;
   if (filter && Object.keys(filter).length > 0) {
     const queryString = Object.entries(filter)
       .map(
@@ -27,15 +26,12 @@ const getRefund = async (filter: {
 };
 
 const updateRefund = async (refundData: Partial<IRefund>) => {
-  const { data } = await axios.patch(
-    `${API_URL}/refunds/${refundData.id}`,
-    refundData
-  );
+  const { data } = await axios.patch(`/refunds/${refundData.id}`, refundData);
   return data.data;
 };
 
 const deleteRefund = async (faqId: number | string) => {
-  const { data } = await axios.delete(`${API_URL}/refunds/?ids=[${faqId}]`);
+  const { data } = await axios.delete(`/refunds/?ids=[${faqId}]`);
   return data.data;
 };
 

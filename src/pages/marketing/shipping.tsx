@@ -58,9 +58,9 @@ const Shipping: React.FC = () => {
         </Row>
         {locations.map((location, index) => (
           <Row className="row" key={index}>
-            <Column className="col-md-3">{location.location}</Column>
-            <Column className="col-md-3">{location.price}</Column>
-            <Column className="col-md-3">
+            <Column className="col-md-4">{location.location}</Column>
+            <Column className="col-md-4">{location.price}</Column>
+            <Column className="col-md-4">
               <CustomIconArea>
                 <DeleteButton onClick={() => console.log('first')} />
               </CustomIconArea>

@@ -8,7 +8,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const userString = localStorage.getItem("user");
+    const userString = localStorage.getItem('user');
     let accessToken: string | undefined;
     if (userString !== null) {
       const user = JSON.parse(userString);
@@ -27,16 +27,17 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-    (response) => {
-        return response;
-    },
-    (error) => {
-        if(error?.response?.status===401){
-            localStorage.removeItem('user');
-            window.location.replace(`${process.env.VITE_FRONTEND_URL}/login`);
-        }
-        return Promise.reject(error);
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error?.response?.status === 401) {
+      localStorage.removeItem('user');
+      window.location.replace(`${process.env.VITE_FRONTEND_URL}/login`);
+      window.location.reload();
     }
+    return Promise.reject(error);
+  }
 );
 
 export default api;

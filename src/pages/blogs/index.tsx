@@ -44,14 +44,14 @@ const Blogs: React.FC = () => {
   const handleDeleteBlog = (blogId: number) => {
     dispatch(deleteBlog(blogId));
   };
-  useEffect(() => {
+  /* useEffect(() => {
     if (isUpdate) {
       toast.success('Blog updated successfully');
     }
     return () => {
       dispatch(reset());
     };
-  }, [isUpdate, dispatch]);
+  }, [isUpdate, dispatch]); */
 
   useEffect(() => {
     dispatch(getBlogs({ page: pageNumber, limit: displayItem }));
@@ -59,7 +59,7 @@ const Blogs: React.FC = () => {
     return () => {
       dispatch(reset());
     };
-  }, [dispatch, pageNumber, displayItem]);
+  }, [dispatch, pageNumber, displayItem, isUpdate]);
 
   /*   const handleSelectedBlog = (blogId: number) => {
     const selectedBlogSet = new Set(selectedBlog);
@@ -106,7 +106,9 @@ const Blogs: React.FC = () => {
               <Column className="col-md-2">{blog.title}</Column>
               <Column className="col-md-6">
                 <div
-                  dangerouslySetInnerHTML={{ __html: blog.description ?? '' }}
+                  dangerouslySetInnerHTML={{
+                    __html: blog.description?.substring(0, 100) ?? '',
+                  }}
                 ></div>
               </Column>
               <Column className="col-md-1">

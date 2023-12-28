@@ -234,6 +234,11 @@ const CreateProduct: React.FC = () => {
 
   const handleProductSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (discountSelectedAmount && !discountType) {
+      toast.error('Please select discount option');
+      return;
+    }
     const formData = new FormData();
 
     formData.append('title', title);
@@ -280,7 +285,7 @@ const CreateProduct: React.FC = () => {
           }
         });
       formData.append('attributes', JSON.stringify(tempSelAttri));
-    }else{
+    } else {
       formData.append('attributes', JSON.stringify([]));
     }
     dispatch(createProduct(formData));
@@ -289,12 +294,12 @@ const CreateProduct: React.FC = () => {
   useEffect(() => {
     if (discountType === 'flat') {
       setDiscountPrice(regularPrice - discountSelectedAmount);
-    } else {
+    } else if (discountType === 'percent') {
       setDiscountPrice(
         regularPrice - (regularPrice * discountSelectedAmount) / 100
       );
     }
-  }, [discountType, regularPrice, discountSelectedAmount]);
+  }, [discountType, discountSelectedAmount]);
 
   useEffect(() => {
     if (isCreate) {
@@ -498,7 +503,6 @@ const CreateProduct: React.FC = () => {
                     onChange={(e) =>
                       setDiscountSelectedAmount(Number(e.target.value))
                     }
-                    onBlur={(e) => setDiscountPrice(Number(e.target.value))}
                   />
                   <div>
                     <Select
@@ -529,6 +533,7 @@ const CreateProduct: React.FC = () => {
                   <Select
                     htmlFor="Availability"
                     onChange={(e) => setAvailability(e.target.value)}
+                    required
                   >
                     <option value="1">In Stock</option>
                     <option value="2">Out of Stock</option>
