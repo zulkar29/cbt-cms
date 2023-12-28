@@ -8,6 +8,7 @@ import TextArea from '../../components/forms/textarea';
 import { IFaq } from '../../interfaces/faq';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { createFaq, reset } from '../../redux/faqs/faqSlice';
+import { useNavigate } from 'react-router-dom';
 
 const initialData = {
   question: '',
@@ -16,6 +17,7 @@ const initialData = {
 };
 
 const CreateFaq: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { message, isCreate, isError, isLoading } = useAppSelector(
     (state) => state.faqs
@@ -25,14 +27,15 @@ const CreateFaq: React.FC = () => {
   useEffect(() => {
     if (isCreate) {
       toast.success(`${message}`);
+      navigate('/faqs');
     }
     if (isError) {
-      toast.error('Blog create filed');
+      toast.error('Create filed');
     }
     return () => {
       dispatch(reset());
     };
-  }, [isCreate, dispatch, isError, message]);
+  }, [isCreate, dispatch, isError, message, navigate]);
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

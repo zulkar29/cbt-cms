@@ -2,13 +2,17 @@ import Display from '../../components/display';
 import Row from '../../components/table/row';
 import Column from '../../components/table/column';
 import CardBody from '../../components/card-body';
-import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import CustomIconArea from '../../components/custom-icon-area';
 import DeleteButton from '../../components/button/delete';
 import ToggleButton from '../../components/forms/checkbox';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { deleteFaq, getFaqs, updateFaq } from '../../redux/faqs/faqSlice';
+import {
+  deleteFaq,
+  getFaqs,
+  reset,
+  updateFaq,
+} from '../../redux/faqs/faqSlice';
 import { IFaq } from '../../interfaces/faq';
 
 const FaqPage: React.FC = () => {
@@ -17,21 +21,23 @@ const FaqPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(getFaqs());
-    window.scrollTo(0, 0);
-  }, [dispatch]);
 
-  useEffect(() => {
+    return () => {
+      dispatch(reset());
+    };
+  }, [dispatch, isDelete, isUpdate]);
+
+  /* useEffect(() => {
     if (isUpdate) {
       toast.success(`Faq status updated successfully`);
     }
     if (isDelete) {
       toast.success('Faq delete successfully');
     }
-  }, [isUpdate, isDelete]);
+  }, [isUpdate, isDelete]); */
 
   const handleStatusChange = (faq: IFaq) => {
     dispatch(updateFaq({ id: faq.id, is_visible: !faq.is_visible }));
-    setTimeout(() => dispatch(getFaqs()), 500);
   };
 
   const handleDeleteVideo = (id: number) => {

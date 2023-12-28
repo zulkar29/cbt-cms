@@ -7,6 +7,7 @@ import { Button } from '../../components/button';
 import { IVideo } from '../../interfaces/video';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { createVideo, reset } from '../../redux/videos/videoSlice';
+import { useNavigate } from 'react-router-dom';
 
 const initialData = {
   title: '',
@@ -15,6 +16,7 @@ const initialData = {
 };
 
 const CreateVideo: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { isError, isCreate } = useAppSelector((state) => state.videos);
   const [videoData, setVideoData] = useState<IVideo>(initialData);
@@ -36,7 +38,7 @@ const CreateVideo: React.FC = () => {
   useEffect(() => {
     if (isCreate) {
       toast.success('Video created successfully');
-      setVideoData(initialData);
+      navigate('/videos');
     }
 
     if (isError) {
