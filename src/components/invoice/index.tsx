@@ -4,10 +4,13 @@ import { formatDate } from '../date-formate';
 import Column from '../table/column';
 import './index.scss';
 
-const Invoice = ({ order, amountBeforeCoupon }:any) => {
+const Invoice = ({ order }:any) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [orderItems, setOrderItems] = useState<any[]>(order?.orderItems?.length > 0 ? order?.orderItems : []);
-console.log("from invoice" + amountBeforeCoupon)
+  const [amountBeforeCoupon, setAmountBeforeCoupon] = useState<number>(0);
+
+console.log( order)
+
   useEffect(() => {
     if (order?.coupon) {
       if (order?.coupon?.discount_type === 'flat') {
@@ -78,6 +81,17 @@ console.log("from invoice" + amountBeforeCoupon)
 
   useEffect(() => {
     if (orderItems?.length > 0) {
+
+      
+      let totalRegularPrice = 0;
+
+      orderItems?.forEach((item: any) => {
+        totalRegularPrice += item?.regular_price * item?.quantity;
+      });
+  
+      setAmountBeforeCoupon(totalRegularPrice);
+
+
       if (order?.coupon) {
         let finalPrice = 0;
         orderItems?.map((item: any) => {
@@ -146,7 +160,7 @@ console.log("from invoice" + amountBeforeCoupon)
                 <Column className="col-md-2 heading">-</Column>
                 <Column className="col-md-1 heading">{product.quantity}</Column>
                 <Column className="col-md-2 heading">
-                  ৳{product.discount_price ?? product.regular_price}
+                  ৳{product.regular_price}
                 </Column>
                 <Column className="col-md-2 heading">
                   ৳ { product.regular_price}
