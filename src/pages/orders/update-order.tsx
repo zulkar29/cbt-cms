@@ -312,9 +312,8 @@ const UpdateOrder = () => {
                 <div className="invoice-table">
                   <div className="row ">
                     <Column className="col-md-2 heading">SL. </Column>
-                    <Column className="col-md-3 heading">Description</Column>
-                    <Column className="col-md-2 heading">Variant</Column>
-                    <Column className="col-md-1 heading">Qty</Column>
+                    <Column className="col-md-4 heading">Description</Column>
+                    <Column className="col-md-2 heading">Qty</Column>
                     <Column className="col-md-2 heading">
                       Unit price (BDT)
                     </Column>
@@ -331,11 +330,11 @@ const UpdateOrder = () => {
                             />{' '}
                             {index + 1}
                           </Column>
-                          <Column className="col-md-3 heading">
+                          <Column className="col-md-4 heading">
                             {product.product_name}
                           </Column>
-                          <Column className="col-md-2 heading">Depvered</Column>
-                          <Column className="col-md-1 heading">
+                     
+                          <Column className="col-md-2 heading">
                             <div className="qnty">
                               <FiPlus
                                 className="plus"
