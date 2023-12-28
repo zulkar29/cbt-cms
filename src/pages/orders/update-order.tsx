@@ -30,7 +30,7 @@ const UpdateOrder = () => {
   // const [thana, setThana] = useState('');
   const [quantity, setQuantity] = useState(0);
   // const [discount, setDiscount] = useState(0);
-  // const [shipping, setShipping] = useState(0);
+  const [shipping, setShipping] = useState(0);
   const [orderItems, setOrderItems] = useState<ISingleOrder[]>([]);
   const [final_price, setFinalPrice] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
@@ -100,6 +100,7 @@ const UpdateOrder = () => {
         setFinalPrice(data.final_price);
         setOrderItems(data.orderItems);
         setQuantity(data.quantity);
+        setShipping(data.delivery_fee)
       } catch (error) {
         console.error('Error fetching category data:', error);
       }
@@ -385,7 +386,7 @@ const UpdateOrder = () => {
                             0
                           )}`}</p>
                           <p className="heading sort-summery">Shipping cost</p>
-                          <p className="heading sort-summery">৳00.00</p>
+                          <p className="heading sort-summery">৳ {shipping}</p>
                           <p className="heading sort-summery">
                             Discount
                           </p>
