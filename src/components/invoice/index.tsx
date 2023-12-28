@@ -149,10 +149,7 @@ console.log("from invoice" + amountBeforeCoupon)
                   ৳{product.discount_price ?? product.regular_price}
                 </Column>
                 <Column className="col-md-2 heading">
-                  ৳
-                  {product.discount_price
-                    ? product.discount_price * product.quantity
-                    : product.regular_price * product.quantity}
+                  ৳ { product.regular_price}
                 </Column>
               </div>
             ))}
@@ -171,10 +168,10 @@ console.log("from invoice" + amountBeforeCoupon)
             <div className="summery">
               <div className="row">
                 <p className="heading sort-summery">Sub Total</p>
-                <p className="heading sort-summery">{`৳${totalPrice}`}</p>
+                <p className="heading sort-summery">{`৳${amountBeforeCoupon}`}</p>
                 <p className="heading sort-summery">Shipping cost</p>
                 <p className="heading sort-summery">৳ {order.delivery_fee}</p>
-                <p className="heading sort-summery">Coupon Discount</p>
+                <p className="heading sort-summery">Discount</p>
                 <p className="heading sort-summery">৳ {amountBeforeCoupon - totalPrice }</p>
                 <p className="heading sort-summery">Grand Total</p>
                 <p className="heading sort-summery">৳ {totalPrice+ order.delivery_fee }</p>

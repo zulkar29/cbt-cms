@@ -387,7 +387,7 @@ const UpdateOrder = () => {
                           <p className="heading sort-summery">Shipping cost</p>
                           <p className="heading sort-summery">৳00.00</p>
                           <p className="heading sort-summery">
-                            Coupon Discount
+                            Discount
                           </p>
                           <p className="heading sort-summery">৳00.00</p>
                           <p className="heading sort-summery">Grand Total</p>
