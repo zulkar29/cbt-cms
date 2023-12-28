@@ -23,8 +23,6 @@ const OrderTable = ({
 }: IProps) => {
   const dispatch = useAppDispatch();
   const { isUpdate, message } = useAppSelector((state) => state.order);
-  // const componentRef = useRef<HTMLDivElement>(null);
-  // const [invoiceVisible, setInvoiceVisible] = useState(false);
   const handleOrderDelete = (id: number) => {
     dispatch(deleteOrder([id]));
   };

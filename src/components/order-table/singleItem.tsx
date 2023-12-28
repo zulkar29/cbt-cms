@@ -38,6 +38,8 @@ const SingleItem: FC<IProps> = ({
   const componentRef = useRef<HTMLDivElement>(null);
   const [totalPrice, setTotalPrice] = useState(0);
   const [orderItems, setOrderItems] = useState(order?.orderItems || []);
+  const [amountBeforeCoupon, setAmountBeforeCoupon] = useState<number>(0);
+  
 
   useEffect(() => {
     if (order?.coupon) {
@@ -107,6 +109,15 @@ const SingleItem: FC<IProps> = ({
 
   useEffect(() => {
     if (orderItems?.length > 0) {
+
+      let totalRegularPrice = 0;
+
+      orderItems?.forEach((item: any) => {
+        totalRegularPrice += item?.regular_price * item?.quantity;
+      });
+  
+      setAmountBeforeCoupon(totalRegularPrice);
+
       if (order?.coupon) {
         let finalPrice = 0;
         orderItems?.map((item: any) => {
@@ -147,7 +158,7 @@ const SingleItem: FC<IProps> = ({
         <Column className="col-md-1">
           {order.order_prefix} - {order.id}
         </Column>
-        <Column className="col-md-1">{`৳${totalPrice}`}</Column>
+        <Column className="col-md-1">৳${totalPrice + order.delivery_fee}</Column>
         <Column className="col-md-1">{order.name}</Column>
         <Column className="col-md-2">{order.mobile}</Column>
         <Column className="col-md-1">{order.orderItems?.length}</Column>
@@ -225,7 +236,7 @@ const SingleItem: FC<IProps> = ({
           </CustomIconArea>
         </Column>
         <div className="print-area" ref={componentRef}>
-          {<Invoice order={order} />}
+          {<Invoice order={order} amountBeforeCoupon={amountBeforeCoupon} />}
         </div>
       </Row>
     </>

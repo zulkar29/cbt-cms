@@ -4,10 +4,10 @@ import { formatDate } from '../date-formate';
 import Column from '../table/column';
 import './index.scss';
 
-const Invoice = ({ order }: { order: IOrder }) => {
+const Invoice = ({ order, amountBeforeCoupon }:any) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [orderItems, setOrderItems] = useState<any[]>(order?.orderItems?.length > 0 ? order?.orderItems : []);
-
+console.log("from invoice" + amountBeforeCoupon)
   useEffect(() => {
     if (order?.coupon) {
       if (order?.coupon?.discount_type === 'flat') {
@@ -173,11 +173,11 @@ const Invoice = ({ order }: { order: IOrder }) => {
                 <p className="heading sort-summery">Sub Total</p>
                 <p className="heading sort-summery">{`৳${totalPrice}`}</p>
                 <p className="heading sort-summery">Shipping cost</p>
-                <p className="heading sort-summery">৳00.00</p>
+                <p className="heading sort-summery">৳ {order.delivery_fee}</p>
                 <p className="heading sort-summery">Coupon Discount</p>
-                <p className="heading sort-summery">৳00.00</p>
+                <p className="heading sort-summery">৳ {amountBeforeCoupon - totalPrice }</p>
                 <p className="heading sort-summery">Grand Total</p>
-                <p className="heading sort-summery">{`৳${totalPrice}`}</p>
+                <p className="heading sort-summery">৳ {totalPrice+ order.delivery_fee }</p>
               </div>
             </div>
           </Column>
