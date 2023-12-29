@@ -1,22 +1,26 @@
-import React, { useRef, useEffect } from 'react';
-import { IoIosLogOut } from 'react-icons/io';
-import { CgProfile } from 'react-icons/cg';
-import './profile.scss';
-import { useAppDispatch } from '../../redux/hooks';
-import { logout } from '../../redux/auth/authSlice';
+import React, { useEffect, useRef } from "react";
+import { CgProfile } from "react-icons/cg";
+import { IoIosLogOut } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../redux/auth/authSlice";
+import { useAppDispatch } from "../../redux/hooks";
+import "./profile.scss";
 
 interface PopupProps {
   closePopup: () => void;
 }
 
 const ProfilePopup: React.FC<PopupProps> = ({ closePopup }) => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const popupRef = useRef<HTMLDivElement>(null);
 
   const handleLogOut = () => {
     dispatch(logout());
   };
-
+  const handleProfile = () => {
+    navigate("/admin/profile");
+  };
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -27,22 +31,22 @@ const ProfilePopup: React.FC<PopupProps> = ({ closePopup }) => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [closePopup]);
 
   return (
     <div ref={popupRef} className="profile-popup">
       <ul>
-        <li className="item">
-          <CgProfile />
+        <li className="item" onClick={handleProfile}>
+          <CgProfile className="icon" />
           <p>Profile</p>
         </li>
         <li className="item" onClick={handleLogOut}>
-          <IoIosLogOut />
+          <IoIosLogOut className="icon" />
           <p>Logout</p>
         </li>
       </ul>

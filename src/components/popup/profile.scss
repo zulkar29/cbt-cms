@@ -1,4 +1,4 @@
-@import './../../styles/index.scss';
+@import "./../../styles/index.scss";
 
 .profile-popup {
   position: absolute;
@@ -13,8 +13,17 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    svg {
+    margin-bottom: 10px;
+    transition: all linear 0.3s;
+
+    .icon {
+      font-size: 14px;
       margin-right: 10px;
+      width: 15px;
+      height: 15px;
+    }
+    &:hover {
+      transform: scale(1.1);
     }
   }
 }

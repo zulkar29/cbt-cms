@@ -1,24 +1,25 @@
-import { useState, useEffect } from 'react';
-import { IOrder } from '../../interfaces/order';
-import { formatDate } from '../date-formate';
-import Column from '../table/column';
-import './index.scss';
+import { useEffect, useState } from "react";
+import { formatDate } from "../date-formate";
+import Column from "../table/column";
+import "./index.scss";
 
-const Invoice = ({ order }:any) => {
+const Invoice = ({ order }: any) => {
   const [totalPrice, setTotalPrice] = useState(0);
-  const [orderItems, setOrderItems] = useState<any[]>(order?.orderItems?.length > 0 ? order?.orderItems : []);
+  const [orderItems, setOrderItems] = useState<any[]>(
+    order?.orderItems?.length > 0 ? order?.orderItems : []
+  );
   const [amountBeforeCoupon, setAmountBeforeCoupon] = useState<number>(0);
 
-console.log( order)
+  console.log(order);
 
   useEffect(() => {
     if (order?.coupon) {
-      if (order?.coupon?.discount_type === 'flat') {
+      if (order?.coupon?.discount_type === "flat") {
         let tempDisCart = order?.orderItems;
         if (order?.coupon?.product_id) {
           let tempIdsArr: any[] = [];
-          if (order?.coupon?.product_id?.split(',')?.length > 0) {
-            tempIdsArr = order?.coupon?.product_id?.split(',');
+          if (order?.coupon?.product_id?.split(",")?.length > 0) {
+            tempIdsArr = order?.coupon?.product_id?.split(",");
           } else {
             tempIdsArr = [order?.coupon?.product_id];
           }
@@ -46,8 +47,8 @@ console.log( order)
         let tempDisCart = order?.orderItems;
         if (order?.coupon?.product_id) {
           let tempIdsArr: any[] = [];
-          if (order?.coupon?.product_id?.split(',')?.length > 0) {
-            tempIdsArr = order?.coupon?.product_id?.split(',');
+          if (order?.coupon?.product_id?.split(",")?.length > 0) {
+            tempIdsArr = order?.coupon?.product_id?.split(",");
           } else {
             tempIdsArr = [order?.coupon?.product_id];
           }
@@ -57,8 +58,7 @@ console.log( order)
                 ...item,
                 discount_price:
                   item.regular_price -
-                  item.regular_price *
-                    (order?.coupon.discount_amount / 100),
+                  item.regular_price * (order?.coupon.discount_amount / 100),
               };
             }
             return item;
@@ -69,8 +69,7 @@ console.log( order)
               ...item,
               discount_price:
                 item.regular_price -
-                item.regular_price *
-                  (order?.coupon.discount_amount / 100),
+                item.regular_price * (order?.coupon.discount_amount / 100),
             };
           });
         }
@@ -81,16 +80,13 @@ console.log( order)
 
   useEffect(() => {
     if (orderItems?.length > 0) {
-
-      
       let totalRegularPrice = 0;
 
       orderItems?.forEach((item: any) => {
         totalRegularPrice += item?.regular_price * item?.quantity;
       });
-  
-      setAmountBeforeCoupon(totalRegularPrice);
 
+      setAmountBeforeCoupon(totalRegularPrice);
 
       if (order?.coupon) {
         let finalPrice = 0;
@@ -119,6 +115,10 @@ console.log( order)
         <h4 className="customer-details">Customer Details</h4>
         <div className="details">
           <div className="left">
+            <p>Order NO: {order.id}</p>
+            <p>
+              Invoice: {order.order_prefix}-{order.id}
+            </p>
             <p>Name: {order.name}</p>
             <p>Email: {order.email}</p>
             <p>Phone: {order.mobile} </p>
@@ -126,8 +126,10 @@ console.log( order)
           </div>
           <div className="order-details right">
             <p>Order date: {formatDate(order.created_at)}</p>
-            <p>Invoice No: GHA-{order.id}</p>
-            <p>Order No: {order.id}</p>
+            <p>Order status: {order?.order_status}</p>
+            <p>Total Order Amount : {totalPrice + order.delivery_fee}</p>
+            <p>Shipping Method: {order.delivery_method}</p>
+            <p>Payment Method: {order.payment_method}</p>
           </div>
         </div>
       </div>
@@ -141,7 +143,7 @@ console.log( order)
       </div> */}
 
       <div className="invoice-table">
-        <div className="row ">
+        <div className="row first-row">
           <Column className="col-md-2 heading">SL. </Column>
           <Column className="col-md-3 heading">Description</Column>
           <Column className="col-md-2 heading">Attribute</Column>
@@ -151,22 +153,25 @@ console.log( order)
         </div>
         {
           <>
-            {orderItems?.length>0 && orderItems?.map((product, index) => (
-              <div className="row" key={index}>
-                <Column className="col-md-2 heading">{index + 1}</Column>
-                <Column className="col-md-3 heading">
-                  {product.product_name}
-                </Column>
-                <Column className="col-md-2 heading">-</Column>
-                <Column className="col-md-1 heading">{product.quantity}</Column>
-                <Column className="col-md-2 heading">
-                  ৳{product.regular_price}
-                </Column>
-                <Column className="col-md-2 heading">
-                  ৳ { product.regular_price}
-                </Column>
-              </div>
-            ))}
+            {orderItems?.length > 0 &&
+              orderItems?.map((product, index) => (
+                <div className="row" key={index}>
+                  <Column className="col-md-2 heading">{index + 1}</Column>
+                  <Column className="col-md-3 heading">
+                    {product.product_name}
+                  </Column>
+                  <Column className="col-md-2 heading">-</Column>
+                  <Column className="col-md-1 heading">
+                    {product.quantity}
+                  </Column>
+                  <Column className="col-md-2 heading">
+                    ৳{product.regular_price}
+                  </Column>
+                  <Column className="col-md-2 heading">
+                    ৳ {product.regular_price}
+                  </Column>
+                </div>
+              ))}
           </>
         }
         <div className="row">
@@ -181,14 +186,18 @@ console.log( order)
           <Column className="col-md-4">
             <div className="summery">
               <div className="row">
-                <p className="heading sort-summery">Sub Total</p>
+                <p className="heading sort-summery">Regular Price</p>
                 <p className="heading sort-summery">{`৳${amountBeforeCoupon}`}</p>
-                <p className="heading sort-summery">Shipping cost</p>
+                <p className="heading sort-summery">Delivery</p>
                 <p className="heading sort-summery">৳ {order.delivery_fee}</p>
                 <p className="heading sort-summery">Discount</p>
-                <p className="heading sort-summery">৳ {amountBeforeCoupon - totalPrice }</p>
-                <p className="heading sort-summery">Grand Total</p>
-                <p className="heading sort-summery">৳ {totalPrice+ order.delivery_fee }</p>
+                <p className="heading sort-summery">
+                  ৳ {amountBeforeCoupon - totalPrice}
+                </p>
+                <p className="heading sort-summery">Total</p>
+                <p className="heading sort-summery">
+                  ৳ {totalPrice + order.delivery_fee}
+                </p>
               </div>
             </div>
           </Column>

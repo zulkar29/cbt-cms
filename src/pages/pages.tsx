@@ -1,125 +1,129 @@
-import Blogs from './blogs';
-import Categories from './category';
-import Customers from './customers';
-import FaqPage from './faqs';
-import Home from './home';
-import AllOrders from './orders';
-import Canceled from './orders/canceled';
-import Delivered from './orders/delivered';
-import PendingOrders from './orders/pending';
-import AllProducts from './product';
-import Reviews from './reviews';
-import StockOutProducts from './product/stockout';
-import VideosPage from './videos';
-import CouponPage from './marketing/coupon';
-import BannerPage from './marketing/banner';
-import CreateBanner from './marketing/create-banner';
-import SetupPage from './setup';
-import Services from './setup/services';
-import CreateService from './setup/create-service';
-import Settings from './setup/settings';
-import CommonPages from './setup/pages';
-import Sliders from './setup/sliders';
-import CreateSlider from './setup/create-slider';
-import CreateCategory from './category/create-category';
-import UpdateCategory from './category/update-category';
-import CreateVideo from './videos/create-video';
-import UpdateVideo from './videos/update-video';
-import CreateBlog from './blogs/create';
-import UpdateBlog from './blogs/update';
-import UpdateProduct from './product/update-product';
-import CreateProduct from './product/create-product';
-import OrderView from './orders/view';
-import CreateFaq from './faqs/create-faq';
-import UpdateFaq from './faqs/update-faq';
-import TicketPage from './support';
-import Queries from './support/queries';
-import Subscriber from './support/subscriber';
-import CreatePage from './setup/create-pages';
-import UpdatePage from './setup/update-pages';
-import CreateMenu from './setup/create-menu';
-import Menus from './setup/menus';
-import Error from './Error';
-import EmiPage from './Emi';
-import CreateEmi from './Emi/create-emi';
-import UpdateEmi from './Emi/update-emi';
-import CreateCoupon from './marketing/create-coupon';
-import Notification from './notification';
-import CreateNotification from './notification/create';
-import CustomOrder from './orders/custom-order';
-import Attributes from './product/attributes';
-import CreateAttributes from './product/create-attributes';
-import UpdateAttribute from './product/update-attribute';
-import UpdateOrder from './orders/update-order';
-import CreateShipping from './marketing/create-shipping';
-import Shipping from './marketing/shipping';
-import UpdateShipping from './marketing/update-shipping';
-import UpdateCoupon from './marketing/update-coupon';
-import Warranty from './refund';
-import WarrantyDetails from './refund/details';
-import Replay from './support/reply';
-import BlogComment from './blogs/comments';
+import EmiPage from "./Emi";
+import CreateEmi from "./Emi/create-emi";
+import UpdateEmi from "./Emi/update-emi";
+import Error from "./Error";
+import Blogs from "./blogs";
+import BlogComment from "./blogs/comments";
+import CreateBlog from "./blogs/create";
+import UpdateBlog from "./blogs/update";
+import Categories from "./category";
+import CreateCategory from "./category/create-category";
+import UpdateCategory from "./category/update-category";
+import Customers from "./customers";
+import FaqPage from "./faqs";
+import CreateFaq from "./faqs/create-faq";
+import UpdateFaq from "./faqs/update-faq";
+import Home from "./home";
+import BannerPage from "./marketing/banner";
+import CouponPage from "./marketing/coupon";
+import CreateBanner from "./marketing/create-banner";
+import CreateCoupon from "./marketing/create-coupon";
+import CreateShipping from "./marketing/create-shipping";
+import Shipping from "./marketing/shipping";
+import UpdateCoupon from "./marketing/update-coupon";
+import UpdateShipping from "./marketing/update-shipping";
+import Notification from "./notification";
+import CreateNotification from "./notification/create";
+import AllOrders from "./orders";
+import Canceled from "./orders/canceled";
+import CustomOrder from "./orders/custom-order";
+import Delivered from "./orders/delivered";
+import PendingOrders from "./orders/pending";
+import UpdateOrder from "./orders/update-order";
+import OrderView from "./orders/view";
+import AllProducts from "./product";
+import Attributes from "./product/attributes";
+import CreateAttributes from "./product/create-attributes";
+import CreateProduct from "./product/create-product";
+import StockOutProducts from "./product/stockout";
+import UpdateAttribute from "./product/update-attribute";
+import UpdateProduct from "./product/update-product";
+import Profile from "./profile";
+import Warranty from "./refund";
+import WarrantyDetails from "./refund/details";
+import Reviews from "./reviews";
+import SetupPage from "./setup";
+import CreateMenu from "./setup/create-menu";
+import CreatePage from "./setup/create-pages";
+import CreateService from "./setup/create-service";
+import CreateSlider from "./setup/create-slider";
+import Menus from "./setup/menus";
+import CommonPages from "./setup/pages";
+import Services from "./setup/services";
+import Settings from "./setup/settings";
+import Sliders from "./setup/sliders";
+import UpdatePage from "./setup/update-pages";
+import Staff from "./staff";
+import TicketPage from "./support";
+import Queries from "./support/queries";
+import Replay from "./support/reply";
+import Subscriber from "./support/subscriber";
+import VideosPage from "./videos";
+import CreateVideo from "./videos/create-video";
+import UpdateVideo from "./videos/update-video";
 
 export {
+  AllOrders,
+  AllProducts,
+  Attributes,
+  BannerPage,
+  BlogComment,
   Blogs,
+  Canceled,
   Categories,
+  CommonPages,
+  CouponPage,
+  CreateAttributes,
+  CreateBanner,
+  CreateBlog,
+  CreateCategory,
+  CreateCoupon,
+  CreateEmi,
+  CreateFaq,
+  CreateMenu,
+  CreateNotification,
+  CreatePage,
+  CreateProduct,
+  CreateService,
+  CreateShipping,
+  CreateSlider,
+  CreateVideo,
+  CustomOrder,
   Customers,
+  Delivered,
+  EmiPage,
+  Error,
   FaqPage,
   Home,
-  AllOrders,
-  Canceled,
-  Delivered,
+  Menus,
+  Notification,
+  OrderView,
   PendingOrders,
-  AllProducts,
+  Profile,
+  Queries,
+  Replay,
   Reviews,
-  StockOutProducts,
-  VideosPage,
-  CouponPage,
-  BannerPage,
-  CreateBanner,
-  SetupPage,
-  CreateService,
   Services,
   Settings,
-  CommonPages,
-  Sliders,
-  CreateSlider,
-  CreateCategory,
-  UpdateCategory,
-  CreateVideo,
-  UpdateVideo,
-  CreateBlog,
-  UpdateBlog,
-  UpdateProduct,
-  CreateProduct,
-  OrderView,
-  CreateFaq,
-  UpdateFaq,
-  TicketPage,
-  Queries,
-  Subscriber,
-  CreatePage,
-  UpdatePage,
-  Menus,
-  CreateMenu,
-  Error,
-  EmiPage,
-  CreateEmi,
-  UpdateEmi,
-  CreateCoupon,
-  CreateNotification,
-  Notification,
-  CustomOrder,
-  Attributes,
-  CreateAttributes,
-  UpdateAttribute,
-  UpdateOrder,
-  CreateShipping,
+  SetupPage,
   Shipping,
-  UpdateShipping,
+  Sliders,
+  Staff,
+  StockOutProducts,
+  Subscriber,
+  TicketPage,
+  UpdateAttribute,
+  UpdateBlog,
+  UpdateCategory,
   UpdateCoupon,
+  UpdateEmi,
+  UpdateFaq,
+  UpdateOrder,
+  UpdatePage,
+  UpdateProduct,
+  UpdateShipping,
+  UpdateVideo,
+  VideosPage,
   Warranty,
   WarrantyDetails,
-  Replay,
-  BlogComment,
 };

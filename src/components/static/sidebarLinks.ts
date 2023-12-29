@@ -235,4 +235,15 @@ export const sidebarLinks = [
       },
     ],
   },
+  {
+    id: 11,
+    title: 'Staff',
+    icon: 'user.png',
+    subLinks: [
+      {
+        subtitle: 'All Staffs',
+        slug: '/staffs',
+      },
+    ],
+  },
 ];

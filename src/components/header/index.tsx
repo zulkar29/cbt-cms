@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState } from "react";
 // import { BsBell } from 'react-icons/bs';
-import './index.scss';
-import Popup from '../popup';
-import ProfilePopup from '../popup/profile';
+import Popup from "../popup";
+import ProfilePopup from "../popup/profile";
+import "./index.scss";
 
 function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
