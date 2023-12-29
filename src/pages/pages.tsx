@@ -54,6 +54,7 @@ import Settings from "./setup/settings";
 import Sliders from "./setup/sliders";
 import UpdatePage from "./setup/update-pages";
 import Staff from "./staff";
+import CreateProfile from "./staff/create";
 import TicketPage from "./support";
 import Queries from "./support/queries";
 import Replay from "./support/reply";
@@ -84,6 +85,7 @@ export {
   CreateNotification,
   CreatePage,
   CreateProduct,
+  CreateProfile,
   CreateService,
   CreateShipping,
   CreateSlider,

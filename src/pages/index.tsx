@@ -21,6 +21,7 @@ import {
   CreateNotification,
   CreatePage,
   CreateProduct,
+  CreateProfile,
   CreateService,
   CreateShipping,
   CreateSlider,
@@ -156,6 +157,7 @@ function PageRoutes() {
       {/* Admin */}
       <Route path="/admin/profile" element={<Profile />} />
       <Route path="/staffs" element={<Staff />} />
+      <Route path="/staffs/create" element={<CreateProfile />} />
       {/* 404 Page */}
       <Route path="*" element={<Error />} />
     </Routes>
