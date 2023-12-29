@@ -1,25 +1,24 @@
-import { ChangeEvent, useState, useEffect } from 'react';
-import CardBody from '../../components/card-body';
-import Display from '../../components/display';
-import Filter from '../../components/filter';
-import Pagination from '../../components/pagination';
-import Column from '../../components/table/column';
-import Row from '../../components/table/row';
-import ToggleButton from '../../components/forms/checkbox';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { ChangeEvent, useEffect, useState } from "react";
+import DeleteButton from "../../components/button/delete";
+import EditButton from "../../components/button/edit";
+import ViewButton from "../../components/button/view";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Filter from "../../components/filter";
+import ToggleButton from "../../components/forms/checkbox";
+import Pagination from "../../components/pagination";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { FRONT_URL } from "../../constants";
+import { BlogData } from "../../interfaces/blog";
 import {
   deleteBlog,
   getBlogs,
   reset,
   updateBlog,
-} from '../../redux/blogs/blogSlice';
-import { BlogData } from '../../interfaces/blog';
-import EditButton from '../../components/button/edit';
-import CustomIconArea from '../../components/custom-icon-area';
-import DeleteButton from '../../components/button/delete';
-import ViewButton from '../../components/button/view';
-import { FRONT_URL } from '../../constants';
-import { toast } from 'react-toastify';
+} from "../../redux/blogs/blogSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const Blogs: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
@@ -107,7 +106,7 @@ const Blogs: React.FC = () => {
               <Column className="col-md-6">
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: blog.description?.substring(0, 100) ?? '',
+                    __html: blog.description?.substring(0, 100) ?? "",
                   }}
                 ></div>
               </Column>

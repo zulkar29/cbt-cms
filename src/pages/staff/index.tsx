@@ -16,7 +16,7 @@ const Staff = () => {
           <Column className="col-md-4">Email</Column>
           <Column className="col-md-4">Actions</Column>
         </Row>
-        {[...Array(6).keys()].map((admin, index) => (
+        {[...Array(6).keys()].map(() => (
           <Row className="row">
             <Column className="col-md-4">Admin</Column>
             <Column className="col-md-4">admin@admin.com</Column>

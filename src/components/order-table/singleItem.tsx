@@ -1,16 +1,16 @@
-import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
-import Column from '../table/column';
-import { IOrder } from '../../interfaces/order';
-import CustomIconArea from '../custom-icon-area';
-import ViewButton from '../button/view';
-import EditButton from '../button/edit';
-import ReactToPrint from 'react-to-print';
-import DownloadButton from '../button/download';
-import Select from '../select';
-import DeleteButton from '../button/delete';
-import Invoice from '../invoice';
-import './index.scss';
-import Row from '../table/row';
+import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
+import ReactToPrint from "react-to-print";
+import { IOrder } from "../../interfaces/order";
+import DeleteButton from "../button/delete";
+import DownloadButton from "../button/download";
+import EditButton from "../button/edit";
+import ViewButton from "../button/view";
+import CustomIconArea from "../custom-icon-area";
+import Invoice from "../invoice";
+import Select from "../select";
+import Column from "../table/column";
+import Row from "../table/row";
+import "./index.scss";
 
 type IProps = {
   order: IOrder;
@@ -39,16 +39,15 @@ const SingleItem: FC<IProps> = ({
   const [totalPrice, setTotalPrice] = useState(0);
   const [orderItems, setOrderItems] = useState(order?.orderItems || []);
   const [amountBeforeCoupon, setAmountBeforeCoupon] = useState<number>(0);
-  
 
   useEffect(() => {
     if (order?.coupon) {
-      if (order?.coupon?.discount_type === 'flat') {
+      if (order?.coupon?.discount_type === "flat") {
         let tempDisCart = order?.orderItems;
         if (order?.coupon?.product_id) {
           let tempIdsArr: any[] = [];
-          if (order?.coupon?.product_id?.split(',')?.length > 0) {
-            tempIdsArr = order?.coupon?.product_id?.split(',');
+          if (order?.coupon?.product_id?.split(",")?.length > 0) {
+            tempIdsArr = order?.coupon?.product_id?.split(",");
           } else {
             tempIdsArr = [order?.coupon?.product_id];
           }
@@ -76,8 +75,8 @@ const SingleItem: FC<IProps> = ({
         let tempDisCart = order?.orderItems;
         if (order?.coupon?.product_id) {
           let tempIdsArr: any[] = [];
-          if (order?.coupon?.product_id?.split(',')?.length > 0) {
-            tempIdsArr = order?.coupon?.product_id?.split(',');
+          if (order?.coupon?.product_id?.split(",")?.length > 0) {
+            tempIdsArr = order?.coupon?.product_id?.split(",");
           } else {
             tempIdsArr = [order?.coupon?.product_id];
           }
@@ -109,13 +108,12 @@ const SingleItem: FC<IProps> = ({
 
   useEffect(() => {
     if (orderItems?.length > 0) {
-
       let totalRegularPrice = 0;
 
       orderItems?.forEach((item: any) => {
         totalRegularPrice += item?.regular_price * item?.quantity;
       });
-  
+
       setAmountBeforeCoupon(totalRegularPrice);
 
       if (order?.coupon) {
@@ -158,7 +156,7 @@ const SingleItem: FC<IProps> = ({
         <Column className="col-md-1">
           {order.order_prefix} - {order.id}
         </Column>
-        <Column className="col-md-1">৳${totalPrice + order.delivery_fee}</Column>
+        <Column className="col-md-1">৳{totalPrice + order.delivery_fee}</Column>
         <Column className="col-md-1">{order.name}</Column>
         <Column className="col-md-2">{order.mobile}</Column>
         <Column className="col-md-1">{order.orderItems?.length}</Column>
@@ -168,12 +166,12 @@ const SingleItem: FC<IProps> = ({
               handlePaymentChange(order.id, e)
             }
           >
-            <option value={'paid'} selected>
+            <option value={"paid"} selected>
               Paid
             </option>
             <option
-              value={'unpaid'}
-              selected={order.delivery_method == 'unpaid'}
+              value={"unpaid"}
+              selected={order.delivery_method == "unpaid"}
             >
               Unpaid
             </option>
@@ -186,38 +184,38 @@ const SingleItem: FC<IProps> = ({
             }
           >
             <option
-              value={'pending'}
-              selected={order?.order_status?.toLowerCase() === 'pending'}
+              value={"pending"}
+              selected={order?.order_status?.toLowerCase() === "pending"}
             >
               Pending
             </option>
             <option
-              value={'confirm'}
-              selected={order?.order_status?.toLowerCase() === 'confirm'}
+              value={"confirm"}
+              selected={order?.order_status?.toLowerCase() === "confirm"}
             >
               Confirm
             </option>
             <option
-              value={'pickup'}
-              selected={order?.order_status?.toLowerCase() === 'pickup'}
+              value={"pickup"}
+              selected={order?.order_status?.toLowerCase() === "pickup"}
             >
               Pick Up
             </option>
             <option
-              value={'cancel'}
-              selected={order?.order_status?.toLowerCase() === 'cancel'}
+              value={"cancel"}
+              selected={order?.order_status?.toLowerCase() === "cancel"}
             >
               Cancel
             </option>
             <option
-              value={'on_the_way'}
-              selected={order?.order_status?.toLowerCase() === 'on_the_way'}
+              value={"on_the_way"}
+              selected={order?.order_status?.toLowerCase() === "on_the_way"}
             >
               On The Way
             </option>
             <option
-              value={'delivered'}
-              selected={order?.order_status?.toLowerCase() === 'delivered'}
+              value={"delivered"}
+              selected={order?.order_status?.toLowerCase() === "delivered"}
             >
               Delivered
             </option>
