@@ -1,18 +1,18 @@
-import { FormEvent, useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import { Button } from '../../components/button';
-import CardBody from '../../components/card-body';
-import Display from '../../components/display';
-import Input from '../../components/forms/text-input';
-import TextArea from '../../components/forms/textarea';
-import { IFaq } from '../../interfaces/faq';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { createFaq, reset } from '../../redux/faqs/faqSlice';
-import { useNavigate } from 'react-router-dom';
+import { FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Button } from "../../components/button";
+import CardBody from "../../components/card-body";
+import Display from "../../components/display";
+import Input from "../../components/forms/text-input";
+import TextArea from "../../components/forms/textarea";
+import { IFaq } from "../../interfaces/faq";
+import { createFaq, reset } from "../../redux/faqs/faqSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const initialData = {
-  question: '',
-  answer: '',
+  question: "",
+  answer: "",
   is_visible: true,
 };
 
@@ -27,10 +27,10 @@ const CreateFaq: React.FC = () => {
   useEffect(() => {
     if (isCreate) {
       toast.success(`${message}`);
-      navigate('/faqs');
+      navigate("/faqs");
     }
     if (isError) {
-      toast.error('Create filed');
+      toast.error("Create filed");
     }
     return () => {
       dispatch(reset());
@@ -62,8 +62,8 @@ const CreateFaq: React.FC = () => {
             name="question"
             onChange={handleChange}
             htmlFor="title"
-            label="Title *"
-            placeholder="Enter Title"
+            label="Question *"
+            placeholder="Question here..."
             value={faqData.question}
             required
           />
@@ -72,11 +72,11 @@ const CreateFaq: React.FC = () => {
             name="answer"
             onChange={handleChange}
             value={faqData.answer}
-            label="Meta Description"
-            placeholder="Enter Meta Description"
+            label="Answer"
+            placeholder="Answer here..."
             required
           />
-          <Button>{isLoading ? 'Loading' : 'Create'}</Button>
+          <Button>{isLoading ? "Loading" : "Create"}</Button>
         </form>
       </Display>
     </div>

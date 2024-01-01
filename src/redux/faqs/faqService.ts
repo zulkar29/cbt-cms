@@ -1,5 +1,5 @@
-import axios from '../../lib';
 import { IFaq, IFaqResponse } from '../../interfaces/faq';
+import axios from '../../lib';
 
 export interface ICreateResponse {
   message: string;
@@ -18,7 +18,7 @@ const getFaqs = async (): Promise<IFaqResponse> => {
 
 const updateFaq = async (faqData: Partial<IFaq>) => {
   const { data } = await axios.patch(`/faqs/${faqData.id}`, faqData);
-  return data.data;
+  return data;
 };
 
 const deleteFaq = async (faqId: number | string) => {

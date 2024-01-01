@@ -53,6 +53,7 @@ import Services from "./setup/services";
 import Settings from "./setup/settings";
 import Sliders from "./setup/sliders";
 import UpdatePage from "./setup/update-pages";
+import UpdateService from "./setup/updateService";
 import Staff from "./staff";
 import CreateProfile from "./staff/create";
 import TicketPage from "./support";
@@ -123,6 +124,7 @@ export {
   UpdateOrder,
   UpdatePage,
   UpdateProduct,
+  UpdateService,
   UpdateShipping,
   UpdateVideo,
   VideosPage,

@@ -1,21 +1,21 @@
-import { useState, ChangeEvent, useEffect } from 'react';
-import Display from '../../components/display';
-import Row from '../../components/table/row';
-import Column from '../../components/table/column';
-import Pagination from '../../components/pagination';
-import CardBody from '../../components/card-body';
-import CustomIconArea from '../../components/custom-icon-area';
-import EditButton from '../../components/button/edit';
-import DeleteButton from '../../components/button/delete';
-import ToggleButton from '../../components/forms/checkbox';
-import Filter from '../../components/filter';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { ChangeEvent, useEffect, useState } from "react";
+import DeleteButton from "../../components/button/delete";
+import EditButton from "../../components/button/edit";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Filter from "../../components/filter";
+import ToggleButton from "../../components/forms/checkbox";
+import Pagination from "../../components/pagination";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { IVideo } from "../../interfaces/video";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   deleteVideo,
   getVideos,
   updateVideo,
-} from '../../redux/videos/videoSlice';
-import { IVideo } from '../../interfaces/video';
+} from "../../redux/videos/videoSlice";
 
 const VideosPage: React.FC = () => {
   const [displayItem, setDisplayItem] = useState(10);
@@ -79,7 +79,7 @@ const VideosPage: React.FC = () => {
             </Column>
             <Column className="col-md-2">
               <CustomIconArea>
-                <EditButton editUrl={`/blogs/edit/1`} />
+                <EditButton editUrl={`/videos/edit/${video.id}`} />
                 <DeleteButton
                   onClick={() => handleDeleteVideo(video.id as number)}
                 />

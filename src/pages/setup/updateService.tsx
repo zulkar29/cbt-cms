@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "../../components/button";
 import CardBody from "../../components/card-body";
@@ -9,7 +9,7 @@ import Select from "../../components/forms/select";
 import Input from "../../components/forms/text-input";
 import Column from "../../components/table/column";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { createKeypont } from "../../redux/service/keypointSlice";
+import { updateKeypoint } from "../../redux/service/keypointSlice";
 
 const options = [
   { label: "Home", value: "home" },
@@ -17,10 +17,11 @@ const options = [
   { label: "Others", value: "other" },
 ];
 
-const CreateService = () => {
+const UpdateService = () => {
+  const { slug: Id } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { isCreate } = useAppSelector((state) => state.services);
+  const { isUpdate } = useAppSelector((state) => state.services);
   const [group, SetGroup] = useState<string>("");
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
@@ -54,19 +55,19 @@ const CreateService = () => {
       formData.append("image", image);
     }
 
-    dispatch(createKeypont(formData));
+    dispatch(updateKeypoint({ id: Id, updateData: formData }));
   };
 
   useEffect(() => {
-    if (isCreate) {
-      toast.success("Service create successfully");
+    if (isUpdate) {
+      toast.success("Service Update successfully");
       navigate("/setup/services");
     }
-  }, [isCreate]);
+  }, [isUpdate]);
 
   return (
     <div>
-      <CardBody header="Create Service" to="/setup/services" text="Back" />
+      <CardBody header="Update Service" to="/setup/services" text="Back" />
       <form onSubmit={onSubmit}>
         <Display>
           <div className="row">
@@ -117,4 +118,4 @@ const CreateService = () => {
   );
 };
 
-export default CreateService;
+export default UpdateService;

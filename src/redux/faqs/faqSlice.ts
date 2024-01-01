@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IFaq, IFaqResponse } from '../../interfaces/faq';
 import { RootState } from '../store';
 import faqService from './faqService';
@@ -120,9 +120,10 @@ export const faqSlice = createSlice({
         state.isLoading = true;
         state.isUpdate = false;
       })
-      .addCase(updateFaq.fulfilled, (state) => {
+      .addCase(updateFaq.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isUpdate = true;
+        state.message = action.payload.message;
       })
       .addCase(updateFaq.rejected, (state, action) => {
         state.isLoading = false;

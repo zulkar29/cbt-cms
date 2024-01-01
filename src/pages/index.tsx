@@ -59,6 +59,7 @@ import {
   UpdateOrder,
   UpdatePage,
   UpdateProduct,
+  UpdateService,
   UpdateShipping,
   UpdateVideo,
   VideosPage,
@@ -145,6 +146,7 @@ function PageRoutes() {
       <Route path="/setup/sliders" element={<Sliders />} />
       <Route path="/setup/services" element={<Services />} />
       <Route path="/setup/services/create" element={<CreateService />} />
+      <Route path="/setup/services/edit/:slug" element={<UpdateService />} />
       <Route path="/setup/sliders/create" element={<CreateSlider />} />
       <Route path="/setup/pages" element={<CommonPages />} />
       <Route path="/setup/pages/create" element={<CreatePage />} />

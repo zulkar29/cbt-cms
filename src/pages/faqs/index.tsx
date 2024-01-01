@@ -1,19 +1,20 @@
-import Display from '../../components/display';
-import Row from '../../components/table/row';
-import Column from '../../components/table/column';
-import CardBody from '../../components/card-body';
-import { useEffect } from 'react';
-import CustomIconArea from '../../components/custom-icon-area';
-import DeleteButton from '../../components/button/delete';
-import ToggleButton from '../../components/forms/checkbox';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useEffect } from "react";
+import DeleteButton from "../../components/button/delete";
+import EditButton from "../../components/button/edit";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import ToggleButton from "../../components/forms/checkbox";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { IFaq } from "../../interfaces/faq";
 import {
   deleteFaq,
   getFaqs,
   reset,
   updateFaq,
-} from '../../redux/faqs/faqSlice';
-import { IFaq } from '../../interfaces/faq';
+} from "../../redux/faqs/faqSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const FaqPage: React.FC = () => {
   const { faqs, isUpdate, isDelete } = useAppSelector((state) => state.faqs);
@@ -69,6 +70,7 @@ const FaqPage: React.FC = () => {
             </Column>
             <Column className="col-md-1">
               <CustomIconArea>
+                <EditButton editUrl={`/faqs/edit/${faq.id}`} />
                 <DeleteButton
                   onClick={() => handleDeleteVideo(faq.id as number)}
                 />

@@ -1,18 +1,19 @@
 // import React from 'react';
-import Display from '../../components/display';
-import Row from '../../components/table/row';
-import Column from '../../components/table/column';
-import CustomIconArea from '../../components/custom-icon-area';
-import DeleteButton from '../../components/button/delete';
-import CardBody from '../../components/card-body';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { useEffect } from 'react';
+import { useEffect } from "react";
+import DeleteButton from "../../components/button/delete";
+import EditButton from "../../components/button/edit";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { API_ROOT } from "../../constants";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   deleteKeypoint,
   getKeypoints,
   reset,
-} from '../../redux/service/keypointSlice';
-import { API_ROOT } from '../../constants';
+} from "../../redux/service/keypointSlice";
 
 const Services = () => {
   const dispatch = useAppDispatch();
@@ -53,6 +54,7 @@ const Services = () => {
 
             <Column className="col-md-2">
               <CustomIconArea>
+                <EditButton editUrl={`/setup/services/edit/${service.id}`} />
                 <DeleteButton
                   onClick={() => handleDelete(Number(service.id))}
                 />

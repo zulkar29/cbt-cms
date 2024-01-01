@@ -1,49 +1,87 @@
-import { useState } from 'react';
-import { Button } from '../../components/button';
-import CardBody from '../../components/card-body';
-import Display from '../../components/display';
-import Input from '../../components/forms/text-input';
-import TextArea from '../../components/forms/textarea';
-import Select from '../../components/forms/select';
+import { FormEvent, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Button } from "../../components/button";
+import CardBody from "../../components/card-body";
+import Display from "../../components/display";
+import Input from "../../components/forms/text-input";
+import TextArea from "../../components/forms/textarea";
+import axios from "../../lib";
+import { reset, updateFaq } from "../../redux/faqs/faqSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const UpdateFaq: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState<string>('');
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { message, isUpdate, isError, isLoading } = useAppSelector(
+    (state) => state.faqs
+  );
+  const { slug } = useParams();
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
 
-  const options = [
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3' },
-  ];
+  useEffect(() => {
+    if (isUpdate) {
+      toast.success(`${message}`);
+      navigate("/faqs");
+    }
+    if (isError) {
+      toast.error("Update filed");
+    }
+    return () => {
+      dispatch(reset());
+    };
+  }, [isUpdate, dispatch, isError, message, navigate]);
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(event.target.value);
+  const faqData = {
+    id: slug,
+    question,
+    answer,
   };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    dispatch(updateFaq(faqData));
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/faqs/${slug}`);
+        setQuestion(response.data.question);
+        setAnswer(response.data.answer);
+      } catch (error) {
+        console.log("Faq fetch error" + error);
+      }
+    };
+    fetchData();
+  }, [slug]);
 
   return (
     <div>
-      <CardBody header="Create Faq" to="/faqs" text="back" />
+      <CardBody header="Update Faq" to="/faqs" text="back" />
       <Display>
-        <form>
+        <form onSubmit={handleSubmit}>
           <Input
+            name="question"
+            onChange={(e) => setQuestion(e.target.value)}
             htmlFor="title"
-            label="Title *"
-            placeholder="Enter Title"
+            label="Question *"
+            placeholder="Question here..."
+            value={question}
             required
-          />
-          <Select
-            label="Select Category *"
-            name="mySelect"
-            value={selectedOption}
-            onChange={handleSelectChange}
-            options={options}
           />
 
           <TextArea
-            label="Meta Description"
-            placeholder="Enter Meta Description"
+            name="answer"
+            onChange={(e) => setAnswer(e.target.value)}
+            value={answer}
+            label="Answer"
+            placeholder="Answer here..."
             required
           />
-          <Button>Create</Button>
+          <Button>{isLoading ? "Loading" : "Update"}</Button>
         </form>
       </Display>
     </div>

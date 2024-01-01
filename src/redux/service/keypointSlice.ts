@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import keypointService from './keypointService';
 import { Ikeypoint } from '../../interfaces/keypoints';
+import keypointService from './keypointService';
 
 interface IState {
   services: Ikeypoint[];
@@ -64,11 +64,11 @@ export const getKeypoints = createAsyncThunk(
 export const updateKeypoint = createAsyncThunk(
   'service/update',
   async (
-    { id, emiData }: { id: number | string; emiData: FormData },
+    { id, updateData }: { id: number | string; updateData: FormData },
     thunkAPI
   ) => {
     try {
-      return await keypointService.updateKeypoint(id, emiData);
+      return await keypointService.updateKeypoint(id, updateData);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data.message || 'An error occurred';
