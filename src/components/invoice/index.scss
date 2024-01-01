@@ -7,6 +7,9 @@
   img {
     width: 100%;
   }
+  .heading {
+    border: 1px solid $secondary-color;
+  }
   .invoice-header {
     padding: 10px 0;
     .title {
@@ -44,6 +47,10 @@
         }
       }
 
+      .heading {
+        border: 1px solid $secondary-color;
+      }
+
       p {
         font-family: $primary-font;
         font-size: 14px;
@@ -64,7 +71,9 @@
     margin-top: 20px;
 
     .first-row {
-      background: $decenary-color;
+      .heading {
+        background: $decenary-color;
+      }
     }
 
     .col-md-8 {

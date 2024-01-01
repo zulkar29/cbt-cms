@@ -1,15 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
-import ReactToPrint from 'react-to-print';
-import Invoice from '../../components/invoice';
-import { AiOutlinePrinter } from 'react-icons/ai';
-import './view.scss';
-import { useParams } from 'react-router-dom';
-import axios from '../../lib';
-import { API_URL } from '../../constants';
-import { IOrder } from '../../interfaces/order';
+import React, { useEffect, useRef, useState } from "react";
+import { AiOutlinePrinter } from "react-icons/ai";
+import { useParams } from "react-router-dom";
+import ReactToPrint from "react-to-print";
+import Invoice from "../../components/invoice";
+import { API_URL } from "../../constants";
+import { IOrder } from "../../interfaces/order";
+import axios from "../../lib";
+import "./view.scss";
 
 const OrderView: React.FC = () => {
   const [order, setOrder] = useState<IOrder>({} as IOrder);
+
+  console.log(order);
   const { slug } = useParams();
   const componentRef = useRef<HTMLDivElement>(null);
 

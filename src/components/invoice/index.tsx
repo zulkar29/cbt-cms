@@ -10,8 +10,6 @@ const Invoice = ({ order }: any) => {
   );
   const [amountBeforeCoupon, setAmountBeforeCoupon] = useState<number>(0);
 
-  console.log(order);
-
   useEffect(() => {
     if (order?.coupon) {
       if (order?.coupon?.discount_type === "flat") {
@@ -105,6 +103,10 @@ const Invoice = ({ order }: any) => {
       }
     }
   }, [order, orderItems]);
+
+  useEffect(() => {
+    setOrderItems(order.orderItems);
+  }, [order]);
 
   return (
     <div className="invoice">

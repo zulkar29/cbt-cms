@@ -1,12 +1,12 @@
-import Row from '../table/row';
-import Column from '../table/column';
-import { IOrder } from '../../interfaces/order';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { deleteOrder, reset, updateOrder } from '../../redux/order/orderSlice';
-import { ChangeEvent, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import './index.scss';
-import SingleItem from './singleItem';
+import { ChangeEvent, useEffect } from "react";
+import { toast } from "react-toastify";
+import { IOrder } from "../../interfaces/order";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { deleteOrder, reset, updateOrder } from "../../redux/order/orderSlice";
+import Column from "../table/column";
+import Row from "../table/row";
+import "./index.scss";
+import SingleItem from "./singleItem";
 
 interface IProps {
   orders: IOrder[];
@@ -70,7 +70,7 @@ const OrderTable = ({
                 onChange={(e) =>
                   handleAllSelectedOrders
                     ? handleAllSelectedOrders(e)
-                    : console.log('first')
+                    : console.log("first")
                 }
               />
               <p className="sudo">SI NO.</p>
@@ -81,8 +81,8 @@ const OrderTable = ({
           <Column className="col-md-1">Customer</Column>
           <Column className="col-md-2">Contact No</Column>
           <Column className="col-md-1">Products</Column>
-          <Column className="col-md-1">Payment Status</Column>
-          <Column className="col-md-1">Delivery Status</Column>
+          {/*  <Column className="col-md-1">Payment Status</Column> */}
+          <Column className="col-md-2">Delivery Status</Column>
           <Column className="col-md-1">Order From</Column>
           <Column className="col-md-2">Options</Column>
         </Row>
