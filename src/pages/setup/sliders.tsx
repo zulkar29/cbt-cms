@@ -1,20 +1,20 @@
-import { useEffect } from 'react';
-import Display from '../../components/display';
-import Column from '../../components/table/column';
-import CustomIconArea from '../../components/custom-icon-area';
-import DeleteButton from '../../components/button/delete';
-import ToggleButton from '../../components/forms/checkbox';
-import CardBody from '../../components/card-body';
-import Row from '../../components/table/row';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useEffect } from "react";
+import DeleteButton from "../../components/button/delete";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import ToggleButton from "../../components/forms/checkbox";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { API_ROOT } from "../../constants";
+import { IAdBanner } from "../../interfaces/addBanner";
 import {
   deleteBanner,
   getAddBanner,
   getSlider,
   updateAddBanner,
-} from '../../redux/add-banner/addBannerSlice';
-import { API_ROOT } from '../../constants';
-import { IAdBanner } from '../../interfaces/addBanner';
+} from "../../redux/add-banner/addBannerSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const Sliders = () => {
   const dispatch = useAppDispatch();
@@ -45,7 +45,7 @@ const Sliders = () => {
           <Column className="col-md-2">Status</Column>
           <Column className="col-md-2">Action</Column>
         </Row>
-        {addBanner.map((banner, index) => (
+        {addBanner?.map((banner, index) => (
           <Row key={index} className="row banner">
             <Column className="col-md-4">
               <img

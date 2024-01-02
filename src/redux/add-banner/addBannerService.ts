@@ -1,9 +1,9 @@
-import axios from '../../lib';
 import {
   IAdBanner,
   IAddBannerResponse,
   ISliderResponse,
 } from '../../interfaces/addBanner';
+import axios from '../../lib';
 
 export interface ICreateResponse {
   message: string;
@@ -32,9 +32,9 @@ const getSlider = async (): Promise<ISliderResponse> => {
   return data;
 };
 
-const updateAddBanner = async (bannerData: Partial<IAdBanner>) => {
-  const { data } = await axios.patch(`/banners/${bannerData.id}`, bannerData);
-  return data.data;
+const updateAddBanner = async (bannerData: Partial<IAdBanner> | FormData, id: number | string) => {
+  const { data } = await axios.patch(`/banners/${id}`, bannerData);
+  return data;
 };
 
 const deleteBanner = async (faqId: number | string) => {

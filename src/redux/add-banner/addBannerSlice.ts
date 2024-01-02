@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { IAdBanner, IAddBannerResponse } from '../../interfaces/addBanner';
 import { RootState } from '../store';
 import addBannerService from './addBannerService';
-import { IAdBanner, IAddBannerResponse } from '../../interfaces/addBanner';
 
 interface IBlogResponse {
   addBanner: IAdBanner[];
@@ -71,9 +71,9 @@ export const getSlider = createAsyncThunk(
 
 export const updateAddBanner = createAsyncThunk(
   'addBanner/update',
-  async (bannerData: Partial<IAdBanner>, thunkAPI) => {
+  async ({ bannerData, id }: { bannerData: Partial<IAdBanner> | FormData, id: string | number }, thunkAPI) => {
     try {
-      return await addBannerService.updateAddBanner(bannerData);
+      return await addBannerService.updateAddBanner(bannerData, id);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
@@ -152,9 +152,10 @@ export const addBannerSlice = createSlice({
         state.isLoading = true;
         state.isUpdate = false;
       })
-      .addCase(updateAddBanner.fulfilled, (state) => {
+      .addCase(updateAddBanner.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isUpdate = true;
+        state.message = action.payload.message
       })
       .addCase(updateAddBanner.rejected, (state, action) => {
         state.isLoading = false;

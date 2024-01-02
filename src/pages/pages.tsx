@@ -54,6 +54,7 @@ import Settings from "./setup/settings";
 import Sliders from "./setup/sliders";
 import UpdatePage from "./setup/update-pages";
 import UpdateService from "./setup/updateService";
+import UpdateSlider from "./setup/updateSlider";
 import Staff from "./staff";
 import CreateProfile from "./staff/create";
 import TicketPage from "./support";
@@ -126,6 +127,7 @@ export {
   UpdateProduct,
   UpdateService,
   UpdateShipping,
+  UpdateSlider,
   UpdateVideo,
   VideosPage,
   Warranty,
