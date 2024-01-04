@@ -151,6 +151,7 @@ export const sidebarLinks = [
       },
     ],
   },
+
   {
     id: 8,
     title: 'Marketing',
@@ -164,9 +165,21 @@ export const sidebarLinks = [
         subtitle: 'Add Banner',
         slug: '/banner',
       },
+    ],
+  },
+
+  {
+    id: 8,
+    title: 'Banner',
+    icon: 'advertising.png',
+    subLinks: [
       {
-        subtitle: 'Shipping',
-        slug: '/shipping',
+        subtitle: 'Set Coupons',
+        slug: '/coupons',
+      },
+      {
+        subtitle: 'Add Banner',
+        slug: '/banner',
       },
     ],
   },
@@ -191,7 +204,7 @@ export const sidebarLinks = [
   },
   {
     id: 10,
-    title: 'Emi',
+    title: 'Payment',
     icon: 'emi.png',
     subLinks: [
       {
@@ -201,6 +214,10 @@ export const sidebarLinks = [
       {
         subtitle: 'Add Bank',
         slug: '/emi/create',
+      },
+      {
+        subtitle: 'Payment Message',
+        slug: '/payment-message',
       },
     ],
   },
@@ -218,13 +235,13 @@ export const sidebarLinks = [
         slug: '/setup/services',
       },
       {
-        subtitle: 'Setting',
+        subtitle: 'Footer',
         slug: '/setup/setting',
       },
-      {
+      /* {
         subtitle: 'Homepage Sliders',
         slug: '/setup/sliders',
-      },
+      }, */
       {
         subtitle: 'Pages',
         slug: '/setup/pages',
@@ -232,6 +249,10 @@ export const sidebarLinks = [
       {
         subtitle: 'Menus',
         slug: '/setup/menus',
+      },
+      {
+        subtitle: 'Shipping',
+        slug: '/shipping',
       },
     ],
   },

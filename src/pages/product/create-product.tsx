@@ -1,26 +1,26 @@
-import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import CardBody from '../../components/card-body';
-import Display from '../../components/display';
-import Input from '../../components/forms/text-input';
-import FileInput from '../../components/forms/file-input';
-import DescriptionInput from '../../components/description';
-import { Button } from '../../components/button';
-import TextArea from '../../components/forms/textarea';
-import Select from '../../components/select';
-import './create-product.scss';
-import ToggleButton from '../../components/forms/checkbox';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getCategories } from '../../redux/category/categorySlice';
-import { DateRangePicker } from 'rsuite';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'react-toastify';
+import { DateRangePicker } from 'rsuite';
+import { Button } from '../../components/button';
+import CardBody from '../../components/card-body';
+import DescriptionInput from '../../components/description';
+import Display from '../../components/display';
+import ToggleButton from '../../components/forms/checkbox';
+import FileInput from '../../components/forms/file-input';
+import Input from '../../components/forms/text-input';
+import TextArea from '../../components/forms/textarea';
+import Select from '../../components/select';
+import { getCategories } from '../../redux/category/categorySlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { createProduct, reset } from '../../redux/products/product-slice';
+import './create-product.scss';
 // import makeAnimated from 'react-select/animated';
-import 'rsuite/dist/rsuite.css';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../lib';
+import 'rsuite/dist/rsuite.css';
 import { API_URL } from '../../constants';
 import { IAttributeResponse } from '../../interfaces/attribute';
+import axios from '../../lib';
 import AttributeSingle from './attribute-single';
 
 // const animatedComponents = makeAnimated();
@@ -91,14 +91,14 @@ const CreateProduct: React.FC = () => {
       setSelectedAttributes((prevState) =>
         prevState.map((item) => {
           if (item.name === attribute) {
-            let tempAttrVals: string[] =
+            const tempAttrVals: string[] =
               item.value.indexOf(',') > -1
                 ? item.value.split(',')
                 : [item.value];
-            let tempFilteredAttrVals: string[] = tempAttrVals.filter(
+            const tempFilteredAttrVals: string[] = tempAttrVals.filter(
               (val) => val !== attributeValue
             );
-            let tempFilteredValsString: string = '';
+            let tempFilteredValsString = '';
             if (tempFilteredAttrVals?.length > 1) {
               tempFilteredAttrVals?.map((val, i) => {
                 if (tempFilteredAttrVals.length == i + 1) {
@@ -274,7 +274,7 @@ const CreateProduct: React.FC = () => {
     formData.append('is_feature', isFeature.toString());
     formData.append('is_new', isNew.toString());
     if (isVariant) {
-      let tempSelAttri: any[] = [];
+      const tempSelAttri: any[] = [];
       selectedAttributes?.length > 0 &&
         selectedAttributes?.map((item) => {
           if (item?.selectedValues?.length > 0) {
@@ -592,11 +592,6 @@ const CreateProduct: React.FC = () => {
                   placeholder="Meta Title"
                   htmlFor="meta-title"
                   onBlur={(e) => setMetaTitle(e.target.value)}
-                />
-                <Input
-                  placeholder="Meta Name"
-                  htmlFor="meta-name"
-                  onBlur={(e) => setMetaName(e.target.value)}
                 />
                 <TextArea
                   placeholder="Meta Description"

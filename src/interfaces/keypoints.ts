@@ -3,6 +3,7 @@ export interface Ikeypoint {
   title: string;
   subtitle: string;
   url: string;
+  group_by: string
   image: string | File | null;
   created_at?: string;
   updated_at?: string;

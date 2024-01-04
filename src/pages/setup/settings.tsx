@@ -1,21 +1,19 @@
-import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import { Button } from '../../components/button';
-import Display from '../../components/display';
-import Input from '../../components/forms/text-input';
-import TextArea from '../../components/forms/textarea';
-import Column from '../../components/table/column';
-import Row from '../../components/table/row';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import './settings.scss';
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { Button } from "../../components/button";
+import Display from "../../components/display";
+import Input from "../../components/forms/text-input";
+import TextArea from "../../components/forms/textarea";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { ISettings } from "../../interfaces/settings";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   getSettings,
   reset,
   updateSettings,
-} from '../../redux/settings/settingSlice';
-import { ISettings } from '../../interfaces/settings';
-import { API_ROOT } from '../../constants';
-import FileInput from '../../components/forms/file-input';
-import { toast } from 'react-toastify';
+} from "../../redux/settings/settingSlice";
+import "./settings.scss";
 
 const Settings: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -59,28 +57,26 @@ const Settings: React.FC = () => {
 
     Object.entries(settings).forEach(([key, value]) => {
       if (value !== null && value !== undefined) {
-        if (key !== 'logo' && key !== 'favicon') {
+        if (key !== "logo" && key !== "favicon") {
           formData.append(key, String(value));
         }
       }
     });
     if (logo) {
-      formData.append('logo', logo);
+      formData.append("logo", logo);
     }
     if (favicon) {
-      formData.append('favicon', favicon);
+      formData.append("favicon", favicon);
     }
     if (popup) {
-      formData.append('popup_image', popup);
+      formData.append("popup_image", popup);
     }
     dispatch(updateSettings(formData));
   };
 
-  console.log(setting);
-
   useEffect(() => {
     if (isUpdate) {
-      toast.success('Updated successfully');
+      toast.success("Updated successfully");
     }
     return () => {
       dispatch(reset());
@@ -144,6 +140,24 @@ const Settings: React.FC = () => {
                 required
               />
             </Display>
+          </Column>
+          <Column className="col-md-6">
+            <Display>
+              <Input
+                name="play_store_url"
+                onChange={handleChange}
+                htmlFor="play-store"
+                label="Play Store Link"
+                value={settings.play_store_url}
+              />
+              <Input
+                name="app_store_url"
+                onChange={handleChange}
+                htmlFor="app-store"
+                label="App Store Link"
+                value={settings.app_store_url}
+              />
+            </Display>
             <Display>
               <Input
                 onChange={handleChange}
@@ -172,88 +186,6 @@ const Settings: React.FC = () => {
                 value={settings.instagram_url}
                 name="instagram_url"
                 htmlFor="t-url"
-              />
-            </Display>
-            <Display>
-              <TextArea
-                label="Cash on message"
-                value={settings.cash_on_message as string}
-                name="cash_on_message"
-                onChange={handleChange}
-              />
-              <TextArea
-                label="online payment message"
-                value={settings.online_payment_message as string}
-                name="online_payment_message"
-                onChange={handleChange}
-              />
-            </Display>
-          </Column>
-          <Column className="col-md-6">
-            <Display>
-              <Input
-                name="play_store_url"
-                onChange={handleChange}
-                htmlFor="play-store"
-                label="Play Store Link"
-                value={settings.play_store_url}
-              />
-              <Input
-                name="app_store_url"
-                onChange={handleChange}
-                htmlFor="app-store"
-                label="App Store Link"
-                value={settings.app_store_url}
-              />
-              <TextArea
-                label="google analytics"
-                value={settings.google_analytics}
-                name="google_analytics"
-              />
-              <TextArea
-                label="Facebook pixel"
-                value={settings.facebook_pixel}
-                name="facebook_pixel"
-              />
-            </Display>
-            <Display>
-              <FileInput onChange={handleLogoChange} name="logo" label="Logo" />
-
-              <img
-                src={`${API_ROOT}/images/setting/${setting.logo}`}
-                alt="logo"
-              />
-              <FileInput
-                onChange={handleFaviconChange}
-                name="favicon"
-                label="Favicon"
-              />
-
-              <img
-                src={`${API_ROOT}/images/setting/${setting.favicon}`}
-                alt="logo"
-              />
-              <FileInput
-                onChange={handlePopupChange}
-                name="popup_image"
-                label="favicon"
-              />
-
-              <img
-                src={`${API_ROOT}/images/setting/${setting.popup_image}`}
-                alt="popup"
-              />
-            </Display>
-            <Display>
-              <TextArea
-                label="Footer script"
-                value={settings.footer_script}
-                name="footer_script"
-              />
-              <TextArea
-                label="Header Script"
-                value={settings.header_script}
-                name="header_script"
               />
             </Display>
           </Column>

@@ -49,8 +49,8 @@ const UpdateFaq: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`/faqs/${slug}`);
-        setQuestion(response.data.question);
-        setAnswer(response.data.answer);
+        setQuestion(response.data.data.question);
+        setAnswer(response.data.data.answer);
       } catch (error) {
         console.log("Faq fetch error" + error);
       }

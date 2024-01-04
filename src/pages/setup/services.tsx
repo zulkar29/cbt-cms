@@ -35,9 +35,10 @@ const Services = () => {
       <Display>
         <Row className="row">
           <Column className="col-md-2">Icon</Column>
-          <Column className="col-md-2">Slug</Column>
+          <Column className="col-md-2">Url</Column>
           <Column className="col-md-2">Title</Column>
           <Column className="col-md-2">Sub Title</Column>
+          <Column className="col-md-2">Position</Column>
           <Column className="col-md-2">Options</Column>
         </Row>
         {services.map((service, index) => (
@@ -51,6 +52,7 @@ const Services = () => {
             <Column className="col-md-2">{service.url}</Column>
             <Column className="col-md-2">{service.title}</Column>
             <Column className="col-md-2">{service.subtitle}</Column>
+            <Column className="col-md-2">{service.group_by}</Column>
 
             <Column className="col-md-2">
               <CustomIconArea>

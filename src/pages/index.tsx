@@ -36,6 +36,7 @@ import {
   Menus,
   Notification,
   OrderView,
+  PaymentMessage,
   PendingOrders,
   Profile,
   Queries,
@@ -134,10 +135,11 @@ function PageRoutes() {
       <Route path="/queries" element={<Queries />} />
       <Route path="/subscriber" element={<Subscriber />} />
 
-      {/* EMI */}
+      {/* Payment */}
       <Route path="/emi" element={<EmiPage />} />
       <Route path="/emi/create" element={<CreateEmi />} />
       <Route path="/emi/edit/:slug" element={<UpdateEmi />} />
+      <Route path="/payment-message" element={<PaymentMessage />} />
 
       {/* Settings */}
       <Route path="/setup/home-page" element={<SetupPage />} />

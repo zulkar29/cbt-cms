@@ -31,6 +31,7 @@ import Delivered from "./orders/delivered";
 import PendingOrders from "./orders/pending";
 import UpdateOrder from "./orders/update-order";
 import OrderView from "./orders/view";
+import PaymentMessage from "./payment/message";
 import AllProducts from "./product";
 import Attributes from "./product/attributes";
 import CreateAttributes from "./product/create-attributes";
@@ -102,6 +103,7 @@ export {
   Menus,
   Notification,
   OrderView,
+  PaymentMessage,
   PendingOrders,
   Profile,
   Queries,
