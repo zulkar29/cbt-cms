@@ -1,13 +1,13 @@
-import { useEffect } from 'react';
-import ViewButton from '../../components/button/view';
-import CustomIconArea from '../../components/custom-icon-area';
-import Display from '../../components/display';
-import Column from '../../components/table/column';
-import Row from '../../components/table/row';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getSupport } from '../../redux/support/supportSlice';
-import { formatDate } from '../../components/date-formate';
-import CardBody from '../../components/card-body';
+import { useEffect } from "react";
+import ViewButton from "../../components/button/view";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import { formatDate } from "../../components/date-formate";
+import Display from "../../components/display";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { getSupport } from "../../redux/support/supportSlice";
 
 const TicketPage = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +20,7 @@ const TicketPage = () => {
     <div>
       <CardBody header="Support Massages" to="#" />
       <Display>
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-2">Ticket ID</Column>
           <Column className="col-md-3">Subject</Column>
           <Column className="col-md-3">Message</Column>

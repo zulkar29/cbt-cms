@@ -57,6 +57,7 @@ import {
   UpdateCoupon,
   UpdateEmi,
   UpdateFaq,
+  UpdateMenu,
   UpdateOrder,
   UpdatePage,
   UpdateProduct,
@@ -145,6 +146,7 @@ function PageRoutes() {
       <Route path="/setup/home-page" element={<SetupPage />} />
       <Route path="/setup/setting" element={<Settings />} />
       <Route path="/setup/menus/create" element={<CreateMenu />} />
+      <Route path="/setup/menus/edit/:slug" element={<UpdateMenu />} />
       <Route path="/setup/menus" element={<Menus />} />
       <Route path="/setup/sliders" element={<Sliders />} />
       <Route path="/setup/services" element={<Services />} />

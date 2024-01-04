@@ -1,5 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import orderService from './menuService';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { IMenu } from '../../interfaces/menu';
 import menuService from './menuService';
@@ -9,6 +8,7 @@ interface IState {
   totalCount: number;
   isError: boolean;
   isCreate: boolean;
+  isUpdate: boolean;
   isSuccess: boolean;
   isDelete: boolean;
   isLoading: boolean;
@@ -23,6 +23,7 @@ const initialState: IState = {
   isSuccess: false,
   isDelete: false,
   isLoading: false,
+  isUpdate: false,
   message: '',
   errorMessage: '',
 };
@@ -48,7 +49,7 @@ export const getMenus = createAsyncThunk(
   'order/getAllOrder',
   async (filter: { [key: string]: number | string }, thunkAPI) => {
     try {
-      return await orderService.getMenus(filter);
+      return await menuService.getMenus(filter);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data.message || 'An error occurred';
@@ -60,12 +61,28 @@ export const getMenus = createAsyncThunk(
   }
 );
 
+// Update Menu
+export const updateMenus = createAsyncThunk(
+  'menu/update',
+  async ({ menuData, id }: { menuData: Partial<IMenu>, id: number | string }, thunkAPI) => {
+    try {
+      return await menuService.updateMenus(menuData, id);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message || 'An error occurred';
+        return thunkAPI.rejectWithValue(message);
+      } else {
+        return thunkAPI.rejectWithValue('An error occurred');
+      }
+    }
+  }
+);
 // Delete Order
 export const deleteMenu = createAsyncThunk(
   'order/delete',
   async (ids: number[], thunkAPI) => {
     try {
-      return await orderService.deleteMenu(ids);
+      return await menuService.deleteMenu(ids);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data.message || 'An error occurred';
@@ -84,6 +101,7 @@ export const menuSlice = createSlice({
     reset: (state) => {
       state.isLoading = false;
       state.isCreate = false;
+      state.isUpdate = false;
       state.isSuccess = false;
       state.isDelete = false;
       state.isError = false;
@@ -119,6 +137,22 @@ export const menuSlice = createSlice({
       .addCase(getMenus.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
+        state.message = action.payload as string;
+      })
+      // GET MENUS
+      .addCase(updateMenus.pending, (state) => {
+        state.isLoading = true;
+        state.isSuccess = false;
+      })
+      .addCase(updateMenus.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isUpdate = false
+      })
+      .addCase(updateMenus.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isUpdate = false
         state.message = action.payload as string;
       })
 

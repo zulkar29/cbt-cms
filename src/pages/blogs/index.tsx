@@ -85,7 +85,7 @@ const Blogs: React.FC = () => {
       <CardBody header="All Blogs" to="/blogs/create" />
       <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-1">SI No.</Column>
           <Column className="col-md-2">Title</Column>
           <Column className="col-md-6">Sort Description</Column>

@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
-import Display from '../../components/display';
-import Row from '../../components/table/row';
-import Column from '../../components/table/column';
-import CardBody from '../../components/card-body';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getComments, reset } from '../../redux/comments/commentSlice';
+import { useEffect } from "react";
+import CardBody from "../../components/card-body";
+import Display from "../../components/display";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { getComments, reset } from "../../redux/comments/commentSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const BlogComment = () => {
   const { comments } = useAppSelector((state) => state.comment);
@@ -22,7 +22,7 @@ const BlogComment = () => {
     <div>
       <CardBody header="Blog Comments" to="#" />
       <Display>
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-4">Name</Column>
           <Column className="col-md-4">Email</Column>
           <Column className="col-md-4">Comments</Column>

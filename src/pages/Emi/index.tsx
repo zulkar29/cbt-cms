@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
-import Display from '../../components/display';
-import Row from '../../components/table/row';
-import Column from '../../components/table/column';
-import CustomIconArea from '../../components/custom-icon-area';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getEmis, reset } from '../../redux/emi/emiSlice';
-import CardBody from '../../components/card-body';
-import EditButton from '../../components/button/edit';
+import { useEffect } from "react";
+import EditButton from "../../components/button/edit";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { getEmis, reset } from "../../redux/emi/emiSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const EmiPage = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ const EmiPage = () => {
     <div>
       <CardBody header="Available Emi" to="/emi/create"></CardBody>
       <Display>
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-3">Bank Name</Column>
           <Column className="col-md-1">Three months</Column>
           <Column className="col-md-1">Six Months</Column>

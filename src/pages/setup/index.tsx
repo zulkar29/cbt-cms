@@ -179,48 +179,50 @@ const SetupPage: React.FC = () => {
   return (
     <div>
       <div className="row">
-        <Column className="col-md-12 setup">
-          <Button>Update</Button>
-        </Column>
         <Column className="col-md-6">
-          <Display>
-            <Input
-              htmlFor="Mobile"
-              label="Mobile Number"
-              placeholder="Mobile Number"
-              value={homeData.mobile_number}
-              onChange={handleHomeData}
-              name="mobile_number"
-              required
-            />
-            <Input
-              htmlFor="time"
-              label="Office Time"
-              placeholder="Office time"
-              value={homeData.office_time}
-              onChange={handleHomeData}
-              name="office_time"
-              required
-            />
-            <Input
-              htmlFor="s-product"
-              label="Special Product Link"
-              placeholder="Special product link"
-              value={homeData.special_product_link}
-              onChange={handleHomeData}
-              name="special_product_link"
-              required
-            />
-            <FileInput
-              label="Special Product Image"
-              name="special_product_photo"
-              onChange={handleImageChange}
-            />
-            <img
-              src={`${API_ROOT}/images/home-page/${homeData.special_product_photo}`}
-              alt=""
-            />
-          </Display>
+          <form onSubmit={handleSubmit}>
+            <Display>
+              <Input
+                htmlFor="Mobile"
+                label="Mobile Number"
+                placeholder="Mobile Number"
+                value={homeData.mobile_number}
+                onChange={handleHomeData}
+                name="mobile_number"
+                required
+              />
+              <Input
+                htmlFor="time"
+                label="Office Time"
+                placeholder="Office time"
+                value={homeData.office_time}
+                onChange={handleHomeData}
+                name="office_time"
+                required
+              />
+              <Input
+                htmlFor="s-product"
+                label="Special Product Link"
+                placeholder="Special product link"
+                value={homeData.special_product_link}
+                onChange={handleHomeData}
+                name="special_product_link"
+                required
+              />
+              <FileInput
+                label="Special Product Image"
+                name="special_product_photo"
+                onChange={handleImageChange}
+              />
+              <img
+                src={`${API_ROOT}/images/home-page/${homeData.special_product_photo}`}
+                alt=""
+              />
+              <div className="text-right">
+                <Button type="submit">Update</Button>
+              </div>
+            </Display>
+          </form>
           <Display>
             <form onSubmit={handleImages}>
               <FileInput
@@ -273,21 +275,26 @@ const SetupPage: React.FC = () => {
         </Column>
         <Column className="col-md-6">
           <Display>
-            <Input
-              htmlFor="m-title"
-              label="Meta Title"
-              placeholder="Mobile Number"
-              value={homeData.meta_title}
-              onChange={handleHomeData}
-              name="meta_title"
-              required
-            />
-            <TextArea
-              label="Meta Description"
-              value={homeData.meta_description}
-              onChange={handleHomeData}
-              name="meta_description"
-            />
+            <form onSubmit={handleSubmit}>
+              <Input
+                htmlFor="m-title"
+                label="Meta Title"
+                placeholder="Mobile Number"
+                value={homeData.meta_title}
+                onChange={handleHomeData}
+                name="meta_title"
+                required
+              />
+              <TextArea
+                label="Meta Description"
+                value={homeData.meta_description}
+                onChange={handleHomeData}
+                name="meta_description"
+              />
+              <div>
+                <Button type="submit">Update</Button>
+              </div>
+            </form>
           </Display>
           <Display>
             <CardBody header="Create New Banner" to="/setup/sliders/create" />

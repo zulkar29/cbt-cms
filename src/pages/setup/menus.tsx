@@ -1,13 +1,14 @@
-import { useEffect } from 'react';
-import Display from '../../components/display';
-import Column from '../../components/table/column';
-import Row from '../../components/table/row';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { deleteMenu, getMenus, reset } from '../../redux/menus/menuSlice';
-import CustomIconArea from '../../components/custom-icon-area';
-import DeleteButton from '../../components/button/delete';
-import { toast } from 'react-toastify';
-import CardBody from '../../components/card-body';
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import DeleteButton from "../../components/button/delete";
+import EditButton from "../../components/button/edit";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { deleteMenu, getMenus, reset } from "../../redux/menus/menuSlice";
 
 const Menus = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +33,7 @@ const Menus = () => {
     <div>
       <CardBody header="Menus" to="/setup/menus/create" />
       <Display>
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-3">Name</Column>
           <Column className="col-md-3">Slug</Column>
           <Column className="col-md-3">Position</Column>
@@ -45,6 +46,7 @@ const Menus = () => {
             <Column className="col-md-3">{menu.position}</Column>
             <Column className="col-md-3">
               <CustomIconArea>
+                <EditButton editUrl={`/setup/menus/edit/${menu.id}`} />
                 <DeleteButton onClick={() => handleDelete(menu.id as number)} />
               </CustomIconArea>
             </Column>

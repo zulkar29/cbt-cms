@@ -60,7 +60,7 @@ const OrderTable = ({
   return (
     <div className="order-table">
       <>
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-1">
             <form>
               <input

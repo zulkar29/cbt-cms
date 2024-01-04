@@ -1,6 +1,6 @@
-import { IMenu } from './../../interfaces/menu';
-import axios from '../../lib';
 import { IMenuResponse } from '../../interfaces/menu';
+import axios from '../../lib';
+import { IMenu } from './../../interfaces/menu';
 
 // create Menu
 const createMenu = async (productData: IMenu) => {
@@ -29,6 +29,14 @@ const getMenus = async (filter: {
   return data;
 };
 
+const updateMenus = async (menuData: Partial<IMenu>, id: number | string) => {
+  const { data } = await axios.patch(
+    `/menus/${id}`,
+    menuData
+  );
+  return data.data;
+};
+
 // Delete
 const deleteMenu = async (ids: number[]) => {
   const idsString = ids.join(',');
@@ -40,6 +48,7 @@ const menuService = {
   createMenu,
   getMenus,
   deleteMenu,
+  updateMenus
 };
 
 export default menuService;

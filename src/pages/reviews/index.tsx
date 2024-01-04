@@ -1,13 +1,13 @@
-import CardBody from '../../components/card-body';
-import Display from '../../components/display';
-import Pagination from '../../components/pagination';
-import Column from '../../components/table/column';
-import Row from '../../components/table/row';
-import ToggleButton from '../../components/forms/checkbox';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { getReview, reset, updateReview } from '../../redux/review/reviewSlice';
-import Filter from '../../components/filter';
+import { ChangeEvent, useEffect, useState } from "react";
+import CardBody from "../../components/card-body";
+import Display from "../../components/display";
+import Filter from "../../components/filter";
+import ToggleButton from "../../components/forms/checkbox";
+import Pagination from "../../components/pagination";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { getReview, reset, updateReview } from "../../redux/review/reviewSlice";
 
 const Reviews: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -41,7 +41,7 @@ const Reviews: React.FC = () => {
       <CardBody header="Reviews" to="/products/reviews#" />
       <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-1">#</Column>
           <Column className="col-md-2">Name</Column>
           <Column className="col-md-4">Products</Column>

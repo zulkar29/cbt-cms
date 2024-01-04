@@ -39,7 +39,7 @@ const Sliders = () => {
     <div>
       <CardBody header="Banner" to="/setup/sliders/create" />
       <Display>
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-4">Image</Column>
           <Column className="col-md-4">Link</Column>
           <Column className="col-md-2">Status</Column>

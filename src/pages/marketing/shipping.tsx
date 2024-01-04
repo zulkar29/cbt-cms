@@ -1,16 +1,16 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import Display from '../../components/display';
-import Pagination from '../../components/pagination';
-import Column from '../../components/table/column';
-import Row from '../../components/table/row';
-import Filter from '../../components/filter';
-import CustomIconArea from '../../components/custom-icon-area';
-import DeleteButton from '../../components/button/delete';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { ChangeEvent, useEffect, useState } from "react";
+import DeleteButton from "../../components/button/delete";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Filter from "../../components/filter";
+import Pagination from "../../components/pagination";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
-import { toast } from 'react-toastify';
-import { getLocations, reset } from '../../redux/location/locationSlice';
-import CardBody from '../../components/card-body';
+import { toast } from "react-toastify";
+import CardBody from "../../components/card-body";
+import { getLocations, reset } from "../../redux/location/locationSlice";
 
 const Shipping: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -51,7 +51,7 @@ const Shipping: React.FC = () => {
       <CardBody header="Shipping" to="/shipping/create" />
       <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-4">Location</Column>
           <Column className="col-md-4">Price</Column>
           <Column className="col-md-4">Actions</Column>
@@ -62,7 +62,7 @@ const Shipping: React.FC = () => {
             <Column className="col-md-4">{location.price}</Column>
             <Column className="col-md-4">
               <CustomIconArea>
-                <DeleteButton onClick={() => console.log('first')} />
+                <DeleteButton onClick={() => console.log("first")} />
               </CustomIconArea>
             </Column>
           </Row>

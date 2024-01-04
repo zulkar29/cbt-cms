@@ -1,34 +1,34 @@
-import Display from '../../components/display';
-import Row from '../../components/table/row';
-import Column from '../../components/table/column';
-import Pagination from '../../components/pagination';
-import CardBody from '../../components/card-body';
-import Filter from '../../components/filter';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import DeleteButton from "../../components/button/delete";
+import EditButton from "../../components/button/edit";
+import ViewButton from "../../components/button/view";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Filter from "../../components/filter";
+import ToggleButton from "../../components/forms/checkbox";
+import Overflow from "../../components/overflow";
+import Pagination from "../../components/pagination";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { API_ROOT } from "../../constants";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   deleteProduct,
   getProducts,
   reset,
   updateProduct,
-} from '../../redux/products/product-slice';
-import ToggleButton from '../../components/forms/checkbox';
-import CustomIconArea from '../../components/custom-icon-area';
-import EditButton from '../../components/button/edit';
-import DeleteButton from '../../components/button/delete';
-import ViewButton from '../../components/button/view';
-import Overflow from '../../components/overflow';
-import './index.scss';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { API_ROOT } from '../../constants';
-import { toast } from 'react-toastify';
+} from "../../redux/products/product-slice";
+import "./index.scss";
 
 const AllProducts: React.FC = () => {
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
-  const [onSearch, setOnSearch] = useState('');
+  const [onSearch, setOnSearch] = useState("");
   const dispatch = useAppDispatch();
   const [displayItem, setDisplayItem] = useState<number>(10);
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const [sort_by, setSortBy] = useState('');
+  const [sort_by, setSortBy] = useState("");
 
   const { products, isDelete, totalCount, isUpdate, message } = useAppSelector(
     (state) => state.product
@@ -120,16 +120,16 @@ const AllProducts: React.FC = () => {
                 <div onClick={handleMultiDelete}>Delete Selection</div>
               </Overflow>
               <Overflow title="Sort By">
-                <div onClick={() => setSortBy('high')}>
-                  Price {'(high > low)'}
+                <div onClick={() => setSortBy("high")}>
+                  Price {"(high > low)"}
                 </div>
-                <div onClick={() => setSortBy('low')}>
-                  Price {'(low > high)'}
+                <div onClick={() => setSortBy("low")}>
+                  Price {"(low > high)"}
                 </div>
-                <div onClick={() => setSortBy('')}>
+                <div onClick={() => setSortBy("")}>
                   <p>Latest</p>
                 </div>
-                <div onClick={() => setSortBy('oldest')}>
+                <div onClick={() => setSortBy("oldest")}>
                   <p>Oldest</p>
                 </div>
               </Overflow>
@@ -137,7 +137,7 @@ const AllProducts: React.FC = () => {
           }
           isFilter
         />
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-1">
             <input
               id="select-all"

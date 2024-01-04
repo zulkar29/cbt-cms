@@ -33,7 +33,7 @@ const Services = () => {
     <div>
       <CardBody header="Service" to="/setup/services/create" />
       <Display>
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-2">Icon</Column>
           <Column className="col-md-2">Url</Column>
           <Column className="col-md-2">Title</Column>

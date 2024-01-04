@@ -59,7 +59,7 @@ const VideosPage: React.FC = () => {
       <CardBody header="Videos" to="/videos/create" />
       <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-1">SI No.</Column>
           <Column className="col-md-4">Title</Column>
           <Column className="col-md-4">Link</Column>

@@ -1,14 +1,14 @@
-import CardBody from '../../components/card-body';
-import Display from '../../components/display';
-import Row from '../../components/table/row';
-import Column from '../../components/table/column';
-import { useEffect } from 'react';
-import CustomIconArea from '../../components/custom-icon-area';
-import EditButton from '../../components/button/edit';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { deleteCoupon, getCoupon, reset } from '../../redux/coupon/couponSlice';
-import DeleteButton from '../../components/button/delete';
-import { toast } from 'react-toastify';
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import DeleteButton from "../../components/button/delete";
+import EditButton from "../../components/button/edit";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { deleteCoupon, getCoupon, reset } from "../../redux/coupon/couponSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const CouponPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +20,7 @@ const CouponPage: React.FC = () => {
 
   useEffect(() => {
     if (isDelete) {
-      toast.success('Coupon deleted successfully');
+      toast.success("Coupon deleted successfully");
     }
     dispatch(getCoupon({}));
 
@@ -33,7 +33,7 @@ const CouponPage: React.FC = () => {
     <div>
       <CardBody header="Coupon" to="/coupons/create" />
       <Display>
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-1">#</Column>
           <Column className="col-md-2">Code</Column>
           <Column className="col-md-1">Total</Column>

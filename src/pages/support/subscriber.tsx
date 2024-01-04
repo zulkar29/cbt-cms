@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
-import Display from '../../components/display';
-import Row from '../../components/table/row';
-import Column from '../../components/table/column';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useEffect, useState } from "react";
+import DeleteButton from "../../components/button/delete";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Pagination from "../../components/pagination";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   deleteSubscriber,
   getSubscribers,
-} from '../../redux/subscribe/subscribeSlice';
-import CustomIconArea from '../../components/custom-icon-area';
-import DeleteButton from '../../components/button/delete';
-import Pagination from '../../components/pagination';
-import CardBody from '../../components/card-body';
+} from "../../redux/subscribe/subscribeSlice";
 
 const Subscriber = () => {
   const [pageNumber, setPageNumber] = useState<number>(1);
@@ -36,7 +36,7 @@ const Subscriber = () => {
     <div>
       <CardBody header="Subscriber" to="#" />
       <Display>
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-11">Email</Column>
           <Column className="col-md-1">Actions</Column>
         </Row>

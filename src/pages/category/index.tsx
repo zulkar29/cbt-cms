@@ -1,22 +1,22 @@
-import { useEffect, useState, ChangeEvent } from 'react';
-import CardBody from '../../components/card-body';
-import Display from '../../components/display';
-import Row from '../../components/table/row';
-import Column from '../../components/table/column';
-import ToggleButton from '../../components/forms/checkbox';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { ChangeEvent, useEffect, useState } from "react";
+import DeleteButton from "../../components/button/delete";
+import EditButton from "../../components/button/edit";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Filter from "../../components/filter";
+import ToggleButton from "../../components/forms/checkbox";
+import Pagination from "../../components/pagination";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { API_ROOT } from "../../constants";
+import { ICategory } from "../../interfaces/category";
 import {
   deleteCategory,
   getCategories,
   updateCategory,
-} from '../../redux/category/categorySlice';
-import { ICategory } from '../../interfaces/category';
-import { API_ROOT } from '../../constants';
-import CustomIconArea from '../../components/custom-icon-area';
-import EditButton from '../../components/button/edit';
-import DeleteButton from '../../components/button/delete';
-import Pagination from '../../components/pagination';
-import Filter from '../../components/filter';
+} from "../../redux/category/categorySlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const Categories: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ const Categories: React.FC = () => {
     useAppSelector((state) => state.category);
   const [displayItem, setDisplayItem] = useState<number>(10);
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const [search, setSearch] = useState<string>('');
+  const [search, setSearch] = useState<string>("");
   const totalPage = Math.ceil(totalCount / displayItem);
 
   const handleVisibility = (category: ICategory) => {
@@ -75,7 +75,7 @@ const Categories: React.FC = () => {
           onSearch={onSearch}
           isFilter
         />
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-3">Banner</Column>
           <Column className="col-md-3">Name</Column>
           <Column className="col-md-2"> Category Position</Column>
@@ -91,7 +91,7 @@ const Categories: React.FC = () => {
                   alt="brand"
                 />
               ) : (
-                '—'
+                "—"
               )}
             </Column>
             <Column className="col-md-3">{category.title}</Column>

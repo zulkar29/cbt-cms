@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react';
-import Display from '../../components/display';
-import Column from '../../components/table/column';
-import CustomIconArea from '../../components/custom-icon-area';
-import DeleteButton from '../../components/button/delete';
-import ToggleButton from '../../components/forms/checkbox';
-import './banner.scss';
-import CardBody from '../../components/card-body';
-import Row from '../../components/table/row';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useEffect, useState } from "react";
+import DeleteButton from "../../components/button/delete";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import ToggleButton from "../../components/forms/checkbox";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { API_ROOT, API_URL } from "../../constants";
+import { IAdBanner } from "../../interfaces/addBanner";
+import axios from "../../lib";
 import {
   deleteBanner,
   getAddBanner,
   updateAddBanner,
-} from '../../redux/add-banner/addBannerSlice';
-import { API_ROOT, API_URL } from '../../constants';
-import { IAdBanner } from '../../interfaces/addBanner';
-import axios from '../../lib';
+} from "../../redux/add-banner/addBannerSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import "./banner.scss";
 
 const BannerPage = () => {
   const dispatch = useAppDispatch();
@@ -31,7 +31,7 @@ const BannerPage = () => {
         const response = await axios.get(`${API_URL}/banners?not_slider=true`);
         setAddBanner(response?.data?.rows);
       } catch (error) {
-        console.log('Banner data fetch error' + error);
+        console.log("Banner data fetch error" + error);
       }
     };
     fetchData();
@@ -51,7 +51,7 @@ const BannerPage = () => {
     <div>
       <CardBody header="Banner" to="/banner/create" />
       <Display>
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-7">Image</Column>
           <Column className="col-md-2">Position</Column>
           <Column className="col-md-1">Status</Column>

@@ -1,18 +1,18 @@
-import Display from '../../components/display';
-import Row from '../../components/table/row';
-import Column from '../../components/table/column';
-import Pagination from '../../components/pagination';
-import CardBody from '../../components/card-body';
-import { ChangeEvent, useEffect, useState } from 'react';
-import Filter from '../../components/filter';
-import ToggleButton from '../../components/forms/checkbox';
-import CustomIconArea from '../../components/custom-icon-area';
-import ViewButton from '../../components/button/view';
-import EditButton from '../../components/button/edit';
-import DeleteButton from '../../components/button/delete';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getProducts, reset } from '../../redux/products/product-slice';
-import { API_ROOT } from '../../constants';
+import { ChangeEvent, useEffect, useState } from "react";
+import DeleteButton from "../../components/button/delete";
+import EditButton from "../../components/button/edit";
+import ViewButton from "../../components/button/view";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Filter from "../../components/filter";
+import ToggleButton from "../../components/forms/checkbox";
+import Pagination from "../../components/pagination";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { API_ROOT } from "../../constants";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { getProducts, reset } from "../../redux/products/product-slice";
 
 const StockOutProducts: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -46,7 +46,7 @@ const StockOutProducts: React.FC = () => {
       <CardBody header="Stock Out Products" to="/categories/create" />
       <Display>
         <Filter handleDisplayItem={handleDisplayItem} />
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-1">#</Column>
           <Column className="col-md-1">Images</Column>
           <Column className="col-md-3">Name</Column>
@@ -92,7 +92,7 @@ const StockOutProducts: React.FC = () => {
                 <CustomIconArea>
                   <ViewButton href="/products" />
                   <EditButton editUrl={`/products/edit/1`} />
-                  <DeleteButton onClick={() => console.log('first')} />
+                  <DeleteButton onClick={() => console.log("first")} />
                 </CustomIconArea>
               </Column>
             </Row>

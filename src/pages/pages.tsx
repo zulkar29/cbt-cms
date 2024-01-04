@@ -53,6 +53,7 @@ import CommonPages from "./setup/pages";
 import Services from "./setup/services";
 import Settings from "./setup/settings";
 import Sliders from "./setup/sliders";
+import UpdateMenu from "./setup/update-menu";
 import UpdatePage from "./setup/update-pages";
 import UpdateService from "./setup/updateService";
 import UpdateSlider from "./setup/updateSlider";
@@ -124,6 +125,7 @@ export {
   UpdateCoupon,
   UpdateEmi,
   UpdateFaq,
+  UpdateMenu,
   UpdateOrder,
   UpdatePage,
   UpdateProduct,

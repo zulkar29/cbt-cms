@@ -50,7 +50,7 @@ const FaqPage: React.FC = () => {
     <div>
       <CardBody header="FAQ" to="/faqs/create" />
       <Display>
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-1">SI No.</Column>
           <Column className="col-md-4">Questions</Column>
           <Column className="col-md-5">Answers</Column>

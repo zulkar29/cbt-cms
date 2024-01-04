@@ -1,23 +1,23 @@
 import { FC, FormEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../../components/button";
 import CardBody from "../../components/card-body";
 import Display from "../../components/display";
-import Select from "../../components/forms/select";
 import Input from "../../components/forms/text-input";
+import Select from "../../components/select";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { createMenu, reset } from "../../redux/menus/menuSlice";
+import { reset, updateMenus } from "../../redux/menus/menuSlice";
 import "./create-menu.scss";
 
 const options = [
   { label: "help", value: "help" },
-  { label: "Customer Service", value: "customer_service" },
+  { label: "Customer Service ", value: "customer_service" },
   { label: "Gazi Home Appliance", value: "home_appliance" },
 ];
 
-const CreateMenu: FC = () => {
-  const { isCreate } = useAppSelector((state) => state.menu);
-  console.log(isCreate);
+const UpdateMenu: FC = () => {
+  const { isUpdate } = useAppSelector((state) => state.menu);
+  const { slug: menuSlug } = useParams();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
@@ -29,21 +29,21 @@ const CreateMenu: FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(createMenu(submitData));
+    dispatch(updateMenus({ menuData: submitData, id: menuSlug as string }));
   };
 
   useEffect(() => {
-    if (isCreate) {
+    if (isUpdate) {
       navigate("/setup/menus");
     }
     return () => {
       dispatch(reset());
     };
-  }, [isCreate, navigate, dispatch]);
+  }, [isUpdate, navigate, dispatch]);
 
   return (
     <div>
-      <CardBody header="Create Menu" to="/setup/menus" text="remove" />
+      <CardBody header="Update Menu" to="/setup/menus" text="remove" />
       <Display>
         <form onSubmit={handleSubmit}>
           <Input
@@ -60,13 +60,24 @@ const CreateMenu: FC = () => {
             onBlur={(e) => setSlug(e.target.value)}
             required
           />
-          <Select
-            name="group_by"
-            onChange={(e) => setPosition(e.target.value)}
-            label="Select Group"
-            options={options}
-            required
-          />
+          <Select onChange={(e) => setPosition(e.target.value)}>
+            <option value="help" selected={position === "help"}>
+              Help
+            </option>
+            <option
+              value="customer_service"
+              selected={position === "customer_service"}
+            >
+              Customer Service
+            </option>
+            <option
+              value="home_appliance"
+              selected={position === "home_appliance"}
+            >
+              Gazi Home Appliance
+            </option>
+          </Select>
+
           <Button type="submit">Submit</Button>
         </form>
       </Display>
@@ -74,4 +85,4 @@ const CreateMenu: FC = () => {
   );
 };
 
-export default CreateMenu;
+export default UpdateMenu;

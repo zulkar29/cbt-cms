@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react';
-import Display from '../../components/display';
-import Row from '../../components/table/row';
-import Column from '../../components/table/column';
-import CustomIconArea from '../../components/custom-icon-area';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import DeleteButton from "../../components/button/delete";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Pagination from "../../components/pagination";
+import Select from "../../components/select";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   deleteRefund,
   getRefund,
   reset,
   updateRefund,
-} from '../../redux/refund/refundSlice';
-import DeleteButton from '../../components/button/delete';
-import Pagination from '../../components/pagination';
-import Select from '../../components/select';
-import './index.scss';
-import { toast } from 'react-toastify';
+} from "../../redux/refund/refundSlice";
+import "./index.scss";
 
 const Refund = () => {
   const dispatch = useAppDispatch();
@@ -38,7 +38,7 @@ const Refund = () => {
   }, [dispatch, isUpdate, pageNumber, isDelete]);
   useEffect(() => {
     if (isUpdate) {
-      toast.success('Refund updated successfully');
+      toast.success("Refund updated successfully");
     }
     return () => {
       dispatch(reset());
@@ -48,7 +48,7 @@ const Refund = () => {
   return (
     <div className="refund">
       <Display>
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-1">Order No</Column>
           <Column className="col-md-2">Product</Column>
           <Column className="col-md-1">Price</Column>
@@ -67,19 +67,19 @@ const Refund = () => {
               <Select onChange={(e) => updateStatus(refund.id, e.target.value)}>
                 <option
                   value="pending"
-                  selected={refund.refund_status === 'pending'}
+                  selected={refund.refund_status === "pending"}
                 >
                   Pending
                 </option>
                 <option
                   value="approved"
-                  selected={refund.refund_status === 'approved'}
+                  selected={refund.refund_status === "approved"}
                 >
                   Approved
                 </option>
                 <option
                   value="cancel"
-                  selected={refund.refund_status === 'cancel'}
+                  selected={refund.refund_status === "cancel"}
                 >
                   Cancel
                 </option>

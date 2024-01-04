@@ -158,12 +158,8 @@ export const sidebarLinks = [
     icon: 'promotion.png',
     subLinks: [
       {
-        subtitle: 'Set Coupons',
+        subtitle: 'Coupons',
         slug: '/coupons',
-      },
-      {
-        subtitle: 'Add Banner',
-        slug: '/banner',
       },
     ],
   },
@@ -174,11 +170,7 @@ export const sidebarLinks = [
     icon: 'advertising.png',
     subLinks: [
       {
-        subtitle: 'Set Coupons',
-        slug: '/coupons',
-      },
-      {
-        subtitle: 'Add Banner',
+        subtitle: 'Ads Banner',
         slug: '/banner',
       },
     ],

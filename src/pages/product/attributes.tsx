@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
-import CardBody from '../../components/card-body';
-import Display from '../../components/display';
-import Row from '../../components/table/row';
-import Column from '../../components/table/column';
-import CustomIconArea from '../../components/custom-icon-area';
-import EditButton from '../../components/button/edit';
-import DeleteButton from '../../components/button/delete';
-import axios from '../../lib';
-import { API_URL } from '../../constants';
-import { toast } from 'react-toastify';
-import { Attribute, IAttributeResponse } from '../../interfaces/attribute';
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import DeleteButton from "../../components/button/delete";
+import EditButton from "../../components/button/edit";
+import CardBody from "../../components/card-body";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { API_URL } from "../../constants";
+import { Attribute, IAttributeResponse } from "../../interfaces/attribute";
+import axios from "../../lib";
 
 // Assuming your data is stored in a file named types.ts
 
@@ -28,13 +28,13 @@ const Attributes = () => {
       );
 
       // Handle successful response
-      console.log('Fetched data successfully', response.data);
+      console.log("Fetched data successfully", response.data);
 
       // Update state with the fetched data
       setAttributes(response.data?.data?.rows);
     } catch (error) {
       // Handle error
-      console.error('Failed to fetch data', error);
+      console.error("Failed to fetch data", error);
     }
   };
 
@@ -54,7 +54,7 @@ const Attributes = () => {
       }
     } catch (error) {
       // Handle error
-      console.error('Error while deleting attribute', error);
+      console.error("Error while deleting attribute", error);
     }
   };
 
@@ -62,7 +62,7 @@ const Attributes = () => {
     <div>
       <CardBody header="Attributes" to="/attributes/create" />
       <Display>
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-5">Attributes</Column>
           <Column className="col-md-5">Attributes Value</Column>
           <Column className="col-md-2">Actions</Column>

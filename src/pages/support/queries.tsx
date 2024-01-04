@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
-import DeleteButton from '../../components/button/delete';
-import CustomIconArea from '../../components/custom-icon-area';
-import Display from '../../components/display';
-import Column from '../../components/table/column';
-import Row from '../../components/table/row';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { deleteQueries, getQueries, reset } from '../../redux/query/querySlice';
-import { toast } from 'react-toastify';
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import DeleteButton from "../../components/button/delete";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { deleteQueries, getQueries, reset } from "../../redux/query/querySlice";
 
 const Queries = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +18,7 @@ const Queries = () => {
 
   useEffect(() => {
     if (isDelete) {
-      toast.success('Query deleted successfully');
+      toast.success("Query deleted successfully");
     }
     dispatch(getQueries({}));
 
@@ -30,7 +30,7 @@ const Queries = () => {
   return (
     <div>
       <Display>
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-1">#</Column>
           <Column className="col-md-2">Date</Column>
           <Column className="col-md-2">Product Title</Column>

@@ -1,20 +1,20 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import Display from '../../components/display';
-import Pagination from '../../components/pagination';
-import Column from '../../components/table/column';
-import Row from '../../components/table/row';
-import Filter from '../../components/filter';
-import { CSVLink } from 'react-csv';
-import { BsDownload } from 'react-icons/bs';
-import CustomIconArea from '../../components/custom-icon-area';
-import DeleteButton from '../../components/button/delete';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { ChangeEvent, useEffect, useState } from "react";
+import { CSVLink } from "react-csv";
+import { BsDownload } from "react-icons/bs";
+import { toast } from "react-toastify";
+import DeleteButton from "../../components/button/delete";
+import CustomIconArea from "../../components/custom-icon-area";
+import Display from "../../components/display";
+import Filter from "../../components/filter";
+import Pagination from "../../components/pagination";
+import Column from "../../components/table/column";
+import Row from "../../components/table/row";
 import {
   deleteCustomer,
   getCustomers,
   reset,
-} from '../../redux/customer/customerSlice';
-import { toast } from 'react-toastify';
+} from "../../redux/customer/customerSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const Customers: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -63,7 +63,7 @@ const Customers: React.FC = () => {
           </CSVLink>
         </div>
         <Filter handleDisplayItem={handleDisplayItem} />
-        <Row className="row">
+        <Row className="row text-bold">
           <Column className="col-md-3">Name</Column>
           <Column className="col-md-3">Email</Column>
           <Column className="col-md-3">Phone</Column>
