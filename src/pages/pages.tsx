@@ -20,6 +20,7 @@ import CreateBanner from "./marketing/create-banner";
 import CreateCoupon from "./marketing/create-coupon";
 import CreateShipping from "./marketing/create-shipping";
 import Shipping from "./marketing/shipping";
+import UpdateBanner from "./marketing/update-banner";
 import UpdateCoupon from "./marketing/update-coupon";
 import UpdateShipping from "./marketing/update-shipping";
 import Notification from "./notification";
@@ -120,6 +121,7 @@ export {
   Subscriber,
   TicketPage,
   UpdateAttribute,
+  UpdateBanner,
   UpdateBlog,
   UpdateCategory,
   UpdateCoupon,

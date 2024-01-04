@@ -9,12 +9,12 @@ import Input from "../../components/forms/text-input";
 import { reset, updateAddBanner } from "../../redux/add-banner/addBannerSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
-const initialState = {
+/* const initialState = {
   url: "",
   group_by: "slider",
   image: null as File | null,
   is_visible: true,
-};
+}; */
 const UpdateSlider = () => {
   const { slug } = useParams();
   const navigate = useNavigate();

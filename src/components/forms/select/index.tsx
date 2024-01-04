@@ -1,4 +1,4 @@
-import './index.scss';
+import "./index.scss";
 
 interface IProps {
   label: string;

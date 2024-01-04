@@ -52,6 +52,7 @@ import {
   Subscriber,
   TicketPage,
   UpdateAttribute,
+  UpdateBanner,
   UpdateBlog,
   UpdateCategory,
   UpdateCoupon,
@@ -125,6 +126,7 @@ function PageRoutes() {
       <Route path="/coupons/create" element={<CreateCoupon />} />
       <Route path="/coupons/edit/:slug" element={<UpdateCoupon />} />
       <Route path="/banner" element={<BannerPage />} />
+      <Route path="/banner/edit/:slug" element={<UpdateBanner />} />
       <Route path="/banner/create" element={<CreateBanner />} />
       <Route path="/shipping" element={<Shipping />} />
       <Route path="/shipping/create" element={<CreateShipping />} />

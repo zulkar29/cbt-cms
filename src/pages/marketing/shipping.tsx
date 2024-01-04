@@ -9,6 +9,7 @@ import Row from "../../components/table/row";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import { toast } from "react-toastify";
+import EditButton from "../../components/button/edit";
 import CardBody from "../../components/card-body";
 import { getLocations, reset } from "../../redux/location/locationSlice";
 
@@ -62,6 +63,7 @@ const Shipping: React.FC = () => {
             <Column className="col-md-4">{location.price}</Column>
             <Column className="col-md-4">
               <CustomIconArea>
+                <EditButton editUrl={`/shipping/edit/${location.id}`} />
                 <DeleteButton onClick={() => console.log("first")} />
               </CustomIconArea>
             </Column>

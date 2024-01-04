@@ -55,7 +55,7 @@ const UpdateService = () => {
       formData.append("image", image);
     }
 
-    dispatch(updateKeypoint({ id: Id, updateData: formData }));
+    dispatch(updateKeypoint({ id: Number(Id), updateData: formData }));
   };
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DeleteButton from "../../components/button/delete";
+import EditButton from "../../components/button/edit";
 import CardBody from "../../components/card-body";
 import CustomIconArea from "../../components/custom-icon-area";
 import Display from "../../components/display";
@@ -19,7 +20,7 @@ import "./banner.scss";
 
 const BannerPage = () => {
   const dispatch = useAppDispatch();
-  const { isDelete } = useAppSelector((state) => state.banner);
+  const { isDelete, isUpdate } = useAppSelector((state) => state.banner);
   const [addBanner, setAddBanner] = useState<IAdBanner[]>([]);
   const handleDelete = (id: number) => {
     dispatch(deleteBanner(id));
@@ -35,36 +36,41 @@ const BannerPage = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [isUpdate]);
   const handleVisibility = (banner: IAdBanner) => {
     dispatch(
-      updateAddBanner({ id: banner.id, is_visible: !banner.is_visible })
+      updateAddBanner({
+        id: Number(banner.id),
+        bannerData: { is_visible: !banner.is_visible },
+      })
     );
     dispatch(getAddBanner());
   };
 
   useEffect(() => {
     dispatch(getAddBanner());
-  }, [dispatch, isDelete]);
+  }, [dispatch, isDelete, isUpdate]);
 
   return (
     <div>
       <CardBody header="Banner" to="/banner/create" />
       <Display>
         <Row className="row text-bold">
-          <Column className="col-md-7">Image</Column>
+          <Column className="col-md-3">Image</Column>
+          <Column className="col-md-4">Url</Column>
           <Column className="col-md-2">Position</Column>
           <Column className="col-md-1">Status</Column>
           <Column className="col-md-2">Action</Column>
         </Row>
         {addBanner?.map((banner, index) => (
           <Row key={index} className="row banner">
-            <Column className="col-md-7">
+            <Column className="col-md-3">
               <img
                 src={`${API_ROOT}/images/banner/${banner.image}`}
                 alt="banner"
               />
             </Column>
+            <Column className="col-md-4">{banner.url}</Column>
             <Column className="col-md-2">{banner.group_by}</Column>
             <Column className="col-md-1">
               <ToggleButton
@@ -74,6 +80,7 @@ const BannerPage = () => {
             </Column>
             <Column className="col-md-2">
               <CustomIconArea>
+                <EditButton editUrl={`/banner/edit/${banner.id}`} />
                 <DeleteButton
                   onClick={() => handleDelete(banner.id as number)}
                 />

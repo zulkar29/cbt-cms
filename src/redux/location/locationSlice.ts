@@ -1,7 +1,7 @@
-import { ILcation } from './../../interfaces/location';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import locationService from './locationService';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { ILcation } from './../../interfaces/location';
+import locationService from './locationService';
 
 interface IState {
   locations: ILcation[];
@@ -64,11 +64,11 @@ export const getLocations = createAsyncThunk(
 export const updateLocation = createAsyncThunk(
   'location/update',
   async (
-    { id, emiData }: { id: number | string; emiData: ILcation },
+    { id, locationData }: { id: number | string; locationData: ILcation },
     thunkAPI
   ) => {
     try {
-      return await locationService.updateLocation(id, emiData);
+      return await locationService.updateLocation(id, locationData);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data.message || 'An error occurred';

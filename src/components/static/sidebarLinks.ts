@@ -200,7 +200,7 @@ export const sidebarLinks = [
     icon: 'emi.png',
     subLinks: [
       {
-        subtitle: 'Available Emi',
+        subtitle: 'Available EMI',
         slug: '/emi',
       },
       {
