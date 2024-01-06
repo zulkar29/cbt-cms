@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import './index.scss';
-import Icon from '../icon';
-import Logo from '../logo';
-import Dropdown, { ISideLink } from '../dropdown';
-import { Link } from 'react-router-dom';
-import { sidebarLinks } from '../static/sidebarLinks';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import Dropdown, { ISideLink } from "../dropdown";
+import Icon from "../icon";
+import Logo from "../logo";
+import { sidebarLinks } from "../static/sidebarLinks";
+import "./index.scss";
 
-function SideBar() {
+function SideBar({ handleClose }: { handleClose: () => void }) {
   const [sideLinks, setSideLinks] = useState<ISideLink[]>(sidebarLinks);
 
   const handleDropdownToggle = (clickedIndex: number) => {
@@ -20,7 +20,7 @@ function SideBar() {
 
   return (
     <div className="sidebar">
-      <div className="sidebar__logo">
+      <div className="sidebar__logo" onClick={handleClose}>
         <Link to="/">
           <Logo file="logo.png" />
         </Link>

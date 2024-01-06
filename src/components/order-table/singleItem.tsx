@@ -31,7 +31,6 @@ const SingleItem: FC<IProps> = ({
   order,
   selectedOrders,
   handleSelectedOrder,
-  handlePaymentChange,
   handleStatusChange,
   handleOrderDelete,
 }: IProps) => {

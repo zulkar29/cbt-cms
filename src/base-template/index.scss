@@ -1,1 +1,5 @@
-@use '../styles/index' as *;
+@use "../styles/index" as *;
+
+.sidebar-none {
+  display: none;
+}

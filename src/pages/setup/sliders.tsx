@@ -26,7 +26,10 @@ const Sliders = () => {
 
   const handleVisibility = (banner: IAdBanner) => {
     dispatch(
-      updateAddBanner({ id: banner.id, is_visible: !banner.is_visible })
+      updateAddBanner({
+        id: banner.id as number,
+        bannerData: { is_visible: !banner.is_visible },
+      })
     );
     dispatch(getAddBanner());
   };

@@ -57,7 +57,7 @@ const FaqPage: React.FC = () => {
           <Column className="col-md-1">Status</Column>
           <Column className="col-md-1">Actions</Column>
         </Row>
-        {faqs.map((faq, index) => (
+        {faqs?.map((faq, index) => (
           <Row className="row" key={index}>
             <Column className="col-md-1">{faq.id}</Column>
             <Column className="col-md-4">{faq.question}</Column>

@@ -31,9 +31,9 @@ const UpdateVideo: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/faqs/${slug}`);
-        setTitle(response.data.title);
-        setUrl(response.data.url);
+        const response = await axios.get(`/videos/${slug}`);
+        setTitle(response.data?.data?.title);
+        setUrl(response.data?.data?.url);
       } catch (error) {
         console.log("Video fetch error" + error);
       }
@@ -48,16 +48,16 @@ const UpdateVideo: React.FC = () => {
     }
 
     if (isError) {
-      toast.error("Failed to create video");
+      toast.error("Failed to update video");
     }
     return () => {
       dispatch(reset());
     };
-  }, [dispatch, isUpdate, isError]);
+  }, [dispatch, isUpdate, isError, navigate]);
 
   return (
     <div>
-      <CardBody to="/videos" text="back" header="Create Video" />
+      <CardBody to="/videos" text="back" header="Update Video" />
 
       <Display>
         <form onSubmit={handleSubmit}>

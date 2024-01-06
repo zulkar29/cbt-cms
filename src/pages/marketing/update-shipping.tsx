@@ -27,9 +27,9 @@ const UpdateShipping = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/shipping/${slug}`);
-        setLocation(res.data.location);
-        setLocation(res.data.price);
+        const res = await axios.get(`/shippings/${slug}`);
+        setLocation(res.data.data.location);
+        setPrice(res.data.data.price);
       } catch (error) {
         console.log(error);
       }
@@ -53,11 +53,13 @@ const UpdateShipping = () => {
           <Input
             label="District Name"
             htmlFor="name"
+            value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
           <Input
             label="Price"
             htmlFor="name"
+            value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
 

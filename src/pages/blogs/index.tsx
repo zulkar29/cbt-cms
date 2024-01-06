@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import DeleteButton from "../../components/button/delete";
 import EditButton from "../../components/button/edit";
-import ViewButton from "../../components/button/view";
 import CardBody from "../../components/card-body";
 import CustomIconArea from "../../components/custom-icon-area";
 import Display from "../../components/display";
@@ -10,7 +9,6 @@ import ToggleButton from "../../components/forms/checkbox";
 import Pagination from "../../components/pagination";
 import Column from "../../components/table/column";
 import Row from "../../components/table/row";
-import { FRONT_URL } from "../../constants";
 import { BlogData } from "../../interfaces/blog";
 import {
   deleteBlog,
@@ -119,7 +117,6 @@ const Blogs: React.FC = () => {
               <Column className="col-md-2">
                 <CustomIconArea>
                   <EditButton editUrl={`/blogs/edit/${blog.id}`} />
-                  <ViewButton href={`${FRONT_URL}/blogs/${blog.id}`} />
                   <DeleteButton
                     onClick={() => handleDeleteBlog(blog.id as number)}
                   />

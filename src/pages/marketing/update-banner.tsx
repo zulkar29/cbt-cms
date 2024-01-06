@@ -1,97 +1,72 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { FormEvent, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "../../components/button";
 import CardBody from "../../components/card-body";
 import Display from "../../components/display";
 import FileInput from "../../components/forms/file-input";
-import Select from "../../components/forms/select";
 import Input from "../../components/forms/text-input";
-import { IAdBanner } from "../../interfaces/addBanner";
-import { createAddBanner, reset } from "../../redux/add-banner/addBannerSlice";
+import Select from "../../components/select";
+import { API_ROOT } from "../../constants";
+import axios from "../../lib";
+import { reset, updateAddBanner } from "../../redux/add-banner/addBannerSlice";
 import { getCategories } from "../../redux/category/categorySlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
-const options = [
-  { label: "Home-horizontal", value: "home" },
-  { label: "Home-vertical ", value: "home-v" },
-  { label: "Product", value: "product" },
-  { label: "Category", value: "category" },
-  { label: "Video", value: "video" },
-  { label: "Blog", value: "blog" },
-];
-
-const initialState = {
-  url: "",
-  group_by: "",
-  image: null as File | null,
-  is_visible: true,
-};
 const UpdateBanner = () => {
+  const { slug } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [url, setUrl] = useState("");
+  const [group_by, setGroup_by] = useState("");
+  const [prevImage, setPrevImage] = useState("");
+  const [image, setImage] = useState<File | null>(null);
   const { categories } = useAppSelector((state) => state.category);
-  const { isCreate, message, isError } = useAppSelector(
+  const { isUpdate, message, isError } = useAppSelector(
     (state) => state.banner
   );
-
-  const categoriesFormate = categories.map((category) => {
-    return {
-      label: category.title,
-      value: category.slug,
-    };
-  });
-
-  const [bannerData, setBannerData] = useState<IAdBanner>(initialState);
-
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files[0]; // Get the first selected file
-
-      setBannerData((prevState) => ({
-        ...prevState,
-        image: file,
-      }));
-    }
-  };
-  const handleBannerData = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-
-    setBannerData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
+    formData.append("group_by", group_by);
+    if (image) {
+      formData.append("image", image);
+    }
+    formData.append("url", url);
 
-    Object.entries(bannerData).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-
-    dispatch(createAddBanner(formData));
+    dispatch(updateAddBanner({ bannerData: formData, id: Number(slug) }));
   };
 
   useEffect(() => {
     dispatch(getCategories({ page: 1, limit: 100 }));
   }, [dispatch]);
   useEffect(() => {
-    if (isCreate) {
+    if (isUpdate) {
       toast.success(`${message}`);
-      setBannerData(initialState);
       navigate("/banner");
     }
     if (isError) {
-      toast.error("Blog create filed");
+      toast.error("Update field");
     }
     return () => {
       dispatch(reset());
     };
-  }, [isCreate, message, dispatch, isError]);
+  }, [isUpdate, message, dispatch, isError, navigate]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(`/banner/${slug}`);
+        setGroup_by(data.data.group_by);
+        setPrevImage(data.data.image);
+        setUrl(data.data.url);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [slug]);
 
   return (
     <div>
@@ -100,27 +75,61 @@ const UpdateBanner = () => {
         <form onSubmit={handleSubmit}>
           <FileInput
             name="image"
-            onChange={handleImageChange}
             label="Banner Image"
             required
+            onChange={(e) => {
+              if (e.target.files) {
+                setImage(e.target.files[0]);
+              }
+            }}
           />
+          <div>
+            <img
+              style={{ width: "200px" }}
+              src={`${API_ROOT}/images/banner/${prevImage}`}
+              alt=""
+            />
+          </div>
           <Input
             htmlFor="url"
             label="URL"
             name="url"
             placeholder="URL"
-            value={bannerData.url}
-            onChange={handleBannerData}
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
             required
           />
-          <Select
-            name="group_by"
-            onChange={handleBannerData}
-            label="Select Group"
-            value={bannerData.group_by as string}
-            options={[...options, ...categoriesFormate]}
-            required
-          />
+
+          <Select>
+            <option value="home" selected={group_by === "home"}>
+              Home Horizontal
+            </option>
+            <option value="home-v" selected={group_by === "home-v"}>
+              Home vertical
+            </option>
+            <option value="product" selected={group_by === "product"}>
+              Product
+            </option>
+            <option value="category" selected={group_by === "category"}>
+              Category
+            </option>
+            <option value="video" selected={group_by === "video"}>
+              Video
+            </option>
+            <option value="blog" selected={group_by === "blog"}>
+              Blog
+            </option>
+            {categories.map((category, index) => (
+              <option
+                key={index}
+                value={category.slug}
+                selected={group_by === category.slug}
+              >
+                {category.title}
+              </option>
+            ))}
+          </Select>
+
           <Button type="submit">Update</Button>
         </form>
       </Display>

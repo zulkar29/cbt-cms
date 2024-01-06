@@ -1,10 +1,17 @@
 import { useState } from "react";
 // import { BsBell } from 'react-icons/bs';
+import Icon from "../icon";
 import Popup from "../popup";
 import ProfilePopup from "../popup/profile";
 import "./index.scss";
 
-function Header() {
+function Header({
+  handleOpen,
+  isOpen,
+}: {
+  handleOpen: () => void;
+  isOpen: boolean;
+}) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isProfile, setIsProfile] = useState(false);
 
@@ -21,6 +28,12 @@ function Header() {
 
   return (
     <header className="header">
+      {!isOpen && (
+        <button onClick={handleOpen}>
+          <Icon iconName="left-double-arrow.svg" />
+        </button>
+      )}
+
       <div className=" header-main">
         {/* <div
           id="notification"
@@ -34,7 +47,7 @@ function Header() {
         <img
           onClick={handleProfileClick}
           className="avatar"
-          src="https://geniusdevs.com/codecanyon/omnimart40/assets/images/1631023655pexels-moose-photos-1036627.jpg"
+          src="/assets/images/user.png"
           alt="avatar"
         />
         {isProfile && <ProfilePopup closePopup={() => setIsProfile(false)} />}

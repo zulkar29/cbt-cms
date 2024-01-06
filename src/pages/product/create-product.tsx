@@ -1,27 +1,27 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { RxCross2 } from 'react-icons/rx';
-import { toast } from 'react-toastify';
-import { DateRangePicker } from 'rsuite';
-import { Button } from '../../components/button';
-import CardBody from '../../components/card-body';
-import DescriptionInput from '../../components/description';
-import Display from '../../components/display';
-import ToggleButton from '../../components/forms/checkbox';
-import FileInput from '../../components/forms/file-input';
-import Input from '../../components/forms/text-input';
-import TextArea from '../../components/forms/textarea';
-import Select from '../../components/select';
-import { getCategories } from '../../redux/category/categorySlice';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { createProduct, reset } from '../../redux/products/product-slice';
-import './create-product.scss';
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { RxCross2 } from "react-icons/rx";
+import { toast } from "react-toastify";
+import { DateRangePicker } from "rsuite";
+import { Button } from "../../components/button";
+import CardBody from "../../components/card-body";
+import DescriptionInput from "../../components/description";
+import Display from "../../components/display";
+import ToggleButton from "../../components/forms/checkbox";
+import FileInput from "../../components/forms/file-input";
+import Input from "../../components/forms/text-input";
+import TextArea from "../../components/forms/textarea";
+import Select from "../../components/select";
+import { getCategories } from "../../redux/category/categorySlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { createProduct, reset } from "../../redux/products/product-slice";
+import "./create-product.scss";
 // import makeAnimated from 'react-select/animated';
-import { useNavigate } from 'react-router-dom';
-import 'rsuite/dist/rsuite.css';
-import { API_URL } from '../../constants';
-import { IAttributeResponse } from '../../interfaces/attribute';
-import axios from '../../lib';
-import AttributeSingle from './attribute-single';
+import { useNavigate } from "react-router-dom";
+import "rsuite/dist/rsuite.css";
+import { API_URL } from "../../constants";
+import { IAttributeResponse } from "../../interfaces/attribute";
+import axios from "../../lib";
+import AttributeSingle from "./attribute-single";
 
 // const animatedComponents = makeAnimated();
 
@@ -31,31 +31,30 @@ const CreateProduct: React.FC = () => {
   const { categories } = useAppSelector((state) => state.category);
   const [campaignDate, setCampaignDate] = useState<[Date, Date] | null>(null);
   const { isCreate } = useAppSelector((state) => state.product);
-  const [title, setTile] = useState<string>('');
-  const [slug, setSlug] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTile] = useState<string>("");
+  const [slug, setSlug] = useState("");
+  const [description, setDescription] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [galleryImages, setGalleryImages] = useState<File[] | null>(null);
   const [imageQuantities, setImageQuantities] = useState<number[]>([]);
-  const [category, setCategory] = useState<string>('');
+  const [category, setCategory] = useState<string>("");
   const [quantity, setQuantity] = useState(0);
   const [regularPrice, setRegularPrice] = useState(0);
   const [discountPrice, setDiscountPrice] = useState(0);
-  const [discountType, setDiscountType] = useState<'percent' | 'flat' | ''>('');
+  const [discountType, setDiscountType] = useState<"percent" | "flat" | "">("");
   const [discountSelectedAmount, setDiscountSelectedAmount] = useState(0);
   // const [discount, setDiscount] = useState(0);
   const [deliveryFee] = useState(0);
-  const [videoUrl, setVideoUrl] = useState('');
-  const [metaTitle, setMetaTitle] = useState('');
-  const [metaName, setMetaName] = useState('');
-  const [metaDescription, setMetaDescription] = useState('');
+  const [videoUrl, setVideoUrl] = useState("");
+  const [metaTitle, setMetaTitle] = useState("");
+  const [metaDescription, setMetaDescription] = useState("");
   const [status, setStatus] = useState<0 | 1>(1);
   const [isSale, setIsSale] = useState<0 | 1>(0);
   const [isFeature, setIsFeature] = useState<0 | 1>(0);
   const [isNew, setIsNew] = useState<0 | 1>(0);
-  const [sortDesc, setSortDesc] = useState('');
-  const [policy, setPolicy] = useState('');
-  const [availability, setAvailability] = useState('');
+  const [sortDesc, setSortDesc] = useState("");
+  const [policy, setPolicy] = useState("");
+  const [availability, setAvailability] = useState("");
   const [isVariant, setIsVariant] = useState(false);
   const [attributes, setAttributes] = useState<any[]>([]);
   const [selectedAttributes, setSelectedAttributes] = useState<any[]>([]);
@@ -77,7 +76,7 @@ const CreateProduct: React.FC = () => {
           setAttributes(tempAttributes);
         }
       } catch (error) {
-        console.error('Failed to fetch data', error);
+        console.error("Failed to fetch data", error);
       }
     };
     fetchData();
@@ -92,13 +91,13 @@ const CreateProduct: React.FC = () => {
         prevState.map((item) => {
           if (item.name === attribute) {
             const tempAttrVals: string[] =
-              item.value.indexOf(',') > -1
-                ? item.value.split(',')
+              item.value.indexOf(",") > -1
+                ? item.value.split(",")
                 : [item.value];
             const tempFilteredAttrVals: string[] = tempAttrVals.filter(
               (val) => val !== attributeValue
             );
-            let tempFilteredValsString = '';
+            let tempFilteredValsString = "";
             if (tempFilteredAttrVals?.length > 1) {
               tempFilteredAttrVals?.map((val, i) => {
                 if (tempFilteredAttrVals.length == i + 1) {
@@ -112,7 +111,7 @@ const CreateProduct: React.FC = () => {
             }
             item.value =
               tempFilteredValsString === undefined
-                ? ''
+                ? ""
                 : tempFilteredValsString;
             item.selectedValues.push(attributeValue);
           }
@@ -120,7 +119,7 @@ const CreateProduct: React.FC = () => {
         })
       );
     } else {
-      if (attribute !== '') {
+      if (attribute !== "") {
         let tempObj = {};
         attributes.map((item) => {
           if (item?.name === attribute) {
@@ -144,7 +143,7 @@ const CreateProduct: React.FC = () => {
         prevState.map((item) => {
           if (item.name === attribute) {
             item.value =
-              item.value === ''
+              item.value === ""
                 ? attributeValue
                 : `${item.value},${attributeValue}`;
             item.selectedValues = item.selectedValues.filter(
@@ -236,43 +235,42 @@ const CreateProduct: React.FC = () => {
     e.preventDefault();
 
     if (discountSelectedAmount && !discountType) {
-      toast.error('Please select discount option');
+      toast.error("Please select discount option");
       return;
     }
     const formData = new FormData();
 
-    formData.append('title', title);
-    formData.append('slug', slug);
-    formData.append('description', description);
-    formData.append('policy', policy);
+    formData.append("title", title);
+    formData.append("slug", slug);
+    formData.append("description", description);
+    formData.append("policy", policy);
     if (image !== null) {
-      formData.append('image', image);
+      formData.append("image", image);
     }
-    formData.append('category_slug', category);
-    formData.append('quantity', quantity.toString());
-    formData.append('regular_price', regularPrice.toString());
-    formData.append('discount_price', discountPrice.toString());
-    formData.append('delivery_fee', deliveryFee.toString());
-    formData.append('is_visible', status.toString());
-    formData.append('video_url', videoUrl);
+    formData.append("category_slug", category);
+    formData.append("quantity", quantity.toString());
+    formData.append("regular_price", regularPrice.toString());
+    formData.append("discount_price", discountPrice.toString());
+    formData.append("delivery_fee", deliveryFee.toString());
+    formData.append("is_visible", status.toString());
+    formData.append("video_url", videoUrl);
     if (campaignDate !== null) {
-      formData.append('camping_start_date', campaignDate[0].toString());
-      formData.append('camping_end_date', campaignDate[1].toString());
+      formData.append("camping_start_date", campaignDate[0].toString());
+      formData.append("camping_end_date", campaignDate[1].toString());
     }
-    formData.append('upload_by', 'admin');
-    formData.append('availability', availability);
+    formData.append("upload_by", "admin");
+    formData.append("availability", availability);
     galleryImages?.forEach((g_image, index) => {
-      formData.append('gallery_image', g_image);
-      formData.append('order_number', imageQuantities[index].toString());
+      formData.append("gallery_image", g_image);
+      formData.append("order_number", imageQuantities[index].toString());
     });
-    formData.append('meta_title', metaTitle);
-    formData.append('meta_name', metaName);
-    formData.append('meta_description', metaDescription);
-    formData.append('sort_description', sortDesc);
-    formData.append('is_homepage', '1');
-    formData.append('is_sale', isSale.toString());
-    formData.append('is_feature', isFeature.toString());
-    formData.append('is_new', isNew.toString());
+    formData.append("meta_title", metaTitle);
+    formData.append("meta_description", metaDescription);
+    formData.append("sort_description", sortDesc);
+    formData.append("is_homepage", "1");
+    formData.append("is_sale", isSale.toString());
+    formData.append("is_feature", isFeature.toString());
+    formData.append("is_new", isNew.toString());
     if (isVariant) {
       const tempSelAttri: any[] = [];
       selectedAttributes?.length > 0 &&
@@ -284,17 +282,17 @@ const CreateProduct: React.FC = () => {
             });
           }
         });
-      formData.append('attributes', JSON.stringify(tempSelAttri));
+      formData.append("attributes", JSON.stringify(tempSelAttri));
     } else {
-      formData.append('attributes', JSON.stringify([]));
+      formData.append("attributes", JSON.stringify([]));
     }
     dispatch(createProduct(formData));
   };
 
   useEffect(() => {
-    if (discountType === 'flat') {
+    if (discountType === "flat") {
       setDiscountPrice(regularPrice - discountSelectedAmount);
-    } else if (discountType === 'percent') {
+    } else if (discountType === "percent") {
       setDiscountPrice(
         regularPrice - (regularPrice * discountSelectedAmount) / 100
       );
@@ -303,8 +301,8 @@ const CreateProduct: React.FC = () => {
 
   useEffect(() => {
     if (isCreate) {
-      toast.success('Product created successfully');
-      navigate('/products');
+      toast.success("Product created successfully");
+      navigate("/products");
     }
     return () => {
       dispatch(reset());
@@ -437,7 +435,7 @@ const CreateProduct: React.FC = () => {
                       name="attributes"
                       onChange={(e) => handleAddAttribute(e.target.value)}
                       className="attribute-list"
-                      value={''}
+                      value={""}
                     >
                       <option value="">Select attributes</option>
                       {attributes?.length > 0 &&
@@ -507,7 +505,7 @@ const CreateProduct: React.FC = () => {
                   <div>
                     <Select
                       onChange={(e) =>
-                        setDiscountType(e.target.value as 'flat' | 'percent')
+                        setDiscountType(e.target.value as "flat" | "percent")
                       }
                     >
                       <option value="flat">Flat</option>

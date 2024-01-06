@@ -21,9 +21,6 @@ const Settings: React.FC = () => {
     (state) => state.settings
   );
   const [settings, setSettings] = useState<ISettings>(setting);
-  const [logo, setLogo] = useState<File | null>(null);
-  const [favicon, setFavicon] = useState<File | null>(null);
-  const [popup, setPopup] = useState<File | null>(null);
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) =>
@@ -31,25 +28,6 @@ const Settings: React.FC = () => {
       ...prev,
       [e.target.name]: e.target.value,
     }));
-
-  const handleLogoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files[0];
-      setLogo(file);
-    }
-  };
-  const handleFaviconChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files[0];
-      setFavicon(file);
-    }
-  };
-  const handlePopupChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files[0];
-      setPopup(file);
-    }
-  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,15 +40,7 @@ const Settings: React.FC = () => {
         }
       }
     });
-    if (logo) {
-      formData.append("logo", logo);
-    }
-    if (favicon) {
-      formData.append("favicon", favicon);
-    }
-    if (popup) {
-      formData.append("popup_image", popup);
-    }
+
     dispatch(updateSettings(formData));
   };
 

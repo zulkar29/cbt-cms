@@ -34,7 +34,7 @@ const updateMenus = async (menuData: Partial<IMenu>, id: number | string) => {
     `/menus/${id}`,
     menuData
   );
-  return data.data;
+  return data;
 };
 
 // Delete

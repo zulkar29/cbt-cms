@@ -133,7 +133,10 @@ const SetupPage: React.FC = () => {
 
   const handleVisibility = (banner: IAdBanner) => {
     dispatch(
-      updateAddBanner({ id: banner.id, is_visible: !banner.is_visible })
+      updateAddBanner({
+        id: Number(banner.id),
+        bannerData: { is_visible: !banner.is_visible },
+      })
     );
     dispatch(getAddBanner());
   };

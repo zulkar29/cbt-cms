@@ -1,21 +1,26 @@
-import './index.scss';
-import Header from '../components/header';
-import PageRoutes from '../pages';
-import SideBar from '../components/sidebar';
-import { useAppSelector } from '../redux/hooks';
-import Login from '../pages/login';
+import { useState } from "react";
+import Header from "../components/header";
+import SideBar from "../components/sidebar";
+import PageRoutes from "../pages";
+import Login from "../pages/login";
+import { useAppSelector } from "../redux/hooks";
+import "./index.scss";
 function BaseTemplate() {
+  const [isOpen, setIsOpen] = useState(true);
   const { user } = useAppSelector((state) => state.auth);
+
+  const handleClose = () => setIsOpen(false);
+  const handleOpen = () => setIsOpen(true);
   return (
     <div className="container-fluid">
       {user && user?.user?.role_id === 1 ? (
         <div className="row">
-          <div className="col-md-2">
-            <SideBar />
+          <div className={isOpen ? "col-md-2" : "sidebar-none"}>
+            <SideBar handleClose={handleClose} />
           </div>
 
-          <div className="col-md-10">
-            <Header />
+          <div className={isOpen ? "col-md-10" : "col-md-12"}>
+            <Header isOpen={isOpen} handleOpen={handleOpen} />
             <main className="main-area">
               <PageRoutes />
             </main>

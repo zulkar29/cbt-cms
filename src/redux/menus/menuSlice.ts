@@ -148,7 +148,7 @@ export const menuSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.message = action.payload.message;
-        state.isUpdate = false
+        state.isUpdate = true
       })
       .addCase(updateMenus.rejected, (state, action) => {
         state.isLoading = false;

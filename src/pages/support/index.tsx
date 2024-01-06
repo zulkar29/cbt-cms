@@ -27,7 +27,7 @@ const TicketPage = () => {
           <Column className="col-md-2">Last reply</Column>
           <Column className="col-md-1">Options</Column>
         </Row>
-        {supports.map((support, index) => (
+        {supports?.map((support, index) => (
           <Row className="row" key={index}>
             <Column className="col-md-2">{support.id}</Column>
 
