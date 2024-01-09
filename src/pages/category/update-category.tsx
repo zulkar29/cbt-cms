@@ -96,7 +96,7 @@ const UpdateCategory: React.FC = (): JSX.Element => {
   }
   return (
     <div>
-      <CardBody header="Create Category" to="/category" text="back" />
+      <CardBody header="Update Category" to="/category" text="back" />
       <Display>
         <form onSubmit={handleSubmit}>
           <div className="row">
