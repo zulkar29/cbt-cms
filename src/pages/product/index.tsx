@@ -2,12 +2,12 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import DeleteButton from "../../components/button/delete";
 import EditButton from "../../components/button/edit";
-import ViewButton from "../../components/button/view";
 import CardBody from "../../components/card-body";
 import CustomIconArea from "../../components/custom-icon-area";
 import Display from "../../components/display";
 import Filter from "../../components/filter";
 import ToggleButton from "../../components/forms/checkbox";
+import Loader from "../../components/loader";
 import Overflow from "../../components/overflow";
 import Pagination from "../../components/pagination";
 import Column from "../../components/table/column";
@@ -30,9 +30,8 @@ const AllProducts: React.FC = () => {
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [sort_by, setSortBy] = useState("");
 
-  const { products, isDelete, totalCount, isUpdate, message } = useAppSelector(
-    (state) => state.product
-  );
+  const { products, isDelete, totalCount, isUpdate, message, isLoading } =
+    useAppSelector((state) => state.product);
   const totalPage = Math.ceil(totalCount / displayItem);
 
   const handleOnSearch = (
@@ -156,66 +155,70 @@ const AllProducts: React.FC = () => {
           <Column className="col-md-1">Show Home Page</Column>
           <Column className="col-md-2">Action</Column>
         </Row>
-
-        {products.map((product, index) => (
-          <Row key={index} className="row">
-            <Column className="col-md-1">
-              <input
-                checked={selectedProducts.includes(product.id as number)}
-                onClick={() => handleSelectedProducts(product.id as number)}
-                type="checkbox"
-                name=""
-                id=""
-              />
-            </Column>
-            <Column className="col-md-1">
-              <img
-                src={`${API_ROOT}/images/product/${product.image}`}
-                alt="brand"
-              />
-            </Column>
-            <Column className="col-md-3">{product.title}</Column>
-            <Column className="col-md-1">{product.quantity}</Column>
-            <Column className="col-md-1">৳ {product.regular_price}</Column>
-            <Column className="col-md-1">৳ {product.discount_price}</Column>
-            <Column className="col-md-1">
-              <ToggleButton
-                onClick={() =>
-                  handleKeyPoint(product.id as number, {
-                    is_visible: product.is_visible == 0 ? 1 : 0,
-                  })
-                }
-                isChecked={Boolean(product.is_visible)}
-              />
-            </Column>
-            <Column className="col-md-1">
-              <ToggleButton
-                onClick={() =>
-                  handleKeyPoint(product.id as number, {
-                    is_homepage: !product.is_homepage,
-                  })
-                }
-                isChecked={product.is_homepage}
-              />
-            </Column>
-            <Column className="col-md-2">
-              <CustomIconArea>
-                <ViewButton href="/products" />
-                <EditButton editUrl={`/products/edit/${product.id}`} />
-                <DeleteButton
-                  onClick={() =>
-                    dispatch(deleteProduct([product.id as number]))
-                  }
-                />
-              </CustomIconArea>
-            </Column>
-          </Row>
-        ))}
-        <Pagination
-          pageCount={pageNumber}
-          handlePageClick={handlePageChange}
-          totalPage={totalPage}
-        />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            {products.map((product, index) => (
+              <Row key={index} className="row">
+                <Column className="col-md-1">
+                  <input
+                    checked={selectedProducts.includes(product.id as number)}
+                    onClick={() => handleSelectedProducts(product.id as number)}
+                    type="checkbox"
+                    name=""
+                    id=""
+                  />
+                </Column>
+                <Column className="col-md-1">
+                  <img
+                    src={`${API_ROOT}/images/product/${product.image}`}
+                    alt="brand"
+                  />
+                </Column>
+                <Column className="col-md-3">{product.title}</Column>
+                <Column className="col-md-1">{product.quantity}</Column>
+                <Column className="col-md-1">৳ {product.regular_price}</Column>
+                <Column className="col-md-1">৳ {product.discount_price}</Column>
+                <Column className="col-md-1">
+                  <ToggleButton
+                    onClick={() =>
+                      handleKeyPoint(product.id as number, {
+                        is_visible: product.is_visible == 0 ? 1 : 0,
+                      })
+                    }
+                    isChecked={Boolean(product.is_visible)}
+                  />
+                </Column>
+                <Column className="col-md-1">
+                  <ToggleButton
+                    onClick={() =>
+                      handleKeyPoint(product.id as number, {
+                        is_homepage: !product.is_homepage,
+                      })
+                    }
+                    isChecked={product.is_homepage}
+                  />
+                </Column>
+                <Column className="col-md-2">
+                  <CustomIconArea>
+                    <EditButton editUrl={`/products/edit/${product.id}`} />
+                    <DeleteButton
+                      onClick={() =>
+                        dispatch(deleteProduct([product.id as number]))
+                      }
+                    />
+                  </CustomIconArea>
+                </Column>
+              </Row>
+            ))}
+            <Pagination
+              pageCount={pageNumber}
+              handlePageClick={handlePageChange}
+              totalPage={totalPage}
+            />
+          </>
+        )}
       </Display>
     </div>
   );
