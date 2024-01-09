@@ -20,11 +20,11 @@ function SideBar({ handleClose }: { handleClose: () => void }) {
 
   return (
     <div className="sidebar">
-      <div className="sidebar__logo" onClick={handleClose}>
+      <div className="sidebar__logo">
         <Link to="/">
           <Logo file="logo.png" />
         </Link>
-        <button>
+        <button onClick={handleClose}>
           <Icon iconName="left-double-arrow.svg" />
         </button>
       </div>

@@ -1,5 +1,5 @@
-import axios from '../../lib';
 import { ICategory, ICategoryResponse } from '../../interfaces/category';
+import axios from '../../lib';
 
 const createCategory = async (
   categoryData: FormData
@@ -37,7 +37,7 @@ const updateCategory = async (
 
 const deleteCategory = async (videoId: number) => {
   const { data } = await axios.delete(`/categories/?ids=[${videoId}]`);
-  return data.data;
+  return data;
 };
 
 const categoryService = {

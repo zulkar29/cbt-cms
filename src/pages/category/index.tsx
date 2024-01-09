@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import DeleteButton from "../../components/button/delete";
 import EditButton from "../../components/button/edit";
 import CardBody from "../../components/card-body";
@@ -6,6 +7,7 @@ import CustomIconArea from "../../components/custom-icon-area";
 import Display from "../../components/display";
 import Filter from "../../components/filter";
 import ToggleButton from "../../components/forms/checkbox";
+import Loader from "../../components/loader";
 import Pagination from "../../components/pagination";
 import Column from "../../components/table/column";
 import Row from "../../components/table/row";
@@ -14,14 +16,22 @@ import { ICategory } from "../../interfaces/category";
 import {
   deleteCategory,
   getCategories,
+  reset,
   updateCategory,
 } from "../../redux/category/categorySlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const Categories: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { categories, isUpdate, isSuccess, isDelete, totalCount } =
-    useAppSelector((state) => state.category);
+  const {
+    categories,
+    isUpdate,
+    isSuccess,
+    message,
+    isDelete,
+    totalCount,
+    isLoading,
+  } = useAppSelector((state) => state.category);
   const [displayItem, setDisplayItem] = useState<number>(10);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [search, setSearch] = useState<string>("");
@@ -36,6 +46,7 @@ const Categories: React.FC = () => {
     );
   };
 
+  console.log(isDelete);
   const handleDeleteCategory = (id: number) => {
     dispatch(deleteCategory(id));
   };
@@ -65,6 +76,20 @@ const Categories: React.FC = () => {
     isSuccess,
     displayItem,
   ]);
+
+  useEffect(() => {
+    if (isDelete) {
+      toast.success(`${message}`);
+    }
+
+    return () => {
+      dispatch(reset());
+    };
+  }, [dispatch, isDelete]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div>

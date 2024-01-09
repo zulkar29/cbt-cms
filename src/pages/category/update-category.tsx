@@ -1,34 +1,36 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { Button } from '../../components/button';
-import CardBody from '../../components/card-body';
-import Display from '../../components/display';
-import FileInput from '../../components/forms/file-input';
-import Input from '../../components/forms/text-input';
-import TextArea from '../../components/forms/textarea';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button } from "../../components/button";
+import CardBody from "../../components/card-body";
+import Display from "../../components/display";
+import FileInput from "../../components/forms/file-input";
+import Input from "../../components/forms/text-input";
+import TextArea from "../../components/forms/textarea";
+import Loader from "../../components/loader";
+import Select from "../../components/select";
+import Column from "../../components/table/column";
+import { API_URL } from "../../constants";
+import axios from "../../lib";
 import {
   getCategories,
   reset,
   updateCategory,
-} from '../../redux/category/categorySlice';
-import { useNavigate, useParams } from 'react-router-dom';
-import Column from '../../components/table/column';
-import Select from '../../components/select';
-import axios from '../../lib';
-import { API_URL } from '../../constants';
+} from "../../redux/category/categorySlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const UpdateCategory: React.FC = (): JSX.Element => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { slug } = useParams();
   const { categories, isUpdate } = useAppSelector((state) => state.category);
-  const [title, setTitle] = useState('');
-  const [slug_url, setSlug] = useState('');
-  const [parent_category, setParentCategory] = useState('');
+  const [loading, setIsLoading] = useState(true);
+  const [title, setTitle] = useState("");
+  const [slug_url, setSlug] = useState("");
+  const [parent_category, setParentCategory] = useState("");
   const [image, setImage] = useState<File | string | null>(null);
-  const [meta_title, setMetaTitle] = useState('');
-  const [meta_description, setMetaDescription] = useState('');
-  const [order_id, setOrderId] = useState('');
+  const [meta_title, setMetaTitle] = useState("");
+  const [meta_description, setMetaDescription] = useState("");
+  const [order_id, setOrderId] = useState("");
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -41,22 +43,22 @@ const UpdateCategory: React.FC = (): JSX.Element => {
     e.preventDefault();
     const formData = new FormData();
 
-    formData.append('title', title);
-    formData.append('slug', slug_url);
-    formData.append('parent_category', parent_category);
+    formData.append("title", title);
+    formData.append("slug", slug_url);
+    formData.append("parent_category", parent_category);
     if (image !== null) {
-      formData.append('image', image);
+      formData.append("image", image);
     }
-    formData.append('meta_title', meta_title);
-    formData.append('meta_description', meta_description);
-    formData.append('order_id', order_id);
+    formData.append("meta_title", meta_title);
+    formData.append("meta_description", meta_description);
+    formData.append("order_id", order_id);
 
     dispatch(updateCategory({ slug: slug as string, categoryData: formData }));
   };
 
   useEffect(() => {
     if (isUpdate) {
-      navigate('/category');
+      navigate("/category");
     }
     dispatch(getCategories({ page: 1, limit: 50 }));
     return () => {
@@ -66,6 +68,7 @@ const UpdateCategory: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get(`${API_URL}/categories/${slug}`);
         const data = response.data.data;
@@ -78,14 +81,19 @@ const UpdateCategory: React.FC = (): JSX.Element => {
         setMetaTitle(data.meta_title);
         setMetaDescription(data.meta_description);
         setOrderId(data.order_id);
+        setIsLoading(false);
       } catch (error) {
-        console.error('Error fetching category data:', error);
+        console.error("Error fetching category data:", error);
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, [slug]);
 
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div>
       <CardBody header="Create Category" to="/category" text="back" />

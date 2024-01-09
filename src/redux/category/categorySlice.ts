@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { ICategory } from '../../interfaces/category';
 import { RootState } from '../store';
 import categoryService from './categoryService';
-import { ICategory } from '../../interfaces/category';
 
 interface IBlogResponse {
   categories: ICategory[];
@@ -93,7 +93,7 @@ export const deleteCategory = createAsyncThunk(
 );
 
 export const categorySlice = createSlice({
-  name: 'Blog',
+  name: 'category',
   initialState,
   reducers: {
     reset: () => initialState,
@@ -147,14 +147,16 @@ export const categorySlice = createSlice({
         state.isLoading = true;
         state.isDelete = false;
       })
-      .addCase(deleteCategory.fulfilled, (state) => {
+      .addCase(deleteCategory.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isDelete = true;
+        state.message = action.payload.message;
       })
       .addCase(deleteCategory.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload;
+        state.errorMessage = action.payload;
+        console.log(action.payload)
       });
   },
 });
