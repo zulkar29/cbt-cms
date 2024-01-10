@@ -13,7 +13,7 @@ import EditButton from "../../components/button/edit";
 import CardBody from "../../components/card-body";
 import { getLocations, reset } from "../../redux/location/locationSlice";
 
-const Shipping: React.FC = () => {
+const Shipping = () => {
   const dispatch = useAppDispatch();
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [displayItem, setDisplayItem] = useState(10);
@@ -23,11 +23,11 @@ const Shipping: React.FC = () => {
 
   const totalPage = Math.ceil(totalCount / displayItem);
 
-  const handleDisplayItem = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleDisplayItem = (e) => {
     setDisplayItem(Number(e.target.value));
   };
 
-  const handlePageChange = (selectedItem: { selected: number }) => {
+  const handlePageChange = (selectedItem) => {
     setPageNumber(selectedItem.selected + 1);
   };
 
